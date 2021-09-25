@@ -366,6 +366,9 @@ class API{
       ];
       $this->SaveAppCfg($settings);
       shell_exec("git add . && git commit -m 'UPDATE' && git push origin ".$this->Settings['repository']['branch']);
+      echo "Update Published\n";
+      echo "\n";
+      $this->__version();
     }
   }
 
