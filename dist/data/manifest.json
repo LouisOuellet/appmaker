@@ -68,7 +68,7 @@
         }
     },
     "version": "21.09-dev",
-    "build": 10,
+    "build": 11,
     "repository": {
         "name": "appmaker",
         "branch": "dev",
@@ -76,7 +76,7 @@
             "git": "https:\/\/github.com\/LouisOuellet\/",
             "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
         },
-        "manifest": "\/dist\/data\/app.json"
+        "manifest": "\/dist\/data\/manifest.json"
     },
     "lsp": {
         "host": "https:\/\/license.albcie.com\/",
