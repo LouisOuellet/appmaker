@@ -369,7 +369,7 @@ class API{
       echo "\n";
       $this->__version();
       echo "\n";
-      echo "Published on ".$this->Settings['repository']['host']['git'].$this->Settings['repository']['host']['name']."\n";
+      echo "Published on ".$this->Settings['repository']['host']['git'].$this->Settings['repository']['name']."\n";
     }
   }
 
@@ -385,7 +385,7 @@ class API{
 				$this->LSP->createStructure(dirname(__FILE__,3).'/tmp/lsp-structure-backup-'.$timestamp->format('U').'.json');
 				$this->LSP->createRecords(dirname(__FILE__,3).'/tmp/lsp-data-backup-'.$timestamp->format('U').'.json');
 				// We update the local files
-        shell_exec("git clone --branch ".$this->Settings['repository']['branch']." ".$this->Settings['repository']['host']['git'].$this->Settings['repository']['host']['name'].".git"." ".dirname(__FILE__,3)."/tmp/".$this->Settings['repository']['name']);
+        shell_exec("git clone --branch ".$this->Settings['repository']['branch']." ".$this->Settings['repository']['host']['git'].$this->Settings['repository']['name'].".git"." ".dirname(__FILE__,3)."/tmp/".$this->Settings['repository']['name']);
         shell_exec("cp -ur ".dirname(__FILE__,3)."/tmp/".$this->Settings['repository']['name']."/* ".dirname(__FILE__,3)."/.");
         shell_exec("rm -rf ".dirname(__FILE__,3)."/tmp/".$this->Settings['repository']['name']);
 				$this->LSP->updateFiles();
