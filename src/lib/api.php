@@ -368,7 +368,8 @@ class API{
       shell_exec("git add . && git commit -m 'UPDATE' && git push origin ".$this->Settings['repository']['branch']);
       echo "\n";
       $this->__version();
-      echo "Published\n";
+      echo "\n";
+      echo "Published on ".$this->Settings['repository']['host']['git'].$this->Settings['repository']['host']['name']."\n";
     }
   }
 
