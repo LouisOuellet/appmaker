@@ -70,7 +70,7 @@
     "version": "21.09",
     "build": 1,
     "repository":{
-        "name": "ALB-Connect",
+        "name": "appmaker",
         "branch": "dev",
         "host":{
             "git": "https:\/\/github.com/LouisOuellet/",
