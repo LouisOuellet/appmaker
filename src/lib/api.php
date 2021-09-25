@@ -242,7 +242,7 @@ class API{
 	}
 
   protected function SaveAppCfg($configs){
-		$settings = $this->Settings;
+    $settings=json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/app.json'),true);
 		foreach($configs as $key => $value){ $settings[$key] = $value; }
 		$json = fopen(dirname(__FILE__,3).'/dist/data/app.json', 'w');
 		fwrite($json, json_encode($settings, JSON_PRETTY_PRINT));
@@ -368,9 +368,12 @@ class API{
   public function __publish($arg = []){
 		if($this->LSP->Status){
 			if((is_array($arg))&&(isset($arg[0]))){ $args=json_decode($arg[0],true); } else { $args=[]; }
-      $this->Settings['build']++;
-      $this->Settings['version'] = date("y.m").'-'.$this->Settings['repository']['branch'];
-      $this->SaveAppCfg($this->Settings);
+      $settings = [
+        'build' => $this->Settings['build']+1,
+        'version' => date("y.m").'-'.$this->Settings['repository']['branch'],
+      ];
+      $this->SaveAppCfg($settings);
+      shell_exec("git add . && git commit -m 'UPDATE' && git push origin ".$settings['repository']['branch']);
     }
   }
 

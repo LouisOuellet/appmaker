@@ -67,20 +67,20 @@
             "type": "select"
         }
     },
-    "version": "21.09",
-    "build": 1,
-    "repository":{
+    "version": "21.09-dev",
+    "build": 6,
+    "repository": {
         "name": "appmaker",
         "branch": "dev",
-        "host":{
-            "git": "https:\/\/github.com/LouisOuellet/",
-            "raw": "https:\/\/raw.githubusercontent.com/LouisOuellet/"
+        "host": {
+            "git": "https:\/\/github.com\/LouisOuellet\/",
+            "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
         },
-        "manifest": "/dist/data/app.json"
+        "manifest": "\/dist\/data\/app.json"
     },
     "lsp": {
         "host": "https:\/\/license.albcie.com\/",
         "application": "ALB-Connect",
-        "token": "$2y$10$RYbZ3aqz8d9jWQm9pQZUz.GYUlMkm8nkxHSUAdssPW5.QlMb.B6Py",
+        "token": "$2y$10$RYbZ3aqz8d9jWQm9pQZUz.GYUlMkm8nkxHSUAdssPW5.QlMb.B6Py"
     }
 }
