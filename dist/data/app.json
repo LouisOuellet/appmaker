@@ -68,7 +68,7 @@
         }
     },
     "version": "21.09-dev",
-    "build": 6,
+    "build": 7,
     "repository": {
         "name": "appmaker",
         "branch": "dev",
