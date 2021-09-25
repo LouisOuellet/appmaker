@@ -1,0 +1,11 @@
+CLIENT#%cli_code% TR#%trans_num% CCN#%cc_num% CN#%cont_num% PO#%po_num% OTHER#%ref_num%
+trans_num:%trans_num%
+cc_num:%cc_num%
+cont_num:%cont_num%
+other:%ref_num%
+po_num:%po_num%
+ci_num:%ci_num%
+num_pkg:%num_pkg%
+tot_weight_kgm:%tot_weight_kgm%
+weight_uom:%weight_uom%
+code:%cli_code%

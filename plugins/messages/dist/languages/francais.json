@@ -1,0 +1,21 @@
+{
+		"messages": "messages",
+		"Messages": "Messages",
+		"message": "message",
+		"Message": "Message",
+		"Folder": "Folder",
+		"Mid": "MID",
+		"Uid": "UID",
+		"Reply to id": "Reply-to ID",
+		"Reference id": "Reference ID",
+		"Sender": "Sender",
+		"Cc": "CC",
+		"Bcc": "BCC",
+		"Subject original": "Subject original",
+		"Subject stripped": "Subject stripped",
+		"Body original": "Body original",
+		"Body unquoted": "Body unquoted",
+		"Attachments": "Attachments",
+		"IsAttached": "Attached",
+		"Isattached": "Attached"
+}

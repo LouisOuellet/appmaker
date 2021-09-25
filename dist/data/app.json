@@ -1,0 +1,86 @@
+{
+    "title": "ALB Connect",
+    "language": "english",
+    "timezone": "America\/Toronto",
+    "SQLlimit": "500",
+    "registration": false,
+    "forgot": true,
+    "customization": {
+        "pace": {
+            "value": "primary",
+            "type": "select"
+        },
+        "logobg": {
+            "value": "dark",
+            "type": "select"
+        },
+        "nav": {
+            "value": "info",
+            "type": "select"
+        },
+        "navmode": {
+            "value": "dark",
+            "type": "select"
+        },
+        "sidenav": {
+            "value": "info",
+            "type": "select"
+        },
+        "sidenavmode": {
+            "value": "dark",
+            "type": "select"
+        },
+        "darkmode": {
+            "value": false,
+            "type": "switch"
+        },
+        "swalPosition": {
+            "value": "top",
+            "type": "select"
+        },
+        "swalTimer": {
+            "value": 3000,
+            "type": "number"
+        },
+        "breadcrumbsMax": {
+            "value": 5,
+            "type": "number"
+        },
+        "ProfileWidgetLocation": {
+            "value": "Sidebar",
+            "type": "select"
+        },
+        "landingPage": {
+            "value": "dashboard",
+            "type": "select"
+        },
+        "showInlineCallsControls": {
+            "value": true,
+            "type": "switch"
+        },
+        "showCallWidget": {
+            "value": true,
+            "type": "switch"
+        },
+        "callWidgetLocation": {
+            "value": "bottomRight",
+            "type": "select"
+        }
+    },
+    "version": "21.09",
+    "build": 1,
+    "repository":{
+        "name": "ALB-Connect",
+        "branch": "dev",
+        "host":{
+            "git": "https:\/\/github.com/LouisOuellet/",
+            "raw": "https:\/\/raw.githubusercontent.com/LouisOuellet/"
+        },
+        "manifest": "/dist/data/app.json"
+    },
+    "lsp": {
+        "host": "https:\/\/license.albcie.com\/",
+        "application": "ALB-Connect",
+        "token": "$2y$10$RYbZ3aqz8d9jWQm9pQZUz.GYUlMkm8nkxHSUAdssPW5.QlMb.B6Py",
+    }
+}

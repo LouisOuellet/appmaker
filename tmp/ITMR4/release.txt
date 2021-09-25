@@ -1,0 +1,30 @@
+##Sujet dans DocXref
+CLIENT#%cli_code% | TR#%trans_num% | CCN#%cc_num% | CN#%cont_num% | PO#%po_num%
+
+##Body dans Application Parameters/DefEmailTextRelNot
+Hi,
+Your shipment has been released. Here are some details:
+
+Details
+================================================
+Client Code : %cli_code%
+
+Consignee : %addr|cs_hdr.cli_addr_id|name1%%addr|cs_hdr.cli_addr_id|name2%
+Address : %addr|cs_hdr.cli_addr_id|addr1%%addr|cs_hdr.cli_addr_id|addr2%
+City : %addr|cs_hdr.cli_addr_id|city%
+Postal Code : %addr|cs_hdr.cli_addr_id|post_code%
+Province : %addr|cs_hdr.cli_addr_id|prov_code%
+Country : %addr|cs_hdr.cli_addr_id|ctry_code%
+
+Transaction Number : %trans_num%
+Cargo Control Number : %cc_num%
+Container Number(s) : %cont_num%
+PO(s) : %po_num%
+INV(s) : %ci_num%
+Number of Packages : %num_pkg%
+Weight : %tot_weight_kgm% %weight_uom%
+
+Please contact pars@albcustoms.com for any inqueries.
+
+Regards,
+ALB Team

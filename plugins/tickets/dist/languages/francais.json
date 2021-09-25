@@ -1,0 +1,14 @@
+{
+		"tickets": "tickets",
+		"Tickets": "Tickets",
+		"Description": "Description",
+		"Category": "Categorie",
+		"Sub category": "Sous-categorie",
+		"Alert": "Alerte",
+		"Priority": "Priority",
+		"Cc": "CC",
+		"Project": "Project",
+		"Assets": "Assets",
+		"Archived": "Archive",
+		"Time taken": "Temps prit"
+}

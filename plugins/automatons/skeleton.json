@@ -1,0 +1,16 @@
+{
+    "automatons": [
+        {
+            "id": 1,
+            "created": "2021-03-30 15:52:55",
+            "modified": "2021-03-30 15:52:55",
+            "owner": "2",
+            "updated_by": "2",
+            "name": "Creating Tickets",
+            "type": "mail_to_api",
+            "json": "{\"imap\":{\"host\":\"webman-01.albcie.com\",\"port\":\"993\",\"encryption\":\"ssl\",\"username\":\"louis@albcie.com\",\"password\":\"Raphy0610+-\"},\"request\":\"tickets\",\"method\":\"token\",\"token\":\"4108910258d3de0126c66e0b508cd9e2687038e9db4e1987\",\"type\":\"automaton\",\"headers\":{\"subject\":\"title\",\"body\":\"content\",\"from\":\"email\"}}",
+            "relationship": "users",
+            "link_to": "2"
+        }
+    ]
+}

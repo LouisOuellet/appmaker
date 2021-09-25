@@ -1,0 +1,6 @@
+.icon-tickets::before,.icon-ticket::before{
+	content: "\f3ff";
+}
+.icon-priority::before{
+	content: "\f0e7";
+}

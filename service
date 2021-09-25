@@ -1,0 +1,11 @@
+#!/bin/bash
+
+while(true);do
+  # if [ "$(php -v | egrep -i 'php 7')" != "" ]; then
+    php /opt/ALB-Connect/cli.php --cron
+  # else
+  #   php7.2 /opt/ALB-Connect/cli.php --cron
+  # fi
+done
+
+exit 0
