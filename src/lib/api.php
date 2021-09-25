@@ -19,7 +19,7 @@ class API{
   protected $Countries; // Stores available countries
   protected $States; // Stores available states
 	protected $Structure; // Stores the database structure
-	public $Settings; // Stores settings loaded from app.json and conf.json
+	public $Settings; // Stores settings loaded from manifest.json and conf.json
   public $Auth; // This contains the Auth class & the Database class for MySQL queries
 	protected $LSP; // This contains the LSP class
   protected $CSV; // This contains the CSV class
@@ -44,7 +44,7 @@ class API{
 		}
 
     // Import Configurations
-		$this->Settings=json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/app.json'),true);
+		$this->Settings=json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/manifest.json'),true);
 		$json = json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/countries.json'),true);
 		$this->Settings = array_replace_recursive($this->Settings,$json);
 		$json = json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/states.json'),true);
@@ -242,9 +242,9 @@ class API{
 	}
 
   protected function SaveAppCfg($configs){
-    $settings=json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/app.json'),true);
+    $settings=json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/manifest.json'),true);
 		foreach($configs as $key => $value){ $settings[$key] = $value; }
-		$json = fopen(dirname(__FILE__,3).'/dist/data/app.json', 'w');
+		$json = fopen(dirname(__FILE__,3).'/dist/data/manifest.json', 'w');
 		fwrite($json, json_encode($settings, JSON_PRETTY_PRINT));
 		fclose($json);
 		return $settings;
