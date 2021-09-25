@@ -1,23 +1,17 @@
-# ALB Connect
-ALB Connect is a software built for Logistics, Brokerage and Customs Consulting. This software is intended to be used by ALB's divisions.
+# APP Maker
+APP Maker is a PHP and Javascript framework design to quickly build advanced databases.
 
 ## License
-GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
+MIT License
 
 ## Copyright
-Copyright © 2019-2020 ALB Compagnie International. All rights reserved.
+Copyright © 2019-2021 Les Entreprises LaswitchTech. All rights reserved.
 
 ## Features
- * Customer relationship management system
- * Enterprise resource planning system
- * Customer Access
- * Unlimited Users
- * LDAP Support
- * SMTP Support
- * Roles and Permissions Builtin System
  * Complete Framework built around a centralized database
+ * Support your existing user base using LDAP, SMTP, PAM and SQL authentication.
 
-## ACC Command Line Interface
+## Command Line Interface
 The command line interface can be used to perform some pre-programmed functions.
 
 Here is a list of available commands:
@@ -25,11 +19,8 @@ Here is a list of available commands:
  * --debug-mode : [TRUE|FALSE] -> Enable or Disable Debug Mode
  * --maintenance-mode : [TRUE|FALSE] -> Enable or Disable Maintenance Mode
  * --cron : Execute CRON tasks
- * --importCSV : Force the execution of an import task.
- * --updater :
-   * list : List available updates
-   * update : Performs the necessary actions to update the software
-   * backup : Performs a complete backup of the application, it's content and database
+ * --publish : publish an update on the configured repository.
+ * --update : install the latest updates from the configured repository.
 
 ## Setup CRON
 

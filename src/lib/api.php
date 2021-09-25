@@ -255,52 +255,44 @@ class API{
 		$this->SaveCfg($configs,$this->Settings);
   }
 
-  public function __version($args = null){
-    echo "Version: ".$this->Settings['version']."\n";
+  protected function install($arg = []){
+		if($this->LSP->Status){
+			if((is_array($arg))&&(isset($arg[0]))){ $args=json_decode($arg[0],true); } else { $args=[]; }
+			if(($this->LSP->Update)||((isset($args['force']))&&($args['force']))){}
+    }
   }
 
-  public function __maintenance_mode($mode = null){
-		if((isset($this->Settings['license']))&&($this->LSP->Status)){
-	    if($mode != null){
-				if(strtoupper($mode[0]) == 'FALSE'){
-					$configs=[
-						'maintenance' => FALSE,
-					];
-					$this->SaveCfg($configs,$this->Settings);
-	      } elseif(strtoupper($mode[0]) == 'TRUE') {
-					$configs=[
-						'maintenance' => TRUE,
-					];
-					$this->SaveCfg($configs,$this->Settings);
-	      } else {
-	        echo "Unknown Maintenance Status\n";
-	      }
-	    } else {
-	      echo "No Maintenance Status Provided\n";
+  public function __version($args = null){
+    echo "Version: ".$this->Settings['version']."\n";
+    echo "Build: ".$this->Settings['build']."\n";
+  }
+
+  public function __maintenance_mode($arg = []){
+    if($this->LSP->Status){
+      if((is_array($arg))&&(isset($arg[0]))){ $args=json_decode($arg[0],true); } else { $args=[]; }
+	    if(isset($args['maintenance'])){
+        $this->SaveCfg(['maintenance' => $args['maintenance']]);
+	    } elseif(isset($this->Settings['maintenance'])){
+        if($this->Settings['maintenance']){ $this->SaveCfg(['maintenance' => false]); }
+        else{ $this->SaveCfg(['maintenance' => true]); }
+      } else {
+	      $this->SaveCfg(['maintenance' => true]);
 	    }
 		} else {
 			echo "Application not activated\n";
 		}
   }
 
-  public function __debug_mode($mode = null){
-		if((isset($this->Settings['license']))&&($this->LSP->Status)){
-	    if($mode != null){
-				if(strtoupper($mode[0]) == 'FALSE'){
-					$configs=[
-						'debug' => FALSE,
-					];
-					$this->SaveCfg($configs,$this->Settings);
-	      } elseif(strtoupper($mode[0]) == 'TRUE') {
-					$configs=[
-						'debug' => TRUE,
-					];
-					$this->SaveCfg($configs,$this->Settings);
-	      } else {
-	        echo "Unknown Debug Status\n";
-	      }
-	    } else {
-	      echo "No Debug Status Provided\n";
+  public function __debug_mode($arg = []){
+    if($this->LSP->Status){
+      if((is_array($arg))&&(isset($arg[0]))){ $args=json_decode($arg[0],true); } else { $args=[]; }
+	    if(isset($args['debug'])){
+        $this->SaveCfg(['debug' => $args['debug']]);
+	    } elseif(isset($this->Settings['debug'])){
+        if($this->Settings['debug']){ $this->SaveCfg(['debug' => false]); }
+        else{ $this->SaveCfg(['debug' => true]); }
+      } else {
+	      $this->SaveCfg(['debug' => true]);
 	    }
 		} else {
 			echo "Application not activated\n";
@@ -374,13 +366,6 @@ class API{
       ];
       $this->SaveAppCfg($settings);
       shell_exec("git add . && git commit -m 'UPDATE' && git push origin ".$this->Settings['repository']['branch']);
-    }
-  }
-
-  public function __install($arg = []){
-		if($this->LSP->Status){
-			if((is_array($arg))&&(isset($arg[0]))){ $args=json_decode($arg[0],true); } else { $args=[]; }
-			if(($this->LSP->Update)||((isset($args['force']))&&($args['force']))){}
     }
   }
 
