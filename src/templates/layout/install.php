@@ -162,8 +162,7 @@
                       </div>
                       <select class="form-control select2bs4" name="site_background_jobs" id="site_background_jobs">
                         <option value="cron"<?php if((isset($_POST['site_background_jobs']))&&($_POST['site_background_jobs']=='cron')){echo" selected";}?>><?= $this->Language->Field['Cron'] ?></option>
-                        <option value="ajax"<?php if((isset($_POST['site_background_jobs']))&&($_POST['site_background_jobs']=='ajax')){echo" selected";}?>><?= $this->Language->Field['AJAX'] ?></option>
-                        <option value="webcron"<?php if((isset($_POST['site_background_jobs']))&&($_POST['site_background_jobs']=='webcron')){echo" selected";}?>><?= $this->Language->Field['Web_Cron'] ?></option>
+                        <option value="service"<?php if((isset($_POST['site_background_jobs']))&&($_POST['site_background_jobs']=='service')){echo" selected";}?>><?= $this->Language->Field['Service'] ?></option>
                       </select>
                     </div>
                   </div>

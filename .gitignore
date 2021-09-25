@@ -1,0 +1,14 @@
+composer.phar
+*composer.phar
+.DS_Store
+*.DS_Store
+/config/config.json
+/tmp/
+/tmp/*
+*/tmp/
+*/tmp/*
+/data/
+/data/*
+/error/
+/stats/
+robots.txt
