@@ -3,6 +3,7 @@ composer.phar
 .DS_Store
 *.DS_Store
 /config/config.json
+/config/config.json.bak
 /tmp/
 /tmp/*
 */tmp/
