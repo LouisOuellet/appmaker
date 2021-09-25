@@ -39,37 +39,38 @@
   </style>
 </head>
 <body class="hold-transition login-page">
-<div class="login-box">
-  <div class="collapse show">
-    <div class="card card-success card-outline">
-      <div class="card-header">
-      </div>
-      <div class="card-body">
-        <h1 style="text-align:center;"><i class="fas fa-3x fa-exclamation-triangle"></i></h1>
-        <h1 style="text-align:center;"><?= $this->Language->Field['Activation'] ?></h1>
-				<p style="text-align:center;"><?= $this->Language->Field['This application is not activated'] ?></p>
-				<form method="post">
-					<div class="form-group">
-						<div class="input-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text">
-									<i class="fas fa-key mr-2"></i><?= $this->Language->Field['Key'] ?>
-								</span>
-							</div>
-							<input type="text" class="form-control" name="key" value="<?php if(isset($this->Settings['license'])){ echo $this->Settings['license']; } ?>" placeholder="XXXX-XXXX-XXXX-XXXX-XXXX-XXXX-XXXX-XXXX">
-							<div class="input-group-append">
-								<button type="submit" class="btn btn-primary"><i class="fas fa-key mr-1"></i>Activate</button>
-							</div>
-						</div>
-					</div>
-				</form>
-      </div>
-      <div class="card-footer bg-success">
+  <div class="login-page">
+    <div class="login-box">
+      <div class="collapse show">
+        <div class="card card-success card-outline">
+          <div class="card-header">
+          </div>
+          <div class="card-body">
+            <h1 style="text-align:center;"><i class="fas fa-3x fa-exclamation-triangle"></i></h1>
+            <h1 style="text-align:center;"><?= $this->Language->Field['Activation'] ?></h1>
+    				<p style="text-align:center;"><?= $this->Language->Field['This application is not activated'] ?></p>
+    				<form method="post">
+    					<div class="form-group">
+    						<div class="input-group">
+    							<div class="input-group-prepend">
+    								<span class="input-group-text">
+    									<i class="fas fa-key mr-2"></i><?= $this->Language->Field['Key'] ?>
+    								</span>
+    							</div>
+    							<input type="text" class="form-control" name="key" value="<?php if(isset($this->Settings['license'])){ echo $this->Settings['license']; } ?>" placeholder="XXXX-XXXX-XXXX-XXXX-XXXX-XXXX-XXXX-XXXX">
+    							<div class="input-group-append">
+    								<button type="submit" class="btn btn-primary"><i class="fas fa-key mr-1"></i>Activate</button>
+    							</div>
+    						</div>
+    					</div>
+    				</form>
+          </div>
+          <div class="card-footer bg-success">
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<!-- /.login-box -->
 
 <!-- jQuery -->
 <script src="/vendor/jquery/jquery.min.js"></script>

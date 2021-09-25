@@ -18,7 +18,7 @@ class API{
   protected $Timezones; // Stores available timezones
   protected $Countries; // Stores available countries
   protected $States; // Stores available states
-	protected $Structure; // Stores the database structure
+	protected $Structure = []; // Stores the database structure
 	public $Settings; // Stores settings loaded from manifest.json and conf.json
   public $Auth; // This contains the Auth class & the Database class for MySQL queries
 	protected $LSP; // This contains the LSP class
@@ -45,12 +45,6 @@ class API{
 
     // Import Configurations
 		$this->Settings=json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/manifest.json'),true);
-		$json = json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/countries.json'),true);
-		$this->Settings = array_replace_recursive($this->Settings,$json);
-		$json = json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/states.json'),true);
-		$this->Settings = array_replace_recursive($this->Settings,$json);
-		$json = json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/timezones.json'),true);
-		$this->Settings = array_replace_recursive($this->Settings,$json);
 		if(is_file(dirname(__FILE__,3) . "/config/config.json")){
 			$customizations = json_decode(file_get_contents(dirname(__FILE__,3) . '/config/config.json'),true);
 			$this->Settings = array_replace_recursive($this->Settings,$customizations);
@@ -82,9 +76,9 @@ class API{
 		}
 
 		//Import some listings
-    $this->Timezones = $this->Settings['Timezones'];
-    $this->Countries = $this->Settings['Countries'];
-    $this->States = $this->Settings['States'];
+    $this->Timezones = json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/timezones.json'),true)['Timezones'];
+    $this->Countries = json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/countries.json'),true)['Countries'];
+    $this->States = json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/states.json'),true)['States'];
 
 		// Setup Instance
 		if((isset($this->Settings['debug']))&&($this->Settings['debug'])){ error_reporting(-1); } else { error_reporting(0); }
@@ -107,7 +101,7 @@ class API{
 		}
 
 		// Create Table Structure
-		$this->Structure = $this->LSP->createStructure();
+    if(isset($this->Settings['sql'])){ $this->Structure = $this->LSP->createStructure(); }
 
 		// Initialise Auth
 		$this->Auth = new Auth($this->Settings);

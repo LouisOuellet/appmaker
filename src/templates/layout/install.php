@@ -39,277 +39,279 @@
   </style>
 </head>
 <body class="hold-transition login-page">
-<div class="login-box">
-  <form id="SetupWizard" name="SetupWizard" method="post">
-    <div id="accordion">
-      <div class="collapse show" data-parent="#accordion" id="welcome">
-        <div class="card card-primary card-outline">
-          <div class="card-header">
-            <h5 class="m-0"><?= $this->Language->Field['Welcome_into'] ?> <?= $this->Settings['title']?></h5>
+  <div class="login-page">
+    <div class="login-box">
+      <form id="SetupWizard" name="SetupWizard" method="post">
+        <div id="accordion">
+          <div class="collapse show" data-parent="#accordion" id="welcome">
+            <div class="card card-primary card-outline">
+              <div class="card-header">
+                <h5 class="m-0"><?= $this->Language->Field['Welcome_into'] ?> <?= $this->Settings['title']?></h5>
+              </div>
+              <div class="card-body">
+                <p class="card-text"><?= $this->Language->Field['since_first_run'] ?></p>
+              </div>
+              <div class="card-footer">
+                <button type="button" data-target="#sql" data-toggle="collapse" aria-expanded="false" class="btn btn-primary float-right"><?= $this->Language->Field['Get_Started'] ?><i class="nav-icon fas fa-chevron-right ml-2"></i></button>
+              </div>
+            </div>
           </div>
-          <div class="card-body">
-            <p class="card-text"><?= $this->Language->Field['since_first_run'] ?></p>
+          <div class="collapse" data-parent="#accordion" id="sql">
+            <div class="card card-primary card-outline">
+              <div class="card-header">
+                <h5 class="m-0"><?= $this->Language->Field['SQL_Database'] ?></h5>
+              </div>
+              <div class="card-body">
+                <p class="card-text">
+                  <div class="form-group row">
+                    <label for="sql_host" class="col-sm-2 col-form-label"><?= $this->Language->Field['Host'] ?></label>
+                    <div class="col-sm-10 input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="fas fa-server"></i>
+                        </span>
+                      </div>
+                      <input type="text" class="form-control" placeholder="<?= $this->Language->Field['Host'] ?>" id="sql_host" name="sql_host" value="<?php if(isset($_POST['sql_host'])){ echo $_POST['sql_host']; } ?>">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="sql_database" class="col-sm-2 col-form-label"><?= $this->Language->Field['Database'] ?></label>
+                    <div class="col-sm-10 input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="fas fa-database"></i>
+                        </span>
+                      </div>
+                      <input type="text" class="form-control" placeholder="<?= $this->Language->Field['Database'] ?>" id="sql_database" name="sql_database" value="<?php if(isset($_POST['sql_database'])){ echo $_POST['sql_database']; } ?>">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="sql_username" class="col-sm-2 col-form-label"><?= $this->Language->Field['Username'] ?></label>
+                    <div class="col-sm-10 input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="fas fa-user"></i>
+                        </span>
+                      </div>
+                      <input type="text" class="form-control" placeholder="<?= $this->Language->Field['Username'] ?>" id="sql_username" name="sql_username" value="<?php if(isset($_POST['sql_username'])){ echo $_POST['sql_username']; } ?>">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="sql_password" class="col-sm-2 col-form-label"><?= $this->Language->Field['Password'] ?></label>
+                    <div class="col-sm-10 input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="fas fa-user-lock"></i>
+                        </span>
+                      </div>
+                      <input type="password" class="form-control" placeholder="<?= $this->Language->Field['Password'] ?>" id="sql_password" name="sql_password" value="<?php if(isset($_POST['sql_password'])){ echo $_POST['sql_password']; } ?>">
+                    </div>
+                  </div>
+                </p>
+              </div>
+              <div class="card-footer">
+                <button type="button" data-target="#welcome" data-toggle="collapse" aria-expanded="true" class="btn btn-default"><i class="nav-icon fas fa-chevron-left mr-2"></i><?= $this->Language->Field['Back'] ?></button>
+                <button type="button" data-target="#site" data-toggle="collapse" aria-expanded="false"  class="btn btn-primary float-right"><?= $this->Language->Field['Next'] ?><i class="nav-icon fas fa-chevron-right ml-2"></i></button>
+              </div>
+            </div>
           </div>
-          <div class="card-footer">
-            <button type="button" data-target="#sql" data-toggle="collapse" aria-expanded="false" class="btn btn-primary float-right"><?= $this->Language->Field['Get_Started'] ?><i class="nav-icon fas fa-chevron-right ml-2"></i></button>
+          <div class="collapse" data-parent="#accordion" id="site">
+            <div class="card card-primary card-outline">
+              <div class="card-header">
+                <h5 class="m-0"><?= $this->Language->Field['Site_Configuration'] ?></h5>
+              </div>
+              <div class="card-body">
+                <p class="card-text">
+                  <div class="form-group row">
+                    <label for="site_license" class="col-sm-2 col-form-label"><?= $this->Language->Field['Key'] ?></label>
+                    <div class="col-sm-10 input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="fas fa-key"></i>
+                        </span>
+                      </div>
+                      <input type="text" class="form-control" placeholder="XXXX-XXXX-XXXX-XXXX-XXXX-XXXX-XXXX-XXXX" id="site_license" name="site_license" value="<?php if(isset($_POST['site_license'])){ echo $_POST['site_license']; } ?>">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="site_page" class="col-sm-2 col-form-label"><?= $this->Language->Field['Landing_Page'] ?></label>
+                    <div class="col-sm-10 input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="fas fa-columns"></i>
+                        </span>
+                      </div>
+                      <select class="form-control select2bs4" name="site_page" id="site_page">
+                        <?php $plugins = scandir(dirname(__FILE__,4).'/plugins/');
+    										foreach($plugins as $plugin) {
+    											if(("$plugin" != "..") and ("$plugin" != ".")){
+    												$file = dirname(__FILE__,4).'/plugins/'.$plugin.'/src/views/index.php';
+    												if(is_file($file)){ ?>
+                              <option value="<?=$plugin?>"<?php if((isset($_POST['site_page']))&&($_POST['site_page']==$plugin)){echo" selected";}?>><?=ucwords(str_replace('_',' ',$plugin))?></option>
+                        <?php }}} ?>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="site_background_jobs" class="col-sm-2 col-form-label"><?= $this->Language->Field['Sync_Mode'] ?></label>
+                    <div class="col-sm-10 input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="fas fa-user-lock"></i>
+                        </span>
+                      </div>
+                      <select class="form-control select2bs4" name="site_background_jobs" id="site_background_jobs">
+                        <option value="cron"<?php if((isset($_POST['site_background_jobs']))&&($_POST['site_background_jobs']=='cron')){echo" selected";}?>><?= $this->Language->Field['Cron'] ?></option>
+                        <option value="ajax"<?php if((isset($_POST['site_background_jobs']))&&($_POST['site_background_jobs']=='ajax')){echo" selected";}?>><?= $this->Language->Field['AJAX'] ?></option>
+                        <option value="webcron"<?php if((isset($_POST['site_background_jobs']))&&($_POST['site_background_jobs']=='webcron')){echo" selected";}?>><?= $this->Language->Field['Web_Cron'] ?></option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="site_timezone" class="col-sm-2 col-form-label"><?= $this->Language->Field['Timezone'] ?></label>
+                    <div class="col-sm-10 input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="far fa-clock"></i>
+                        </span>
+                      </div>
+                      <select class="form-control select2bs4" name="site_timezone" id="site_timezone">
+                        <?php foreach($this->Timezones as $timezone) {?>
+                          <option value="<?=$timezone?>"<?php if((isset($_POST['site_timezone']))&&($_POST['site_timezone']==$timezone)){echo" selected";}?>><?=$timezone?></option>
+                        <?php } ?>
+                      </select>
+                    </div>
+                  </div>
+    							<div class="form-group row">
+    								<label class="col-sm-2 col-form-label"><?= $this->Language->Field['Sample Data'] ?></label>
+    								<div class="icheck-primary col-sm-10">
+                      <input type="checkbox" id="site_sample" name="site_sample" value="enabled" style="position: static !important;">
+    									<label for="site_sample"><?= $this->Language->Field['Include'] ?></label>
+                    </div>
+                  </div>
+                </p>
+              </div>
+              <div class="card-footer">
+                <button type="button" data-target="#sql" data-toggle="collapse" aria-expanded="false"  class="btn btn-default"><i class="nav-icon fas fa-chevron-left mr-2"></i><?= $this->Language->Field['Back'] ?></button>
+                <button type="button" data-target="#license" data-toggle="collapse" aria-expanded="false"  class="btn btn-primary float-right"><?= $this->Language->Field['Next'] ?><i class="nav-icon fas fa-chevron-right ml-2"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="collapse" data-parent="#accordion" id="license">
+            <div class="card card-primary card-outline">
+              <div class="card-header">
+                <h5 class="m-0"><?= $this->Language->Field['License'] ?></h5>
+              </div>
+              <div class="card-body" style="max-height:500px;overflow:scroll;">
+                <p class="card-text">
+                  <?php include("LICENSE.html") ?>
+                  <div class="form-group mb-0">
+                    <div class="icheck-primary">
+                      <input type="checkbox" id="license_term_field" name="license_term" style="position: static !important;">
+                      <label for="license_term_field"><?= $this->Language->Field['I_have_read_this_License'] ?></label>
+                    </div>
+                  </div>
+                </p>
+              </div>
+              <div class="card-footer">
+                <button type="button" data-target="#site" data-toggle="collapse" aria-expanded="false"  class="btn btn-default"><i class="nav-icon fas fa-chevron-left mr-2"></i><?= $this->Language->Field['Back'] ?></button>
+                <button type="button" id="reviewBTN" data-target="#review" data-toggle="collapse" aria-expanded="false"  class="btn btn-primary float-right"><?= $this->Language->Field['Next'] ?><i class="nav-icon fas fa-chevron-right ml-2"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="collapse" data-parent="#accordion" id="review">
+            <div class="card card-primary card-outline">
+              <div class="card-header">
+                <h5 class="m-0"><?= $this->Language->Field['Review_Configuration'] ?></h5>
+              </div>
+              <div class="card-body">
+                <p class="card-text">
+    							<div class="col-12">
+    								<div class="card card-primary">
+    				          <div class="card-header">
+    				            <h5 class="m-0"><?= $this->Language->Field['SQL_Database'] ?></h5>
+    				          </div>
+    				          <div class="card-body">
+    										<div class="row border-bottom pt-2">
+    											<div class="col-4">Host</div>
+    											<div class="col-8" id="DivSQL_host"></div>
+    										</div>
+    										<div class="row border-bottom pt-2">
+    											<div class="col-4">Database</div>
+    											<div class="col-8" id="DivSQL_database"></div>
+    										</div>
+    										<div class="row border-bottom pt-2">
+    											<div class="col-4">Username</div>
+    											<div class="col-8" id="DivSQL_username"></div>
+    										</div>
+    										<div class="row border-bottom pt-2">
+    											<div class="col-4">Password</div>
+    											<div class="col-8" id="DivSQL_password"></div>
+    										</div>
+    									</div>
+    								</div>
+    							</div>
+    							<div class="col-12">
+    								<div class="card card-primary">
+    				          <div class="card-header">
+    				            <h5 class="m-0"><?= $this->Language->Field['Site_Configuration'] ?></h5>
+    				          </div>
+    				          <div class="card-body">
+    										<div class="row border-bottom pt-2">
+    											<div class="col-4">License</div>
+    											<div class="col-8" id="DivSite_license"></div>
+    										</div>
+    										<div class="row border-bottom pt-2">
+    											<div class="col-4">Landing Page</div>
+    											<div class="col-8" id="DivSite_landing"></div>
+    										</div>
+    										<div class="row border-bottom pt-2">
+    											<div class="col-4">Sync Mode</div>
+    											<div class="col-8" id="DivSite_sync"></div>
+    										</div>
+    										<div class="row border-bottom pt-2">
+    											<div class="col-4">Timezone</div>
+    											<div class="col-8" id="DivSite_timezone"></div>
+    										</div>
+    										<div class="row border-bottom pt-2">
+    											<div class="col-4">Sample Data</div>
+    											<div class="col-8" id="DivSite_sample"></div>
+    										</div>
+    										<div class="row border-bottom pt-2">
+    											<div class="col-4">License Terms</div>
+    											<div class="col-8" id="DivSite_terms"></div>
+    										</div>
+    									</div>
+    								</div>
+    							</div>
+    						</p>
+              </div>
+              <div class="card-footer">
+                <button type="button" data-target="#license" data-toggle="collapse" aria-expanded="false"  class="btn btn-default"><i class="nav-icon fas fa-chevron-left mr-2"></i><?= $this->Language->Field['Back'] ?></button>
+                <button type="submit" name="StartInstall" class="btn btn-success float-right"><?= $this->Language->Field['Install'] ?><i class="nav-icon far fa-play-circle ml-2"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="collapse" data-parent="#accordion" id="log">
+            <div class="card card-primary card-outline">
+              <div class="card-header">
+                <h5 class="m-0"><?= $this->Language->Field['Installation_Details'] ?></h5>
+              </div>
+              <div class="card-body" style="max-height:500px;overflow:scroll;">
+                <p class="card-text" id="log_container"></p>
+              </div>
+              <div class="card-footer">
+                <button type="button" data-target="#welcome" data-toggle="collapse" aria-expanded="false"  class="btn btn-default"><i class="nav-icon fas fa-chevron-left mr-2"></i><?= $this->Language->Field['Back'] ?></button>
+                <a href="<?=$this->URL?>" class="btn btn-primary float-right">
+                  <?= $this->Language->Field['Sign_In'] ?><i class="nav-icon fas fa-sign-in-alt ml-2"></i>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="collapse" data-parent="#accordion" id="sql">
-        <div class="card card-primary card-outline">
-          <div class="card-header">
-            <h5 class="m-0"><?= $this->Language->Field['SQL_Database'] ?></h5>
-          </div>
-          <div class="card-body">
-            <p class="card-text">
-              <div class="form-group row">
-                <label for="sql_host" class="col-sm-2 col-form-label"><?= $this->Language->Field['Host'] ?></label>
-                <div class="col-sm-10 input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="fas fa-server"></i>
-                    </span>
-                  </div>
-                  <input type="text" class="form-control" placeholder="<?= $this->Language->Field['Host'] ?>" id="sql_host" name="sql_host" value="<?php if(isset($_POST['sql_host'])){ echo $_POST['sql_host']; } ?>">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label for="sql_database" class="col-sm-2 col-form-label"><?= $this->Language->Field['Database'] ?></label>
-                <div class="col-sm-10 input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="fas fa-database"></i>
-                    </span>
-                  </div>
-                  <input type="text" class="form-control" placeholder="<?= $this->Language->Field['Database'] ?>" id="sql_database" name="sql_database" value="<?php if(isset($_POST['sql_database'])){ echo $_POST['sql_database']; } ?>">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label for="sql_username" class="col-sm-2 col-form-label"><?= $this->Language->Field['Username'] ?></label>
-                <div class="col-sm-10 input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="fas fa-user"></i>
-                    </span>
-                  </div>
-                  <input type="text" class="form-control" placeholder="<?= $this->Language->Field['Username'] ?>" id="sql_username" name="sql_username" value="<?php if(isset($_POST['sql_username'])){ echo $_POST['sql_username']; } ?>">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label for="sql_password" class="col-sm-2 col-form-label"><?= $this->Language->Field['Password'] ?></label>
-                <div class="col-sm-10 input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="fas fa-user-lock"></i>
-                    </span>
-                  </div>
-                  <input type="password" class="form-control" placeholder="<?= $this->Language->Field['Password'] ?>" id="sql_password" name="sql_password" value="<?php if(isset($_POST['sql_password'])){ echo $_POST['sql_password']; } ?>">
-                </div>
-              </div>
-            </p>
-          </div>
-          <div class="card-footer">
-            <button type="button" data-target="#welcome" data-toggle="collapse" aria-expanded="true" class="btn btn-default"><i class="nav-icon fas fa-chevron-left mr-2"></i><?= $this->Language->Field['Back'] ?></button>
-            <button type="button" data-target="#site" data-toggle="collapse" aria-expanded="false"  class="btn btn-primary float-right"><?= $this->Language->Field['Next'] ?><i class="nav-icon fas fa-chevron-right ml-2"></i></button>
-          </div>
-        </div>
-      </div>
-      <div class="collapse" data-parent="#accordion" id="site">
-        <div class="card card-primary card-outline">
-          <div class="card-header">
-            <h5 class="m-0"><?= $this->Language->Field['Site_Configuration'] ?></h5>
-          </div>
-          <div class="card-body">
-            <p class="card-text">
-              <div class="form-group row">
-                <label for="site_license" class="col-sm-2 col-form-label"><?= $this->Language->Field['Key'] ?></label>
-                <div class="col-sm-10 input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="fas fa-key"></i>
-                    </span>
-                  </div>
-                  <input type="text" class="form-control" placeholder="XXXX-XXXX-XXXX-XXXX-XXXX-XXXX-XXXX-XXXX" id="site_license" name="site_license" value="<?php if(isset($_POST['site_license'])){ echo $_POST['site_license']; } ?>">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label for="site_page" class="col-sm-2 col-form-label"><?= $this->Language->Field['Landing_Page'] ?></label>
-                <div class="col-sm-10 input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="fas fa-columns"></i>
-                    </span>
-                  </div>
-                  <select class="form-control select2bs4" name="site_page" id="site_page">
-                    <?php $plugins = scandir(dirname(__FILE__,4).'/plugins/');
-										foreach($plugins as $plugin) {
-											if(("$plugin" != "..") and ("$plugin" != ".")){
-												$file = dirname(__FILE__,4).'/plugins/'.$plugin.'/src/views/index.php';
-												if(is_file($file)){ ?>
-                          <option value="<?=$plugin?>"<?php if((isset($_POST['site_page']))&&($_POST['site_page']==$plugin)){echo" selected";}?>><?=ucwords(str_replace('_',' ',$plugin))?></option>
-                    <?php }}} ?>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group row">
-                <label for="site_background_jobs" class="col-sm-2 col-form-label"><?= $this->Language->Field['Sync_Mode'] ?></label>
-                <div class="col-sm-10 input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="fas fa-user-lock"></i>
-                    </span>
-                  </div>
-                  <select class="form-control select2bs4" name="site_background_jobs" id="site_background_jobs">
-                    <option value="cron"<?php if((isset($_POST['site_background_jobs']))&&($_POST['site_background_jobs']=='cron')){echo" selected";}?>><?= $this->Language->Field['Cron'] ?></option>
-                    <option value="ajax"<?php if((isset($_POST['site_background_jobs']))&&($_POST['site_background_jobs']=='ajax')){echo" selected";}?>><?= $this->Language->Field['AJAX'] ?></option>
-                    <option value="webcron"<?php if((isset($_POST['site_background_jobs']))&&($_POST['site_background_jobs']=='webcron')){echo" selected";}?>><?= $this->Language->Field['Web_Cron'] ?></option>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group row">
-                <label for="site_timezone" class="col-sm-2 col-form-label"><?= $this->Language->Field['Timezone'] ?></label>
-                <div class="col-sm-10 input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="far fa-clock"></i>
-                    </span>
-                  </div>
-                  <select class="form-control select2bs4" name="site_timezone" id="site_timezone">
-                    <?php foreach($this->Timezones as $timezone) {?>
-                      <option value="<?=$timezone?>"<?php if((isset($_POST['site_timezone']))&&($_POST['site_timezone']==$timezone)){echo" selected";}?>><?=$timezone?></option>
-                    <?php } ?>
-                  </select>
-                </div>
-              </div>
-							<div class="form-group row">
-								<label class="col-sm-2 col-form-label"><?= $this->Language->Field['Sample Data'] ?></label>
-								<div class="icheck-primary col-sm-10">
-                  <input type="checkbox" id="site_sample" name="site_sample" value="enabled" style="position: static !important;">
-									<label for="site_sample"><?= $this->Language->Field['Include'] ?></label>
-                </div>
-              </div>
-            </p>
-          </div>
-          <div class="card-footer">
-            <button type="button" data-target="#sql" data-toggle="collapse" aria-expanded="false"  class="btn btn-default"><i class="nav-icon fas fa-chevron-left mr-2"></i><?= $this->Language->Field['Back'] ?></button>
-            <button type="button" data-target="#license" data-toggle="collapse" aria-expanded="false"  class="btn btn-primary float-right"><?= $this->Language->Field['Next'] ?><i class="nav-icon fas fa-chevron-right ml-2"></i></button>
-          </div>
-        </div>
-      </div>
-      <div class="collapse" data-parent="#accordion" id="license">
-        <div class="card card-primary card-outline">
-          <div class="card-header">
-            <h5 class="m-0"><?= $this->Language->Field['License'] ?></h5>
-          </div>
-          <div class="card-body" style="max-height:500px;overflow:scroll;">
-            <p class="card-text">
-              <?php include("LICENSE.html") ?>
-              <div class="form-group mb-0">
-                <div class="icheck-primary">
-                  <input type="checkbox" id="license_term_field" name="license_term" style="position: static !important;">
-                  <label for="license_term_field"><?= $this->Language->Field['I_have_read_this_License'] ?></label>
-                </div>
-              </div>
-            </p>
-          </div>
-          <div class="card-footer">
-            <button type="button" data-target="#site" data-toggle="collapse" aria-expanded="false"  class="btn btn-default"><i class="nav-icon fas fa-chevron-left mr-2"></i><?= $this->Language->Field['Back'] ?></button>
-            <button type="button" id="reviewBTN" data-target="#review" data-toggle="collapse" aria-expanded="false"  class="btn btn-primary float-right"><?= $this->Language->Field['Next'] ?><i class="nav-icon fas fa-chevron-right ml-2"></i></button>
-          </div>
-        </div>
-      </div>
-      <div class="collapse" data-parent="#accordion" id="review">
-        <div class="card card-primary card-outline">
-          <div class="card-header">
-            <h5 class="m-0"><?= $this->Language->Field['Review_Configuration'] ?></h5>
-          </div>
-          <div class="card-body">
-            <p class="card-text">
-							<div class="col-12">
-								<div class="card card-primary">
-				          <div class="card-header">
-				            <h5 class="m-0"><?= $this->Language->Field['SQL_Database'] ?></h5>
-				          </div>
-				          <div class="card-body">
-										<div class="row border-bottom pt-2">
-											<div class="col-4">Host</div>
-											<div class="col-8" id="DivSQL_host"></div>
-										</div>
-										<div class="row border-bottom pt-2">
-											<div class="col-4">Database</div>
-											<div class="col-8" id="DivSQL_database"></div>
-										</div>
-										<div class="row border-bottom pt-2">
-											<div class="col-4">Username</div>
-											<div class="col-8" id="DivSQL_username"></div>
-										</div>
-										<div class="row border-bottom pt-2">
-											<div class="col-4">Password</div>
-											<div class="col-8" id="DivSQL_password"></div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-12">
-								<div class="card card-primary">
-				          <div class="card-header">
-				            <h5 class="m-0"><?= $this->Language->Field['Site_Configuration'] ?></h5>
-				          </div>
-				          <div class="card-body">
-										<div class="row border-bottom pt-2">
-											<div class="col-4">License</div>
-											<div class="col-8" id="DivSite_license"></div>
-										</div>
-										<div class="row border-bottom pt-2">
-											<div class="col-4">Landing Page</div>
-											<div class="col-8" id="DivSite_landing"></div>
-										</div>
-										<div class="row border-bottom pt-2">
-											<div class="col-4">Sync Mode</div>
-											<div class="col-8" id="DivSite_sync"></div>
-										</div>
-										<div class="row border-bottom pt-2">
-											<div class="col-4">Timezone</div>
-											<div class="col-8" id="DivSite_timezone"></div>
-										</div>
-										<div class="row border-bottom pt-2">
-											<div class="col-4">Sample Data</div>
-											<div class="col-8" id="DivSite_sample"></div>
-										</div>
-										<div class="row border-bottom pt-2">
-											<div class="col-4">License Terms</div>
-											<div class="col-8" id="DivSite_terms"></div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</p>
-          </div>
-          <div class="card-footer">
-            <button type="button" data-target="#license" data-toggle="collapse" aria-expanded="false"  class="btn btn-default"><i class="nav-icon fas fa-chevron-left mr-2"></i><?= $this->Language->Field['Back'] ?></button>
-            <button type="submit" name="StartInstall" class="btn btn-success float-right"><?= $this->Language->Field['Install'] ?><i class="nav-icon far fa-play-circle ml-2"></i></button>
-          </div>
-        </div>
-      </div>
-      <div class="collapse" data-parent="#accordion" id="log">
-        <div class="card card-primary card-outline">
-          <div class="card-header">
-            <h5 class="m-0"><?= $this->Language->Field['Installation_Details'] ?></h5>
-          </div>
-          <div class="card-body" style="max-height:500px;overflow:scroll;">
-            <p class="card-text" id="log_container"></p>
-          </div>
-          <div class="card-footer">
-            <button type="button" data-target="#welcome" data-toggle="collapse" aria-expanded="false"  class="btn btn-default"><i class="nav-icon fas fa-chevron-left mr-2"></i><?= $this->Language->Field['Back'] ?></button>
-            <a href="<?=$this->URL?>" class="btn btn-primary float-right">
-              <?= $this->Language->Field['Sign_In'] ?><i class="nav-icon fas fa-sign-in-alt ml-2"></i>
-            </a>
-          </div>
-        </div>
-      </div>
+      </form>
     </div>
-  </form>
-</div>
+  </div>
 <!-- /.login-box -->
 
 <!-- jQuery -->

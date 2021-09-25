@@ -44,7 +44,7 @@ class Application extends API{
 	public function start(){
 		$this->LSP->Status = TRUE;
 		if((isset($_GET['logout']))&&(!empty($_GET['logout']))){ $this->Auth->logout($_GET['logout']); }
-		require_once dirname(__FILE__,2) . '/templates/template.php';
+		require_once dirname(__FILE__,3) . '/src/templates/template.php';
 	}
 
   public function isCurrent($thiscontroller, $thisview = 'index', $thisid = null){

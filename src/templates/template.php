@@ -191,8 +191,8 @@
 ?>
 <body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed pace-<?=$pace?> <?php if($darkmode){ echo "dark-mode"; } ?>">
 	<?php
-  if(true){
-  // if($this->Validate()){
+  // if(true){
+  if($this->Validate()){
 		if((isset($this->Settings['license']))&&((isset($this->LSP->Status))&&($this->LSP->Status))){
 			if(!$this->Auth->isBlacklisted($this->Auth->getClientIP())){
 				if((!isset($this->Settings['maintenance']))||(!$this->Settings['maintenance'])){
