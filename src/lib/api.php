@@ -369,7 +369,7 @@ class API{
       echo "\n";
       $this->__version();
       echo "\n";
-      echo "Published on ".$this->Settings['repository']['host']['git'].$this->Settings['repository']['name']."\n";
+      echo "Published on ".$this->Settings['repository']['host']['git'].$this->Settings['repository']['name'].".git\n";
     }
   }
 
