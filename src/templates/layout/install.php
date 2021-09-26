@@ -211,7 +211,6 @@
                           <i class="fas fa-key"></i>
                         </span>
                       </div>
-                      <?php var_dump($this->Settings['license']);?>
                       <input type="text" class="form-control" placeholder="XXXX-XXXX-XXXX-XXXX-XXXX-XXXX-XXXX-XXXX" id="activation_license" name="activation_license" value="<?php if(isset($_POST['site_license'])){ echo $_POST['site_license']; } else { if(isset($this->Settings['license'])){ echo $this->Settings['license']; } } ?>">
                     </div>
                   </div>
