@@ -138,7 +138,7 @@
                     <div class="col-sm-10 input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text">
-                          <i class="fas fa-columns"></i>
+                          <i class="fas fa-home"></i>
                         </span>
                       </div>
                       <select class="form-control select2bs4" name="site_page" id="site_page">
@@ -147,7 +147,7 @@
     											if(("$plugin" != "..") and ("$plugin" != ".")){
     												$file = dirname(__FILE__,4).'/plugins/'.$plugin.'/src/views/index.php';
     												if(is_file($file)){ ?>
-                              <option value="<?=$plugin?>"<?php if((isset($_POST['site_page']))&&($_POST['site_page']==$plugin)){echo" selected";}?>><?=ucwords(str_replace('_',' ',$plugin))?></option>
+                              <option value="<?=$plugin?>"<?php if((isset($_POST['site_page']))&&($_POST['site_page']==$plugin)){echo" selected";} else { if(isset($this->Settings['page'])&&$this->Settings['page']==$plugin){ echo " selected"; } }?>><?=ucwords(str_replace('_',' ',$plugin))?></option>
                         <?php }}} ?>
                       </select>
                     </div>
@@ -157,12 +157,12 @@
                     <div class="col-sm-10 input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text">
-                          <i class="fas fa-user-lock"></i>
+                          <i class="fas fa-sync-alt"></i>
                         </span>
                       </div>
                       <select class="form-control select2bs4" name="site_background_jobs" id="site_background_jobs">
-                        <option value="cron"<?php if((isset($_POST['site_background_jobs']))&&($_POST['site_background_jobs']=='cron')){echo" selected";}?>><?= $this->Language->Field['Cron'] ?></option>
-                        <option value="service"<?php if((isset($_POST['site_background_jobs']))&&($_POST['site_background_jobs']=='service')){echo" selected";}?>><?= $this->Language->Field['Service'] ?></option>
+                        <option value="cron"<?php if((isset($_POST['site_background_jobs']))&&($_POST['site_background_jobs']=='cron')){echo" selected";} else { if(isset($this->Settings['background_jobs'])&&$this->Settings['background_jobs']=="cron"){ echo " selected"; } }?>><?= $this->Language->Field['Cron'] ?></option>
+                        <option value="service"<?php if((isset($_POST['site_background_jobs']))&&($_POST['site_background_jobs']=='service')){echo" selected";} else { if(isset($this->Settings['background_jobs'])&&$this->Settings['background_jobs']=="service"){ echo " selected"; } }?>><?= $this->Language->Field['Service'] ?></option>
                       </select>
                     </div>
                   </div>
@@ -176,7 +176,7 @@
                       </div>
                       <select class="form-control select2bs4" name="site_timezone" id="site_timezone">
                         <?php foreach($this->Timezones as $timezone) {?>
-                          <option value="<?=$timezone?>"<?php if((isset($_POST['site_timezone']))&&($_POST['site_timezone']==$timezone)){echo" selected";}?>><?=$timezone?></option>
+                          <option value="<?=$timezone?>"<?php if((isset($_POST['site_timezone']))&&($_POST['site_timezone']==$timezone)){echo" selected";} else { if(isset($this->Settings['timezone'])&&$this->Settings['timezone']==$timezone){ echo " selected"; } }?>><?=$timezone?></option>
                         <?php } ?>
                       </select>
                     </div>

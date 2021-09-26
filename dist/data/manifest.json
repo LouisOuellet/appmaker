@@ -1,6 +1,14 @@
 {
+    "sql": {
+        "username": "appmaker",
+        "password": "Raphy0610+-",
+        "host": "localhost",
+        "database": "appmaker"
+    },
+    "license": "422c-21e2-d22b-504a-10d3-7fdf-5efb-52ba",
     "title": "ALB Connect",
     "language": "english",
+    "page": "dashboard",
     "timezone": "America\/Toronto",
     "SQLlimit": "500",
     "registration": false,
@@ -68,7 +76,7 @@
         }
     },
     "version": "21.09-dev",
-    "build": 20,
+    "build": 21,
     "repository": {
         "name": "appmaker",
         "branch": "dev",
