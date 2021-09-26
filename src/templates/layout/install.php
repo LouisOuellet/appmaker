@@ -249,76 +249,74 @@
               <div class="card-header">
                 <h5 class="m-0"><?= $this->Language->Field['Review_Configuration'] ?></h5>
               </div>
-              <div class="card-body p-0 m-0">
-                <p class="card-text p-2 m-0">
-    							<div class="col-12 p-0 m-0">
-    								<div class="card card-primary my-2">
-    				          <div class="card-header">
-    				            <h5 class="m-0"><?= $this->Language->Field['SQL_Database'] ?></h5>
-    				          </div>
-    				          <div class="card-body">
-    										<div class="row border-bottom pt-2">
-    											<div class="col-4">Host</div>
-    											<div class="col-8" id="DivSQL_host"></div>
-    										</div>
-    										<div class="row border-bottom pt-2">
-    											<div class="col-4">Database</div>
-    											<div class="col-8" id="DivSQL_database"></div>
-    										</div>
-    										<div class="row border-bottom pt-2">
-    											<div class="col-4">Username</div>
-    											<div class="col-8" id="DivSQL_username"></div>
-    										</div>
-    										<div class="row border-bottom pt-2">
-    											<div class="col-4">Password</div>
-    											<div class="col-8" id="DivSQL_password"></div>
-    										</div>
-    									</div>
-    								</div>
-    								<div class="card card-primary my-2">
-    				          <div class="card-header">
-    				            <h5 class="m-0"><?= $this->Language->Field['Site_Configuration'] ?></h5>
-    				          </div>
-    				          <div class="card-body">
-    										<div class="row border-bottom pt-2">
-    											<div class="col-4">Name</div>
-    											<div class="col-8" id="DivSite_name"></div>
-    										</div>
-    										<div class="row border-bottom pt-2">
-    											<div class="col-4">Landing Page</div>
-    											<div class="col-8" id="DivSite_landing"></div>
-    										</div>
-    										<div class="row border-bottom pt-2">
-    											<div class="col-4">Sync Mode</div>
-    											<div class="col-8" id="DivSite_sync"></div>
-    										</div>
-    										<div class="row border-bottom pt-2">
-    											<div class="col-4">Timezone</div>
-    											<div class="col-8" id="DivSite_timezone"></div>
-    										</div>
-    										<div class="row border-bottom pt-2">
-    											<div class="col-4">Sample Data</div>
-    											<div class="col-8" id="DivSite_sample"></div>
-    										</div>
-    										<div class="row border-bottom pt-2">
-    											<div class="col-4">License Terms</div>
-    											<div class="col-8" id="DivSite_terms"></div>
-    										</div>
-    									</div>
-    								</div>
-    								<div class="card card-primary my-2">
-    				          <div class="card-header">
-    				            <h5 class="m-0"><?= $this->Language->Field['Activation'] ?></h5>
-    				          </div>
-    				          <div class="card-body">
-    										<div class="row border-bottom pt-2">
-    											<div class="col-4">Activation License</div>
-    											<div class="col-8" id="DivSite_activation"></div>
-    										</div>
-    									</div>
-    								</div>
-    							</div>
-    						</p>
+              <div class="card-body">
+  							<div class="col-12">
+  								<div class="card card-primary my-2">
+  				          <div class="card-header">
+  				            <h5 class="m-0"><?= $this->Language->Field['SQL_Database'] ?></h5>
+  				          </div>
+  				          <div class="card-body">
+  										<div class="row border-bottom pt-2">
+  											<div class="col-4">Host</div>
+  											<div class="col-8" id="DivSQL_host"></div>
+  										</div>
+  										<div class="row border-bottom pt-2">
+  											<div class="col-4">Database</div>
+  											<div class="col-8" id="DivSQL_database"></div>
+  										</div>
+  										<div class="row border-bottom pt-2">
+  											<div class="col-4">Username</div>
+  											<div class="col-8" id="DivSQL_username"></div>
+  										</div>
+  										<div class="row border-bottom pt-2">
+  											<div class="col-4">Password</div>
+  											<div class="col-8" id="DivSQL_password"></div>
+  										</div>
+  									</div>
+  								</div>
+  								<div class="card card-primary my-2">
+  				          <div class="card-header">
+  				            <h5 class="m-0"><?= $this->Language->Field['Site_Configuration'] ?></h5>
+  				          </div>
+  				          <div class="card-body">
+  										<div class="row border-bottom pt-2">
+  											<div class="col-4">Name</div>
+  											<div class="col-8" id="DivSite_name"></div>
+  										</div>
+  										<div class="row border-bottom pt-2">
+  											<div class="col-4">Landing Page</div>
+  											<div class="col-8" id="DivSite_landing"></div>
+  										</div>
+  										<div class="row border-bottom pt-2">
+  											<div class="col-4">Sync Mode</div>
+  											<div class="col-8" id="DivSite_sync"></div>
+  										</div>
+  										<div class="row border-bottom pt-2">
+  											<div class="col-4">Timezone</div>
+  											<div class="col-8" id="DivSite_timezone"></div>
+  										</div>
+  										<div class="row border-bottom pt-2">
+  											<div class="col-4">Sample Data</div>
+  											<div class="col-8" id="DivSite_sample"></div>
+  										</div>
+  										<div class="row border-bottom pt-2">
+  											<div class="col-4">License Terms</div>
+  											<div class="col-8" id="DivSite_terms"></div>
+  										</div>
+  									</div>
+  								</div>
+  								<div class="card card-primary my-2">
+  				          <div class="card-header">
+  				            <h5 class="m-0"><?= $this->Language->Field['Activation'] ?></h5>
+  				          </div>
+  				          <div class="card-body">
+  										<div class="row border-bottom pt-2">
+  											<div class="col-4">Activation License</div>
+  											<div class="col-8" id="DivSite_activation"></div>
+  										</div>
+  									</div>
+  								</div>
+  							</div>
               </div>
               <div class="card-footer">
                 <button type="button" data-target="#license" data-toggle="collapse" aria-expanded="false"  class="btn btn-default"><i class="nav-icon fas fa-chevron-left mr-2"></i><?= $this->Language->Field['Back'] ?></button>
