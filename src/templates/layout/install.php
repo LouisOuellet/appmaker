@@ -71,7 +71,7 @@
                           <i class="fas fa-server"></i>
                         </span>
                       </div>
-                      <input type="text" class="form-control" placeholder="<?= $this->Language->Field['Host'] ?>" id="sql_host" name="sql_host" value="<?php if(isset($_POST['sql_host'])){ echo $_POST['sql_host']; } ?>">
+                      <input type="text" class="form-control" placeholder="<?= $this->Language->Field['Host'] ?>" id="sql_host" name="sql_host" value="<?php if(isset($_POST['sql_host'])){ echo $_POST['sql_host']; } else { if(isset($this->Settings['sql']['host'])){ echo $this->Settings['sql']['host']; } } ?>">
                     </div>
                   </div>
                   <div class="form-group row">
@@ -82,7 +82,7 @@
                           <i class="fas fa-database"></i>
                         </span>
                       </div>
-                      <input type="text" class="form-control" placeholder="<?= $this->Language->Field['Database'] ?>" id="sql_database" name="sql_database" value="<?php if(isset($_POST['sql_database'])){ echo $_POST['sql_database']; } ?>">
+                      <input type="text" class="form-control" placeholder="<?= $this->Language->Field['Database'] ?>" id="sql_database" name="sql_database" value="<?php if(isset($_POST['sql_database'])){ echo $_POST['sql_database']; } else { if(isset($this->Settings['sql']['database'])){ echo $this->Settings['sql']['database']; } } ?>">
                     </div>
                   </div>
                   <div class="form-group row">
@@ -93,7 +93,7 @@
                           <i class="fas fa-user"></i>
                         </span>
                       </div>
-                      <input type="text" class="form-control" placeholder="<?= $this->Language->Field['Username'] ?>" id="sql_username" name="sql_username" value="<?php if(isset($_POST['sql_username'])){ echo $_POST['sql_username']; } ?>">
+                      <input type="text" class="form-control" placeholder="<?= $this->Language->Field['Username'] ?>" id="sql_username" name="sql_username" value="<?php if(isset($_POST['sql_username'])){ echo $_POST['sql_username']; } else { if(isset($this->Settings['sql']['username'])){ echo $this->Settings['sql']['username']; } } ?>">
                     </div>
                   </div>
                   <div class="form-group row">
@@ -104,7 +104,7 @@
                           <i class="fas fa-user-lock"></i>
                         </span>
                       </div>
-                      <input type="password" class="form-control" placeholder="<?= $this->Language->Field['Password'] ?>" id="sql_password" name="sql_password" value="<?php if(isset($_POST['sql_password'])){ echo $_POST['sql_password']; } ?>">
+                      <input type="password" class="form-control" placeholder="<?= $this->Language->Field['Password'] ?>" id="sql_password" name="sql_password" value="<?php if(isset($_POST['sql_password'])){ echo $_POST['sql_password']; } else { if(isset($this->Settings['sql']['password'])){ echo $this->Settings['sql']['password']; } } ?>">
                     </div>
                   </div>
                 </p>
@@ -123,14 +123,14 @@
               <div class="card-body">
                 <p class="card-text">
                   <div class="form-group row">
-                    <label for="site_license" class="col-sm-2 col-form-label"><?= $this->Language->Field['Key'] ?></label>
+                    <label for="site_license" class="col-sm-2 col-form-label"><?= $this->Language->Field['Name'] ?></label>
                     <div class="col-sm-10 input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text">
-                          <i class="fas fa-key"></i>
+                          <i class="fas fa-cube"></i>
                         </span>
                       </div>
-                      <input type="text" class="form-control" placeholder="XXXX-XXXX-XXXX-XXXX-XXXX-XXXX-XXXX-XXXX" id="site_license" name="site_license" value="<?php if(isset($_POST['site_license'])){ echo $_POST['site_license']; } ?>">
+                      <input type="text" class="form-control" id="site_name" name="site_name" value="<?php if(isset($_POST['site_name'])){ echo $_POST['site_name']; } else { if(isset($this->Settings['title'])){ echo $this->Settings['title']; } } ?>">
                     </div>
                   </div>
                   <div class="form-group row">
@@ -192,6 +192,32 @@
               </div>
               <div class="card-footer">
                 <button type="button" data-target="#sql" data-toggle="collapse" aria-expanded="false"  class="btn btn-default"><i class="nav-icon fas fa-chevron-left mr-2"></i><?= $this->Language->Field['Back'] ?></button>
+                <button type="button" data-target="#activation" data-toggle="collapse" aria-expanded="false"  class="btn btn-primary float-right"><?= $this->Language->Field['Next'] ?><i class="nav-icon fas fa-chevron-right ml-2"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="collapse" data-parent="#accordion" id="activation">
+            <div class="card card-primary card-outline">
+              <div class="card-header">
+                <h5 class="m-0"><?= $this->Language->Field['Activation'] ?></h5>
+              </div>
+              <div class="card-body">
+                <p class="card-text">
+                  <div class="form-group row">
+                    <label for="site_license" class="col-sm-2 col-form-label"><?= $this->Language->Field['Key'] ?></label>
+                    <div class="col-sm-10 input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          <i class="fas fa-key"></i>
+                        </span>
+                      </div>
+                      <input type="text" class="form-control" placeholder="XXXX-XXXX-XXXX-XXXX-XXXX-XXXX-XXXX-XXXX" id="activation_license" name="activation_license" value="<?php if(isset($_POST['site_license'])){ echo $_POST['site_license']; } else { if(isset($this->Settings['license'])){ echo $this->Settings['license']; } } ?>">
+                    </div>
+                  </div>
+                </p>
+              </div>
+              <div class="card-footer">
+                <button type="button" data-target="#site" data-toggle="collapse" aria-expanded="false"  class="btn btn-default"><i class="nav-icon fas fa-chevron-left mr-2"></i><?= $this->Language->Field['Back'] ?></button>
                 <button type="button" data-target="#license" data-toggle="collapse" aria-expanded="false"  class="btn btn-primary float-right"><?= $this->Language->Field['Next'] ?><i class="nav-icon fas fa-chevron-right ml-2"></i></button>
               </div>
             </div>
@@ -257,8 +283,8 @@
     				          </div>
     				          <div class="card-body">
     										<div class="row border-bottom pt-2">
-    											<div class="col-4">License</div>
-    											<div class="col-8" id="DivSite_license"></div>
+    											<div class="col-4">Name</div>
+    											<div class="col-8" id="DivSite_name"></div>
     										</div>
     										<div class="row border-bottom pt-2">
     											<div class="col-4">Landing Page</div>
@@ -279,6 +305,19 @@
     										<div class="row border-bottom pt-2">
     											<div class="col-4">License Terms</div>
     											<div class="col-8" id="DivSite_terms"></div>
+    										</div>
+    									</div>
+    								</div>
+    							</div>
+    							<div class="col-12">
+    								<div class="card card-primary">
+    				          <div class="card-header">
+    				            <h5 class="m-0"><?= $this->Language->Field['Activation'] ?></h5>
+    				          </div>
+    				          <div class="card-body">
+    										<div class="row border-bottom pt-2">
+    											<div class="col-4">Activation License</div>
+    											<div class="col-8" id="DivSite_activation"></div>
     										</div>
     									</div>
     								</div>
@@ -343,11 +382,12 @@
 		$('#DivSQL_database').html($(document.getElementById("sql_database")).val());
 		$('#DivSQL_username').html($(document.getElementById("sql_username")).val());
 		$('#DivSQL_password').html($(document.getElementById("sql_password")).val());
-		$('#DivSite_license').html($(document.getElementById("site_license")).val());
+		$('#DivSite_name').html($(document.getElementById("site_name")).val());
 		$('#DivSite_landing').html($(document.getElementById("site_page")).find('option:selected').text());
 		$('#DivSite_sync').html($(document.getElementById("site_background_jobs")).find('option:selected').text());
 		$('#DivSite_timezone').html($(document.getElementById("site_timezone")).find('option:selected').text());
 		$('#DivSite_sample').html($(document.getElementById("site_sample")).checked);
+		$('#DivSite_activation').html($(document.getElementById("activation_license")).val());
 		$('#DivSite_terms').html($(document.getElementById("license_term_field")).checked);
 	});
 </script>
@@ -415,7 +455,10 @@ $(document).ready(function () {
       license_term: {
         required: true,
       },
-      site_license: {
+      activation_license: {
+        required: true,
+      },
+      site_name: {
         required: true,
       },
       site_page: {
@@ -445,11 +488,12 @@ $(document).ready(function () {
         var sql_database = document.getElementById("sql_database").value;
         var sql_username = document.getElementById("sql_username").value;
         var sql_password = document.getElementById("sql_password").value;
-        var site_license = document.getElementById("site_license").value;
+        var site_name = document.getElementById("site_name").value;
         var site_sample = document.getElementById("site_sample").checked;
         var site_page = document.getElementById("site_page").value;
         var site_background_jobs = document.getElementById("site_background_jobs").value;
         var site_timezone = document.getElementById("site_timezone").value;
+        var activation_license = document.getElementById("activation_license").value;
         var serverid = "<?php echo $_SERVER['SERVER_SOFTWARE'].$_SERVER['DOCUMENT_ROOT'].$_SERVER['SCRIPT_FILENAME'].$_SERVER['GATEWAY_INTERFACE'].$_SERVER['PATH']; ?>"
         // Returns successful data submission message when the entered information is stored in database.
         var dataString = {
@@ -457,11 +501,12 @@ $(document).ready(function () {
             sql_database: sql_database,
             sql_username: sql_username,
             sql_password: sql_password,
-            site_license: site_license,
+            site_name: site_name,
             site_sample: site_sample,
             site_page: site_page,
             site_background_jobs: site_background_jobs,
             site_timezone: site_timezone,
+            activation_license: activation_license,
             serverid: serverid,
         }
         // AJAX code to submit form.
