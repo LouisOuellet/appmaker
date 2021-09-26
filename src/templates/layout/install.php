@@ -211,6 +211,7 @@
                           <i class="fas fa-key"></i>
                         </span>
                       </div>
+                      <?php var_dump($this->Settings['license']);?>
                       <input type="text" class="form-control" placeholder="XXXX-XXXX-XXXX-XXXX-XXXX-XXXX-XXXX-XXXX" id="activation_license" name="activation_license" value="<?php if(isset($_POST['site_license'])){ echo $_POST['site_license']; } else { if(isset($this->Settings['license'])){ echo $this->Settings['license']; } } ?>">
                     </div>
                   </div>
@@ -239,7 +240,7 @@
                 </p>
               </div>
               <div class="card-footer">
-                <button type="button" data-target="#site" data-toggle="collapse" aria-expanded="false"  class="btn btn-default"><i class="nav-icon fas fa-chevron-left mr-2"></i><?= $this->Language->Field['Back'] ?></button>
+                <button type="button" data-target="#activation" data-toggle="collapse" aria-expanded="false"  class="btn btn-default"><i class="nav-icon fas fa-chevron-left mr-2"></i><?= $this->Language->Field['Back'] ?></button>
                 <button type="button" id="reviewBTN" data-target="#review" data-toggle="collapse" aria-expanded="false"  class="btn btn-primary float-right"><?= $this->Language->Field['Next'] ?><i class="nav-icon fas fa-chevron-right ml-2"></i></button>
               </div>
             </div>
