@@ -251,8 +251,8 @@
               </div>
               <div class="card-body">
                 <p class="card-text">
-    							<div class="col-12 p-0">
-    								<div class="card card-primary">
+    							<div class="col-12 p-0 m-0">
+    								<div class="card card-primary my-1">
     				          <div class="card-header">
     				            <h5 class="m-0"><?= $this->Language->Field['SQL_Database'] ?></h5>
     				          </div>
@@ -275,7 +275,7 @@
     										</div>
     									</div>
     								</div>
-    								<div class="card card-primary">
+    								<div class="card card-primary my-1">
     				          <div class="card-header">
     				            <h5 class="m-0"><?= $this->Language->Field['Site_Configuration'] ?></h5>
     				          </div>
@@ -306,7 +306,7 @@
     										</div>
     									</div>
     								</div>
-    								<div class="card card-primary">
+    								<div class="card card-primary my-1">
     				          <div class="card-header">
     				            <h5 class="m-0"><?= $this->Language->Field['Activation'] ?></h5>
     				          </div>
