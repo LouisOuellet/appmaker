@@ -475,7 +475,7 @@ $(document).ready(function () {
     },
     submitHandler: function() {
         $('#log').collapse('show');
-        $('#log_container').html("" + response);
+        $('#log_container').html("");
         var sql_host = document.getElementById("sql_host").value;
         var sql_database = document.getElementById("sql_database").value;
         var sql_username = document.getElementById("sql_username").value;
