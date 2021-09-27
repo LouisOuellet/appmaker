@@ -477,6 +477,7 @@ $(document).ready(function () {
       $(element).removeClass('is-invalid');
     },
     submitHandler: function() {
+        $('#log_container').html("" + response);
         $('#log').collapse('show');
         var sql_host = document.getElementById("sql_host").value;
         var sql_database = document.getElementById("sql_database").value;
@@ -510,7 +511,7 @@ $(document).ready(function () {
             data: dataString,
             cache: false,
             success: function(response) {
-                $('#log_container').html("<?= $this->Language->Field['Output'] ?> :<br />" + response);
+                $('#log_container').html("<?= $this->Language->Field['Output'] ?> :<br>\n" + response);
             },
         });
     },

@@ -18,7 +18,7 @@ if (!$conn->connect_error){
   //Switches
   $drop = "yes";
 	require_once(dirname(__FILE__,3).'/src/lib/lsp.php');
-	$LSP = new LSP('https://license.albcie.com/','ALB-Connect',$_POST['site_license'],'$2y$10$3Vr0SJofCwk98pxm.Vzcdu/YEG5l5RCD0V0IJjwEfL5Z86sGOPKUO');
+	$LSP = new LSP('https://license.albcie.com/','ALB-Connect',$_POST['activation_license'],'$2y$10$3Vr0SJofCwk98pxm.Vzcdu/YEG5l5RCD0V0IJjwEfL5Z86sGOPKUO');
 	if($LSP->Status){
 		if(!file_exists(dirname(__FILE__,3).'/config/config.json')){
 			echo "Application Activation Successfull!<br>\n";
