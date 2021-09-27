@@ -324,21 +324,21 @@ var API = {
 		validate:function(type, name, level, table =''){
 			switch(type){
 				case"field":
-					if((API.Helper.isSet(API.Contents,['Auth','Permissions',type,table,name]))||(API.Contents.Auth.Permissions[type][table][name] >= level)){
+					if((API.Helper.isSet(API,['Contents','Auth','Permissions',type,table,name]))||(API.Contents.Auth.Permissions[type][table][name] >= level)){
 						return true;
 					} else {
 						return false;
 					}
 					break;
 				case"view":
-					if((API.Helper.isSet(API.Contents,['Auth','Permissions',type,table,name]))&&(API.Contents.Auth.Permissions[type][table][name] >= level)){
+					if((API.Helper.isSet(API,['Contents','Auth','Permissions',type,table,name]))&&(API.Contents.Auth.Permissions[type][table][name] >= level)){
 						return true;
 					} else {
 						return false;
 					}
 					break;
 				default:
-					if((API.Helper.isSet(API.Contents,['Auth','Permissions',type,name]))&&(API.Contents.Auth.Permissions[type][name] >= level)){
+					if((API.Helper.isSet(API,['Contents','Auth','Permissions',type,name]))&&(API.Contents.Auth.Permissions[type][name] >= level)){
 						return true;
 					} else {
 						return false;
@@ -352,7 +352,7 @@ var API = {
 			var url = new URL(window.location.href);
 			origin = {plugin:url.searchParams.get("p"), view:url.searchParams.get("v")};
 			var checkExist = setInterval(function(){
-				if((API.initiated)&&(API.Helper.isSet(API.Contents,['Settings','LandingPage']))){
+				if((API.initiated)&&(API.Helper.isSet(API,['Contents','Settings','LandingPage']))){
 					clearInterval(checkExist);
 					if(origin.plugin == null){
 						if((API.Helper.isSet(API.Contents.Auth.Options,['application','landingPage','value']))&&(API.Contents.Auth.Options.application.landingPage.value != null)&&(API.Contents.Auth.Options.application.landingPage.value != '')){
@@ -830,7 +830,7 @@ var API = {
 				add:function(txt, color = 'gray', callback = null){
 					if(color instanceof Function){ callback = color; color = 'gray'; }
 					var checkExist = setInterval(function() {
-						if((API.Helper.isSet(API.Contents,['Auth','Permissions']))&&(typeof API.Contents.Language !== 'undefined')){
+						if((API.Helper.isSet(API,['Contents','Auth','Permissions']))&&(typeof API.Contents.Language !== 'undefined')){
 							clearInterval(checkExist);
 							if((API.Auth.validate('nav-header', txt.toLowerCase(), 1))&&($('#sidenav-'+txt.toLowerCase()).length == 0)){
 								++API.GUI.Sidebar.Header.count;
@@ -848,7 +848,7 @@ var API = {
 					var url = new URL(window.location.href);
 					if(icon == null){ icon = 'icon icon-'+lwr_txt; }
 					var checkExist = setInterval(function() {
-						if((API.Helper.isSet(API.Contents,['Auth','Permissions']))&&(typeof API.Contents.Language !== 'undefined')){
+						if((API.Helper.isSet(API,['Contents','Auth','Permissions']))&&(typeof API.Contents.Language !== 'undefined')){
 							if(API.Auth.validate('nav-header', location, 1)){
 								if($('#sidenav-'+location).length){
 									clearInterval(checkExist);
@@ -915,7 +915,7 @@ var API = {
 				var maxit = 25, start = 0;
 				var checkExist = setInterval(function() {
 					++start;
-					if((API.Helper.isSet(API.Contents,['Auth','Permissions']))&&(typeof API.Contents.Language !== 'undefined')){
+					if((API.Helper.isSet(API,['Contents','Auth','Permissions']))&&(typeof API.Contents.Language !== 'undefined')){
 						clearInterval(checkExist);
 						if($('.breadcrumb li').length >= API.GUI.Breadcrumbs.max){ $('.breadcrumb li:last-child').remove(); }
 						if(url.searchParams.get("id") != undefined){ var crumbtitle = API.Helper.ucfirst(API.Helper.clean(url.searchParams.get("id"))); } else { var crumbtitle = API.Contents.Language[API.Helper.ucfirst(API.Helper.clean(title))]; }
@@ -1015,7 +1015,7 @@ var API = {
 						$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').attr('href','?p='+data.relationship+'&v=details&id='+value);
 						$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').click(function(action){
 							action.preventDefault();
-							if(API.Helper.isSet(API.Contents,[data.relationship,value])){
+							if(API.Helper.isSet(API,['Contents',data.relationship,value])){
 								API.GUI.Breadcrumbs.add(value, '?p='+data.relationship+'&v=details&id='+value, { keys:API.Contents.data[data.relationship][value] });
 								API.CRUD.read.show({ keys:API.Contents.data[data.relationship][value], title:value, href:'?p='+data.relationship+'&v=details&id='+value, modal:true });
 							} else {
@@ -1138,7 +1138,7 @@ var API = {
 			var maxit = 25, start = 0;
 			var checkExist = setInterval(function() {
 				++start;
-				if((API.Helper.isSet(API.Contents,['Auth','User']))&&(typeof API.Contents.Language !== 'undefined')){
+				if((API.Helper.isSet(API,['Contents','Auth','User']))&&(typeof API.Contents.Language !== 'undefined')){
 					clearInterval(checkExist);
 					// Insert card in DOM
 					var html = '', title = options.title, icon = options.icon, css = options.css;
@@ -1651,7 +1651,7 @@ var API = {
 			if(typeof options.controls.disable === 'undefined'){ options.controls.disable = []; }
 			if(typeof options.controls.add === 'undefined'){ options.controls.add = []; }
 			var checkExist = setInterval(function() {
-				if((API.Helper.isSet(API.Contents,['Auth','User']))&&(typeof API.Contents.Language !== 'undefined')){
+				if((API.Helper.isSet(API,['Contents','Auth','User']))&&(typeof API.Contents.Language !== 'undefined')){
 					clearInterval(checkExist);
 
 					// Insert table in DOM
@@ -1854,7 +1854,7 @@ var API = {
 								break;
 							case"priority":
 								cols[key].render = function(data, type, row, meta){
-									if((data != '')&&(API.Helper.isSet(API.Contents,['Priorities',options.clickable.plugin,data]))){
+									if((data != '')&&(API.Helper.isSet(API,['Contents','Priorities',options.clickable.plugin,data]))){
 										var html = '<h4><span class="badge bg-'+API.Contents.Priorities[options.clickable.plugin][data].color+'">';
 											html += '<i class="'+API.Contents.Priorities[options.clickable.plugin][data].icon+' mr-1"></i>';
 											html += API.Contents.Language[API.Contents.Priorities[options.clickable.plugin][data].name];
@@ -2001,7 +2001,7 @@ var API = {
 					var ohref = { plugin:origin.searchParams.get("p"), view:origin.searchParams.get("v"), id:dtid};
 					if(ohref.plugin == null){ ohref.plugin = API.Contents.SettingsLandingPage; }
 					if(ohref.view == null){ ohref.view = 'index'; }
-					if(API.Helper.isSet(API.Contents,['Auth','Options','hide',ohref.plugin,ohref.view,'any','table',ohref.id])){
+					if(API.Helper.isSet(API,['Contents','Auth','Options','hide',ohref.plugin,ohref.view,'any','table',ohref.id])){
 						hide = API.Contents.Auth.Options.hide[ohref.plugin][ohref.view].any.table[ohref.id];
 					}
 					if(cols.length > 0){
@@ -2215,7 +2215,7 @@ var API = {
 			var maxit = 25, start = 0;
 			var checkExist = setInterval(function() {
 				++start;
-				if((API.Helper.isSet(API.Contents,['Auth','User']))&&(typeof API.Contents.Language !== 'undefined')){
+				if((API.Helper.isSet(API,['Contents','Auth','User']))&&(typeof API.Contents.Language !== 'undefined')){
 					clearInterval(checkExist);
 					// Insert modal in DOM
 					var html = '';
@@ -2294,7 +2294,7 @@ var API = {
 			var maxit = 25, start = 0;
 			var checkExist = setInterval(function() {
 				++start;
-				if((API.Helper.isSet(API.Contents,['Auth','User']))&&(typeof API.Contents.Language !== 'undefined')){
+				if((API.Helper.isSet(API,['Contents','Auth','User']))&&(typeof API.Contents.Language !== 'undefined')){
 					clearInterval(checkExist);
 					// Insert modal in DOM
 					++API.Builder.counts.form;
@@ -2460,7 +2460,7 @@ var API = {
 					case "user":
 						inputForm += '<div class="input-group" data-key="'+index+'">';
 							inputForm += '<div class="input-group-prepend"><span class="input-group-text"><i class="'+icon+' mr-1"></i>'+title+'</span></div>';
-							if(API.Helper.isSet(API.Contents,['data','dom','users'])){
+							if(API.Helper.isSet(API,['Contents','data','dom','users'])){
 								inputForm += '<select data-key="'+index+'" title="'+title+'" class="form-control select2bs4 select2-hidden-accessible" name="'+index+'">';
 								for(var [key, val] of Object.entries(API.Contents.data.dom.users)){
 									if(val.username == value){ inputForm += '<option value="'+val.id+'" selected="selected">'+val.username+'</option>'; } else { inputForm += '<option value="'+val.id+'">'+val.username+'</option>'; }
@@ -2486,7 +2486,7 @@ var API = {
 					case "organizations":
 						inputForm += '<div class="input-group" data-key="'+index+'">';
 							inputForm += '<div class="input-group-prepend"><span class="input-group-text"><i class="'+icon+' mr-1"></i>'+title+'</span></div>';
-							if(API.Helper.isSet(API.Contents,['data','dom','organizations'])){
+							if(API.Helper.isSet(API,['Contents','data','dom','organizations'])){
 								inputForm += '<select data-key="'+index+'" title="'+title+'" class="form-control select2bs4 select2-hidden-accessible" name="'+index+'">';
 								for(var [key, val] of Object.entries(API.Contents.data.dom.organizations)){
 									if(val.name == value){ inputForm += '<option value="'+val.id+'" selected="selected">'+val.name+'</option>'; } else { inputForm += '<option value="'+val.id+'">'+val.name+'</option>'; }
@@ -2512,7 +2512,7 @@ var API = {
 					case "group":
 						inputForm += '<div class="input-group" data-key="'+index+'">';
 							inputForm += '<div class="input-group-prepend"><span class="input-group-text"><i class="'+icon+' mr-1"></i>'+title+'</span></div>';
-							if(API.Helper.isSet(API.Contents,['data','dom','groups'])){
+							if(API.Helper.isSet(API,['Contents','data','dom','groups'])){
 								inputForm += '<select data-key="'+index+'" title="'+title+'" class="form-control select2bs4 select2-hidden-accessible" name="'+index+'">';
 								for(var [key, val] of Object.entries(API.Contents.data.dom.groups)){
 									if(val.name == value){ inputForm += '<option value="'+val.id+'" selected="selected">'+val.name+'</option>'; } else { inputForm += '<option value="'+val.id+'">'+val.name+'</option>'; }
@@ -2540,7 +2540,7 @@ var API = {
 					case "organization":
 						inputForm += '<div class="input-group" data-key="'+index+'">';
 							inputForm += '<div class="input-group-prepend"><span class="input-group-text"><i class="'+icon+' mr-1"></i>'+title+'</span></div>';
-							if(API.Helper.isSet(API.Contents,['data','form',plugin,view,index])){
+							if(API.Helper.isSet(API,['Contents','data','form',plugin,view,index])){
 								inputForm += '<select data-key="'+index+'" title="'+title+'" class="form-control select2bs4 select2-hidden-accessible" name="'+index+'">';
 								for(var [key, val] of Object.entries(API.Contents.data.form[plugin][view][index])){
 									if(key == value){ inputForm += '<option value="'+val.id+'" selected="selected">'+val.name+'</option>'; } else { inputForm += '<option value="'+val.id+'">'+val.name+'</option>'; }
@@ -3089,7 +3089,7 @@ var API = {
 						var type = 'form';
 						break;
 				}
-				if(API.Helper.isSet(API.Contents,['Auth','Options','hide',plugin,view,'any',type,id])){
+				if(API.Helper.isSet(API,['Contents','Auth','Options','hide',plugin,view,'any',type,id])){
 					hide = API.Contents.Auth.Options.hide[plugin][view].any[type][id];
 				} else { hide = {}; }
 				if((options != null)&&(options instanceof Function)){ callback = options; options = {}; }
@@ -3177,7 +3177,7 @@ var API = {
 									tr = 'form';
 									break;
 							}
-							if(API.Helper.isSet(API.Contents,['Auth','Options','hide',plugin,view,'any',tr,id])){
+							if(API.Helper.isSet(API,['Contents','Auth','Options','hide',plugin,view,'any',tr,id])){
 								API.Helper.set(API.Contents,['Auth','Options','hide',plugin,view,'any',tr,id],{});
 							}
 							table.DataTable().rows( { selected: true } ).every(function(){
@@ -3268,7 +3268,7 @@ var API = {
 						body.html('');
 						for(var [key, value] of Object.entries(options.keys)){
 							title = API.Contents.Language[API.Helper.ucfirst(API.Helper.clean(key))];
-							if(API.Helper.isSet(API.Contents,['Auth','Options','filter',plugin,view,'any',id,key])){
+							if(API.Helper.isSet(API,['Contents','Auth','Options','filter',plugin,view,'any',id,key])){
 								input = '<div class="input-group row pl-2 pt-2">';
 								input += '<div class="input-group-prepend col-4 pr-0"><span class="input-group-text" style="width:100%;"><i class="icon icon-'+key+' mr-1"></i>'+title+'</span></div>';
 								input += '<select data-key="'+key+'" class="form-control select2bs4 select2-hidden-accessible col-4" name="relationship">';
@@ -3344,7 +3344,7 @@ var API = {
 							},function(result){
 								var dataset = JSON.parse(result);
 								if(typeof dataset.success !== 'undefined'){
-									if(API.Helper.isSet(API.Contents,['Auth','Options','filter',plugin,view,'any',id])){
+									if(API.Helper.isSet(API,['Contents','Auth','Options','filter',plugin,view,'any',id])){
 										API.Helper.set(API.Contents,['Auth','Options','filter',plugin,view,'any',id],{});
 									}
 									if(dataset.output.results.length > 0){
@@ -3630,7 +3630,7 @@ var API = {
 					API.Builder.form(modal,{},function(form){
 						modal.on('hide.bs.modal',function(){ form.remove(); });
 						if((jQuery.isEmptyObject(options.hide))
-							&&(API.Helper.isSet(API.Contents,['Auth','Options','hide',options.plugin,view,'any','form',form.attr('id')]))){
+							&&(API.Helper.isSet(API,['Contents','Auth','Options','hide',options.plugin,view,'any','form',form.attr('id')]))){
 								options.hide = API.Contents.Auth.Options.hide[options.plugin][view].any.form[form.attr('id')];
 						}
 						var skip = ['id','created','modified','owner','updated_by'];
@@ -4000,7 +4000,7 @@ var API = {
 						modal.on('hide.bs.modal',function(){ form.remove(); });
 						var skip = ['id','created','modified','owner','updated_by'];
 						if((jQuery.isEmptyObject(options.hide))
-							&&(API.Helper.isSet(API.Contents,['Auth','Options','hide',plugin,view,'any','form',form.attr('id')]))){
+							&&(API.Helper.isSet(API,['Contents','Auth','Options','hide',plugin,view,'any','form',form.attr('id')]))){
 								options.hide = API.Contents.Auth.Options.hide[plugin][view].any.form[form.attr('id')];
 						}
 						body.html('');
@@ -4825,9 +4825,9 @@ API.init();
 var maxit = 25, start = 0;
 var checkSettings = setInterval(function() {
 	++start;
-	if(API.Helper.isSet(API.Contents,['Auth','Options'])){
+	if(API.Helper.isSet(API,['Contents','Auth','Options'])){
 		clearInterval(checkSettings);
-		if(API.Helper.isSet(API.Contents,['Auth','Options','application'])){
+		if(API.Helper.isSet(API,['Contents','Auth','Options','application'])){
 			for(var [key, value] of Object.entries(API.Contents.Auth.Options.application)){
 				switch(key){
 					case'swalPosition':
