@@ -76,7 +76,7 @@
         }
     },
     "version": "21.09-dev",
-    "build": 37,
+    "build": 38,
     "repository": {
         "name": "appmaker",
         "branch": "dev",
@@ -87,6 +87,7 @@
         "manifest": "\/dist\/data\/manifest.json"
     },
     "lsp": {
+        "required": false,
         "host": "https:\/\/license.albcie.com\/",
         "application": "ALB-Connect",
         "token": "$2y$10$RYbZ3aqz8d9jWQm9pQZUz.GYUlMkm8nkxHSUAdssPW5.QlMb.B6Py"

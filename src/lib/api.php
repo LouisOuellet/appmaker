@@ -88,7 +88,7 @@ class API{
 		if((isset($_POST['key']))&&(!isset($this->Settings['license']))){
 			$this->SaveCfg(['license' => $_POST['key']],$this->Settings);
 		}
-		if((isset($this->Settings['lsp']['license_required']))&&($this->Settings['lsp']['license_required'])){
+		if((isset($this->Settings['lsp']['required']))&&($this->Settings['lsp']['required'])){
 			if(isset($this->Settings['license'])){
 				$this->LSP = new LSP($this->Settings['lsp']['host'],$this->Settings['repository']['name'],$this->Settings['license'],$this->Settings['lsp']['token']);
 				if((isset($this->Settings['repository']['branch']))&&(!empty($this->Settings['repository']['branch']))){ $this->LSP->chgBranch($this->Settings['repository']['branch']); }
