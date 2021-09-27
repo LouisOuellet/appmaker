@@ -1,433 +1,431 @@
 {
-    "Plugins": {
-        "appointments": {
-            "repository": {
-                "name": "appmaker",
-                "branch": "dev",
-                "host": {
-                    "git": "https:\/\/github.com\/LouisOuellet\/",
-                    "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
-                },
-                "manifest": "\/dist\/data\/manifest.json"
-            }
-        },
-        "automatons": {
-            "repository": {
-                "name": "appmaker",
-                "branch": "dev",
-                "host": {
-                    "git": "https:\/\/github.com\/LouisOuellet\/",
-                    "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
-                },
-                "manifest": "\/dist\/data\/manifest.json"
-            }
-        },
-        "callbacks": {
-            "repository": {
-                "name": "appmaker",
-                "branch": "dev",
-                "host": {
-                    "git": "https:\/\/github.com\/LouisOuellet\/",
-                    "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
-                },
-                "manifest": "\/dist\/data\/manifest.json"
-            }
-        },
-        "calls": {
-            "repository": {
-                "name": "appmaker",
-                "branch": "dev",
-                "host": {
-                    "git": "https:\/\/github.com\/LouisOuellet\/",
-                    "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
-                },
-                "manifest": "\/dist\/data\/manifest.json"
-            }
-        },
-        "categories": {
-            "repository": {
-                "name": "appmaker",
-                "branch": "dev",
-                "host": {
-                    "git": "https:\/\/github.com\/LouisOuellet\/",
-                    "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
-                },
-                "manifest": "\/dist\/data\/manifest.json"
-            }
-        },
-        "clients": {
-            "repository": {
-                "name": "appmaker",
-                "branch": "dev",
-                "host": {
-                    "git": "https:\/\/github.com\/LouisOuellet\/",
-                    "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
-                },
-                "manifest": "\/dist\/data\/manifest.json"
-            }
-        },
-        "comments": {
-            "repository": {
-                "name": "appmaker",
-                "branch": "dev",
-                "host": {
-                    "git": "https:\/\/github.com\/LouisOuellet\/",
-                    "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
-                },
-                "manifest": "\/dist\/data\/manifest.json"
-            }
-        },
-        "contacts": {
-            "repository": {
-                "name": "appmaker",
-                "branch": "dev",
-                "host": {
-                    "git": "https:\/\/github.com\/LouisOuellet\/",
-                    "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
-                },
-                "manifest": "\/dist\/data\/manifest.json"
-            }
-        },
-        "containers": {
-            "repository": {
-                "name": "appmaker",
-                "branch": "dev",
-                "host": {
-                    "git": "https:\/\/github.com\/LouisOuellet\/",
-                    "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
-                },
-                "manifest": "\/dist\/data\/manifest.json"
-            }
-        },
-        "conversations": {
-            "repository": {
-                "name": "appmaker",
-                "branch": "dev",
-                "host": {
-                    "git": "https:\/\/github.com\/LouisOuellet\/",
-                    "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
-                },
-                "manifest": "\/dist\/data\/manifest.json"
-            }
-        },
-        "dashboard": {
-            "repository": {
-                "name": "appmaker",
-                "branch": "dev",
-                "host": {
-                    "git": "https:\/\/github.com\/LouisOuellet\/",
-                    "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
-                },
-                "manifest": "\/dist\/data\/manifest.json"
-            }
-        },
-        "debug": {
-            "repository": {
-                "name": "appmaker",
-                "branch": "dev",
-                "host": {
-                    "git": "https:\/\/github.com\/LouisOuellet\/",
-                    "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
-                },
-                "manifest": "\/dist\/data\/manifest.json"
-            }
-        },
-        "dev": {
-            "repository": {
-                "name": "appmaker",
-                "branch": "dev",
-                "host": {
-                    "git": "https:\/\/github.com\/LouisOuellet\/",
-                    "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
-                },
-                "manifest": "\/dist\/data\/manifest.json"
-            }
-        },
-        "dispatch": {
-            "repository": {
-                "name": "appmaker",
-                "branch": "dev",
-                "host": {
-                    "git": "https:\/\/github.com\/LouisOuellet\/",
-                    "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
-                },
-                "manifest": "\/dist\/data\/manifest.json"
-            }
-        },
-        "groups": {
-            "repository": {
-                "name": "appmaker",
-                "branch": "dev",
-                "host": {
-                    "git": "https:\/\/github.com\/LouisOuellet\/",
-                    "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
-                },
-                "manifest": "\/dist\/data\/manifest.json"
-            }
-        },
-        "issues": {
-            "repository": {
-                "name": "appmaker",
-                "branch": "dev",
-                "host": {
-                    "git": "https:\/\/github.com\/LouisOuellet\/",
-                    "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
-                },
-                "manifest": "\/dist\/data\/manifest.json"
-            }
-        },
-        "leads": {
-            "repository": {
-                "name": "appmaker",
-                "branch": "dev",
-                "host": {
-                    "git": "https:\/\/github.com\/LouisOuellet\/",
-                    "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
-                },
-                "manifest": "\/dist\/data\/manifest.json"
-            }
-        },
-        "lsp": {
-            "repository": {
-                "name": "appmaker",
-                "branch": "dev",
-                "host": {
-                    "git": "https:\/\/github.com\/LouisOuellet\/",
-                    "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
-                },
-                "manifest": "\/dist\/data\/manifest.json"
-            }
-        },
-        "messages": {
-            "repository": {
-                "name": "appmaker",
-                "branch": "dev",
-                "host": {
-                    "git": "https:\/\/github.com\/LouisOuellet\/",
-                    "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
-                },
-                "manifest": "\/dist\/data\/manifest.json"
-            }
-        },
-        "my_clients": {
-            "repository": {
-                "name": "appmaker",
-                "branch": "dev",
-                "host": {
-                    "git": "https:\/\/github.com\/LouisOuellet\/",
-                    "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
-                },
-                "manifest": "\/dist\/data\/manifest.json"
-            }
-        },
-        "my_containers": {
-            "repository": {
-                "name": "appmaker",
-                "branch": "dev",
-                "host": {
-                    "git": "https:\/\/github.com\/LouisOuellet\/",
-                    "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
-                },
-                "manifest": "\/dist\/data\/manifest.json"
-            }
-        },
-        "my_leads": {
-            "repository": {
-                "name": "appmaker",
-                "branch": "dev",
-                "host": {
-                    "git": "https:\/\/github.com\/LouisOuellet\/",
-                    "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
-                },
-                "manifest": "\/dist\/data\/manifest.json"
-            }
-        },
-        "my_prospects": {
-            "repository": {
-                "name": "appmaker",
-                "branch": "dev",
-                "host": {
-                    "git": "https:\/\/github.com\/LouisOuellet\/",
-                    "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
-                },
-                "manifest": "\/dist\/data\/manifest.json"
-            }
-        },
-        "my_tickets": {
-            "repository": {
-                "name": "appmaker",
-                "branch": "dev",
-                "host": {
-                    "git": "https:\/\/github.com\/LouisOuellet\/",
-                    "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
-                },
-                "manifest": "\/dist\/data\/manifest.json"
-            }
-        },
-        "notes": {
-            "repository": {
-                "name": "appmaker",
-                "branch": "dev",
-                "host": {
-                    "git": "https:\/\/github.com\/LouisOuellet\/",
-                    "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
-                },
-                "manifest": "\/dist\/data\/manifest.json"
-            }
-        },
-        "organizations": {
-            "repository": {
-                "name": "appmaker",
-                "branch": "dev",
-                "host": {
-                    "git": "https:\/\/github.com\/LouisOuellet\/",
-                    "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
-                },
-                "manifest": "\/dist\/data\/manifest.json"
-            }
-        },
-        "permissions": {
-            "repository": {
-                "name": "appmaker",
-                "branch": "dev",
-                "host": {
-                    "git": "https:\/\/github.com\/LouisOuellet\/",
-                    "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
-                },
-                "manifest": "\/dist\/data\/manifest.json"
-            }
-        },
-        "plugins": {
-            "repository": {
-                "name": "appmaker",
-                "branch": "dev",
-                "host": {
-                    "git": "https:\/\/github.com\/LouisOuellet\/",
-                    "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
-                },
-                "manifest": "\/dist\/data\/manifest.json"
-            }
-        },
-        "profile": {
-            "repository": {
-                "name": "appmaker",
-                "branch": "dev",
-                "host": {
-                    "git": "https:\/\/github.com\/LouisOuellet\/",
-                    "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
-                },
-                "manifest": "\/dist\/data\/manifest.json"
-            }
-        },
-        "roles": {
-            "repository": {
-                "name": "appmaker",
-                "branch": "dev",
-                "host": {
-                    "git": "https:\/\/github.com\/LouisOuellet\/",
-                    "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
-                },
-                "manifest": "\/dist\/data\/manifest.json"
-            }
-        },
-        "sales_genie": {
-            "repository": {
-                "name": "appmaker",
-                "branch": "dev",
-                "host": {
-                    "git": "https:\/\/github.com\/LouisOuellet\/",
-                    "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
-                },
-                "manifest": "\/dist\/data\/manifest.json"
-            }
-        },
-        "search": {
-            "repository": {
-                "name": "appmaker",
-                "branch": "dev",
-                "host": {
-                    "git": "https:\/\/github.com\/LouisOuellet\/",
-                    "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
-                },
-                "manifest": "\/dist\/data\/manifest.json"
-            }
-        },
-        "services": {
-            "repository": {
-                "name": "appmaker",
-                "branch": "dev",
-                "host": {
-                    "git": "https:\/\/github.com\/LouisOuellet\/",
-                    "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
-                },
-                "manifest": "\/dist\/data\/manifest.json"
-            }
-        },
-        "settings": {
-            "repository": {
-                "name": "appmaker",
-                "branch": "dev",
-                "host": {
-                    "git": "https:\/\/github.com\/LouisOuellet\/",
-                    "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
-                },
-                "manifest": "\/dist\/data\/manifest.json"
-            }
-        },
-        "statuses": {
-            "repository": {
-                "name": "appmaker",
-                "branch": "dev",
-                "host": {
-                    "git": "https:\/\/github.com\/LouisOuellet\/",
-                    "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
-                },
-                "manifest": "\/dist\/data\/manifest.json"
-            }
-        },
-        "sub_categories": {
-            "repository": {
-                "name": "appmaker",
-                "branch": "dev",
-                "host": {
-                    "git": "https:\/\/github.com\/LouisOuellet\/",
-                    "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
-                },
-                "manifest": "\/dist\/data\/manifest.json"
-            }
-        },
-        "tags": {
-            "repository": {
-                "name": "appmaker",
-                "branch": "dev",
-                "host": {
-                    "git": "https:\/\/github.com\/LouisOuellet\/",
-                    "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
-                },
-                "manifest": "\/dist\/data\/manifest.json"
-            }
-        },
-        "tickets": {
-            "repository": {
-                "name": "appmaker",
-                "branch": "dev",
-                "host": {
-                    "git": "https:\/\/github.com\/LouisOuellet\/",
-                    "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
-                },
-                "manifest": "\/dist\/data\/manifest.json"
-            }
-        },
-        "users": {
-            "repository": {
-                "name": "appmaker",
-                "branch": "dev",
-                "host": {
-                    "git": "https:\/\/github.com\/LouisOuellet\/",
-                    "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
-                },
-                "manifest": "\/dist\/data\/manifest.json"
-            }
+    "appointments": {
+        "repository": {
+            "name": "appmaker",
+            "branch": "dev",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "automatons": {
+        "repository": {
+            "name": "appmaker",
+            "branch": "dev",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "callbacks": {
+        "repository": {
+            "name": "appmaker",
+            "branch": "dev",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "calls": {
+        "repository": {
+            "name": "appmaker",
+            "branch": "dev",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "categories": {
+        "repository": {
+            "name": "appmaker",
+            "branch": "dev",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "clients": {
+        "repository": {
+            "name": "appmaker",
+            "branch": "dev",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "comments": {
+        "repository": {
+            "name": "appmaker",
+            "branch": "dev",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "contacts": {
+        "repository": {
+            "name": "appmaker",
+            "branch": "dev",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "containers": {
+        "repository": {
+            "name": "appmaker",
+            "branch": "dev",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "conversations": {
+        "repository": {
+            "name": "appmaker",
+            "branch": "dev",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "dashboard": {
+        "repository": {
+            "name": "appmaker",
+            "branch": "dev",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "debug": {
+        "repository": {
+            "name": "appmaker",
+            "branch": "dev",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "dev": {
+        "repository": {
+            "name": "appmaker",
+            "branch": "dev",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "dispatch": {
+        "repository": {
+            "name": "appmaker",
+            "branch": "dev",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "groups": {
+        "repository": {
+            "name": "appmaker",
+            "branch": "dev",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "issues": {
+        "repository": {
+            "name": "appmaker",
+            "branch": "dev",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "leads": {
+        "repository": {
+            "name": "appmaker",
+            "branch": "dev",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "lsp": {
+        "repository": {
+            "name": "appmaker",
+            "branch": "dev",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "messages": {
+        "repository": {
+            "name": "appmaker",
+            "branch": "dev",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "my_clients": {
+        "repository": {
+            "name": "appmaker",
+            "branch": "dev",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "my_containers": {
+        "repository": {
+            "name": "appmaker",
+            "branch": "dev",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "my_leads": {
+        "repository": {
+            "name": "appmaker",
+            "branch": "dev",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "my_prospects": {
+        "repository": {
+            "name": "appmaker",
+            "branch": "dev",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "my_tickets": {
+        "repository": {
+            "name": "appmaker",
+            "branch": "dev",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "notes": {
+        "repository": {
+            "name": "appmaker",
+            "branch": "dev",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "organizations": {
+        "repository": {
+            "name": "appmaker",
+            "branch": "dev",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "permissions": {
+        "repository": {
+            "name": "appmaker",
+            "branch": "dev",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "plugins": {
+        "repository": {
+            "name": "appmaker",
+            "branch": "dev",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "profile": {
+        "repository": {
+            "name": "appmaker",
+            "branch": "dev",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "roles": {
+        "repository": {
+            "name": "appmaker",
+            "branch": "dev",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "sales_genie": {
+        "repository": {
+            "name": "appmaker",
+            "branch": "dev",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "search": {
+        "repository": {
+            "name": "appmaker",
+            "branch": "dev",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "services": {
+        "repository": {
+            "name": "appmaker",
+            "branch": "dev",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "settings": {
+        "repository": {
+            "name": "appmaker",
+            "branch": "dev",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "statuses": {
+        "repository": {
+            "name": "appmaker",
+            "branch": "dev",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "sub_categories": {
+        "repository": {
+            "name": "appmaker",
+            "branch": "dev",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "tags": {
+        "repository": {
+            "name": "appmaker",
+            "branch": "dev",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "tickets": {
+        "repository": {
+            "name": "appmaker",
+            "branch": "dev",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "users": {
+        "repository": {
+            "name": "appmaker",
+            "branch": "dev",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
         }
     }
 }

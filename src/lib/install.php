@@ -11,6 +11,7 @@ function generateRandomString($length = 10) {
 
 $conn = new mysqli($_POST['sql_host'],$_POST['sql_username'],$_POST['sql_password'],$_POST['sql_database']);
 $settings=json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/manifest.json'),true);
+$plugins = json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/plugins.json'),true);
 if (!$conn->connect_error){
 	echo "SQL Database Connexion Successfull!<br>\n";
   error_reporting(-1);

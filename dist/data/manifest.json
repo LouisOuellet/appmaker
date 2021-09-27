@@ -75,6 +75,38 @@
             "type": "select"
         }
     },
+    "plugins": {
+        "dashboard": {
+            "status": true
+        },
+        "groups": {
+            "status": true
+        },
+        "organizations": {
+            "status": true
+        },
+        "permissions": {
+            "status": true
+        },
+        "plugins": {
+            "status": true
+        },
+        "profile": {
+            "status": true
+        },
+        "roles": {
+            "status": true
+        },
+        "search": {
+            "status": true
+        },
+        "settings": {
+            "status": true
+        },
+        "users": {
+            "status": true
+        }
+    },
     "log_level": 3,
     "version": "21.09-dev",
     "build": 48,
