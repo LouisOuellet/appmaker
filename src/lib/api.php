@@ -18,6 +18,7 @@ class API{
   protected $Timezones; // Stores available timezones
   protected $Countries; // Stores available countries
   protected $States; // Stores available states
+  protected $Plugins; // Stores available states
 	protected $Structure = []; // Stores the database structure
 	public $Settings; // Stores settings loaded from manifest.json and conf.json
   public $Auth; // This contains the Auth class & the Database class for MySQL queries
@@ -79,6 +80,7 @@ class API{
     $this->Timezones = json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/timezones.json'),true)['Timezones'];
     $this->Countries = json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/countries.json'),true)['Countries'];
     $this->States = json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/states.json'),true)['States'];
+    $this->Plugins = json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/plugins.json'),true)['Plugins'];
 
 		// Setup Instance
 		if((isset($this->Settings['debug']))&&($this->Settings['debug'])){ error_reporting(-1); } else { error_reporting(0); }
