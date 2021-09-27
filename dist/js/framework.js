@@ -355,7 +355,7 @@ var API = {
 				if((API.initiated)&&(API.Helper.isSet(API,['Contents','Settings','LandingPage']))){
 					clearInterval(checkExist);
 					if(origin.plugin == null){
-						if((API.Helper.isSet(API.Contents.Auth.Options,['application','landingPage','value']))&&(API.Contents.Auth.Options.application.landingPage.value != null)&&(API.Contents.Auth.Options.application.landingPage.value != '')){
+						if((API.Helper.isSet(API,['Contents','Auth','Options','application','landingPage','value']))&&(API.Contents.Auth.Options.application.landingPage.value != null)&&(API.Contents.Auth.Options.application.landingPage.value != '')){
 							origin.plugin = API.Contents.Auth.Options.application.landingPage.value;
 						} else { origin.plugin = API.Contents.Settings.LandingPage; }
 					}
