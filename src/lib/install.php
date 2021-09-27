@@ -77,7 +77,7 @@ if (!$conn->connect_error){
           $settings['timezone'] = $_POST["site_timezone"];
           $settings['license'] = $_POST["activation_license"];
 					$json = fopen(dirname(__FILE__,3).'/config/config.json', 'w');
-					fwrite($json, json_encode($settings));
+					fwrite($json, json_encode($settings, JSON_PRETTY_PRINT));
 					fclose($json);
 			    echo "Installation has completed successfully at ".date("Y-m-d H:i:s")."!<br>\n";
 				} else {
