@@ -52,17 +52,17 @@ if (!$conn->connect_error){
 		  }
 			$LSP->configdb($_POST['sql_host'],$_POST['sql_username'],$_POST['sql_password'],$_POST['sql_database']);
 			echo "Creating database structure<br>\n";
-			if(file_exists(dirname(__FILE__,3).'/config/structure.json')){
-				$LSP->updateStructure(dirname(__FILE__,3).'/config/structure.json');
+			if(file_exists(dirname(__FILE__,3).'/dist/data/structure.json')){
+				$LSP->updateStructure(dirname(__FILE__,3).'/dist/data/structure.json');
 				echo "Database structure was created successfully<br>\n";
 				echo "Creating default database records<br>\n";
-				if(file_exists(dirname(__FILE__,3).'/config/skeleton.json')){
-					$LSP->insertRecords(dirname(__FILE__,3).'/config/skeleton.json');
+				if(file_exists(dirname(__FILE__,3).'/dist/data/skeleton.json')){
+					$LSP->insertRecords(dirname(__FILE__,3).'/dist/data/skeleton.json');
 					echo "Database default records were created successfully<br>\n";
 					if((isset($_POST['site_sample']))&&($_POST['site_sample'] == 'true')){
 						echo "Creating database sample records<br>\n";
-						if(file_exists(dirname(__FILE__,3).'/config/sample.json')){
-							$LSP->insertRecords(dirname(__FILE__,3).'/config/sample.json');
+						if(file_exists(dirname(__FILE__,3).'/dist/data/sample.json')){
+							$LSP->insertRecords(dirname(__FILE__,3).'/dist/data/sample.json');
 							echo "Database sample records were created successfully<br>\n";
 						} else {
 							echo "Unable to import the database sample records<br>\n";
