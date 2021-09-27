@@ -55,7 +55,7 @@ var API = {
 					xhr.open('POST', 'api.php', true);
 					xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 					xhr.onload = function(){
-						if(this.status == 200){
+						if(this.status == 200 && this.responseText != ''){
 							try {
 								var decodedResult = atob(this.responseText);
 								if(decodedResult.charAt(0) == '{'){
@@ -187,7 +187,7 @@ var API = {
 				xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 				xhr.onerror = reject;
 				xhr.onload = function(){
-					if(this.status == 200){
+					if(this.status == 200 && this.responseText != ''){
 						try {
 							var decodedResult = atob(this.responseText);
 							if(decodedResult.charAt(0) == '{'){
