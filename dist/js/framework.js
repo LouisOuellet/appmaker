@@ -79,7 +79,7 @@ var API = {
 													if(options.report){
 														if(options.toast){
 															var text = 'An error occured in the execution of this API request. See the console(F12) for more details.';
-															if(typeof API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'] !== 'undefined'){
+															if(typeof API.Contents.Language !== 'undefined' && typeof API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'] !== 'undefined'){
 																text = API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'];
 															} else { text = 'An error occured in the execution of this API request. See the console(F12) for more details.'; }
 															API.Toast.show.fire({
@@ -99,7 +99,7 @@ var API = {
 											if(options.report){
 												if(options.toast){
 													var text = 'An error occured in the execution of this API request. See the console(F12) for more details.';
-													if(typeof API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'] !== 'undefined'){
+													if(typeof API.Contents.Language !== 'undefined' && typeof API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'] !== 'undefined'){
 														text = API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'];
 													} else { text = 'An error occured in the execution of this API request. See the console(F12) for more details.'; }
 													API.Toast.show.fire({
@@ -118,7 +118,7 @@ var API = {
 									if(options.report){
 										if(options.toast){
 											var text = 'An error occured in the execution of this API request. See the console(F12) for more details.';
-											if(typeof API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'] !== 'undefined'){
+											if(typeof API.Contents.Language !== 'undefined' && typeof API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'] !== 'undefined'){
 												text = API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'];
 											} else { text = 'An error occured in the execution of this API request. See the console(F12) for more details.'; }
 											API.Toast.show.fire({
@@ -137,7 +137,7 @@ var API = {
 									if(options.report){
 										if(options.toast){
 											var text = 'An error occured in the execution of this API request. See the console(F12) for more details.';
-											if(typeof API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'] !== 'undefined'){
+											if(typeof API.Contents.Language !== 'undefined' && typeof API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'] !== 'undefined'){
 												text = API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'];
 											} else { text = 'An error occured in the execution of this API request. See the console(F12) for more details.'; }
 											API.Toast.show.fire({
@@ -156,7 +156,7 @@ var API = {
 							if(options.report){
 								if(options.toast){
 									var text = 'An error occured in the execution of this API request. See the console(F12) for more details.';
-									if(typeof API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'] !== 'undefined'){
+									if(typeof API.Contents.Language !== 'undefined' && typeof API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'] !== 'undefined'){
 										text = API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'];
 									} else { text = 'An error occured in the execution of this API request. See the console(F12) for more details.'; }
 									API.Toast.show.fire({
@@ -210,7 +210,7 @@ var API = {
 											if(options.report){
 												if(options.toast){
 													var text = 'An error occured in the execution of this API request. See the console(F12) for more details.';
-													if(typeof API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'] !== 'undefined'){
+													if(typeof API.Contents.Language !== 'undefined' && typeof API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'] !== 'undefined'){
 														text = API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'];
 													} else { text = 'An error occured in the execution of this API request. See the console(F12) for more details.'; }
 													API.Toast.show.fire({
@@ -229,7 +229,7 @@ var API = {
 										if(options.report){
 											if(options.toast){
 												var text = 'An error occured in the execution of this API request. See the console(F12) for more details.';
-												if(typeof API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'] !== 'undefined'){
+												if(typeof API.Contents.Language !== 'undefined' && typeof API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'] !== 'undefined'){
 													text = API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'];
 												} else { text = 'An error occured in the execution of this API request. See the console(F12) for more details.'; }
 												API.Toast.show.fire({
@@ -248,7 +248,7 @@ var API = {
 								if(options.report){
 									if(options.toast){
 										var text = 'An error occured in the execution of this API request. See the console(F12) for more details.';
-										if(typeof API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'] !== 'undefined'){
+										if(typeof API.Contents.Language !== 'undefined' && typeof API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'] !== 'undefined'){
 											text = API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'];
 										} else { text = 'An error occured in the execution of this API request. See the console(F12) for more details.'; }
 										API.Toast.show.fire({
@@ -267,7 +267,7 @@ var API = {
 								if(options.report){
 									if(options.toast){
 										var text = 'An error occured in the execution of this API request. See the console(F12) for more details.';
-										if(typeof API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'] !== 'undefined'){
+										if(typeof API.Contents.Language !== 'undefined' && typeof API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'] !== 'undefined'){
 											text = API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'];
 										} else { text = 'An error occured in the execution of this API request. See the console(F12) for more details.'; }
 										API.Toast.show.fire({
@@ -286,7 +286,7 @@ var API = {
 						if(options.report){
 							if(options.toast){
 								var text = 'An error occured in the execution of this API request. See the console(F12) for more details.';
-								if(typeof API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'] !== 'undefined'){
+								if(typeof API.Contents.Language !== 'undefined' && typeof API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'] !== 'undefined'){
 									text = API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'];
 								} else { text = 'An error occured in the execution of this API request. See the console(F12) for more details.'; }
 								API.Toast.show.fire({
