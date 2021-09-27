@@ -362,7 +362,8 @@ class API{
         'version' => date("y.m").'-'.$settings['repository']['branch'],
       ];
       $this->SaveAppCfg($configs);
-      $this->Settings = $this->SaveCfg($configs);
+      $this->Settings['build'] = $configs['build'];
+      $this->Settings['version'] = $configs['version'];
       shell_exec("git add . && git commit -m 'UPDATE' && git push origin ".$this->Settings['repository']['branch']);
       echo "\n";
       $this->__version();
