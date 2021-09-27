@@ -86,12 +86,6 @@ if(!empty($_POST)){
 				}
 			}
 		}
-	} else {
-		$return = [
-			"error" => $API->Language->Field["unable to authenticate"],
-			"request" => $_POST,
-		];
-		echo base64_encode(json_encode($return, JSON_PRETTY_PRINT));
 	}
 } else {
 	$return = [
