@@ -153,7 +153,7 @@ var API = {
 								}
 							}
 						} else {
-							if(options.report){
+							if(this.status != 200 && options.report){
 								if(options.toast){
 									var text = 'An error occured in the execution of this API request. See the console(F12) for more details.';
 									if(typeof API.Contents.Language !== 'undefined' && typeof API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'] !== 'undefined'){
@@ -283,7 +283,7 @@ var API = {
 							}
 						}
 					} else {
-						if(options.report){
+						if(this.status != 200 && options.report){
 							if(options.toast){
 								var text = 'An error occured in the execution of this API request. See the console(F12) for more details.';
 								if(typeof API.Contents.Language !== 'undefined' && typeof API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'] !== 'undefined'){
