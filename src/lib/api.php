@@ -361,13 +361,13 @@ class API{
         'build' => $settings['build']+1,
         'version' => date("y.m").'-'.$settings['repository']['branch'],
       ];
-      $this->SaveCfg($configs);
       $this->SaveAppCfg($configs);
-      shell_exec("git add . && git commit -m 'UPDATE' && git push origin ".$settings['repository']['branch']);
+      $this->Settings = $this->SaveCfg($configs);
+      shell_exec("git add . && git commit -m 'UPDATE' && git push origin ".$this->Settings['repository']['branch']);
       echo "\n";
       $this->__version();
       echo "\n";
-      echo "Published on ".$settings['repository']['host']['git'].$settings['repository']['name'].".git\n";
+      echo "Published on ".$this->Settings['repository']['host']['git'].$this->Settings['repository']['name'].".git\n";
     }
   }
 
