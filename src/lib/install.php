@@ -11,7 +11,7 @@ function generateRandomString($length = 10) {
 
 $conn = new mysqli($_POST['sql_host'],$_POST['sql_username'],$_POST['sql_password'],$_POST['sql_database']);
 if (!$conn->connect_error){
-	echo "SQL Database Connexion Successfull!<br />";
+	echo "SQL Database Connexion Successfull!<br>\n";
   error_reporting(-1);
   date_default_timezone_set($_POST['site_timezone']);
 
@@ -21,44 +21,44 @@ if (!$conn->connect_error){
 	$LSP = new LSP('https://license.albcie.com/','ALB-Connect',$_POST['site_license'],'$2y$10$3Vr0SJofCwk98pxm.Vzcdu/YEG5l5RCD0V0IJjwEfL5Z86sGOPKUO');
 	if($LSP->Status){
 		if(!file_exists(dirname(__FILE__,3).'/config/config.json')){
-			echo "Application Activation Successfull!<br />";
+			echo "Application Activation Successfull!<br>\n";
 		  //We remove all existing tables
 		  if($drop == "yes"){
-				echo "Removing existing tables from the database<br />";
+				echo "Removing existing tables from the database<br>\n";
 		    $query = 'SET foreign_key_checks = 1';
 		    if ($conn->query($query) === TRUE){
 		      if ($result = $conn->query("SHOW TABLES")){
 		        while($row = $result->fetch_array(MYSQLI_NUM)){
 		          $query = 'DROP TABLE IF EXISTS '.$row[0];
 		          if ($conn->query($query) === TRUE){
-		            echo "Table ".$row[0]." was successfully dropped <br />";
+		            echo "Table ".$row[0]." was successfully dropped <br>\n";
 		          } else {
-		            echo "Error while removing table ".$row[0]." <br />";
+		            echo "Error while removing table ".$row[0]." <br>\n";
 		          }
 		        }
 		      }
 		    } else {
-		      echo "Error while removing tables"."<br />";
+		      echo "Error while removing tables"."<br>\n";
 		    }
 		    $query = 'SET foreign_key_checks = 1';
-		    if ($conn->query($query) !== TRUE){ echo "Error while removing tables"."<br />"; }
+		    if ($conn->query($query) !== TRUE){ echo "Error while removing tables"."<br>\n"; }
 		  }
 			$LSP->configdb($_POST['sql_host'],$_POST['sql_username'],$_POST['sql_password'],$_POST['sql_database']);
-			echo "Creating database structure<br />";
+			echo "Creating database structure<br>\n";
 			if(file_exists(dirname(__FILE__,3).'/config/structure.json')){
 				$LSP->updateStructure(dirname(__FILE__,3).'/config/structure.json');
-				echo "Database structure was created successfully<br />";
-				echo "Creating default database records<br />";
+				echo "Database structure was created successfully<br>\n";
+				echo "Creating default database records<br>\n";
 				if(file_exists(dirname(__FILE__,3).'/config/skeleton.json')){
 					$LSP->insertRecords(dirname(__FILE__,3).'/config/skeleton.json');
-					echo "Database default records were created successfully<br />";
+					echo "Database default records were created successfully<br>\n";
 					if((isset($_POST['site_sample']))&&($_POST['site_sample'] == 'true')){
-						echo "Creating database sample records<br />";
+						echo "Creating database sample records<br>\n";
 						if(file_exists(dirname(__FILE__,3).'/config/sample.json')){
 							$LSP->insertRecords(dirname(__FILE__,3).'/config/sample.json');
-							echo "Database sample records were created successfully<br />";
+							echo "Database sample records were created successfully<br>\n";
 						} else {
-							echo "Unable to import the database sample records<br />";
+							echo "Unable to import the database sample records<br>\n";
 						}
 					}
 			    //NEED TO CREATE USER
@@ -81,22 +81,22 @@ if (!$conn->connect_error){
 					$json = fopen(dirname(__FILE__,3).'/config/config.json', 'w');
 					fwrite($json, json_encode($Settings));
 					fclose($json);
-			    echo "Installation has completed successfully at ".date("Y-m-d H:i:s")."!<br />";
+			    echo "Installation has completed successfully at ".date("Y-m-d H:i:s")."!<br>\n";
 				} else {
-					echo "Unable to import the database default records<br />";
+					echo "Unable to import the database default records<br>\n";
 				}
 			} else {
-				echo "Unable to import the database structure<br />";
+				echo "Unable to import the database structure<br>\n";
 			}
 		} else {
-			echo "Application is already installed<br />";
+			echo "Application is already installed<br>\n";
 		}
 	} else {
-	  echo "Unable to activate the application, verify you license key<br />";
+	  echo "Unable to activate the application, verify you license key<br>\n";
 	}
 	$conn->close();
 } else {
-  echo "Unable to connect to SQL Server<br />";
+  echo "Unable to connect to SQL Server<br>\n";
 }
 error_reporting(0);
 $conn->close();
