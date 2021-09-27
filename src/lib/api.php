@@ -45,11 +45,11 @@ class API{
 		}
 
     // Import Configurations
-		$this->Settings=json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/manifest.json'),true);
 		if(is_file(dirname(__FILE__,3) . "/config/config.json")){
-			$customizations = json_decode(file_get_contents(dirname(__FILE__,3) . '/config/config.json'),true);
-			$this->Settings = array_replace_recursive($this->Settings,$customizations);
-		}
+			$this->Settings = json_decode(file_get_contents(dirname(__FILE__,3) . '/config/config.json'),true);
+		} else {
+      $this->Settings=json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/manifest.json'),true);
+    }
 
 		// Verify Plugins
 		foreach(preg_grep('/^([^.])/', scandir(dirname(__FILE__,3).'/plugins/')) as $plugin){
