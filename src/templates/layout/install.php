@@ -420,9 +420,6 @@
 
   })
 </script>
-<script>
-    $('.disableAutoFill').disableAutoFill();
-</script>
 <script type="text/javascript">
 $(document).ready(function () {
   $.validator.addMethod("pwcheck", function(value) {
