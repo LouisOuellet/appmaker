@@ -69,7 +69,7 @@ class Auth extends History{
   }
 
 	protected function init(){
-    if(isset($this->Settings['sql'])&&(isset($_COOKIE[$this->Settings['id']])||isset($_POST['username'],$_POST['password']))){
+    if(isset($this->Settings['sql'])&&(isset($_SESSION[$this->Settings['id']])||isset($_COOKIE[$this->Settings['id']])||isset($_POST['username'],$_POST['password']))){
   		if((isset($_COOKIE[$this->Settings['id']]))&&(!empty($_COOKIE[$this->Settings['id']]))) {
   			$user = $this->query('SELECT * FROM users WHERE username = ?',$_COOKIE[$this->Settings['id']]);
   			if($user->numRows()!=1){ $this->logout($_SESSION['token']); } else {
