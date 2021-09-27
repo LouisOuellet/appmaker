@@ -69,35 +69,37 @@ class Auth extends History{
   }
 
 	protected function init(){
-		if((isset($_COOKIE[$this->Settings['id']]))&&(!empty($_COOKIE[$this->Settings['id']]))) {
-			$user = $this->query('SELECT * FROM users WHERE username = ?',$_COOKIE[$this->Settings['id']]);
-			if($user->numRows()!=1){ $this->logout($_SESSION['token']); } else {
-				$_SESSION[$this->Settings['id']]=$_COOKIE[$this->Settings['id']];
-				$_SESSION['token']=$user->fetchArray()->all()['token'];
-			}
-		} else {
-			if ((!empty($_POST)) && (isset($_POST['username'],$_POST['password']))) {
-				$this->login($_POST['username'],$_POST['password']);
-			} else {
-				if((isset($_GET['forgot'],$_POST['username']))&&(empty($_GET['forgot']))){
-					$token=$this->setReset($_POST['username']);
-				}
-				if((isset($_GET['forgot'],$_POST['password'],$_POST['password2']))&&(!empty($_GET['forgot']))){
-					if($this->Validator->password($_POST['password'], $_POST['password2'])){
-						$this->savePWD($_POST['password'],$_POST['token']);
-					}
-				}
-			}
-		}
-		if($this->isLogin()){
-			$auth = $this->getData($_SESSION[$this->Settings['id']]);
-			$this->User = $auth->User;
-			$this->Groups = $auth->Groups;
-			$this->Roles = $auth->Roles;
-			$this->Permissions = $auth->Permissions;
-			$this->Options = $auth->Options;
-			$this->query('UPDATE users SET last_login = ? WHERE id = ?',date("Y-m-d H:i:s"),$this->User['id']);
-		}
+    if(isset($this->Settings['sql'])&&(isset($_COOKIE[$this->Settings['id']])||isset($_POST['username'],$_POST['password']))){
+  		if((isset($_COOKIE[$this->Settings['id']]))&&(!empty($_COOKIE[$this->Settings['id']]))) {
+  			$user = $this->query('SELECT * FROM users WHERE username = ?',$_COOKIE[$this->Settings['id']]);
+  			if($user->numRows()!=1){ $this->logout($_SESSION['token']); } else {
+  				$_SESSION[$this->Settings['id']]=$_COOKIE[$this->Settings['id']];
+  				$_SESSION['token']=$user->fetchArray()->all()['token'];
+  			}
+  		} else {
+  			if ((!empty($_POST)) && (isset($_POST['username'],$_POST['password']))) {
+  				$this->login($_POST['username'],$_POST['password']);
+  			} else {
+  				if((isset($_GET['forgot'],$_POST['username']))&&(empty($_GET['forgot']))){
+  					$token=$this->setReset($_POST['username']);
+  				}
+  				if((isset($_GET['forgot'],$_POST['password'],$_POST['password2']))&&(!empty($_GET['forgot']))){
+  					if($this->Validator->password($_POST['password'], $_POST['password2'])){
+  						$this->savePWD($_POST['password'],$_POST['token']);
+  					}
+  				}
+  			}
+  		}
+  		if($this->isLogin()){
+  			$auth = $this->getData($_SESSION[$this->Settings['id']]);
+  			$this->User = $auth->User;
+  			$this->Groups = $auth->Groups;
+  			$this->Roles = $auth->Roles;
+  			$this->Permissions = $auth->Permissions;
+  			$this->Options = $auth->Options;
+  			$this->query('UPDATE users SET last_login = ? WHERE id = ?',date("Y-m-d H:i:s"),$this->User['id']);
+  		}
+    }
 	}
 
 	public function error($error) {
