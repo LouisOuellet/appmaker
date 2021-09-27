@@ -477,8 +477,8 @@ $(document).ready(function () {
       $(element).removeClass('is-invalid');
     },
     submitHandler: function() {
-        $('#log_container').html("" + response);
         $('#log').collapse('show');
+        $('#log_container').html("" + response);
         var sql_host = document.getElementById("sql_host").value;
         var sql_database = document.getElementById("sql_database").value;
         var sql_username = document.getElementById("sql_username").value;
