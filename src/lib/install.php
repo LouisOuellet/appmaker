@@ -10,15 +10,22 @@ function generateRandomString($length = 10) {
 }
 
 $conn = new mysqli($_POST['sql_host'],$_POST['sql_username'],$_POST['sql_password'],$_POST['sql_database']);
+$settings=json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/manifest.json'),true);
 if (!$conn->connect_error){
 	echo "SQL Database Connexion Successfull!<br>\n";
   error_reporting(-1);
   date_default_timezone_set($_POST['site_timezone']);
+  $settings['sql']['host'] = $_POST['sql_host'];
+  $settings['sql']['database'] = $_POST['sql_database'];
+  $settings['sql']['username'] = $_POST['sql_username'];
+  $settings['sql']['password'] = $_POST['sql_password'];
 
   //Switches
   $drop = "yes";
 	require_once(dirname(__FILE__,3).'/src/lib/lsp.php');
-	$LSP = new LSP('https://license.albcie.com/','ALB-Connect',$_POST['activation_license'],'$2y$10$3Vr0SJofCwk98pxm.Vzcdu/YEG5l5RCD0V0IJjwEfL5Z86sGOPKUO');
+  if(isset($settings['lsp']['required'])&&$settings['lsp']['required']){
+    $LSP = new LSP('https://license.albcie.com/','ALB-Connect',$_POST['activation_license'],'$2y$10$3Vr0SJofCwk98pxm.Vzcdu/YEG5l5RCD0V0IJjwEfL5Z86sGOPKUO');
+  } else { $LSP = new LSP(); }
 	if($LSP->Status){
 		if(!file_exists(dirname(__FILE__,3).'/config/config.json')){
 			echo "Application Activation Successfull!<br>\n";
@@ -61,25 +68,16 @@ if (!$conn->connect_error){
 							echo "Unable to import the database sample records<br>\n";
 						}
 					}
-			    //NEED TO CREATE USER
-					$Settings = [
-						'page' => $_POST["site_page"],
-						'id' => generateRandomString(64),
-						'serverid' => password_hash(md5($_POST["serverid"]), PASSWORD_BCRYPT, ["cost" => 10]),
-						'background_jobs' => $_POST["site_background_jobs"],
-						'last_background_jobs' => date("Y-m-d H:i:s"),
-						'timezone' => $_POST["site_timezone"],
-						'sql' => [
-							'username' => $_POST["sql_username"],
-							'password' => $_POST["sql_password"],
-							'host' => $_POST["sql_host"],
-							'database' => $_POST["sql_database"],
-						],
-						'license' => $_POST["site_license"],
-						'branch' => 'master',
-					];
+          $settings['title'] = $_POST["site_name"];
+          $settings['page'] = $_POST["site_page"];
+          $settings['id'] = generateRandomString(64);
+          $settings['serverid'] = password_hash(md5($_POST["serverid"]), PASSWORD_BCRYPT, ["cost" => 10]);
+          $settings['background_jobs'] = $_POST["site_background_jobs"];
+          $settings['last_background_jobs'] = date("Y-m-d H:i:s");
+          $settings['timezone'] = $_POST["site_timezone"];
+          $settings['license'] = $_POST["activation_license"];
 					$json = fopen(dirname(__FILE__,3).'/config/config.json', 'w');
-					fwrite($json, json_encode($Settings));
+					fwrite($json, json_encode($settings));
 					fclose($json);
 			    echo "Installation has completed successfully at ".date("Y-m-d H:i:s")."!<br>\n";
 				} else {
