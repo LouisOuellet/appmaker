@@ -374,7 +374,7 @@ class API{
 		if($this->LSP->Status){
 			if((is_array($arg))&&(isset($arg[0]))){ $args=json_decode($arg[0],true); } else { $args=[]; }
       if(!empty($args)&&isset($args['plugin'])&&isset($this->Plugins[$args['plugin']])){
-        if(!is_dir(dirname(__FILE__,3)."/plugins/".$args['plugin'])){
+        if(is_dir(dirname(__FILE__,3)."/plugins/".$args['plugin'])){
           shell_exec("rm -rf ".dirname(__FILE__,3)."/plugins/".$args['plugin']);
         } else { echo "This plugin is not installed\n"; }
       } else {
