@@ -251,13 +251,6 @@ class API{
 		$this->SaveCfg($configs,$this->Settings);
   }
 
-  protected function install($arg = []){
-		if($this->LSP->Status){
-			if((is_array($arg))&&(isset($arg[0]))){ $args=json_decode($arg[0],true); } else { $args=[]; }
-			if(($this->LSP->Update)||((isset($args['force']))&&($args['force']))){}
-    }
-  }
-
   public function __version($args = null){
     echo "Version: ".$this->Settings['version']."\n";
     echo "Build: ".$this->Settings['build']."\n";
@@ -353,6 +346,50 @@ class API{
 		}
 	}
 
+  public function __install($arg = []){
+		if($this->LSP->Status){
+			if((is_array($arg))&&(isset($arg[0]))){ $args=json_decode($arg[0],true); } else { $args=[]; }
+      if(!empty($args)&&isset($args['plugin'])&&in_array($args['plugin'],$this->Plugins)){
+        // We update the local files
+        shell_exec("git clone --branch ".$this->Plugins[$args['plugin']]['repository']['branch']." ".$this->Plugins[$args['plugin']]['repository']['host']['git'].$this->Plugins[$args['plugin']]['repository']['name'].".git"." ".dirname(__FILE__,3)."/tmp/".$this->Plugins[$args['plugin']]['repository']['name']);
+        mkdir(dirname(__FILE__,3)."/plugins/".$args['plugin']);
+        shell_exec("cp -ur ".dirname(__FILE__,3)."/tmp/".$this->Plugins[$args['plugin']]['repository']['name']."/* ".dirname(__FILE__,3)."/plugins/".$args['plugin']."/.");
+        shell_exec("rm -rf ".dirname(__FILE__,3)."/tmp/".$this->Plugins[$args['plugin']]['repository']['name']);
+				// We start updating our database
+				$this->LSP->updateStructure(dirname(__FILE__,3)."/plugins/".$args['plugin'].'/dist/data/structure.json');
+				$this->LSP->insertRecords(dirname(__FILE__,3)."/plugins/".$args['plugin'].'/dist/data/skeleton.json');
+				if((isset($args['sample']))&&($args['sample'])){ $this->LSP->insertRecords(dirname(__FILE__,3)."/plugins/".$args['plugin'].'/dist/data/sample.json'); }
+      } else {
+        echo "Available Plugins:\n";
+        foreach($this->Plugins as $name => $plugin){
+          echo " - ".$name."\n";
+        }
+      }
+    }
+  }
+
+  public function __uninstall($arg = []){
+		if($this->LSP->Status){
+			if((is_array($arg))&&(isset($arg[0]))){ $args=json_decode($arg[0],true); } else { $args=[]; }
+      if(isset($args['plugin'])&&in_array($args['plugin'],$this->Plugins)){
+        // We update the local files
+        shell_exec("git clone --branch ".$this->Plugins[$args['plugin']]['repository']['branch']." ".$this->Plugins[$args['plugin']]['repository']['host']['git'].$this->Plugins[$args['plugin']]['repository']['name'].".git"." ".dirname(__FILE__,3)."/tmp/".$this->Plugins[$args['plugin']]['repository']['name']);
+        mkdir(dirname(__FILE__,3)."/plugins/".$args['plugin']);
+        shell_exec("cp -ur ".dirname(__FILE__,3)."/tmp/".$this->Plugins[$args['plugin']]['repository']['name']."/* ".dirname(__FILE__,3)."/plugins/".$args['plugin']."/.");
+        shell_exec("rm -rf ".dirname(__FILE__,3)."/tmp/".$this->Plugins[$args['plugin']]['repository']['name']);
+				// We start updating our database
+				$this->LSP->updateStructure(dirname(__FILE__,3).'/dist/data/structure.json');
+				$this->LSP->insertRecords(dirname(__FILE__,3).'/dist/data/skeleton.json');
+				if((isset($args['sample']))&&($args['sample'])){ $this->LSP->insertRecords(dirname(__FILE__,3).'/dist/data/sample.json'); }
+      } else {
+        echo "Available Plugins:\n";
+        foreach($this->Plugins as $name => $plugin){
+          echo " - ".$name."\n";
+        }
+      }
+    }
+  }
+
   public function __publish($arg = []){
 		if($this->LSP->Status){
 			if((is_array($arg))&&(isset($arg[0]))){ $args=json_decode($arg[0],true); } else { $args=[]; }
@@ -387,7 +424,6 @@ class API{
         shell_exec("git clone --branch ".$this->Settings['repository']['branch']." ".$this->Settings['repository']['host']['git'].$this->Settings['repository']['name'].".git"." ".dirname(__FILE__,3)."/tmp/".$this->Settings['repository']['name']);
         shell_exec("cp -ur ".dirname(__FILE__,3)."/tmp/".$this->Settings['repository']['name']."/* ".dirname(__FILE__,3)."/.");
         shell_exec("rm -rf ".dirname(__FILE__,3)."/tmp/".$this->Settings['repository']['name']);
-				$this->LSP->updateFiles();
 				// We start updating our database
 				$this->LSP->updateStructure(dirname(__FILE__,3).'/dist/data/structure.json');
 				$this->LSP->insertRecords(dirname(__FILE__,3).'/dist/data/skeleton.json');

@@ -13,3 +13,4 @@ composer.phar
 /error/
 /stats/
 robots.txt
+/plugins/*
