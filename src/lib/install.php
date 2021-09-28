@@ -83,6 +83,7 @@ if (!$conn->connect_error){
           echo "Installing plugins<br>\n";
           foreach($settings['plugins'] as $plugin => $conf){
             if(!is_dir(dirname(__FILE__,3)."/plugins/".$plugin)){
+              echo "Installing ".$plugin."<br>\n";
               shell_exec("git clone --branch ".$plugins[$plugin]['repository']['branch']." ".$plugins[$plugin]['repository']['host']['git'].$plugins[$plugin]['repository']['name'].".git"." ".dirname(__FILE__,3)."/tmp/".$plugins[$plugin]['repository']['name']);
               mkdir(dirname(__FILE__,3)."/plugins/".$plugin);
               shell_exec("rsync -aP ".dirname(__FILE__,3)."/tmp/".$plugins[$plugin]['repository']['name']."/* ".dirname(__FILE__,3)."/plugins/".$plugin."/.");
@@ -91,8 +92,8 @@ if (!$conn->connect_error){
               if(is_file(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/structure.json')){ $this->LSP->updateStructure(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/structure.json'); }
       				if(is_file(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/skeleton.json')){ $this->LSP->insertRecords(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/skeleton.json'); }
       				if(is_file(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/sample.json')){ if((isset($args['sample']))&&($args['sample'])){ $this->LSP->insertRecords(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/sample.json'); } }
-              echo "Plugin:".$plugin." has been installed\n";
-            } else { echo "This plugin is already installed\n"; }
+              echo "Plugin:".$plugin." has been installed<br>\n";
+            } else { echo "This plugin is already installed<br>\n"; }
           }
 			    echo "Installation has completed successfully at ".date("Y-m-d H:i:s")."!<br>\n";
 				} else {
