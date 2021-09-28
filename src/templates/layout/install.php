@@ -142,8 +142,7 @@
                         </span>
                       </div>
                       <select class="form-control select2bs4" name="site_page" id="site_page">
-                        <?php $plugins = scandir(dirname(__FILE__,4).'/plugins/');
-    										foreach($plugins as $plugin) {
+    										<?php foreach($this->Settings['plugins'] as $plugin) {
     											if(("$plugin" != "..") and ("$plugin" != ".")){
     												$file = dirname(__FILE__,4).'/plugins/'.$plugin.'/src/views/index.php';
     												if(is_file($file)){ ?>
