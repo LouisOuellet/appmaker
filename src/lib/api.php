@@ -338,15 +338,20 @@ class API{
       if(!empty($args)&&isset($args['plugin'])&&isset($this->Plugins[$args['plugin']])){
         if(!is_dir(dirname(__FILE__,3)."/plugins/".$args['plugin'])){
           echo "Installing ".$args['plugin']."\n";
-          // We update the local files
+          // Update the local files
           shell_exec("git clone --branch ".$this->Plugins[$args['plugin']]['repository']['branch']." ".$this->Plugins[$args['plugin']]['repository']['host']['git'].$this->Plugins[$args['plugin']]['repository']['name'].".git"." ".dirname(__FILE__,3)."/tmp/".$this->Plugins[$args['plugin']]['repository']['name']);
           mkdir(dirname(__FILE__,3)."/plugins/".$args['plugin']);
           shell_exec("rsync -aP ".dirname(__FILE__,3)."/tmp/".$this->Plugins[$args['plugin']]['repository']['name']."/* ".dirname(__FILE__,3)."/plugins/".$args['plugin']."/.");
           shell_exec("rm -rf ".dirname(__FILE__,3)."/tmp/".$this->Plugins[$args['plugin']]['repository']['name']);
-  				// We start updating our database
+  				// Updating our database
           if(is_file(dirname(__FILE__,3)."/plugins/".$args['plugin'].'/dist/data/structure.json')){ $this->LSP->updateStructure(dirname(__FILE__,3)."/plugins/".$args['plugin'].'/dist/data/structure.json'); }
   				if(is_file(dirname(__FILE__,3)."/plugins/".$args['plugin'].'/dist/data/skeleton.json')){ $this->LSP->insertRecords(dirname(__FILE__,3)."/plugins/".$args['plugin'].'/dist/data/skeleton.json'); }
   				if(is_file(dirname(__FILE__,3)."/plugins/".$args['plugin'].'/dist/data/sample.json')){ if((isset($args['sample']))&&($args['sample'])){ $this->LSP->insertRecords(dirname(__FILE__,3)."/plugins/".$args['plugin'].'/dist/data/sample.json'); } }
+          // Update Settings
+          if(is_file(dirname(__FILE__,3)."/plugins/".$args['plugin'].'/dist/data/manifest.json')){ $manifest = json_decode(file_get_contents(dirname(__FILE__,3)."/plugins/".$args['plugin'].'/dist/data/manifest.json'),true); }
+          if(isset($manifest)){ $this->Settings['plugins'][$args['plugin']] = $manifest; }
+          else { $this->Settings['plugins'][$args['plugin']]['status'] = false; }
+          $this->SaveCfg(['plugins' => $this->Settings['plugins']]);
           echo $args['plugin']." has been installed\n";
         } else { echo $args['plugin']." is already installed\n"; }
       } else {
