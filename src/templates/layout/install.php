@@ -142,12 +142,9 @@
                         </span>
                       </div>
                       <select class="form-control select2bs4" name="site_page" id="site_page">
-    										<?php foreach($this->Settings['plugins'] as $plugin => $conf){
-    											if(("$plugin" != "..") and ("$plugin" != ".")){
-    												$file = dirname(__FILE__,4).'/plugins/'.$plugin.'/src/views/index.php';
-    												if(is_file($file)){ ?>
-                              <option value="<?=$plugin?>"<?php if((isset($_POST['site_page']))&&($_POST['site_page']==$plugin)){echo" selected";} else { if(isset($this->Settings['page'])&&$this->Settings['page']==$plugin){ echo " selected"; } }?>><?=ucwords(str_replace('_',' ',$plugin))?></option>
-                        <?php }}} ?>
+    										<?php foreach($this->Settings['plugins'] as $plugin => $conf){ ?>
+                          <option value="<?=$plugin?>"<?php if((isset($_POST['site_page']))&&($_POST['site_page']==$plugin)){echo" selected";} else { if(isset($this->Settings['page'])&&$this->Settings['page']==$plugin){ echo " selected"; } }?>><?=ucwords(str_replace('_',' ',$plugin))?></option>
+                        <?php } ?>
                       </select>
                     </div>
                   </div>
