@@ -380,7 +380,7 @@ class API{
       } else {
         echo "Specify a plugin:\n";
         foreach($this->Plugins as $name => $plugin){
-          if(!is_dir(dirname(__FILE__,3)."/plugins/".$name)){ echo " - ".$name."\n"; }
+          if(is_dir(dirname(__FILE__,3)."/plugins/".$name)){ echo " - ".$name."\n"; }
         }
       }
     }
