@@ -128,19 +128,11 @@ class API{
 		$Settings['Structure'] = $this->Structure;
     if(isset($this->Settings['debug'])){ $Settings['Debug'] = $this->Settings['debug']; }
 		else { $Settings['Debug'] = false; }
+    $Settings['plugins'] = $this->Settings['plugins'];
 		$request['Settings'] = $Settings;
 		$Lists['Countries'] = $this->Settings['Countries'];
 		$Lists['States'] = $this->Settings['States'];
-		foreach(preg_grep('/^([^.])/', scandir(dirname(__FILE__,3).'/plugins/')) as $plugin){
-			$Lists['Views'][$plugin] = [];
-			if(is_dir(dirname(__FILE__,3).'/plugins/'.$plugin.'/src/views/')){
-				foreach(preg_grep('/^([^.])/', scandir(dirname(__FILE__,3).'/plugins/'.$plugin.'/src/views/')) as $view){
-					array_push($Lists['Views'][$plugin],str_replace('.php','',$view));
-				}
-			}
-			if(isset($this->Settings['plugins'][$plugin]['status'])){ $Lists['Plugins'][$plugin]['status'] = $this->Settings['plugins'][$plugin]['status']; }
-			else { $Lists['Plugins'][$plugin]['status'] = false; }
-		}
+    $Lists['Plugins'] = $this->Plugins;
 		$Lists['Tables'] = [];
 		foreach($Settings['Structure'] as $table => $cols){ array_push($Lists['Tables'],$table); }
 		$Lists['Timezones'] = $this->Settings['Timezones'];
@@ -448,7 +440,7 @@ class API{
 							if($this->Auth->isLogin()){
 								$file = dirname(__FILE__,3).'/plugins/'.$POST['request'].'/api.php';
 								if(is_file($file)){
-									if((isset($this->Settings['Plugins'][$POST['request']]))&&$this->Settings['Plugins'][$POST['request']]){
+									if((isset($this->Settings['plugins'][$POST['request']]))&&$this->Settings['plugins'][$POST['request']]){
 										require_once $file;
 										if(class_exists($POST['request'].'API')){
 											$request = $POST['request'].'API';
