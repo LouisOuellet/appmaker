@@ -57,11 +57,6 @@ class API{
     $this->States = json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/states.json'),true);
     $this->Plugins = json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/plugins.json'),true);
 
-		// Verify Plugins
-		foreach($this->Plugins as $plugin => $conf){
-			if(!isset($this->Settings['plugins'][$plugin]['status'])){ $this->Settings['plugins'][$plugin]['status'] = false; }
-		}
-
 		// Setup Language
 		if(isset($_COOKIE['language'])){ $this->Language = new Language($_COOKIE["language"]); }
 		else { $this->Language = new Language($this->Settings["language"]); }
