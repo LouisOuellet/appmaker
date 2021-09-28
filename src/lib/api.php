@@ -337,7 +337,7 @@ class API{
 			if((is_array($arg))&&(isset($arg[0]))){ $args=json_decode($arg[0],true); } else { $args=[]; }
       if(!empty($args)&&isset($args['plugin'])&&isset($this->Plugins[$args['plugin']])){
         if(!is_dir(dirname(__FILE__,3)."/plugins/".$args['plugin'])){
-          echo "Installing ".$args['plugin']."<br>\n";
+          echo "Installing ".$args['plugin']."\n";
           // We update the local files
           shell_exec("git clone --branch ".$this->Plugins[$args['plugin']]['repository']['branch']." ".$this->Plugins[$args['plugin']]['repository']['host']['git'].$this->Plugins[$args['plugin']]['repository']['name'].".git"." ".dirname(__FILE__,3)."/tmp/".$this->Plugins[$args['plugin']]['repository']['name']);
           mkdir(dirname(__FILE__,3)."/plugins/".$args['plugin']);
@@ -363,7 +363,7 @@ class API{
 			if((is_array($arg))&&(isset($arg[0]))){ $args=json_decode($arg[0],true); } else { $args=[]; }
       if(!empty($args)&&isset($args['plugin'])&&isset($this->Plugins[$args['plugin']])){
         if(is_dir(dirname(__FILE__,3)."/plugins/".$args['plugin'])){
-          echo "Uninstalling ".$args['plugin']."<br>\n";
+          echo "Uninstalling ".$args['plugin']."\n";
           shell_exec("rm -rf ".dirname(__FILE__,3)."/plugins/".$args['plugin']);
           echo $args['plugin']." has been uninstalled\n";
         } else { echo $args['plugin']." is not installed\n"; }
