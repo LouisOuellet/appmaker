@@ -51,8 +51,14 @@ class API{
       $this->Settings=json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/manifest.json'),true);
     }
 
+		//Import Listings
+    $this->Timezones = json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/timezones.json'),true);
+    $this->Countries = json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/countries.json'),true);
+    $this->States = json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/states.json'),true);
+    $this->Plugins = json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/plugins.json'),true);
+
 		// Verify Plugins
-		foreach(preg_grep('/^([^.])/', scandir(dirname(__FILE__,3).'/plugins/')) as $plugin){
+		foreach($this->Plugins as $plugin => $conf){
 			if(!isset($this->Settings['plugins'][$plugin]['status'])){ $this->Settings['plugins'][$plugin]['status'] = false; }
 		}
 
@@ -61,7 +67,7 @@ class API{
 		else { $this->Language = new Language($this->Settings["language"]); }
 
 		// Verify Plugins
-		foreach(preg_grep('/^([^.])/', scandir(dirname(__FILE__,3).'/plugins/')) as $plugin){
+		foreach($this->Plugins as $plugin => $conf){
 			if(!isset($this->Settings['plugins'][$plugin]['status'])){ $this->Settings['plugins'][$plugin]['status'] = false; }
 			// Extend Language
 			if(isset($_COOKIE['language'])){
@@ -75,12 +81,6 @@ class API{
 				}
 			}
 		}
-
-		//Import some listings
-    $this->Timezones = json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/timezones.json'),true);
-    $this->Countries = json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/countries.json'),true);
-    $this->States = json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/states.json'),true);
-    $this->Plugins = json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/plugins.json'),true);
 
 		// Setup Instance
 		if((isset($this->Settings['debug']))&&($this->Settings['debug'])){ error_reporting(-1); } else { error_reporting(0); }
@@ -361,7 +361,7 @@ class API{
           if(is_file(dirname(__FILE__,3)."/plugins/".$args['plugin'].'/dist/data/structure.json')){ $this->LSP->updateStructure(dirname(__FILE__,3)."/plugins/".$args['plugin'].'/dist/data/structure.json'); }
   				if(is_file(dirname(__FILE__,3)."/plugins/".$args['plugin'].'/dist/data/skeleton.json')){ $this->LSP->insertRecords(dirname(__FILE__,3)."/plugins/".$args['plugin'].'/dist/data/skeleton.json'); }
   				if(is_file(dirname(__FILE__,3)."/plugins/".$args['plugin'].'/dist/data/sample.json')){ if((isset($args['sample']))&&($args['sample'])){ $this->LSP->insertRecords(dirname(__FILE__,3)."/plugins/".$args['plugin'].'/dist/data/sample.json'); } }
-          echo "Plugin:".$args['plugin']." has been installed\n";
+          echo $args['plugin']." has been installed\n";
         } else { echo $args['plugin']." is already installed\n"; }
       } else {
         echo "Available plugins:\n";
@@ -379,7 +379,7 @@ class API{
         if(is_dir(dirname(__FILE__,3)."/plugins/".$args['plugin'])){
           echo "Uninstalling ".$args['plugin']."<br>\n";
           shell_exec("rm -rf ".dirname(__FILE__,3)."/plugins/".$args['plugin']);
-          echo "Plugin:".$args['plugin']." has been uninstalled\n";
+          echo $args['plugin']." has been uninstalled\n";
         } else { echo $args['plugin']." is not installed\n"; }
       } else {
         echo "Specify a plugin:\n";
