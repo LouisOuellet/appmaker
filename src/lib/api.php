@@ -384,19 +384,21 @@ class API{
   public function __publish($arg = []){
 		if($this->LSP->Status){
 			if((is_array($arg))&&(isset($arg[0]))){ $args=json_decode($arg[0],true); } else { $args=[]; }
-      $settings=json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/manifest.json'),true);
-      $configs = [
-        'build' => $settings['build']+1,
-        'version' => date("y.m").'-'.$settings['repository']['branch'],
-      ];
-      $this->SaveAppCfg($configs);
-      $this->Settings['build'] = $configs['build'];
-      $this->Settings['version'] = $configs['version'];
-      shell_exec("git add . && git commit -m 'UPDATE' && git push origin ".$this->Settings['repository']['branch']);
-      echo "\n";
-      $this->__version();
-      echo "\n";
-      echo "Published on ".$this->Settings['repository']['host']['git'].$this->Settings['repository']['name'].".git\n";
+      if(empty($args)){
+        $settings=json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/manifest.json'),true);
+        $configs = [
+          'build' => $settings['build']+1,
+          'version' => date("y.m").'-'.$settings['repository']['branch'],
+        ];
+        $this->SaveAppCfg($configs);
+        $this->Settings['build'] = $configs['build'];
+        $this->Settings['version'] = $configs['version'];
+        shell_exec("git add . && git commit -m 'UPDATE' && git push origin ".$this->Settings['repository']['branch']);
+        echo "\n";
+        $this->__version();
+        echo "\n";
+        echo "Published on ".$this->Settings['repository']['host']['git'].$this->Settings['repository']['name'].".git\n";
+      }
     }
   }
 
