@@ -143,7 +143,7 @@
                       </div>
                       <select class="form-control select2bs4" name="site_page" id="site_page">
     										<?php foreach($this->Settings['plugins'] as $plugin => $conf){ ?>
-                          <?php if($plugin != ''){ ?>
+                          <?php if($plugin != 'empty'){ ?>
                             <option value="<?=$plugin?>"<?php if((isset($_POST['site_page']))&&($_POST['site_page']==$plugin)){echo" selected";} else { if(isset($this->Settings['page'])&&$this->Settings['page']==$plugin){ echo " selected"; } }?>><?=ucwords(str_replace('_',' ',$plugin))?></option>
                           <?php } ?>
                         <?php } ?>
