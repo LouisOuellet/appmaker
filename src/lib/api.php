@@ -360,11 +360,9 @@ class API{
           if(is_file(dirname(__FILE__,3)."/plugins/".$args['plugin'].'/dist/data/structure.json')){ $this->LSP->updateStructure(dirname(__FILE__,3)."/plugins/".$args['plugin'].'/dist/data/structure.json'); }
   				if(is_file(dirname(__FILE__,3)."/plugins/".$args['plugin'].'/dist/data/skeleton.json')){ $this->LSP->insertRecords(dirname(__FILE__,3)."/plugins/".$args['plugin'].'/dist/data/skeleton.json'); }
   				if(is_file(dirname(__FILE__,3)."/plugins/".$args['plugin'].'/dist/data/sample.json')){ if((isset($args['sample']))&&($args['sample'])){ $this->LSP->insertRecords(dirname(__FILE__,3)."/plugins/".$args['plugin'].'/dist/data/sample.json'); } }
-        } else {
-          echo "This plugin is already installed\n";
-        }
+        } else { echo "This plugin is already installed\n"; }
       } else {
-        echo "Available Plugins:\n";
+        echo "Available plugins:\n";
         foreach($this->Plugins as $name => $plugin){
           echo " - ".$name."\n";
         }
@@ -375,20 +373,14 @@ class API{
   public function __uninstall($arg = []){
 		if($this->LSP->Status){
 			if((is_array($arg))&&(isset($arg[0]))){ $args=json_decode($arg[0],true); } else { $args=[]; }
-      if(isset($args['plugin'])&&in_array($args['plugin'],$this->Plugins)){
-        // We update the local files
-        shell_exec("git clone --branch ".$this->Plugins[$args['plugin']]['repository']['branch']." ".$this->Plugins[$args['plugin']]['repository']['host']['git'].$this->Plugins[$args['plugin']]['repository']['name'].".git"." ".dirname(__FILE__,3)."/tmp/".$this->Plugins[$args['plugin']]['repository']['name']);
-        mkdir(dirname(__FILE__,3)."/plugins/".$args['plugin']);
-        shell_exec("rsync -aP ".dirname(__FILE__,3)."/tmp/".$this->Plugins[$args['plugin']]['repository']['name']."/* ".dirname(__FILE__,3)."/plugins/".$args['plugin']."/.");
-        shell_exec("rm -rf ".dirname(__FILE__,3)."/tmp/".$this->Plugins[$args['plugin']]['repository']['name']);
-				// We start updating our database
-				$this->LSP->updateStructure(dirname(__FILE__,3).'/dist/data/structure.json');
-				$this->LSP->insertRecords(dirname(__FILE__,3).'/dist/data/skeleton.json');
-				if((isset($args['sample']))&&($args['sample'])){ $this->LSP->insertRecords(dirname(__FILE__,3).'/dist/data/sample.json'); }
+      if(!empty($args)&&isset($args['plugin'])&&isset($this->Plugins[$args['plugin']])){
+        if(!is_dir(dirname(__FILE__,3)."/plugins/".$args['plugin'])){
+          shell_exec("rm -rf ".dirname(__FILE__,3)."/plugins/".$args['plugin']);
+        } else { echo "This plugin is not installed\n"; }
       } else {
-        echo "Available Plugins:\n";
+        echo "Specify a plugin:\n";
         foreach($this->Plugins as $name => $plugin){
-          echo " - ".$name."\n";
+          if(!is_dir(dirname(__FILE__,3)."/plugins/".$name)){ echo " - ".$name."\n"; }
         }
       }
     }
