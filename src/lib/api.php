@@ -362,7 +362,7 @@ class API{
   				if(is_file(dirname(__FILE__,3)."/plugins/".$args['plugin'].'/dist/data/skeleton.json')){ $this->LSP->insertRecords(dirname(__FILE__,3)."/plugins/".$args['plugin'].'/dist/data/skeleton.json'); }
   				if(is_file(dirname(__FILE__,3)."/plugins/".$args['plugin'].'/dist/data/sample.json')){ if((isset($args['sample']))&&($args['sample'])){ $this->LSP->insertRecords(dirname(__FILE__,3)."/plugins/".$args['plugin'].'/dist/data/sample.json'); } }
           echo "Plugin:".$args['plugin']." has been installed\n";
-        } else { echo "This plugin is already installed\n"; }
+        } else { echo $args['plugin']." is already installed\n"; }
       } else {
         echo "Available plugins:\n";
         foreach($this->Plugins as $name => $plugin){
@@ -380,7 +380,7 @@ class API{
           echo "Uninstalling ".$args['plugin']."<br>\n";
           shell_exec("rm -rf ".dirname(__FILE__,3)."/plugins/".$args['plugin']);
           echo "Plugin:".$args['plugin']." has been uninstalled\n";
-        } else { echo "This plugin is not installed\n"; }
+        } else { echo $args['plugin']." is not installed\n"; }
       } else {
         echo "Specify a plugin:\n";
         foreach($this->Plugins as $name => $plugin){

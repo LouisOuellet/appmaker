@@ -93,7 +93,7 @@ if (!$conn->connect_error){
       				if(is_file(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/skeleton.json')){ $this->LSP->insertRecords(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/skeleton.json'); }
       				if(is_file(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/sample.json')){ if((isset($args['sample']))&&($args['sample'])){ $this->LSP->insertRecords(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/sample.json'); } }
               echo "Plugin:".$plugin." has been installed<br>\n";
-            } else { echo "This plugin is already installed<br>\n"; }
+            } else { echo $plugin." is already installed\n"; }
           }
 			    echo "Installation has completed successfully at ".date("Y-m-d H:i:s")."!<br>\n";
 				} else {
