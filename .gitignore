@@ -8,7 +8,6 @@ composer.phar
 /tmp/*
 */tmp/
 */tmp/*
-/data/
 /data/*
 /error/
 /stats/
