@@ -70,7 +70,7 @@ class API{
 				}
 			}
 			else {
-				if(($this->Settings['plugins'][$plugin]['status'])&&(file_exists(dirname(__FILE__,3).'/plugins/'.$plugin.'/dist/languages/'.$this->Settings['language'].'.json'))){
+				if(isset($this->Settings['plugins'][$plugin]['status'])&&$this->Settings['plugins'][$plugin]['status']&&file_exists(dirname(__FILE__,3).'/plugins/'.$plugin.'/dist/languages/'.$this->Settings['language'].'.json')){
 					$this->Language->Field = array_replace_recursive($this->Language->Field,json_decode(file_get_contents(dirname(__FILE__,3).'/plugins/'.$plugin.'/dist/languages/'.$this->Settings['language'].'.json'),true));
 				}
 			}
