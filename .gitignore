@@ -14,3 +14,4 @@ composer.phar
 /stats/
 robots.txt
 /plugins/*
+!/plugins/empty
