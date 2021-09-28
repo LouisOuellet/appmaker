@@ -349,8 +349,10 @@ class API{
   public function __install($arg = []){
 		if($this->LSP->Status){
 			if((is_array($arg))&&(isset($arg[0]))){ $args=json_decode($arg[0],true); } else { $args=[]; }
-      var_dump($args);
-      var_dump($this->Plugins);
+      var_dump(!empty($args));
+      var_dump(isset($args['plugin']));
+      var_dump(isset($this->Plugins[$args['plugin']]));
+      var_dump(in_array($args['plugin'],$this->Plugins));
       if(!empty($args)&&isset($args['plugin'])&&in_array($args['plugin'],$this->Plugins)){
         // We update the local files
         shell_exec("git clone --branch ".$this->Plugins[$args['plugin']]['repository']['branch']." ".$this->Plugins[$args['plugin']]['repository']['host']['git'].$this->Plugins[$args['plugin']]['repository']['name'].".git"." ".dirname(__FILE__,3)."/tmp/".$this->Plugins[$args['plugin']]['repository']['name']);
