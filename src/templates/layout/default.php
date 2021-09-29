@@ -87,7 +87,7 @@
   <!-- /.control-sidebar -->
   <footer class="main-footer">
     <div class="float-right d-none d-sm-block">
-      <b><?= $this->Language->Field['Version'] ?></b> <?= $this->Settings['version'] ?>
+      <b><?= $this->Language->Field['Version'] ?></b> <?= $this->Settings['version'] ?> <b><?= $this->Language->Field['Build'] ?></b> <?= $this->Settings['build'] ?>
     </div>
     <strong><?= $this->Language->Field['Copyright']." &copy; 2019-".date("Y")." " ?><a href="http://albcie.com">ALB Compagnie International</a></strong> <?= $this->Language->Field['All_rights_reserved'] ?>. <a href="<?= $this->URL ?>">End-user license agreement</a>
   </footer>
