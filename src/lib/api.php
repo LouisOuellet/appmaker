@@ -334,11 +334,11 @@ class API{
 
   public function __install($arg = []){
 		if($this->LSP->Status){
-			if((is_array($arg))&&(isset($arg[0]))){
-        if(isset($arg['plugin'])){ $args = $arg; } else { $args=json_decode($arg[0],true); }
-      } else { $args=[]; }
+      if((is_array($arg))&&($arg['plugin'])){ $args = $arg; }
+			elseif((is_array($arg))&&(isset($arg[0]))){ $args=json_decode($arg[0],true); }
+      else { $args=[]; }
       if(!empty($args)&&isset($args['plugin'])&&isset($this->Plugins[$args['plugin']])){
-        if(!is_dir(dirname(__FILE__,3)."/plugins/".$args['plugin'])){
+        if((!is_dir(dirname(__FILE__,3)."/plugins/".$args['plugin']))||(isset($args['force'])&&$args['force'])){
           if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Installing ".$args['plugin']."\n";}
           // Update the local files
           shell_exec("git clone --branch ".$this->Plugins[$args['plugin']]['repository']['branch']." ".$this->Plugins[$args['plugin']]['repository']['host']['git'].$this->Plugins[$args['plugin']]['repository']['name'].".git"." ".dirname(__FILE__,3)."/tmp/".$this->Plugins[$args['plugin']]['repository']['name']);
@@ -354,33 +354,35 @@ class API{
           if(isset($manifest)){ $this->Settings['plugins'][$args['plugin']] = $manifest; }
           else { $this->Settings['plugins'][$args['plugin']]['status'] = false; }
           $this->SaveCfg(['plugins' => $this->Settings['plugins']]);
-          if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo $args['plugin']." has been installed\n";}
-        } else { if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo $args['plugin']." is already installed\n";} }
+          if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo $args['plugin']." has been installed\n";} elseif(isset($args['silent'])&&$args['silent']) { return true; }
+        } else { if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo $args['plugin']." is already installed\n";} elseif(isset($args['silent'])&&$args['silent']) { return false; } }
       } else {
         if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Available plugins:\n";}
         foreach($this->Plugins as $name => $plugin){
           if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo " - ".$name."\n";}
         }
+        if(isset($args['silent'])&&$args['silent']) { return false; }
       }
     }
   }
 
   public function __uninstall($arg = []){
 		if($this->LSP->Status){
-      if((is_array($arg))&&(isset($arg[0]))){
-        if(isset($arg['plugin'])){ $args = $arg; } else { $args=json_decode($arg[0],true); }
-      } else { $args=[]; }
+      if((is_array($arg))&&($arg['plugin'])){ $args = $arg; }
+      elseif((is_array($arg))&&(isset($arg[0]))){ $args=json_decode($arg[0],true); }
+      else { $args=[]; }
       if(!empty($args)&&isset($args['plugin'])&&isset($this->Plugins[$args['plugin']])){
         if(is_dir(dirname(__FILE__,3)."/plugins/".$args['plugin'])){
           if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Uninstalling ".$args['plugin']."\n";}
           shell_exec("rm -rf ".dirname(__FILE__,3)."/plugins/".$args['plugin']);
-          if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo $args['plugin']." has been uninstalled\n";}
-        } else { if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo $args['plugin']." is not installed\n";} }
+          if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo $args['plugin']." has been uninstalled\n";} elseif(isset($args['silent'])&&$args['silent']) { return true; }
+        } else { if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo $args['plugin']." is not installed\n";} elseif(isset($args['silent'])&&$args['silent']) { return false; } }
       } else {
         if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Specify a plugin:\n";}
         foreach($this->Plugins as $name => $plugin){
           if(is_dir(dirname(__FILE__,3)."/plugins/".$name)){ if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo " - ".$name."\n";} }
         }
+        if(isset($args['silent'])&&$args['silent']) { return false; }
       }
     }
   }
