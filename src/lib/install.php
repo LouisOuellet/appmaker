@@ -77,9 +77,6 @@ if (!$conn->connect_error){
           $settings['last_background_jobs'] = date("Y-m-d H:i:s");
           $settings['timezone'] = $_POST["site_timezone"];
           $settings['license'] = $_POST["activation_license"];
-					$json = fopen(dirname(__FILE__,3).'/config/config.json', 'w');
-					fwrite($json, json_encode($settings, JSON_PRETTY_PRINT));
-					fclose($json);
           echo "Installing plugins<br>\n";
           foreach($settings['plugins'] as $plugin => $conf){
             if(!is_dir(dirname(__FILE__,3)."/plugins/".$plugin)){
@@ -92,9 +89,13 @@ if (!$conn->connect_error){
               if(is_file(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/structure.json')){ $this->LSP->updateStructure(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/structure.json'); }
       				if(is_file(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/skeleton.json')){ $this->LSP->insertRecords(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/skeleton.json'); }
       				if(is_file(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/sample.json')){ if((isset($args['sample']))&&($args['sample'])){ $this->LSP->insertRecords(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/sample.json'); } }
+              $settings['plugins'][$plugin] = json_decode(file_get_contents(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/manifest.json'),true);
               echo $plugin." has been installed<br>\n";
             } else { echo $plugin." is already installed<br>\n"; }
           }
+					$json = fopen(dirname(__FILE__,3).'/config/config.json', 'w');
+					fwrite($json, json_encode($settings, JSON_PRETTY_PRINT));
+					fclose($json);
 			    echo "Installation has completed successfully at ".date("Y-m-d H:i:s")."!<br>\n";
 				} else {
 					echo "Unable to import the database default records<br>\n";

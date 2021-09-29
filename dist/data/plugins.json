@@ -350,7 +350,7 @@
     },
     "roles": {
         "repository": {
-            "name": "appmaker-repository",
+            "name": "appmaker-roles",
             "branch": "dev",
             "host": {
                 "git": "https:\/\/github.com\/LouisOuellet\/",
