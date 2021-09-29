@@ -242,7 +242,7 @@ class API{
     echo "Build: ".$this->Settings['build']."\n";
   }
 
-  public function __maintenance_mode($arg = []){
+  public function __maintenance($arg = []){
     if($this->LSP->Status){
       if((is_array($arg))&&(isset($arg[0]))){ $args=json_decode($arg[0],true); } else { $args=[]; }
 	    if(isset($args['maintenance'])){
@@ -258,7 +258,7 @@ class API{
 		}
   }
 
-  public function __debug_mode($arg = []){
+  public function __debug($arg = []){
     if($this->LSP->Status){
       if((is_array($arg))&&(isset($arg[0]))){ $args=json_decode($arg[0],true); } else { $args=[]; }
 	    if(isset($args['debug'])){
