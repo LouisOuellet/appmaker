@@ -334,10 +334,12 @@ class API{
 
   public function __install($arg = []){
 		if($this->LSP->Status){
-			if((is_array($arg))&&(isset($arg[0]))){ $args=json_decode($arg[0],true); } else { $args=[]; }
+			if((is_array($arg))&&(isset($arg[0]))){
+        if(isset($arg['plugin'])){ $args = $arg; } else { $args=json_decode($arg[0],true); }
+      } else { $args=[]; }
       if(!empty($args)&&isset($args['plugin'])&&isset($this->Plugins[$args['plugin']])){
         if(!is_dir(dirname(__FILE__,3)."/plugins/".$args['plugin'])){
-          echo "Installing ".$args['plugin']."\n";
+          if(isset($args['silent'])&&$args['silent']){echo "Installing ".$args['plugin']."\n";}
           // Update the local files
           shell_exec("git clone --branch ".$this->Plugins[$args['plugin']]['repository']['branch']." ".$this->Plugins[$args['plugin']]['repository']['host']['git'].$this->Plugins[$args['plugin']]['repository']['name'].".git"." ".dirname(__FILE__,3)."/tmp/".$this->Plugins[$args['plugin']]['repository']['name']);
           mkdir(dirname(__FILE__,3)."/plugins/".$args['plugin']);
@@ -352,12 +354,12 @@ class API{
           if(isset($manifest)){ $this->Settings['plugins'][$args['plugin']] = $manifest; }
           else { $this->Settings['plugins'][$args['plugin']]['status'] = false; }
           $this->SaveCfg(['plugins' => $this->Settings['plugins']]);
-          echo $args['plugin']." has been installed\n";
-        } else { echo $args['plugin']." is already installed\n"; }
+          if(isset($args['silent'])&&$args['silent']){echo $args['plugin']." has been installed\n";}
+        } else { if(isset($args['silent'])&&$args['silent']){echo $args['plugin']." is already installed\n";} }
       } else {
-        echo "Available plugins:\n";
+        if(isset($args['silent'])&&$args['silent']){echo "Available plugins:\n";}
         foreach($this->Plugins as $name => $plugin){
-          echo " - ".$name."\n";
+          if(isset($args['silent'])&&$args['silent']){echo " - ".$name."\n";}
         }
       }
     }
@@ -365,17 +367,19 @@ class API{
 
   public function __uninstall($arg = []){
 		if($this->LSP->Status){
-			if((is_array($arg))&&(isset($arg[0]))){ $args=json_decode($arg[0],true); } else { $args=[]; }
+      if((is_array($arg))&&(isset($arg[0]))){
+        if(isset($arg['plugin'])){ $args = $arg; } else { $args=json_decode($arg[0],true); }
+      } else { $args=[]; }
       if(!empty($args)&&isset($args['plugin'])&&isset($this->Plugins[$args['plugin']])){
         if(is_dir(dirname(__FILE__,3)."/plugins/".$args['plugin'])){
-          echo "Uninstalling ".$args['plugin']."\n";
+          if(isset($args['silent'])&&$args['silent']){echo "Uninstalling ".$args['plugin']."\n";}
           shell_exec("rm -rf ".dirname(__FILE__,3)."/plugins/".$args['plugin']);
-          echo $args['plugin']." has been uninstalled\n";
-        } else { echo $args['plugin']." is not installed\n"; }
+          if(isset($args['silent'])&&$args['silent']){echo $args['plugin']." has been uninstalled\n";}
+        } else { if(isset($args['silent'])&&$args['silent']){echo $args['plugin']." is not installed\n";} }
       } else {
-        echo "Specify a plugin:\n";
+        if(isset($args['silent'])&&$args['silent']){echo "Specify a plugin:\n";}
         foreach($this->Plugins as $name => $plugin){
-          if(is_dir(dirname(__FILE__,3)."/plugins/".$name)){ echo " - ".$name."\n"; }
+          if(is_dir(dirname(__FILE__,3)."/plugins/".$name)){ if(isset($args['silent'])&&$args['silent']){echo " - ".$name."\n";} }
         }
       }
     }
