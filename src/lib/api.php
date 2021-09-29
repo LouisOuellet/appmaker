@@ -375,6 +375,8 @@ class API{
         if(is_dir(dirname(__FILE__,3)."/plugins/".$args['plugin'])){
           if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Uninstalling ".$args['plugin']."\n";}
           shell_exec("rm -rf ".dirname(__FILE__,3)."/plugins/".$args['plugin']);
+          unset($this->Settings['plugins'][$args['plugin']]);
+          $this->SaveCfg(['plugins' => $this->Settings['plugins']]);
           if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo $args['plugin']." has been uninstalled\n";} elseif(isset($args['silent'])&&$args['silent']) { return true; }
         } else { if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo $args['plugin']." is not installed\n";} elseif(isset($args['silent'])&&$args['silent']) { return false; } }
       } else {
