@@ -124,12 +124,12 @@ class API{
 		else { $Settings['Debug'] = false; }
     $Settings['plugins'] = $this->Settings['plugins'];
 		$request['Settings'] = $Settings;
-		$Lists['Countries'] = $this->Settings['Countries'];
-		$Lists['States'] = $this->Settings['States'];
+		$Lists['Countries'] = $this->Countries;
+		$Lists['States'] = $this->States;
     $Lists['Plugins'] = $this->Plugins;
 		$Lists['Tables'] = [];
 		foreach($Settings['Structure'] as $table => $cols){ array_push($Lists['Tables'],$table); }
-		$Lists['Timezones'] = $this->Settings['Timezones'];
+		$Lists['Timezones'] = $this->Timezones;
 		$Lists['Language'] = $this->Language->Field;
 		$Lists['Jobs'] = [];
 		$jobs = $this->Auth->read('job_titles');
