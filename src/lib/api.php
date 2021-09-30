@@ -443,6 +443,10 @@ class API{
         if(is_file(dirname(__FILE__,3).'/dist/data/structure.json')){ $this->LSP->updateStructure(dirname(__FILE__,3).'/dist/data/structure.json'); }
 				if(is_file(dirname(__FILE__,3).'/dist/data/skeleton.json')){ $this->LSP->insertRecords(dirname(__FILE__,3).'/dist/data/skeleton.json'); }
 				if(is_file(dirname(__FILE__,3).'/dist/data/sample.json')){ if((isset($args['sample']))&&($args['sample'])){ $this->LSP->insertRecords(dirname(__FILE__,3).'/dist/data/sample.json'); } }
+        // Saving new configurations
+        if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Saving new configurations\n";}
+        $this->Settings['build'] = $manifest['build'];
+        $this->SaveCfg($this->Settings);
         if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Application updated successfully\n";}
 				if(isset($args['silent'])&&$args['silent']) { return ["success" => $this->Language->Field["Application updated successfully"]]; }
 			} else {
