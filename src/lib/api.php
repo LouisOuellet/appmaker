@@ -427,6 +427,10 @@ class API{
 			if(($this->Settings['build'] < $manifest['build'])||((isset($args['force']))&&($args['force']))){
 				// We configure our database access
 				$this->LSP->configdb($this->Settings['sql']['host'], $this->Settings['sql']['username'], $this->Settings['sql']['password'], $this->Settings['sql']['database']);
+        // Putting Server in maintenance mode
+        if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Enabling Maintenance\n";}
+        $this->Settings['maintenance'] = true;
+        $this->SaveCfg($this->Settings);
 				// We backup the database using a JSON file.
         if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Creating backup\n";}
 				$timestamp = new Datetime();
@@ -446,6 +450,7 @@ class API{
         // Saving new configurations
         if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Saving new configurations\n";}
         $this->Settings['build'] = $manifest['build'];
+        $this->Settings['maintenance'] = false;
         $this->SaveCfg($this->Settings);
         if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Application updated successfully\n";}
 				if(isset($args['silent'])&&$args['silent']) { return ["success" => $this->Language->Field["Application updated successfully"]]; }
