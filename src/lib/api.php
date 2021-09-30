@@ -416,29 +416,37 @@ class API{
 
   public function __update($arg = []){
 		if($this->LSP->Status){
-			if((is_array($arg))&&(isset($arg[0]))){ $args=json_decode($arg[0],true); } else { $args=[]; }
+      if((is_array($arg))&&($arg['plugin'])){ $args = $arg; }
+      elseif((is_array($arg))&&(isset($arg[0]))){ $args=json_decode($arg[0],true); }
+      else { $args=[]; }
 			if(($this->LSP->Update)||((isset($args['force']))&&($args['force']))){
 				// We configure our database access
 				$this->LSP->configdb($this->Settings['sql']['host'], $this->Settings['sql']['username'], $this->Settings['sql']['password'], $this->Settings['sql']['database']);
 				// We backup the database using a JSON file.
+        if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Creating backup\n";}
 				$timestamp = new Datetime();
         if(!is_dir(dirname(__FILE__,3).'/tmp')){mkdir(dirname(__FILE__,3).'/tmp');}
 				$this->LSP->createStructure(dirname(__FILE__,3).'/tmp/lsp-structure-backup-'.$timestamp->format('U').'.json');
 				$this->LSP->createRecords(dirname(__FILE__,3).'/tmp/lsp-data-backup-'.$timestamp->format('U').'.json');
 				// We update the local files
+        if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Updating local files\n";}
         shell_exec("git clone --branch ".$this->Settings['repository']['branch']." ".$this->Settings['repository']['host']['git'].$this->Settings['repository']['name'].".git"." ".dirname(__FILE__,3)."/tmp/".$this->Settings['repository']['name']);
         shell_exec("rsync -aP ".dirname(__FILE__,3)."/tmp/".$this->Settings['repository']['name']."/* ".dirname(__FILE__,3)."/.");
         shell_exec("rm -rf ".dirname(__FILE__,3)."/tmp/".$this->Settings['repository']['name']);
 				// We start updating our database
+        if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Upgrading database\n";}
         if(is_file(dirname(__FILE__,3).'/dist/data/structure.json')){ $this->LSP->updateStructure(dirname(__FILE__,3).'/dist/data/structure.json'); }
 				if(is_file(dirname(__FILE__,3).'/dist/data/skeleton.json')){ $this->LSP->insertRecords(dirname(__FILE__,3).'/dist/data/skeleton.json'); }
 				if(is_file(dirname(__FILE__,3).'/dist/data/sample.json')){ if((isset($args['sample']))&&($args['sample'])){ $this->LSP->insertRecords(dirname(__FILE__,3).'/dist/data/sample.json'); } }
-				return ["success" => $this->Language->Field["Application updated successfully"]];
+        if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Application updated successfully\n";}
+				if(isset($args['silent'])&&$args['silent']) { return ["success" => $this->Language->Field["Application updated successfully"]]; }
 			} else {
-				return ["error" => $this->Language->Field["No updates available"]];
+        if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "No updates available\n";}
+				if(isset($args['silent'])&&$args['silent']) { return ["error" => $this->Language->Field["No updates available"]]; }
 			}
 		} else {
-			return ["error" => $this->Language->Field["Application not activated"]];
+      if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Application not activated\n";}
+			if(isset($args['silent'])&&$args['silent']) { return ["error" => $this->Language->Field["Application not activated"]]; }
 		}
   }
 
