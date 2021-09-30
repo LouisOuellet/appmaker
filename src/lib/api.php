@@ -419,7 +419,12 @@ class API{
       if((is_array($arg))&&($arg['plugin'])){ $args = $arg; }
       elseif((is_array($arg))&&(isset($arg[0]))){ $args=json_decode($arg[0],true); }
       else { $args=[]; }
-			if(($this->LSP->Update)||((isset($args['force']))&&($args['force']))){
+      $curl = curl_init();
+      curl_setopt($curl, CURLOPT_URL, $this->Settings['repository']['host']['raw'].$this->Settings['repository']['name'].'/'.$this->Settings['repository']['branch'].$this->Settings['repository']['manifest']);
+      curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+      $manifest = json_decode(curl_exec($curl), true);
+      curl_close($curl);
+			if(($this->Settings['build'] < $manifest['build'])||((isset($args['force']))&&($args['force']))){
 				// We configure our database access
 				$this->LSP->configdb($this->Settings['sql']['host'], $this->Settings['sql']['username'], $this->Settings['sql']['password'], $this->Settings['sql']['database']);
 				// We backup the database using a JSON file.
