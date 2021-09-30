@@ -341,7 +341,7 @@ class API{
         if((!is_dir(dirname(__FILE__,3)."/plugins/".$args['plugin']))||(isset($args['force'])&&$args['force'])){
           if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Installing ".$args['plugin']."\n";}
           // Update the local files
-          shell_exec("git clone --branch ".$this->Plugins[$args['plugin']]['repository']['branch']." ".$this->Plugins[$args['plugin']]['repository']['host']['git'].$this->Plugins[$args['plugin']]['repository']['name'].".git"." ".dirname(__FILE__,3)."/tmp/".$this->Plugins[$args['plugin']]['repository']['name']);
+          shell_exec("git clone --branch ".$this->Plugins[$args['plugin']]['repository']['branch']." ".$this->Plugins[$args['plugin']]['repository']['host']['git'].$this->Plugins[$args['plugin']]['repository']['name'].".git"." ".dirname(__FILE__,3)."/tmp/".$this->Plugins[$args['plugin']]['repository']['name']." &> /dev/null");
           mkdir(dirname(__FILE__,3)."/plugins/".$args['plugin']);
           shell_exec("rsync -aP ".dirname(__FILE__,3)."/tmp/".$this->Plugins[$args['plugin']]['repository']['name']."/* ".dirname(__FILE__,3)."/plugins/".$args['plugin']."/.");
           shell_exec("rm -rf ".dirname(__FILE__,3)."/tmp/".$this->Plugins[$args['plugin']]['repository']['name']);
@@ -430,7 +430,7 @@ class API{
 				$this->LSP->createRecords(dirname(__FILE__,3).'/tmp/lsp-data-backup-'.$timestamp->format('U').'.json');
 				// We update the local files
         if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Updating local files\n";}
-        shell_exec("git clone --branch ".$this->Settings['repository']['branch']." ".$this->Settings['repository']['host']['git'].$this->Settings['repository']['name'].".git"." ".dirname(__FILE__,3)."/tmp/".$this->Settings['repository']['name']);
+        shell_exec("git clone --branch ".$this->Settings['repository']['branch']." ".$this->Settings['repository']['host']['git'].$this->Settings['repository']['name'].".git"." ".dirname(__FILE__,3)."/tmp/".$this->Settings['repository']['name']." &> /dev/null");
         shell_exec("rsync -aP ".dirname(__FILE__,3)."/tmp/".$this->Settings['repository']['name']."/* ".dirname(__FILE__,3)."/.");
         shell_exec("rm -rf ".dirname(__FILE__,3)."/tmp/".$this->Settings['repository']['name']);
 				// We start updating our database
