@@ -109,7 +109,7 @@
     },
     "log_level": 3,
     "version": "21.09-dev",
-    "build": 116,
+    "build": 117,
     "repository": {
         "name": "appmaker",
         "branch": "dev",
@@ -117,7 +117,12 @@
             "git": "https:\/\/github.com\/LouisOuellet\/",
             "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
         },
-        "manifest": "\/dist\/data\/manifest.json"
+        "manifest": "\/dist\/data\/manifest.json",
+        "branches": [
+            "main",
+            "beta",
+            "dev"
+        ]
     },
     "lsp": {
         "required": false,
