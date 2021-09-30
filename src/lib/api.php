@@ -424,6 +424,7 @@ class API{
       curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
       $manifest = json_decode(curl_exec($curl), true);
       curl_close($curl);
+      var_dump($args);
 			if(($this->Settings['build'] < $manifest['build'])||((isset($args['force']))&&($args['force']))){
 				// We configure our database access
 				$this->LSP->configdb($this->Settings['sql']['host'], $this->Settings['sql']['username'], $this->Settings['sql']['password'], $this->Settings['sql']['database']);
