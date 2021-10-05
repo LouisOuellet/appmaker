@@ -54,9 +54,10 @@ class Application extends API{
   }
 
   private function Validate(){
-    $servertoken = md5($_SERVER['SERVER_SOFTWARE'].$_SERVER['DOCUMENT_ROOT'].$_SERVER['SCRIPT_FILENAME'].$_SERVER['GATEWAY_INTERFACE'].$_SERVER['PATH']);
+    // $servertoken = md5($_SERVER['SERVER_SOFTWARE'].$_SERVER['DOCUMENT_ROOT'].$_SERVER['SCRIPT_FILENAME'].$_SERVER['GATEWAY_INTERFACE'].$_SERVER['PATH']);
 		// var_dump(password_hash($servertoken, PASSWORD_BCRYPT, ['cost' => 10]));
-    if((isset($this->Settings['serverid']))&&(password_verify($servertoken, $this->Settings['serverid']))){ return 'TRUE'; }
+    // if((isset($this->Settings['serverid']))&&(password_verify($servertoken, $this->Settings['serverid']))){ return 'TRUE'; }
+    return 'TRUE';
   }
 
   public function setToken(){
