@@ -1,10 +1,4 @@
 {
-    "sql": {
-        "username": "appmaker",
-        "password": "Raphy0610+-",
-        "host": "localhost",
-        "database": "appmaker"
-    },
     "license": "422c-21e2-d22b-504a-10d3-7fdf-5efb-52ba",
     "title": "APP Maker",
     "language": "english",
@@ -109,7 +103,7 @@
     },
     "log_level": 3,
     "version": "21.10-dev",
-    "build": 125,
+    "build": 126,
     "repository": {
         "name": "appmaker",
         "branch": "dev",

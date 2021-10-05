@@ -147,7 +147,7 @@ class LSP {
      	}
       $this->query_closed = FALSE;
     } else {
-      echo $this->error($query.': Unable to prepare MySQL statement (check your syntax) - ' . $this->connection->error);
+      echo $this->error('Unable to prepare MySQL statement (check your syntax) - ' . $this->connection->error);
   	}
 		return $this;
   }
