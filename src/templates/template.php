@@ -189,7 +189,7 @@
 	if(isset($this->Auth->Options['application']['sidenav']['value'])){ $sidenav = $this->Auth->Options['application']['sidenav']['value']; }
 	if(isset($this->Auth->Options['application']['sidenavmode']['value'])){ $sidenavmode = $this->Auth->Options['application']['sidenavmode']['value']; }
 	if(isset($this->Auth->Options['application']['darkmode']['value'])){ $darkmode = $this->Auth->Options['application']['darkmode']['value']; }
-	if(is_file(dirname(__FILE__,3).'/dist/img/custom-logo.png')){ $logobg = "custom-logo.png"; }
+	if(is_file(dirname(__FILE__,3).'/dist/img/custom-logo.png')){ $logopng = "custom-logo.png"; }
 ?>
 <body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed pace-<?=$pace?> <?php if($darkmode){ echo "dark-mode"; } ?>">
 	<?php
