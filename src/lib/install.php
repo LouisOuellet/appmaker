@@ -93,6 +93,8 @@ if (!$conn->connect_error){
               echo $plugin." has been installed<br>\n";
             } else { echo $plugin." is already installed<br>\n"; }
           }
+          $servertoken = md5($_SERVER['SERVER_SOFTWARE'].$_SERVER['DOCUMENT_ROOT'].$_SERVER['SCRIPT_FILENAME'].$_SERVER['GATEWAY_INTERFACE'].$_SERVER['PATH']);
+          $settings['serverid'] = password_hash($servertoken, PASSWORD_BCRYPT, ['cost' => 10]);
 					$json = fopen(dirname(__FILE__,3).'/config/config.json', 'w');
 					fwrite($json, json_encode($settings, JSON_PRETTY_PRINT));
 					fclose($json);

@@ -451,6 +451,8 @@ class API{
         if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Saving new configurations\n";}
         $this->Settings['build'] = $manifest['build'];
         $this->Settings['maintenance'] = false;
+        $servertoken = md5($_SERVER['SERVER_SOFTWARE'].$_SERVER['DOCUMENT_ROOT'].$_SERVER['SCRIPT_FILENAME'].$_SERVER['GATEWAY_INTERFACE'].$_SERVER['PATH']);
+        $this->Settings['serverid'] = password_hash($servertoken, PASSWORD_BCRYPT, ['cost' => 10]);
         $this->SaveCfg($this->Settings);
         if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Application updated successfully\n";}
 				if(isset($args['silent'])&&$args['silent']) { return ["success" => $this->Language->Field["Application updated successfully"]]; }
