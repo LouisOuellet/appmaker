@@ -6,7 +6,7 @@
         "database": "appmaker"
     },
     "license": "422c-21e2-d22b-504a-10d3-7fdf-5efb-52ba",
-    "title": "ALB Connect",
+    "title": "APP Maker",
     "language": "english",
     "page": "dashboard",
     "timezone": "America\/Toronto",
@@ -108,8 +108,8 @@
         }
     },
     "log_level": 3,
-    "version": "21.09-dev",
-    "build": 123,
+    "version": "21.10-dev",
+    "build": 124,
     "repository": {
         "name": "appmaker",
         "branch": "dev",

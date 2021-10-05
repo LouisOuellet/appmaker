@@ -55,7 +55,7 @@ class Database{
       $this->query_closed = FALSE;
 			$this->query_count++;
     } else {
-      $this->error('Unable to prepare MySQL statement (check your syntax) - ' . $this->connection->error);
+      $this->error($query.': Unable to prepare MySQL statement (check your syntax) - ' . $this->connection->error);
   	}
 		return $this;
   }
