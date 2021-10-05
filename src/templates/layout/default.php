@@ -28,7 +28,7 @@
   <aside class="main-sidebar elevation-4 sidebar-<?=$sidenavmode?>-<?=$sidenav?>" id="DIVlogo">
     <!-- Brand Logo -->
     <a href="<?= $this->URL ?>" class="brand-link elevation-4 navbar-<?=$logobg?> bg-<?=$logobg?>">
-      <img src="/dist/img/logo-white.png"
+      <img src="/dist/img/logo.png"
            alt="<?= $this->Settings['title'] ?> Logo"
            class="brand-image"
            style="opacity: .8;margin-left:5px;">

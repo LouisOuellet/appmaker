@@ -1,7 +1,7 @@
 <div id="wrapper" class="login-page <?php if($darkmode){ echo "dark-mode"; } ?>">
 	<div class="login-box" style="width:450px;">
 	  <div class="login-logo" style="color:#495057;">
-	    <img src="/dist/img/logo-blue.png" style="width:100px;">
+	    <img src="/dist/img/logo.png" style="width:100px;">
 	    <b class="p-2" style="vertical-align: -10px;"><?= $this->Settings['title']?></b>
 	  </div>
 	  <!-- /.login-logo -->

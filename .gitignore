@@ -4,6 +4,7 @@ composer.phar
 *.DS_Store
 /config/config.json
 /config/config.json.bak
+/dist/img/custom-logo.png
 /tmp/
 /tmp/*
 */tmp/
