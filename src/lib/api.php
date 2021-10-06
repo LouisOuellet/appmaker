@@ -338,8 +338,8 @@ class API{
       if((is_array($arg))&&($arg['plugin'])){ $args = $arg; }
 			elseif((is_array($arg))&&(isset($arg[0]))){ $args=json_decode($arg[0],true); }
       else { $args=[]; }
-      if(!empty($args)&&isset($args['plugin'])&&isset($this->Settings[$args['plugin']])){
-        $this->Settings[$args['plugin']]['status'] = true;
+      if(!empty($args)&&isset($args['plugin'])&&isset($this->Settings['plugins'][$args['plugin']])){
+        $this->Settings['plugins'][$args['plugin']]['status'] = true;
         $this->SaveCfg(['plugins' => $this->Settings['plugins']]);
         if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo $args['plugin']."has been enabled\n";}
       }
@@ -351,8 +351,8 @@ class API{
       if((is_array($arg))&&($arg['plugin'])){ $args = $arg; }
 			elseif((is_array($arg))&&(isset($arg[0]))){ $args=json_decode($arg[0],true); }
       else { $args=[]; }
-      if(!empty($args)&&isset($args['plugin'])&&isset($this->Settings[$args['plugin']])){
-        $this->Settings[$args['plugin']]['status'] = true;
+      if(!empty($args)&&isset($args['plugin'])&&isset($this->Settings['plugins'][$args['plugin']])){
+        $this->Settings['plugins'][$args['plugin']]['status'] = true;
         $this->SaveCfg(['plugins' => $this->Settings['plugins']]);
         if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo $args['plugin']."has been disabled\n";}
       }
