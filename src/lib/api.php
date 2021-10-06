@@ -354,7 +354,7 @@ class API{
           if(is_file(dirname(__FILE__,3)."/plugins/".$args['plugin'].'/dist/data/manifest.json')){ $manifest = json_decode(file_get_contents(dirname(__FILE__,3)."/plugins/".$args['plugin'].'/dist/data/manifest.json'),true); }
           if(isset($this->Settings['plugins'][$args['plugin']]['settings'])){ $conf = $this->Settings['plugins'][$args['plugin']]['settings']; }
           if(isset($manifest)){ $this->Settings['plugins'][$args['plugin']] = $manifest; }
-          else { $this->Settings['plugins'][$args['plugin']]['status'] = false; }
+          if(!isset($this->Settings['plugins'][$args['plugin']]['status'])){ $this->Settings['plugins'][$args['plugin']]['status'] = false; }
           $this->SaveCfg(['plugins' => $this->Settings['plugins']]);
           if(isset($conf)){ $this->Settings['plugins'][$args['plugin']]['settings'] = $conf; }
           if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo $args['plugin']." has been installed\n";} elseif(isset($args['silent'])&&$args['silent']) { return true; }
