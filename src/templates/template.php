@@ -193,15 +193,10 @@
 ?>
 <body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed pace-<?=$pace?> <?php if($darkmode){ echo "dark-mode"; } ?>">
 	<?php
-  echo "validating";
   if($this->Validate()){
-    echo "activating";
 		if((isset($this->Settings['license']))&&((isset($this->LSP->Status))&&($this->LSP->Status))){
-      echo "checking blacklist";
 			if(!$this->Auth->isBlacklisted($this->Auth->getClientIP())){
-        echo "checking maintenace";
 				if((!isset($this->Settings['maintenance']))||(!$this->Settings['maintenance'])){
-          echo "checking login";
 					if($this->Auth->isLogin()){
 						// Compile Auth Errors
 						$this->Error = array_merge($this->Error,$this->Auth->Error);
