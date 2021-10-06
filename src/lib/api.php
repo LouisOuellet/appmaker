@@ -448,9 +448,13 @@ class API{
         shell_exec("rm -rf ".dirname(__FILE__,3)."/tmp/".$this->Settings['repository']['name']);
 				// We start updating our database
         if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Upgrading database\n";}
-        if(is_file(dirname(__FILE__,3).'/dist/data/structure.json')){ $this->LSP->updateStructure(dirname(__FILE__,3).'/dist/data/structure.json'); }
-				if(is_file(dirname(__FILE__,3).'/dist/data/skeleton.json')){ $this->LSP->insertRecords(dirname(__FILE__,3).'/dist/data/skeleton.json'); }
-				if(is_file(dirname(__FILE__,3).'/dist/data/sample.json')){ if((isset($args['sample']))&&($args['sample'])){ $this->LSP->insertRecords(dirname(__FILE__,3).'/dist/data/sample.json'); } }
+        if(isset($this->Settings['sql'])){
+          if(is_file(dirname(__FILE__,3).'/dist/data/structure.json')){ $this->LSP->updateStructure(dirname(__FILE__,3).'/dist/data/structure.json'); }
+  				if(is_file(dirname(__FILE__,3).'/dist/data/skeleton.json')){ $this->LSP->insertRecords(dirname(__FILE__,3).'/dist/data/skeleton.json'); }
+  				if(is_file(dirname(__FILE__,3).'/dist/data/sample.json')){ if((isset($args['sample']))&&($args['sample'])){ $this->LSP->insertRecords(dirname(__FILE__,3).'/dist/data/sample.json'); } }
+        } else {
+          if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "No database found\n";}
+        }
         // Saving new configurations
         if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Saving new configurations\n";}
         $this->Settings['build'] = $manifest['build'];
