@@ -333,6 +333,30 @@ class API{
 		}
 	}
 
+  public function __enable($arg = []){
+		if($this->LSP->Status){
+      if((is_array($arg))&&($arg['plugin'])){ $args = $arg; }
+			elseif((is_array($arg))&&(isset($arg[0]))){ $args=json_decode($arg[0],true); }
+      else { $args=[]; }
+      if(!empty($args)&&isset($args['plugin'])&&isset($this->Settings[$args['plugin']])){
+        $this->Settings[$args['plugin']]['status'] = true;
+        $this->SaveCfg(['plugins' => $this->Settings['plugins']]);
+      }
+    }
+  }
+
+  public function __disable($arg = []){
+		if($this->LSP->Status){
+      if((is_array($arg))&&($arg['plugin'])){ $args = $arg; }
+			elseif((is_array($arg))&&(isset($arg[0]))){ $args=json_decode($arg[0],true); }
+      else { $args=[]; }
+      if(!empty($args)&&isset($args['plugin'])&&isset($this->Settings[$args['plugin']])){
+        $this->Settings[$args['plugin']]['status'] = true;
+        $this->SaveCfg(['plugins' => $this->Settings['plugins']]);
+      }
+    }
+  }
+
   public function __install($arg = []){
 		if($this->LSP->Status){
       if((is_array($arg))&&($arg['plugin'])){ $args = $arg; }
