@@ -81,7 +81,7 @@ if (!$conn->connect_error){
           foreach($settings['plugins'] as $plugin => $conf){
             if(!is_dir(dirname(__FILE__,3)."/plugins/".$plugin)){
               echo "Installing ".$plugin."<br>\n";
-              shell_exec("git clone --branch ".$plugins[$plugin]['repository']['branch']." ".$plugins[$plugin]['repository']['host']['git'].$plugins[$plugin]['repository']['name'].".git"." ".dirname(__FILE__,3)."/tmp/".$plugins[$plugin]['repository']['name']);
+              shell_exec("git clone --branch ".$settings['repository']['branch']." ".$plugins[$plugin]['repository']['host']['git'].$plugins[$plugin]['repository']['name'].".git"." ".dirname(__FILE__,3)."/tmp/".$plugins[$plugin]['repository']['name']);
               mkdir(dirname(__FILE__,3)."/plugins/".$plugin);
               shell_exec("rsync -aP ".dirname(__FILE__,3)."/tmp/".$plugins[$plugin]['repository']['name']."/* ".dirname(__FILE__,3)."/plugins/".$plugin."/.");
               shell_exec("rm -rf ".dirname(__FILE__,3)."/tmp/".$plugins[$plugin]['repository']['name']);
