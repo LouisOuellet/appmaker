@@ -406,7 +406,7 @@ class API{
         $this->SaveAppCfg($configs);
         $this->Settings['build'] = $configs['build'];
         $this->Settings['version'] = $configs['version'];
-        shell_exec("git add . && git commit -m 'UPDATE' && git push origin ".$this->Settings['repository']['branch']);
+        shell_exec("git add . && git commit -m '".$this->Settings['version'].'-'.$this->Settings['build']."' && git push origin ".$this->Settings['repository']['branch']);
         echo "\n";
         $this->__version();
         echo "\n";
