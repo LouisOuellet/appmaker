@@ -425,6 +425,7 @@ class API{
 			if((is_array($arg))&&(isset($arg[0]))){ $args=json_decode($arg[0],true); } else { $args=[]; }
       if(empty($args)){
         $settings=json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/manifest.json'),true);
+        $settings['repository']['branch'] = str_replace("\n",'',shell_exec("git rev-parse --abbrev-ref HEAD"));
         $configs = [
           'build' => $settings['build']+1,
           'version' => date("y.m").'-'.$settings['repository']['branch'],
@@ -432,6 +433,7 @@ class API{
         $this->SaveAppCfg($configs);
         $this->Settings['build'] = $configs['build'];
         $this->Settings['version'] = $configs['version'];
+        $this->Settings['repository']['branch'] = $settings['repository']['branch'];
         shell_exec("git add . && git commit -m '".$this->Settings['version'].'-'.$this->Settings['build']."' && git push origin ".$this->Settings['repository']['branch']);
         echo "\n";
         $this->__version();
