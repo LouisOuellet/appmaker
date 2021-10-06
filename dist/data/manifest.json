@@ -103,7 +103,7 @@
     },
     "log_level": 3,
     "version": "21.10-dev",
-    "build": 135,
+    "build": 136,
     "repository": {
         "name": "appmaker",
         "branch": "dev",
@@ -113,8 +113,8 @@
         },
         "manifest": "\/dist\/data\/manifest.json",
         "branches": [
-            "main",
-            "beta",
+            "stable",
+            "pre-release",
             "dev"
         ]
     },
