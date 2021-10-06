@@ -123,6 +123,7 @@ class API{
     if(isset($this->Settings['debug'])){ $Settings['Debug'] = $this->Settings['debug']; }
 		else { $Settings['Debug'] = false; }
     $Settings['plugins'] = $this->Settings['plugins'];
+    $Settings['repository'] = $this->Settings['repository'];
 		$request['Settings'] = $Settings;
 		$Lists['Countries'] = $this->Countries;
 		$Lists['States'] = $this->States;
