@@ -341,6 +341,7 @@ class API{
       if(!empty($args)&&isset($args['plugin'])&&isset($this->Settings[$args['plugin']])){
         $this->Settings[$args['plugin']]['status'] = true;
         $this->SaveCfg(['plugins' => $this->Settings['plugins']]);
+        if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo $args['plugin']."has been enabled\n";}
       }
     }
   }
@@ -353,6 +354,7 @@ class API{
       if(!empty($args)&&isset($args['plugin'])&&isset($this->Settings[$args['plugin']])){
         $this->Settings[$args['plugin']]['status'] = true;
         $this->SaveCfg(['plugins' => $this->Settings['plugins']]);
+        if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo $args['plugin']."has been disabled\n";}
       }
     }
   }
