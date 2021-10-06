@@ -433,10 +433,14 @@ class API{
         $this->SaveCfg($this->Settings);
 				// We backup the database using a JSON file.
         if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Creating backup\n";}
-				$timestamp = new Datetime();
-        if(!is_dir(dirname(__FILE__,3).'/tmp')){mkdir(dirname(__FILE__,3).'/tmp');}
-				$this->LSP->createStructure(dirname(__FILE__,3).'/tmp/lsp-structure-backup-'.$timestamp->format('U').'.json');
-				$this->LSP->createRecords(dirname(__FILE__,3).'/tmp/lsp-data-backup-'.$timestamp->format('U').'.json');
+        if(isset($this->Settings['sql'])){
+  				$timestamp = new Datetime();
+          if(!is_dir(dirname(__FILE__,3).'/tmp')){mkdir(dirname(__FILE__,3).'/tmp');}
+  				$this->LSP->createStructure(dirname(__FILE__,3).'/tmp/lsp-structure-backup-'.$timestamp->format('U').'.json');
+  				$this->LSP->createRecords(dirname(__FILE__,3).'/tmp/lsp-data-backup-'.$timestamp->format('U').'.json');
+        } else {
+          if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "No database found\n";}
+        }
 				// We update the local files
         if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Updating local files\n";}
         shell_exec("git clone --branch ".$this->Settings['repository']['branch']." ".$this->Settings['repository']['host']['git'].$this->Settings['repository']['name'].".git"." ".dirname(__FILE__,3)."/tmp/".$this->Settings['repository']['name']." &> /dev/null");
