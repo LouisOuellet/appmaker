@@ -193,16 +193,25 @@
 ?>
 <body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed pace-<?=$pace?> <?php if($darkmode){ echo "dark-mode"; } ?>">
 	<?php
-  // if(true){
+  echo "validating";
   if($this->Validate()){
+    echo "activating";
 		if((isset($this->Settings['license']))&&((isset($this->LSP->Status))&&($this->LSP->Status))){
+      echo "checking blacklist";
 			if(!$this->Auth->isBlacklisted($this->Auth->getClientIP())){
+        echo "checking maintenace";
 				if((!isset($this->Settings['maintenance']))||(!$this->Settings['maintenance'])){
+          echo "checking login";
 					if($this->Auth->isLogin()){
 						// Compile Auth Errors
 						$this->Error = array_merge($this->Error,$this->Auth->Error);
 						//json_encode($this->Error, JSON_PRETTY_PRINT);
 						require_once dirname(__FILE__,2) . '/templates/layout/default.php';
+            foreach($this->Settings['plugins'] as $plugin => $conf){
+          		if(file_exists(dirname(__FILE__,3).'/plugins/'.$plugin.'/dist/js/script.js')){
+          			if((isset($conf['status']))&&($conf['status'])){ echo '<script src="./plugins/'.$plugin.'/dist/js/script.js"></script>'; }
+          		}
+          	}
 					} else {
 						require_once dirname(__FILE__,2) . '/templates/layout/signin.php';
 					}
@@ -217,12 +226,6 @@
 		}
 	} else {
 		require_once dirname(__FILE__,2) . '/templates/layout/install.php';
-	} ?>
-	<?php $plugins = preg_grep('/^([^.])/', scandir(dirname(__FILE__,3).'/plugins/'));
-	foreach($plugins as $plugin){
-		if(file_exists(dirname(__FILE__,3).'/plugins/'.$plugin.'/dist/js/script.js')){
-			if((isset($this->Settings['plugins'][$plugin]['status']))&&($this->Settings['plugins'][$plugin]['status'])){ echo '<script src="./plugins/'.$plugin.'/dist/js/script.js"></script>'; }
-		}
 	} ?>
 </body>
 </html>
