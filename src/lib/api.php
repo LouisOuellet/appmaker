@@ -366,7 +366,7 @@ class API{
       else { $args=[]; }
       if(!empty($args)&&isset($args['plugin'])&&isset($this->Plugins[$args['plugin']])){
         if((!is_dir(dirname(__FILE__,3)."/plugins/".$args['plugin']))||(isset($args['force'])&&$args['force'])){
-          if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Installing ".$args['plugin']."\n";}
+          if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Installing [".$args['plugin']."]\n";}
           // Update the local files
           shell_exec("git clone --branch ".$this->Settings['repository']['branch']." ".$this->Plugins[$args['plugin']]['repository']['host']['git'].$this->Plugins[$args['plugin']]['repository']['name'].".git"." ".dirname(__FILE__,3)."/tmp/".$this->Plugins[$args['plugin']]['repository']['name']." &> /dev/null");
           mkdir(dirname(__FILE__,3)."/plugins/".$args['plugin']);
@@ -383,7 +383,7 @@ class API{
           if(!isset($this->Settings['plugins'][$args['plugin']]['status'])){ $this->Settings['plugins'][$args['plugin']]['status'] = false; }
           $this->SaveCfg(['plugins' => $this->Settings['plugins']]);
           if(isset($conf)){ $this->Settings['plugins'][$args['plugin']]['settings'] = $conf; }
-          if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo $args['plugin']." has been installed\n";} elseif(isset($args['silent'])&&$args['silent']) { return true; }
+          if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Plugin [".$args['plugin']."] has been installed\n";} elseif(isset($args['silent'])&&$args['silent']) { return true; }
         } else { if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo $args['plugin']." is already installed\n";} elseif(isset($args['silent'])&&$args['silent']) { return false; } }
       } else {
         if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Available plugins:\n";}
@@ -402,13 +402,13 @@ class API{
       else { $args=[]; }
       if(!empty($args)&&isset($args['plugin'])&&isset($this->Plugins[$args['plugin']])){
         if(is_dir(dirname(__FILE__,3)."/plugins/".$args['plugin'])){
-          if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Uninstalling ".$args['plugin']."\n";}
+          if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Uninstalling [".$args['plugin']."]\n";}
           shell_exec("rm -rf ".dirname(__FILE__,3)."/plugins/".$args['plugin']);
           if(isset($this->Settings['plugins'][$args['plugin']]['settings'])){ $conf = $this->Settings['plugins'][$args['plugin']]['settings']; }
           unset($this->Settings['plugins'][$args['plugin']]);
           if(isset($conf)){ $this->Settings['plugins'][$args['plugin']]['settings'] = $conf; }
           $this->SaveCfg(['plugins' => $this->Settings['plugins']]);
-          if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo $args['plugin']." has been uninstalled\n";} elseif(isset($args['silent'])&&$args['silent']) { return true; }
+          if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Plugin [".$args['plugin']."] has been uninstalled\n";} elseif(isset($args['silent'])&&$args['silent']) { return true; }
         } else { if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo $args['plugin']." is not installed\n";} elseif(isset($args['silent'])&&$args['silent']) { return false; } }
       } else {
         if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Specify a plugin:\n";}
