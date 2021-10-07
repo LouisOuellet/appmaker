@@ -341,7 +341,7 @@ class API{
       if(!empty($args)&&isset($args['plugin'])&&isset($this->Settings['plugins'][$args['plugin']])){
         $this->Settings['plugins'][$args['plugin']]['status'] = true;
         $this->SaveCfg(['plugins' => $this->Settings['plugins']]);
-        if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo $args['plugin']."has been enabled\n";}
+        if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Plugin [".$args['plugin']."] has been enabled\n";}
       }
     }
   }
@@ -354,7 +354,7 @@ class API{
       if(!empty($args)&&isset($args['plugin'])&&isset($this->Settings['plugins'][$args['plugin']])){
         $this->Settings['plugins'][$args['plugin']]['status'] = true;
         $this->SaveCfg(['plugins' => $this->Settings['plugins']]);
-        if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo $args['plugin']."has been disabled\n";}
+        if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Plugin [".$args['plugin']."] has been disabled\n";}
       }
     }
   }
