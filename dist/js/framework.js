@@ -1039,7 +1039,7 @@ var API = {
 	      else {
 					if(typeof obj[key] == "string" && obj[key] !== null){
 						console.log(obj[key]);
-						obj[key] = obj[key].text();
+						obj[key] = jQuery.text(obj[key]);
 					}
 				}
 	    }
