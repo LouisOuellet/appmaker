@@ -52,6 +52,8 @@ var API = {
 						type:type,
 						data:btoa(JSON.stringify(options.data)),
 					});
+					console.log(options.data);
+					console.log(request);
 					xhr.open('POST', 'api.php', true);
 					xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 					xhr.onload = function(){
