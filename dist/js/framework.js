@@ -1041,15 +1041,11 @@ var API = {
 						var i = obj[key].length,
 		        aRet = [];
 				    while (i--) {
-				        var iC = obj[key][i].charCodeAt();
-				        if (iC < 65 || iC > 127 || (iC>90 && iC<97)) {
-				            aRet[i] = '&#'+iC+';';
-				        } else {
-				            aRet[i] = obj[key][i];
-				        }
+			        var iC = obj[key][i].charCodeAt();
+			        if(iC < 65 || iC > 127 || (iC>90 && iC<97)){ aRet[i] = '&#'+iC+';'; }
+							else { aRet[i] = obj[key][i]; }
 				    }
 				    obj[key] = aRet.join('');
-						console.log(obj[key]);
 					}
 				}
 	    }
