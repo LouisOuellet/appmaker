@@ -186,7 +186,7 @@ class API{
     $directories = array_slice(scandir($root . '/plugins/'), 2);
     foreach($directories as $directory) {
 			$file = $root . "/plugins/".$directory."/".$lookup;
-			if(is_file($file)){
+			if($directory != "empty" && is_file($file)){
 				if($this->Auth->valid($type,$directory,1)){
 					if((isset($this->Settings['plugins'][$directory]['status']))&&$this->Settings['plugins'][$directory]['status']){ require_once($file); }
 				}
