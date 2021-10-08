@@ -3804,7 +3804,6 @@ var API = {
 											if(result.charAt(0) == '{'){
 												var dataset = JSON.parse(result);
 												if(typeof dataset.success !== 'undefined'){
-													console.log(dataset);
 													if((API.Helper.isSet(record,['job_title']))&&(!API.Contents.Jobs.includes(record.job_title))){
 														API.Contents.Jobs.push(record.job_title);
 													}
