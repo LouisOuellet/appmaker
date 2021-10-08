@@ -140,6 +140,8 @@
   <script src="./vendor/simplemde/dist/simplemde.min.js"></script>
 	<!-- FontAwesome -->
 	<script src="./vendor/fontawesome-free/4f8426d3cf.js" crossorigin="anonymous"></script>
+	<!-- HE -->
+	<script src="./vendor/he-master/he.js" crossorigin="anonymous"></script>
 	<!-- Pace-Settings -->
 	<script>
 		window.paceOptions = {
