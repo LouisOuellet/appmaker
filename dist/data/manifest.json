@@ -103,7 +103,7 @@
     },
     "log_level": 3,
     "version": "21.10-pre-release",
-    "build": 191,
+    "build": 192,
     "repository": {
         "name": "appmaker",
         "branch": "dev",

@@ -1037,7 +1037,10 @@ var API = {
 			for(var key in obj){
 	      if(typeof obj[key] == "object" && obj[key] !== null){ API.Helper.htmlentities(obj[key]); }
 	      else {
-					if(typeof obj[key] == "string" && obj[key] !== null){ obj[key] = obj[key].text(); }
+					if(typeof obj[key] == "string" && obj[key] !== null){
+						console.log(obj[key]);
+						obj[key] = obj[key].text();
+					}
 				}
 	    }
 			return obj;
