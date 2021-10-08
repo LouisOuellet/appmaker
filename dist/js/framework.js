@@ -3801,8 +3801,10 @@ var API = {
 										modal.modal('hide');
 										form.trigger("reset");
 										console.log(record);
+										console.log(options.plugin);
 										API.request(options.plugin,'create',{data:record,report:true},function(result){
 											if(result.charAt(0) == '{'){
+												console.log(result);
 												var dataset = JSON.parse(result);
 												if(typeof dataset.success !== 'undefined'){
 													console.log(dataset);
