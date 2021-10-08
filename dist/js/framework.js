@@ -3800,6 +3800,7 @@ var API = {
 									},function(opt,task,divider){
 										modal.modal('hide');
 										form.trigger("reset");
+										console.log(record);
 										API.request(options.plugin,'create',{data:record,report:true},function(result){
 											if(result.charAt(0) == '{'){
 												var dataset = JSON.parse(result);
@@ -3812,15 +3813,15 @@ var API = {
 														var tagID = 0;
 														for(var [tag, details] of Object.entries(API.Contents.data.dom.tags)){ tagID = details.id; }
 														for(var [tag, details] of Object.entries(record.tags)){
-															if(!API.Helper.isSet(API.Contents.data.dom.tags,[tag])){
+															if(!API.Helper.isSet(API.Contents.data.dom.tags,[details.name])){
 																++tagID;
-																API.Helper.set(API.Contents.data.dom.tags,[tag],{
+																API.Helper.set(API.Contents.data.dom.tags,[details.name],{
 																	id:tagID,
 																	created:dataset.output.results.created,
 																	modified:dataset.output.results.modified,
 																	owner:dataset.output.results.owner,
 																	updated_by:dataset.output.results.updated_by,
-																	name:tag
+																	name:details.name
 																});
 															}
 														}
