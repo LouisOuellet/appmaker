@@ -117,7 +117,6 @@ class API{
 
 	public function initApp(){
 		$Settings['LandingPage'] = $this->Settings['page'];
-		$Settings['Contacts'] = $this->Settings['contacts'];
 		$Settings['customization'] = $this->Settings['customization'];
 		$Settings['Structure'] = $this->Structure;
     if(isset($this->Settings['debug'])){ $Settings['Debug'] = $this->Settings['debug']; }
