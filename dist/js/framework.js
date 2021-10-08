@@ -50,10 +50,8 @@ var API = {
 						method:'session',
 						request:request,
 						type:type,
-						data:btoa(JSON.stringify(options.data)),
+						data:btoa(JSON.stringify(API.Helper.htmlentities(options.data))),
 					});
-					console.log(options.data);
-					console.log(request);
 					xhr.open('POST', 'api.php', true);
 					xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 					xhr.onload = function(){
@@ -1035,6 +1033,15 @@ var API = {
 		},
 	},
 	Helper:{
+		htmlentities:function(obj){
+			for(var key in obj){
+	      if(typeof obj[key] == "object" && obj[key] !== null){ API.Helper.htmlentities(obj[key]); }
+	      else {
+					if(typeof obj[key] == "string" && obj[key] !== null){ obj[key] = obj[key].text(); }
+				}
+	    }
+			return obj;
+		},
 		ucfirst:function(s){ if (typeof s !== 'string') return s; return s.charAt(0).toUpperCase() + s.slice(1); },
 		formatURL:function(params){
 			return Object.keys(params).map(function(key){ return key+"="+encodeURIComponent(params[key]) }).join("&");
