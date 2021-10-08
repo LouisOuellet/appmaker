@@ -1038,8 +1038,18 @@ var API = {
 	      if(typeof obj[key] == "object" && obj[key] !== null){ API.Helper.htmlentities(obj[key]); }
 	      else {
 					if(typeof obj[key] == "string" && obj[key] !== null){
+						var i = obj[key].length,
+		        aRet = [];
+				    while (i--) {
+				        var iC = obj[key][i].charCodeAt();
+				        if (iC < 65 || iC > 127 || (iC>90 && iC<97)) {
+				            aRet[i] = '&#'+iC+';';
+				        } else {
+				            aRet[i] = obj[key][i];
+				        }
+				    }
+				    obj[key] = aRet.join('');
 						console.log(obj[key]);
-						obj[key] = jQuery.text(obj[key]);
 					}
 				}
 	    }
