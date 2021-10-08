@@ -1036,7 +1036,7 @@ var API = {
 		htmlentities:function(obj){
 			for(var key in obj){
 	      if(typeof obj[key] == "object" && obj[key] !== null){ API.Helper.htmlentities(obj[key]); }
-	      else { if(typeof obj[key] == "string" && obj[key] !== null){ obj[key] = he.encode(obj[key]); } }
+	      else { if(typeof obj[key] == "string" && obj[key] !== null){ obj[key] = he.encode(obj[key],{ 'useNamedReferences': true }); } }
 	    }
 			return obj;
 		},
