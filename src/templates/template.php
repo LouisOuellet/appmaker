@@ -69,7 +69,7 @@
 	<!-- plugins CSS -->
 	<?php $plugins = preg_grep('/^([^.])/', scandir(dirname(__FILE__,3).'/plugins/'));
 	foreach($plugins as $plugin){
-		if(file_exists(dirname(__FILE__,3).'/plugins/'.$plugin.'/dist/css/styles.css')){
+		if($plugin != 'empty' && file_exists(dirname(__FILE__,3).'/plugins/'.$plugin.'/dist/css/styles.css')){
 			if((isset($this->Settings['plugins'][$plugin]['status']))&&($this->Settings['plugins'][$plugin]['status'])){ echo '<link rel="stylesheet" href="/plugins/'.$plugin.'/dist/css/styles.css">'; }
 		}
 	} ?>
