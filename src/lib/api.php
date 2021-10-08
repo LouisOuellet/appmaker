@@ -487,7 +487,7 @@ class API{
           if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Saving new configurations\n";}
           $this->Settings['build'] = $manifest['build'];
           $this->Settings['maintenance'] = false;
-          $servertoken = md5($$_SERVER['DOCUMENT_ROOT'].$_SERVER['SCRIPT_FILENAME'].$_SERVER['PATH']);
+          $servertoken = md5($_SERVER['DOCUMENT_ROOT'].$_SERVER['SCRIPT_FILENAME'].$_SERVER['PATH']);
           $this->Settings['serverid'] = password_hash($servertoken, PASSWORD_BCRYPT, ['cost' => 10]);
           $this->SaveCfg($this->Settings);
         } else {
