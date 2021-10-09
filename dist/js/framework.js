@@ -50,7 +50,7 @@ var API = {
 						method:'session',
 						request:request,
 						type:type,
-						data:btoa(JSON.stringify(API.Helper.htmlentities(options.data))),
+						data:encodeURIComponent(btoa(JSON.stringify(options.data))),
 					});
 					xhr.open('POST', 'api.php', true);
 					xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -181,7 +181,7 @@ var API = {
 					method:'session',
 					request:request,
 					type:type,
-					data:btoa(JSON.stringify(options.data)),
+					data:encodeURIComponent(btoa(JSON.stringify(options.data))),
 				});
 				xhr.open('POST', 'api.php', true);
 				xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
