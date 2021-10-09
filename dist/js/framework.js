@@ -50,7 +50,7 @@ var API = {
 						method:'session',
 						request:request,
 						type:type,
-						data:encodeURIComponent(btoa(JSON.stringify(options.data))),
+						data:btoa(encodeURIComponent(JSON.stringify(options.data))),
 					});
 					xhr.open('POST', 'api.php', true);
 					xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');

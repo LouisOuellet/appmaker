@@ -11,9 +11,9 @@ $API = new API();
 $API->loadFiles('api.php', 'api', 3);
 
 if(!empty($_POST)){
-	$decodedURI = urldecode($_POST['data']);
-	$decodedBase64 = base64_decode($decodedURI);
-	$decodedJSON = json_decode($decodedBase64, true);
+	$decodedBase64 = base64_decode($_POST['data']);
+	$decodedURI = urldecode($decodedBase64);
+	$decodedJSON = json_decode($decodedURI, true);
 	if(isset($_POST['method'])){
 		switch($_POST['method']){
 			case "token":
