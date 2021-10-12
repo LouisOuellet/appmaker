@@ -32,7 +32,7 @@
            alt="<?= $this->Settings['title'] ?> Logo"
            class="brand-image"
            style="opacity: .8;margin-left:5px;">
-      <span class="brand-text font-weight-light text-light"><?= $this->Settings['title'] ?></span>
+      <span class="brand-text font-weight-light"><?= $this->Settings['title'] ?></span>
     </a>
     <!-- Sidebar -->
 		<!-- Sidebar Widgets -->
