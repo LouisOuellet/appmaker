@@ -248,8 +248,8 @@ class API{
 	    if(isset($args['maintenance'])){
         $this->SaveCfg(['maintenance' => $args['maintenance']]);
 	    } elseif(isset($this->Settings['maintenance'])){
-        if($this->Settings['maintenance']){ $this->SaveCfg(['maintenance' => false]); }
-        else{ $this->SaveCfg(['maintenance' => true]); }
+        if($this->Settings['maintenance']){ $this->SaveCfg(['maintenance' => false]); echo "Maintenance mode deactivated\n"; }
+        else{ $this->SaveCfg(['maintenance' => true]); echo "Maintenance mode activated\n"; }
       } else {
 	      $this->SaveCfg(['maintenance' => true]);
 	    }
@@ -264,8 +264,8 @@ class API{
 	    if(isset($args['debug'])){
         $this->SaveCfg(['debug' => $args['debug']]);
 	    } elseif(isset($this->Settings['debug'])){
-        if($this->Settings['debug']){ $this->SaveCfg(['debug' => false]); }
-        else{ $this->SaveCfg(['debug' => true]); }
+        if($this->Settings['debug']){ $this->SaveCfg(['debug' => false]); echo "Debug mode deactivated\n"; }
+        else{ $this->SaveCfg(['debug' => true]); echo "Debug mode activated\n"; }
       } else {
 	      $this->SaveCfg(['debug' => true]);
 	    }
@@ -382,7 +382,7 @@ class API{
           if(!isset($this->Settings['plugins'][$args['plugin']]['status'])){ $this->Settings['plugins'][$args['plugin']]['status'] = false; }
           $this->SaveCfg(['plugins' => $this->Settings['plugins']]);
           if(isset($conf)){ $this->Settings['plugins'][$args['plugin']]['settings'] = $conf; }
-          if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Plugin [".$args['plugin']."] has been installed\n";} elseif(isset($args['silent'])&&$args['silent']) { return true; }
+          if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Plugin [".$args['plugin']."][".$manifest['build']."] has been installed\n";} elseif(isset($args['silent'])&&$args['silent']) { return true; }
         } else { if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo $args['plugin']." is already installed\n";} elseif(isset($args['silent'])&&$args['silent']) { return false; } }
       } else {
         if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Available plugins:\n";}
@@ -404,10 +404,11 @@ class API{
           if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Uninstalling [".$args['plugin']."]\n";}
           shell_exec("rm -rf ".dirname(__FILE__,3)."/plugins/".$args['plugin']);
           if(isset($this->Settings['plugins'][$args['plugin']]['settings'])){ $conf = $this->Settings['plugins'][$args['plugin']]['settings']; }
+          $build = $this->Settings['plugins']['build'];
           unset($this->Settings['plugins'][$args['plugin']]);
           if(isset($conf)){ $this->Settings['plugins'][$args['plugin']]['settings'] = $conf; }
           $this->SaveCfg(['plugins' => $this->Settings['plugins']]);
-          if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Plugin [".$args['plugin']."] has been uninstalled\n";} elseif(isset($args['silent'])&&$args['silent']) { return true; }
+          if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Plugin [".$args['plugin']."][".$build."] has been uninstalled\n";} elseif(isset($args['silent'])&&$args['silent']) { return true; }
         } else { if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo $args['plugin']." is not installed\n";} elseif(isset($args['silent'])&&$args['silent']) { return false; } }
       } else {
         if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Specify a plugin:\n";}
