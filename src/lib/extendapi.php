@@ -347,20 +347,20 @@ class APIextend extends API{
 					case"user":
 					case"owner":
 						if((!is_numeric($value))&&($value != null)&&($value != '')){
-							$record = $this->Auth->read('users',$value, 'username')->all()[0];
-							if(!empty($record)){ $result[$key] = $record['id']; }
+							$record = $this->Auth->read('users',$value, 'username')->all();
+							if(!empty($record)){ $result[$key] = $record[0]['id']; }
 						}
 						break;
 					case"role_id":
 						if(!is_numeric($value)){
-							$record = $this->Auth->read('roles',$value, 'name')->all()[0];
-							if(!empty($record)){ $result[$key] = $record['id']; }
+							$record = $this->Auth->read('roles',$value, 'name')->all();
+							if(!empty($record)){ $result[$key] = $record[0]['id']; }
 						}
 						break;
 					case"by":
 						if(!is_numeric($value)){
-							$record = $this->Auth->read('users',$value, 'initials')->all()[0];
-							if(!empty($record)){ $result[$key] = $record['id']; }
+							$record = $this->Auth->read('users',$value, 'initials')->all();
+							if(!empty($record)){ $result[$key] = $record[0]['id']; }
 						}
 						break;
 					case"assigned_to":
