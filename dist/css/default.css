@@ -569,7 +569,7 @@ table th{
 .icon-cancel::before,.icon-none::before{
 	content: "\f05e";
 }
-.icon-create::before,.icon-new::before{
+.icon-create::before,.icon-add::before,.icon-new::before{
 	content: "\f055";
 }
 .icon-details::before{
