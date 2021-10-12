@@ -404,7 +404,7 @@ class API{
           if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Uninstalling [".$args['plugin']."]\n";}
           shell_exec("rm -rf ".dirname(__FILE__,3)."/plugins/".$args['plugin']);
           if(isset($this->Settings['plugins'][$args['plugin']]['settings'])){ $conf = $this->Settings['plugins'][$args['plugin']]['settings']; }
-          $build = $this->Settings['plugins']['build'];
+          $build = $this->Settings['plugins'][$args['plugin']]['build'];
           unset($this->Settings['plugins'][$args['plugin']]);
           if(isset($conf)){ $this->Settings['plugins'][$args['plugin']]['settings'] = $conf; }
           $this->SaveCfg(['plugins' => $this->Settings['plugins']]);
