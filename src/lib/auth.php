@@ -406,10 +406,10 @@ class Auth extends History{
 	public function login($username,$password){
 		if(isset($_POST['remember'])){ $remember = TRUE; } else { $remember = null; }
 		$ready = false;
-		$user = $this->query('SELECT * FROM users WHERE username = ?',$username);
+		$user = $this->query('SELECT * FROM users WHERE username = ? AND isUser = ?',$username,"true");
 		if($user->numRows() == 1){ $user=$user->fetchArray()->all();$ready = true; }
 		else {
-			$user = $this->query('SELECT * FROM users WHERE email = ?',$username);
+			$user = $this->query('SELECT * FROM users WHERE email = ? AND isUser = ?',$username,"true");
 			if($user->numRows() == 1){ $user=$user->fetchArray()->all();$ready = true; }
 		}
 		if($ready){
