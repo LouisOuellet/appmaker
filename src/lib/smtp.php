@@ -15,6 +15,13 @@ class MAIL{
 	public $Mailer; // Contains the PHPMailer Class
   protected $Language; // Contains the Language Class
 	protected $URL; // Contains the main URL
+	protected $Brand; // Contains the brand name
+	protected $Links = [
+		"support" => "",
+		"trademark" => "",
+		"policy" => "",
+		"logo" => "",
+	]; // Contains the various links required
 
 	public function __construct($host,$port,$encryption,$username,$password,$language = 'english'){
 		// Setup Language
