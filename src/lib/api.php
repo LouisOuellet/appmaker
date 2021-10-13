@@ -429,8 +429,8 @@ class API{
         $settings['build'] = $settings['build']+1;
         $settings['version'] = date("y.m").'-'.$settings['repository']['branch'];
         $this->SaveAppCfg($settings);
-        $this->Settings['build'] = $configs['build'];
-        $this->Settings['version'] = $configs['version'];
+        $this->Settings['build'] = $settings['build'];
+        $this->Settings['version'] = $settings['version'];
         $this->Settings['repository']['branch'] = $settings['repository']['branch'];
         shell_exec("git add . && git commit -m '".$settings['version'].'-'.$settings['build']."' && git push origin ".$settings['repository']['branch']);
         echo "\n";
