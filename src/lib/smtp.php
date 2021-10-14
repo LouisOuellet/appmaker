@@ -145,10 +145,10 @@ class MAIL{
 											<tbody>
 												<tr width="100%" border="0" cellspacing="0" cellpadding="0">
 													<td style="padding:0px 0px 0px 0px;" align="center">
-														<span class="logo">
-															<img src="'.$this->Links['logo'].'" alt="" moz-do-not-send="true" width="auto" height="auto" style="max-width: 250px;" border="0">
-															<span style="vertical-align: -10px;padding: .5rem; font-weight: bolder; color: #495057; font-size: 2.1rem; text-align: center;font-family: "Source Sans Pro",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";line-height: 1.5;">'.$this->Brand.'</span>
-														</span>
+														<div style="color:#495057;font-size: 2.1rem; text-align: center;font-family:\'Helvetica Neue\',\'Arial\',\'Helvetica\',\'Verdana\',sans-serif;,line-height: 1.5;">
+															<img src="'.$this->Links['logo'].'" style="width:100px;vertical-align: middle;border-style: none;">
+															<b style="vertical-align: -10px; font-weight: bold;padding: .5rem;">'.$this->Brand.'</b>
+														</div>
 													</td>
 												</tr>';
 												if(isset($extra['title'])){
