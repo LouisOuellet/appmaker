@@ -44,12 +44,25 @@ class API{
 			$this->Domain = $_SERVER['HTTP_HOST'];
 		}
 
+    // Setup URL
+		if(isset($_SERVER['HTTP_HOST']) && !isset($this->Settings['url'])){
+			$this->Settings['url'] = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http")."://";
+			$this->Settings['url'] .= $_SERVER['HTTP_HOST'].'/';
+		}
+
     // Import Configurations
 		if(is_file(dirname(__FILE__,3) . "/config/config.json")){
 			$this->Settings = json_decode(file_get_contents(dirname(__FILE__,3) . '/config/config.json'),true);
 		} else {
       $this->Settings=json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/manifest.json'),true);
     }
+
+    // Setup URL
+		if(isset($_SERVER['HTTP_HOST']) && !isset($this->Settings['url'])){
+			$this->Settings['url'] = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http")."://";
+			$this->Settings['url'] .= $_SERVER['HTTP_HOST'].'/';
+      $this->SaveCfg($this->Settings);
+		}
 
 		//Import Listings
     $this->Timezones = json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/timezones.json'),true);
@@ -101,6 +114,11 @@ class API{
 
 		// Initialise Auth
 		$this->Auth = new Auth($this->Settings);
+
+    // Customize SMTP template
+    if(isset($this->Settings['url'],$this->Settings['smtp'],$this->Settings['smtp']['username'],$this->Settings['smtp']['password'],$this->Settings['smtp']['host'],$this->Settings['smtp']['port'],$this->Settings['smtp']['encryption'])){
+      $this->Auth->Mail->Customization($this->Settings['title'],["logo" => $this->Settings['url']."dist/img/logo.png","support" => $this->Settings['url']."?p=support","trademark" => $this->Settings['url']."?p=trademark","policy" => $this->Settings['url']."?p=policy"]);
+    }
 
 		// Load APIs
 		$this->loadFiles('api.php', 'api');
