@@ -146,7 +146,7 @@ class MAIL{
 												<tr width="100%" border="0" cellspacing="0" cellpadding="0">
 													<td style="padding:0px 0px 0px 0px;" align="center">
 														<span class="logo">
-															<img src="'.$this->Links['logo'].'" alt="" moz-do-not-send="true" width="auto" height="auto" style="max-width: 250px;" border="0">'.$this->Links['logo'].'
+															<img src="'.$this->Links['logo'].'" alt="" moz-do-not-send="true" width="auto" height="auto" style="max-width: 250px;" border="0">'.$this->Brand.'
 														</span>
 													</td>
 												</tr>';
