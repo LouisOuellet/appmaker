@@ -145,7 +145,7 @@ class MAIL{
 											<tbody>
 												<tr width="100%" border="0" cellspacing="0" cellpadding="0">
 													<td style="padding:0px 0px 0px 0px;" align="center">
-														<div style="color:#495057;font-size: 2.1rem; text-align: center;font-family:\'Helvetica Neue\',\'Arial\',\'Helvetica\',\'Verdana\',sans-serif;,line-height: 1.5;">
+														<div style="color:#495057;font-size: 2.1rem; text-align: center;font-family:\'Helvetica Neue\',\'Arial\',\'Helvetica\',\'Verdana\',sans-serif;,line-height: 1.5; padding-bottom: 20px;">
 															<img src="'.$this->Links['logo'].'" style="width:100px;vertical-align: middle;border-style: none;">
 															<b style="vertical-align: -10px; font-weight: bold;padding: .5rem;">'.$this->Brand.'</b>
 														</div>
