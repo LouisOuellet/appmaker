@@ -44,12 +44,6 @@ class API{
 			$this->Domain = $_SERVER['HTTP_HOST'];
 		}
 
-    // Setup URL
-		if(isset($_SERVER['HTTP_HOST']) && !isset($this->Settings['url'])){
-			$this->Settings['url'] = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http")."://";
-			$this->Settings['url'] .= $_SERVER['HTTP_HOST'].'/';
-		}
-
     // Import Configurations
 		if(is_file(dirname(__FILE__,3) . "/config/config.json")){
 			$this->Settings = json_decode(file_get_contents(dirname(__FILE__,3) . '/config/config.json'),true);
@@ -230,6 +224,11 @@ class API{
       $difference = $interval->format('%s')." secondes";
     }
     return $difference;
+  }
+
+  public function isJson($string) {
+     json_decode($string);
+     return json_last_error() === JSON_ERROR_NONE;
   }
 
   protected function SaveCfg($configs){

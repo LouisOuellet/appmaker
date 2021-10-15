@@ -57,7 +57,7 @@ var API = {
 					xhr.onload = function(){
 						if(this.status == 200 && this.responseText !== ''){
 							try {
-								var decodedResult = atob(this.responseText);
+								var decodedResult = this.responseText;
 								if(decodedResult.charAt(0) == '{'){
 									try {
 										var response = JSON.parse(decodedResult);
@@ -189,7 +189,7 @@ var API = {
 				xhr.onload = function(){
 					if(this.status == 200 && this.responseText !== ''){
 						try {
-							var decodedResult = atob(this.responseText);
+							var decodedResult = this.responseText;
 							if(decodedResult.charAt(0) == '{'){
 								try {
 									var response = JSON.parse(decodedResult);
