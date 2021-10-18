@@ -11,12 +11,16 @@ $API = new API();
 $API->loadFiles('api.php', 'api', 3);
 
 if(!empty($_POST)){
-	if($API->isJson($_POST['data'])){
-		$decodedJSON = json_decode($decodedURI, true);
+	if(isset($_POST['data'])){
+		if($API->isJson($_POST['data'])){
+			$decodedJSON = json_decode($decodedURI, true);
+		} else {
+			$decodedBase64 = base64_decode($_POST['data']);
+			$decodedURI = urldecode($decodedBase64);
+			$decodedJSON = json_decode($decodedURI, true);
+		}
 	} else {
-		$decodedBase64 = base64_decode($_POST['data']);
-		$decodedURI = urldecode($decodedBase64);
-		$decodedJSON = json_decode($decodedURI, true);
+		$decodedJSON = [];
 	}
 	if(isset($_POST['method'])){
 		switch($_POST['method']){
