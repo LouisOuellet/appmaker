@@ -68,10 +68,14 @@ if(!empty($_POST)){
 					$return = $_POST['type'];
 					if(isset($decodedJSON)){ $return = $request->$return($_POST['request'], $decodedJSON); }
 					else { $return = $request->$return($_POST['request'], null); }
-					if(!is_bool($return)){
-						$return = json_encode($return, JSON_PRETTY_PRINT);
+					if(!is_bool($return)){ $return = json_encode($return, JSON_PRETTY_PRINT); }
+					if($return != null){ echo $return; } else {
+						$return = [
+							"error" => $API->Language->Field["nothing returned"],
+							"request" => $_POST,
+						];
+						echo json_encode($return, JSON_PRETTY_PRINT);
 					}
-					echo $return;
 				} else {
 					$return = [
 						"error" => $API->Language->Field["unknown request type"],
