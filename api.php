@@ -66,6 +66,7 @@ if(!empty($_POST)){
 				$request = new $request();
 				if((isset($_POST['type']))&&(method_exists($request,$_POST['type']))){
 					$return = $_POST['type'];
+					echo json_encode($_POST, JSON_PRETTY_PRINT);
 					if(isset($decodedJSON)){ $return = $request->$return($_POST['request'], $decodedJSON); }
 					else { $return = $request->$return($_POST['request'], null); }
 					if(!is_bool($return)){ $return = json_encode($return, JSON_PRETTY_PRINT); }
