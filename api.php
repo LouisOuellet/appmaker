@@ -69,8 +69,7 @@ if(!empty($_POST)){
 					if(isset($decodedJSON)){ $return = $request->$return($_POST['request'], $decodedJSON); }
 					else { $return = $request->$return($_POST['request'], null); }
 					if(!is_bool($return)){ $return = json_encode($return, JSON_PRETTY_PRINT); }
-					echo json_encode($return, JSON_PRETTY_PRINT);
-					if($return != null){ echo $return; } else {
+					if($return != "null"){ echo $return; } else {
 						$return = [
 							"error" => $API->Language->Field["nothing returned"],
 							"request" => $_POST,
