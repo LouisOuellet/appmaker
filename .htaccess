@@ -1,20 +1,14 @@
 # Protect the htaccess file
-<Files .htaccess>
-Order Allow,Deny
-Deny from all
+<Files ".htaccess">
+  Order Allow,Deny
+  Deny from all
 </Files>
 
 # Protect cli.php
 <Files "cli.php">
-Order Allow,Deny
-Deny from all
+  Order Allow,Deny
+  Deny from all
 </Files>
-<Files "cli.php">
-  Require all denied
-</Files>
-
-# Disable directory browsing
-Options All -Indexes
 
 # Increase FastCGI Timeout for large requests
 FcgidIOTimeout 1200
