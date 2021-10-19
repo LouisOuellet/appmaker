@@ -8,8 +8,9 @@ function generateRandomString($length = 10) {
   }
   return $randomString;
 }
-
+error_reporting(0);
 $conn = new mysqli($_POST['sql_host'],$_POST['sql_username'],$_POST['sql_password'],$_POST['sql_database']);
+error_reporting(-1);
 $settings=json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/manifest.json'),true);
 $plugins = json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/plugins.json'),true);
 if (!$conn->connect_error){
