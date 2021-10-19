@@ -17,7 +17,7 @@
 #</Files>
 
 # Disable directory browsing
-#Options All -Indexes
+Options All -Indexes
 
 # Increase FastCGI Timeout for large requests
-#FcgidIOTimeout 1200
+FcgidIOTimeout 1200
