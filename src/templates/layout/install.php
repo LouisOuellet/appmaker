@@ -423,41 +423,42 @@ $(document).ready(function () {
       && /[a-z]/.test(value) // has a lowercase letter
       && /[A-Z]/.test(value) // has a uppercase letter
       && /\d/.test(value) // has a digit
-	  });
+  });
+  var rules = {
+    sql_host: {
+      required: true,
+    },
+    sql_database: {
+      required: true,
+    },
+    sql_username: {
+      required: true,
+    },
+    sql_password: {
+      required: true,
+    },
+    license_term: {
+      required: true,
+    },
+    site_name: {
+      required: true,
+    },
+    site_page: {
+      required: true,
+    },
+    site_background_jobs: {
+      required: true,
+    },
+    site_timezone: {
+      required: true,
+    },
+  };
+  <?php if($this->Settings['lsp']['required']){ ?>
+    rules.activation_license = { required: true };
+  <?php } ?>
   $('#SetupWizard').validate({
     ignore: [],
-    rules: {
-      sql_host: {
-        required: true,
-      },
-      sql_database: {
-        required: true,
-      },
-      sql_username: {
-        required: true,
-      },
-      sql_password: {
-        required: true,
-      },
-      license_term: {
-        required: true,
-      },
-      activation_license: {
-        required: true,
-      },
-      site_name: {
-        required: true,
-      },
-      site_page: {
-        required: true,
-      },
-      site_background_jobs: {
-        required: true,
-      },
-      site_timezone: {
-        required: true,
-      },
-    },
+    rules: rules,
     errorElement: 'span',
     errorPlacement: function (error, element) {
       error.addClass('invalid-feedback');

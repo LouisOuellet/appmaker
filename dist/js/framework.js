@@ -3807,14 +3807,10 @@ var API = {
 									},function(opt,task,divider){
 										modal.modal('hide');
 										form.trigger("reset");
-										console.log(record);
-										console.log(options.plugin);
 										API.request(options.plugin,'create',{data:record,report:true},function(result){
 											if(result.charAt(0) == '{'){
-												console.log(result);
 												var dataset = JSON.parse(result);
 												if(typeof dataset.success !== 'undefined'){
-													console.log(dataset);
 													if((API.Helper.isSet(record,['job_title']))&&(!API.Contents.Jobs.includes(record.job_title))){
 														API.Contents.Jobs.push(record.job_title);
 													}

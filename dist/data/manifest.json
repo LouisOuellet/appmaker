@@ -1,5 +1,4 @@
 {
-    "license": "422c-21e2-d22b-504a-10d3-7fdf-5efb-52ba",
     "title": "APP Maker",
     "language": "english",
     "page": "dashboard",
@@ -67,6 +66,10 @@
         "callWidgetLocation": {
             "value": "bottomRight",
             "type": "select"
+        },
+        "callStatus": {
+            "value": "calls",
+            "type": "select"
         }
     },
     "plugins": {
@@ -103,7 +106,7 @@
     },
     "log_level": 3,
     "version": "21.10-dev",
-    "build": 227,
+    "build": 228,
     "repository": {
         "name": "appmaker",
         "branch": "dev",
