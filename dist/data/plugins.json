@@ -6,10 +6,7 @@
                 "git": "https:\/\/github.com\/LouisOuellet\/",
                 "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
             },
-            "manifest": "\/dist\/data\/manifest.json",
-            "table": [
-              "appointments"
-            ]
+            "manifest": "\/dist\/data\/manifest.json"
         }
     },
     "automatons": {
@@ -39,10 +36,7 @@
                 "git": "https:\/\/github.com\/LouisOuellet\/",
                 "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
             },
-            "manifest": "\/dist\/data\/manifest.json",
-            "table": [
-              "calls"
-            ]
+            "manifest": "\/dist\/data\/manifest.json"
         }
     },
     "categories": {
@@ -72,10 +66,7 @@
                 "git": "https:\/\/github.com\/LouisOuellet\/",
                 "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
             },
-            "manifest": "\/dist\/data\/manifest.json",
-            "table": [
-              "comments"
-            ]
+            "manifest": "\/dist\/data\/manifest.json"
         }
     },
     "contacts": {
@@ -95,10 +86,7 @@
                 "git": "https:\/\/github.com\/LouisOuellet\/",
                 "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
             },
-            "manifest": "\/dist\/data\/manifest.json",
-            "table": [
-              "containers"
-            ]
+            "manifest": "\/dist\/data\/manifest.json"
         }
     },
     "conversations": {
@@ -108,10 +96,7 @@
                 "git": "https:\/\/github.com\/LouisOuellet\/",
                 "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
             },
-            "manifest": "\/dist\/data\/manifest.json",
-            "table": [
-              "conversations"
-            ]
+            "manifest": "\/dist\/data\/manifest.json"
         }
     },
     "dashboard": {
@@ -121,10 +106,7 @@
                 "git": "https:\/\/github.com\/LouisOuellet\/",
                 "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
             },
-            "manifest": "\/dist\/data\/manifest.json",
-            "table": [
-              "dashboard"
-            ]
+            "manifest": "\/dist\/data\/manifest.json"
         }
     },
     "debug": {
@@ -174,10 +156,7 @@
                 "git": "https:\/\/github.com\/LouisOuellet\/",
                 "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
             },
-            "manifest": "\/dist\/data\/manifest.json",
-            "table": [
-              "issues"
-            ]
+            "manifest": "\/dist\/data\/manifest.json"
         }
     },
     "leads": {
@@ -207,10 +186,7 @@
                 "git": "https:\/\/github.com\/LouisOuellet\/",
                 "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
             },
-            "manifest": "\/dist\/data\/manifest.json",
-            "table": [
-              "messages"
-            ]
+            "manifest": "\/dist\/data\/manifest.json"
         }
     },
     "my_clients": {
@@ -270,10 +246,7 @@
                 "git": "https:\/\/github.com\/LouisOuellet\/",
                 "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
             },
-            "manifest": "\/dist\/data\/manifest.json",
-            "table": [
-              "notes"
-            ]
+            "manifest": "\/dist\/data\/manifest.json"
         }
     },
     "organizations": {
@@ -283,10 +256,7 @@
                 "git": "https:\/\/github.com\/LouisOuellet\/",
                 "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
             },
-            "manifest": "\/dist\/data\/manifest.json",
-            "table": [
-              "organizations"
-            ]
+            "manifest": "\/dist\/data\/manifest.json"
         }
     },
     "permissions": {
@@ -356,10 +326,7 @@
                 "git": "https:\/\/github.com\/LouisOuellet\/",
                 "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
             },
-            "manifest": "\/dist\/data\/manifest.json",
-            "table": [
-              "services"
-            ]
+            "manifest": "\/dist\/data\/manifest.json"
         }
     },
     "settings": {
@@ -399,10 +366,7 @@
                 "git": "https:\/\/github.com\/LouisOuellet\/",
                 "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
             },
-            "manifest": "\/dist\/data\/manifest.json",
-            "table": [
-              "tags"
-            ]
+            "manifest": "\/dist\/data\/manifest.json"
         }
     },
     "tickets": {
@@ -412,10 +376,7 @@
                 "git": "https:\/\/github.com\/LouisOuellet\/",
                 "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
             },
-            "manifest": "\/dist\/data\/manifest.json",
-            "table": [
-              "tickets"
-            ]
+            "manifest": "\/dist\/data\/manifest.json"
         }
     },
     "users": {

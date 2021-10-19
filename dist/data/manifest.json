@@ -83,7 +83,7 @@
             "status": true
         },
         "permissions": {
-            "status": true
+            "status": false
         },
         "plugins": {
             "status": true
@@ -106,7 +106,7 @@
     },
     "log_level": 3,
     "version": "21.10-dev",
-    "build": 231,
+    "build": 232,
     "repository": {
         "name": "appmaker",
         "branch": "dev",

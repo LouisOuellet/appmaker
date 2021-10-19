@@ -83,16 +83,16 @@ if (!$conn->connect_error){
           foreach($settings['plugins'] as $plugin => $conf){
             if(!is_dir(dirname(__FILE__,3)."/plugins/".$plugin)){
               echo "Installing ".$plugin."<br>\n";
-              shell_exec("git clone --branch ".$settings['repository']['branch']." ".$conf['repository']['host']['git'].$conf['repository']['name'].".git"." ".dirname(__FILE__,3)."/tmp/".$conf['repository']['name']);
+              shell_exec("git clone --branch ".$settings['repository']['branch']." ".$plugins[$plugin]['repository']['host']['git'].$plugins[$plugin]['repository']['name'].".git"." ".dirname(__FILE__,3)."/tmp/".$plugins[$plugin]['repository']['name']);
               mkdir(dirname(__FILE__,3)."/plugins/".$plugin);
-              shell_exec("rsync -aP ".dirname(__FILE__,3)."/tmp/".$conf['repository']['name']."/* ".dirname(__FILE__,3)."/plugins/".$plugin."/.");
-              shell_exec("rm -rf ".dirname(__FILE__,3)."/tmp/".$conf['repository']['name']);
+              shell_exec("rsync -aP ".dirname(__FILE__,3)."/tmp/".$plugins[$plugin]['repository']['name']."/* ".dirname(__FILE__,3)."/plugins/".$plugin."/.");
+              shell_exec("rm -rf ".dirname(__FILE__,3)."/tmp/".$plugins[$plugin]['repository']['name']);
       				// We start updating our database
               if(is_file(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/structure.json')){ $this->LSP->updateStructure(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/structure.json'); }
       				if(is_file(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/skeleton.json')){ $this->LSP->insertRecords(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/skeleton.json'); }
       				if(is_file(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/sample.json')){ if((isset($args['sample']))&&($args['sample'])){ $this->LSP->insertRecords(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/sample.json'); } }
               $settings['plugins'][$plugin] = json_decode(file_get_contents(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/manifest.json'),true);
-              if(!isset($settings['plugins'][$plugin]['status'])){$settings['plugins'][$plugin]['status'] = true;}
+              if(!isset($settings['plugins'][$plugin]['status'])){$settings['plugins'][$plugin]['status'] = $conf['status'];}
               echo $plugin." has been installed<br>\n";
             } else { echo $plugin." is already installed<br>\n"; }
           }
