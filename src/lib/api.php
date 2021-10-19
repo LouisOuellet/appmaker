@@ -476,7 +476,7 @@ class API{
         $this->Settings['maintenance'] = true;
         $this->SaveCfg($this->Settings);
 				// We backup the database using a JSON file.
-        if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Creating backup\n";}
+        if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Creating backup of build[".$this->Settings['build']."]\n";}
         if(isset($this->Settings['sql'])){
   				$timestamp = new Datetime();
           if(!is_dir(dirname(__FILE__,3).'/tmp')){mkdir(dirname(__FILE__,3).'/tmp');}
@@ -486,7 +486,7 @@ class API{
           if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "No database found\n";}
         }
 				// We update the local files
-        if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Updating local files\n";}
+        if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Updating local files to build[".$manifest['build']."]\n";}
         shell_exec("git clone --branch ".$this->Settings['repository']['branch']." ".$this->Settings['repository']['host']['git'].$this->Settings['repository']['name'].".git"." ".dirname(__FILE__,3)."/tmp/".$this->Settings['repository']['name']." &> /dev/null");
         shell_exec("rsync -aP ".dirname(__FILE__,3)."/tmp/".$this->Settings['repository']['name']."/* ".dirname(__FILE__,3)."/.");
         shell_exec("rm -rf ".dirname(__FILE__,3)."/tmp/".$this->Settings['repository']['name']);
@@ -498,7 +498,7 @@ class API{
   				if(is_file(dirname(__FILE__,3).'/dist/data/sample.json')){ if((isset($args['sample']))&&($args['sample'])){ $this->LSP->insertRecords(dirname(__FILE__,3).'/dist/data/sample.json'); } }
         }
         // Saving new configurations
-        if(isset($this->Settings['serverid'])){
+        if(file_exists(dirname(__FILE__,3).'/config/config.json') && isset($this->Settings['serverid'])){
           if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Saving new configurations\n";}
           $this->Settings['build'] = $manifest['build'];
           $this->Settings['maintenance'] = false;
