@@ -70,13 +70,13 @@
             "isUser": "true",
             "isWelcomed": null,
             "isActive": "true",
-            "token": "f341045ad71ff5a743a84709d4070670d628b1ade10057ed",
+            "token": "5e7834b0904ba7dac05d9f7161c0818cdd67f20bda65c623",
             "api_token": "4108910258d3de0126c66e0b508cd9e2687038e9db4e1987",
             "reset_token": null,
             "tokenLogin": null,
             "tokenAPI": null,
             "tokenReset": null,
-            "last_login": "2021-09-02 10:07:50"
+            "last_login": "2021-10-19 16:15:49"
         }
     ],
     "groups": [
@@ -2839,6 +2839,34 @@
             "plugin": "messages",
             "type": "view",
             "level": 1,
+            "isLocked": "true",
+            "role_id": "1"
+        },
+        {
+            "id": 180,
+            "created": "2021-05-26 09:28:02",
+            "modified": "2021-05-26 09:28:02",
+            "owner": "1",
+            "updated_by": "1",
+            "name": "delete",
+            "table": null,
+            "plugin": "",
+            "type": "button",
+            "level": 1,
+            "isLocked": "true",
+            "role_id": "3"
+        },
+        {
+            "id": 181,
+            "created": "2021-05-26 09:28:02",
+            "modified": "2021-05-26 09:28:02",
+            "owner": "1",
+            "updated_by": "1",
+            "name": "subscriptions",
+            "table": null,
+            "plugin": "",
+            "type": "table",
+            "level": 4,
             "isLocked": "true",
             "role_id": "1"
         }
