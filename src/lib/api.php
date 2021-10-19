@@ -490,8 +490,8 @@ class API{
 				// We update the local files
         if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Updating local files to build [".$manifest['build']."]\n";}
         shell_exec("git clone --branch ".$this->Settings['repository']['branch']." ".$this->Settings['repository']['host']['git'].$this->Settings['repository']['name'].".git"." ".dirname(__FILE__,3)."/tmp/".$this->Settings['repository']['name']." &> /dev/null");
-        shell_exec("rsync -aP --exclude='.git/' ".dirname(__FILE__,3)."/tmp/".$this->Settings['repository']['name']."/* ".dirname(__FILE__,3)."/.");
-        shell_exec("rsync -aP --exclude='.git/' ".dirname(__FILE__,3)."/tmp/".$this->Settings['repository']['name']."/.??* ".dirname(__FILE__,3)."/.");
+        shell_exec("rsync -aP --exclude='.git/' --exclude='.gitignore' ".dirname(__FILE__,3)."/tmp/".$this->Settings['repository']['name']."/* ".dirname(__FILE__,3)."/.");
+        shell_exec("rsync -aP --exclude='.git/' --exclude='.gitignore' ".dirname(__FILE__,3)."/tmp/".$this->Settings['repository']['name']."/.??* ".dirname(__FILE__,3)."/.");
         shell_exec("rm -rf ".dirname(__FILE__,3)."/tmp/".$this->Settings['repository']['name']);
 				// We start updating our database
         if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Upgrading database\n";}
