@@ -8,11 +8,11 @@ Deny from all
 </Files>
 
 # Protect cli.php
-<Files "cli.php">
+<Files "/cli.php">
 Order Allow,Deny
 Deny from all
 </Files>
-<Files "cli.php">
+<Files "/cli.php">
   Require all denied
 </Files>
 
