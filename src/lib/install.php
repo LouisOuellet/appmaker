@@ -29,7 +29,9 @@ if (!$conn->connect_error){
   } else { $LSP = new LSP(); }
 	if($LSP->Status){
 		if(!file_exists(dirname(__FILE__,3).'/config/config.json')){
-			echo "Application Activation Successfull!<br>\n";
+      if(isset($settings['lsp']['required'])&&$settings['lsp']['required']){
+        echo "Application Activation Successfull!<br>\n";
+      }
 		  //We remove all existing tables
 		  if($drop == "yes"){
 				echo "Removing existing tables from the database<br>\n";
