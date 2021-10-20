@@ -1,4 +1,123 @@
 {
+    "appointments": {
+        "id": {
+            "order": 1,
+            "type": "int(11)"
+        },
+        "1": "id",
+        "created": {
+            "order": 2,
+            "type": "datetime"
+        },
+        "2": "created",
+        "modified": {
+            "order": 3,
+            "type": "datetime"
+        },
+        "3": "modified",
+        "owner": {
+            "order": 4,
+            "type": "varchar(255)"
+        },
+        "4": "owner",
+        "updated_by": {
+            "order": 5,
+            "type": "varchar(255)"
+        },
+        "5": "updated_by",
+        "date": {
+            "order": 6,
+            "type": "date"
+        },
+        "6": "date",
+        "time": {
+            "order": 7,
+            "type": "time"
+        },
+        "7": "time",
+        "status": {
+            "order": 8,
+            "type": "int(11)"
+        },
+        "8": "status",
+        "contact": {
+            "order": 9,
+            "type": "varchar(255)"
+        },
+        "9": "contact",
+        "client": {
+            "order": 10,
+            "type": "varchar(255)"
+        },
+        "10": "client",
+        "divisions": {
+            "order": 11,
+            "type": "varchar(255)"
+        },
+        "11": "divisions",
+        "issues": {
+            "order": 12,
+            "type": "varchar(255)"
+        },
+        "12": "issues",
+        "assigned_to": {
+            "order": 13,
+            "type": "varchar(255)"
+        },
+        "13": "assigned_to"
+    },
+    "automatons": {
+        "id": {
+            "order": 1,
+            "type": "int(11)"
+        },
+        "1": "id",
+        "created": {
+            "order": 2,
+            "type": "datetime"
+        },
+        "2": "created",
+        "modified": {
+            "order": 3,
+            "type": "datetime"
+        },
+        "3": "modified",
+        "owner": {
+            "order": 4,
+            "type": "varchar(255)"
+        },
+        "4": "owner",
+        "updated_by": {
+            "order": 5,
+            "type": "varchar(255)"
+        },
+        "5": "updated_by",
+        "name": {
+            "order": 6,
+            "type": "varchar(255)"
+        },
+        "6": "name",
+        "type": {
+            "order": 7,
+            "type": "varchar(255)"
+        },
+        "7": "type",
+        "json": {
+            "order": 8,
+            "type": "longtext"
+        },
+        "8": "json",
+        "relationship": {
+            "order": 9,
+            "type": "varchar(255)"
+        },
+        "9": "relationship",
+        "link_to": {
+            "order": 10,
+            "type": "varchar(255)"
+        },
+        "10": "link_to"
+    },
     "b3": {
         "id": {
             "order": 1,
@@ -286,6 +405,1875 @@
         },
         "57": "bill_to"
     },
+    "blacklist": {
+        "id": {
+            "order": 1,
+            "type": "int(11)"
+        },
+        "1": "id",
+        "created": {
+            "order": 2,
+            "type": "datetime"
+        },
+        "2": "created",
+        "modified": {
+            "order": 3,
+            "type": "datetime"
+        },
+        "3": "modified",
+        "owner": {
+            "order": 4,
+            "type": "varchar(255)"
+        },
+        "4": "owner",
+        "updated_by": {
+            "order": 5,
+            "type": "varchar(255)"
+        },
+        "5": "updated_by",
+        "ip": {
+            "order": 6,
+            "type": "varchar(255)"
+        },
+        "6": "ip"
+    },
+    "bookmarks": {
+        "id": {
+            "order": 1,
+            "type": "int(11)"
+        },
+        "1": "id",
+        "created": {
+            "order": 2,
+            "type": "datetime"
+        },
+        "2": "created",
+        "modified": {
+            "order": 3,
+            "type": "datetime"
+        },
+        "3": "modified",
+        "owner": {
+            "order": 4,
+            "type": "varchar(255)"
+        },
+        "4": "owner",
+        "updated_by": {
+            "order": 5,
+            "type": "varchar(255)"
+        },
+        "5": "updated_by",
+        "icon": {
+            "order": 6,
+            "type": "varchar(255)"
+        },
+        "6": "icon",
+        "name": {
+            "order": 7,
+            "type": "varchar(255)"
+        },
+        "7": "name",
+        "user": {
+            "order": 8,
+            "type": "varchar(255)"
+        },
+        "8": "user",
+        "relationship": {
+            "order": 9,
+            "type": "varchar(255)"
+        },
+        "9": "relationship",
+        "link_to": {
+            "order": 10,
+            "type": "varchar(255)"
+        },
+        "10": "link_to",
+        "urlparm": {
+            "order": 11,
+            "type": "varchar(255)"
+        },
+        "11": "urlparm"
+    },
+    "calendar": {
+        "id": {
+            "order": 1,
+            "type": "int(11)"
+        },
+        "1": "id",
+        "created": {
+            "order": 2,
+            "type": "datetime"
+        },
+        "2": "created",
+        "modified": {
+            "order": 3,
+            "type": "datetime"
+        },
+        "3": "modified",
+        "owner": {
+            "order": 4,
+            "type": "varchar(255)"
+        },
+        "4": "owner",
+        "updated_by": {
+            "order": 5,
+            "type": "varchar(255)"
+        },
+        "5": "updated_by",
+        "title": {
+            "order": 6,
+            "type": "varchar(255)"
+        },
+        "6": "title",
+        "start": {
+            "order": 7,
+            "type": "datetime"
+        },
+        "7": "start",
+        "end": {
+            "order": 8,
+            "type": "datetime"
+        },
+        "8": "end",
+        "allDay": {
+            "order": 9,
+            "type": "varchar(255)"
+        },
+        "9": "allDay",
+        "backgroundColor": {
+            "order": 10,
+            "type": "varchar(255)"
+        },
+        "10": "backgroundColor",
+        "borderColor": {
+            "order": 11,
+            "type": "varchar(255)"
+        },
+        "11": "borderColor",
+        "url": {
+            "order": 12,
+            "type": "varchar(255)"
+        },
+        "12": "url",
+        "relationship": {
+            "order": 13,
+            "type": "varchar(255)"
+        },
+        "13": "relationship",
+        "link_to": {
+            "order": 14,
+            "type": "varchar(255)"
+        },
+        "14": "link_to",
+        "users": {
+            "order": 15,
+            "type": "text"
+        },
+        "15": "users",
+        "groups": {
+            "order": 16,
+            "type": "text"
+        },
+        "16": "groups"
+    },
+    "calls": {
+        "id": {
+            "order": 1,
+            "type": "int(11)"
+        },
+        "1": "id",
+        "created": {
+            "order": 2,
+            "type": "datetime"
+        },
+        "2": "created",
+        "modified": {
+            "order": 3,
+            "type": "datetime"
+        },
+        "3": "modified",
+        "owner": {
+            "order": 4,
+            "type": "varchar(255)"
+        },
+        "4": "owner",
+        "updated_by": {
+            "order": 5,
+            "type": "varchar(255)"
+        },
+        "5": "updated_by",
+        "date": {
+            "order": 6,
+            "type": "date"
+        },
+        "6": "date",
+        "time": {
+            "order": 7,
+            "type": "time"
+        },
+        "7": "time",
+        "status": {
+            "order": 8,
+            "type": "int(11)"
+        },
+        "8": "status",
+        "phone": {
+            "order": 9,
+            "type": "varchar(255)"
+        },
+        "9": "phone",
+        "contact": {
+            "order": 10,
+            "type": "varchar(255)"
+        },
+        "10": "contact",
+        "organization": {
+            "order": 11,
+            "type": "varchar(255)"
+        },
+        "11": "organization",
+        "assigned_to": {
+            "order": 12,
+            "type": "varchar(255)"
+        },
+        "12": "assigned_to"
+    },
+    "categories": {
+        "id": {
+            "order": 1,
+            "type": "int(11)"
+        },
+        "1": "id",
+        "created": {
+            "order": 2,
+            "type": "datetime"
+        },
+        "2": "created",
+        "modified": {
+            "order": 3,
+            "type": "datetime"
+        },
+        "3": "modified",
+        "owner": {
+            "order": 4,
+            "type": "varchar(255)"
+        },
+        "4": "owner",
+        "updated_by": {
+            "order": 5,
+            "type": "varchar(255)"
+        },
+        "5": "updated_by",
+        "name": {
+            "order": 6,
+            "type": "varchar(255)"
+        },
+        "6": "name",
+        "status": {
+            "order": 7,
+            "type": "varchar(255)"
+        },
+        "7": "status",
+        "relationship": {
+            "order": 8,
+            "type": "varchar(255)"
+        },
+        "8": "relationship"
+    },
+    "comments": {
+        "id": {
+            "order": 1,
+            "type": "int(11)"
+        },
+        "1": "id",
+        "created": {
+            "order": 2,
+            "type": "datetime"
+        },
+        "2": "created",
+        "modified": {
+            "order": 3,
+            "type": "datetime"
+        },
+        "3": "modified",
+        "owner": {
+            "order": 4,
+            "type": "varchar(255)"
+        },
+        "4": "owner",
+        "updated_by": {
+            "order": 5,
+            "type": "varchar(255)"
+        },
+        "5": "updated_by",
+        "from": {
+            "order": 6,
+            "type": "varchar(255)"
+        },
+        "6": "from",
+        "type": {
+            "order": 7,
+            "type": "varchar(255)"
+        },
+        "7": "type",
+        "content": {
+            "order": 8,
+            "type": "text"
+        },
+        "8": "content",
+        "isRead": {
+            "order": 9,
+            "type": "varchar(255)"
+        },
+        "9": "isRead",
+        "relationship": {
+            "order": 10,
+            "type": "varchar(255)"
+        },
+        "10": "relationship",
+        "link_to": {
+            "order": 11,
+            "type": "varchar(255)"
+        },
+        "11": "link_to"
+    },
+    "containers": {
+        "id": {
+            "order": 1,
+            "type": "int(11)"
+        },
+        "1": "id",
+        "created": {
+            "order": 2,
+            "type": "datetime"
+        },
+        "2": "created",
+        "modified": {
+            "order": 3,
+            "type": "datetime"
+        },
+        "3": "modified",
+        "owner": {
+            "order": 4,
+            "type": "varchar(255)"
+        },
+        "4": "owner",
+        "updated_by": {
+            "order": 5,
+            "type": "varchar(255)"
+        },
+        "5": "updated_by",
+        "shipper": {
+            "order": 6,
+            "type": "varchar(255)"
+        },
+        "6": "shipper",
+        "load_num": {
+            "order": 7,
+            "type": "varchar(255)"
+        },
+        "7": "load_num",
+        "container_num": {
+            "order": 8,
+            "type": "varchar(255)"
+        },
+        "8": "container_num",
+        "container_size": {
+            "order": 9,
+            "type": "varchar(255)"
+        },
+        "9": "container_size",
+        "client": {
+            "order": 10,
+            "type": "varchar(255)"
+        },
+        "10": "client",
+        "branch_num": {
+            "order": 11,
+            "type": "varchar(255)"
+        },
+        "11": "branch_num",
+        "location": {
+            "order": 12,
+            "type": "varchar(255)"
+        },
+        "12": "location",
+        "status": {
+            "order": 13,
+            "type": "int(11)"
+        },
+        "13": "status",
+        "pick_up_num": {
+            "order": 14,
+            "type": "varchar(255)"
+        },
+        "14": "pick_up_num",
+        "bill_of_lading": {
+            "order": 15,
+            "type": "varchar(255)"
+        },
+        "15": "bill_of_lading",
+        "vessel": {
+            "order": 16,
+            "type": "varchar(255)"
+        },
+        "16": "vessel",
+        "carrier": {
+            "order": 17,
+            "type": "varchar(255)"
+        },
+        "17": "carrier",
+        "port": {
+            "order": 18,
+            "type": "varchar(255)"
+        },
+        "18": "port",
+        "sub_location": {
+            "order": 19,
+            "type": "varchar(255)"
+        },
+        "19": "sub_location",
+        "ETD": {
+            "order": 20,
+            "type": "date"
+        },
+        "20": "ETD",
+        "ETA_port": {
+            "order": 21,
+            "type": "date"
+        },
+        "21": "ETA_port",
+        "custom_clearance": {
+            "order": 22,
+            "type": "date"
+        },
+        "22": "custom_clearance",
+        "storage_date": {
+            "order": 23,
+            "type": "date"
+        },
+        "23": "storage_date",
+        "last_free_day": {
+            "order": 24,
+            "type": "date"
+        },
+        "24": "last_free_day",
+        "delivery_appointment": {
+            "order": 25,
+            "type": "datetime"
+        },
+        "25": "delivery_appointment",
+        "detention_date": {
+            "order": 26,
+            "type": "date"
+        },
+        "26": "detention_date",
+        "returned": {
+            "order": 27,
+            "type": "varchar(255)"
+        },
+        "27": "returned",
+        "charge_to_shipper": {
+            "order": 28,
+            "type": "varchar(255)"
+        },
+        "28": "charge_to_shipper",
+        "charge_to_other": {
+            "order": 29,
+            "type": "varchar(255)"
+        },
+        "29": "charge_to_other",
+        "active": {
+            "order": 30,
+            "type": "varchar(255)"
+        },
+        "30": "active"
+    },
+    "conversations": {
+        "id": {
+            "order": 1,
+            "type": "int(11)"
+        },
+        "1": "id",
+        "created": {
+            "order": 2,
+            "type": "datetime"
+        },
+        "2": "created",
+        "modified": {
+            "order": 3,
+            "type": "datetime"
+        },
+        "3": "modified",
+        "owner": {
+            "order": 4,
+            "type": "varchar(255)"
+        },
+        "4": "owner",
+        "updated_by": {
+            "order": 5,
+            "type": "varchar(255)"
+        },
+        "5": "updated_by",
+        "account": {
+            "order": 6,
+            "type": "varchar(255)"
+        },
+        "6": "account",
+        "status": {
+            "order": 7,
+            "type": "int(11)"
+        },
+        "7": "status",
+        "messages": {
+            "order": 8,
+            "type": "longtext"
+        },
+        "8": "messages",
+        "files": {
+            "order": 9,
+            "type": "varchar(255)"
+        },
+        "9": "files",
+        "organizations": {
+            "order": 10,
+            "type": "varchar(255)"
+        },
+        "10": "organizations",
+        "contacts": {
+            "order": 11,
+            "type": "varchar(255)"
+        },
+        "11": "contacts",
+        "meta": {
+            "order": 12,
+            "type": "text"
+        },
+        "12": "meta",
+        "hasNew": {
+            "order": 13,
+            "type": "varchar(255)"
+        },
+        "13": "hasNew"
+    },
+    "dashboard": {
+        "id": {
+            "order": 1,
+            "type": "int(11)"
+        },
+        "1": "id",
+        "created": {
+            "order": 2,
+            "type": "datetime"
+        },
+        "2": "created",
+        "modified": {
+            "order": 3,
+            "type": "datetime"
+        },
+        "3": "modified",
+        "owner": {
+            "order": 4,
+            "type": "varchar(255)"
+        },
+        "4": "owner",
+        "updated_by": {
+            "order": 5,
+            "type": "varchar(255)"
+        },
+        "5": "updated_by",
+        "user": {
+            "order": 6,
+            "type": "varchar(255)"
+        },
+        "6": "user",
+        "box": {
+            "order": 7,
+            "type": "text"
+        },
+        "7": "box",
+        "full": {
+            "order": 8,
+            "type": "text"
+        },
+        "8": "full",
+        "left": {
+            "order": 9,
+            "type": "text"
+        },
+        "9": "left",
+        "right": {
+            "order": 10,
+            "type": "text"
+        },
+        "10": "right"
+    },
+    "decisions": {
+        "id": {
+            "order": 1,
+            "type": "int(11)"
+        },
+        "1": "id",
+        "created": {
+            "order": 2,
+            "type": "datetime"
+        },
+        "2": "created",
+        "modified": {
+            "order": 3,
+            "type": "datetime"
+        },
+        "3": "modified",
+        "owner": {
+            "order": 4,
+            "type": "varchar(255)"
+        },
+        "4": "owner",
+        "updated_by": {
+            "order": 5,
+            "type": "varchar(255)"
+        },
+        "5": "updated_by",
+        "trs": {
+            "order": 6,
+            "type": "varchar(255)"
+        },
+        "6": "trs",
+        "cas59": {
+            "order": 7,
+            "type": "varchar(255)"
+        },
+        "7": "cas59",
+        "cas60": {
+            "order": 8,
+            "type": "varchar(255)"
+        },
+        "8": "cas60",
+        "cas67": {
+            "order": 9,
+            "type": "varchar(255)"
+        },
+        "9": "cas67",
+        "type": {
+            "order": 10,
+            "type": "varchar(255)"
+        },
+        "10": "type",
+        "date_issued": {
+            "order": 11,
+            "type": "date"
+        },
+        "11": "date_issued",
+        "effective_date": {
+            "order": 12,
+            "type": "date"
+        },
+        "12": "effective_date",
+        "reference#": {
+            "order": 13,
+            "type": "varchar(255)"
+        },
+        "13": "reference#",
+        "client": {
+            "order": 14,
+            "type": "varchar(255)"
+        },
+        "14": "client",
+        "description": {
+            "order": 15,
+            "type": "varchar(255)"
+        },
+        "15": "description",
+        "original_hs": {
+            "order": 16,
+            "type": "varchar(255)"
+        },
+        "16": "original_hs",
+        "requested_hs": {
+            "order": 17,
+            "type": "varchar(255)"
+        },
+        "17": "requested_hs",
+        "tariff_code": {
+            "order": 18,
+            "type": "varchar(255)"
+        },
+        "18": "tariff_code",
+        "gpt": {
+            "order": 19,
+            "type": "varchar(255)"
+        },
+        "19": "gpt",
+        "mfn": {
+            "order": 20,
+            "type": "varchar(255)"
+        },
+        "20": "mfn",
+        "appealed": {
+            "order": 21,
+            "type": "varchar(255)"
+        },
+        "21": "appealed",
+        "assigned_to": {
+            "order": 22,
+            "type": "varchar(255)"
+        },
+        "22": "assigned_to"
+    },
+    "files": {
+        "id": {
+            "order": 1,
+            "type": "int(11)"
+        },
+        "1": "id",
+        "created": {
+            "order": 2,
+            "type": "datetime"
+        },
+        "2": "created",
+        "modified": {
+            "order": 3,
+            "type": "datetime"
+        },
+        "3": "modified",
+        "owner": {
+            "order": 4,
+            "type": "varchar(255)"
+        },
+        "4": "owner",
+        "updated_by": {
+            "order": 5,
+            "type": "varchar(255)"
+        },
+        "5": "updated_by",
+        "name": {
+            "order": 6,
+            "type": "varchar(255)"
+        },
+        "6": "name",
+        "filename": {
+            "order": 7,
+            "type": "varchar(255)"
+        },
+        "7": "filename",
+        "file": {
+            "order": 8,
+            "type": "longblob"
+        },
+        "8": "file",
+        "type": {
+            "order": 9,
+            "type": "varchar(255)"
+        },
+        "9": "type",
+        "size": {
+            "order": 10,
+            "type": "varchar(255)"
+        },
+        "10": "size",
+        "encoding": {
+            "order": 11,
+            "type": "varchar(255)"
+        },
+        "11": "encoding",
+        "meta": {
+            "order": 12,
+            "type": "text"
+        },
+        "12": "meta",
+        "isAttachment": {
+            "order": 13,
+            "type": "varchar(255)"
+        },
+        "13": "isAttachment"
+    },
+    "groups": {
+        "id": {
+            "order": 1,
+            "type": "int(11)"
+        },
+        "1": "id",
+        "created": {
+            "order": 2,
+            "type": "datetime"
+        },
+        "2": "created",
+        "modified": {
+            "order": 3,
+            "type": "datetime"
+        },
+        "3": "modified",
+        "owner": {
+            "order": 4,
+            "type": "varchar(255)"
+        },
+        "4": "owner",
+        "updated_by": {
+            "order": 5,
+            "type": "varchar(255)"
+        },
+        "5": "updated_by",
+        "name": {
+            "order": 6,
+            "type": "varchar(255)"
+        },
+        "6": "name",
+        "type": {
+            "order": 7,
+            "type": "varchar(255)"
+        },
+        "7": "type",
+        "location": {
+            "order": 8,
+            "type": "varchar(255)"
+        },
+        "8": "location"
+    },
+    "history": {
+        "id": {
+            "order": 1,
+            "type": "int(11)"
+        },
+        "1": "id",
+        "created": {
+            "order": 2,
+            "type": "datetime"
+        },
+        "2": "created",
+        "modified": {
+            "order": 3,
+            "type": "datetime"
+        },
+        "3": "modified",
+        "owner": {
+            "order": 4,
+            "type": "varchar(255)"
+        },
+        "4": "owner",
+        "updated_by": {
+            "order": 5,
+            "type": "varchar(255)"
+        },
+        "5": "updated_by",
+        "action": {
+            "order": 6,
+            "type": "varchar(255)"
+        },
+        "6": "action",
+        "description": {
+            "order": 7,
+            "type": "varchar(255)"
+        },
+        "7": "description",
+        "user": {
+            "order": 8,
+            "type": "varchar(255)"
+        },
+        "8": "user",
+        "query": {
+            "order": 9,
+            "type": "text"
+        },
+        "9": "query",
+        "table": {
+            "order": 10,
+            "type": "varchar(255)"
+        },
+        "10": "table",
+        "status": {
+            "order": 11,
+            "type": "varchar(255)"
+        },
+        "11": "status",
+        "link_to": {
+            "order": 12,
+            "type": "varchar(255)"
+        },
+        "12": "link_to",
+        "ip": {
+            "order": 13,
+            "type": "varchar(255)"
+        },
+        "13": "ip"
+    },
+    "issues": {
+        "id": {
+            "order": 1,
+            "type": "int(11)"
+        },
+        "1": "id",
+        "created": {
+            "order": 2,
+            "type": "datetime"
+        },
+        "2": "created",
+        "modified": {
+            "order": 3,
+            "type": "datetime"
+        },
+        "3": "modified",
+        "owner": {
+            "order": 4,
+            "type": "varchar(255)"
+        },
+        "4": "owner",
+        "updated_by": {
+            "order": 5,
+            "type": "varchar(255)"
+        },
+        "5": "updated_by",
+        "name": {
+            "order": 6,
+            "type": "varchar(255)"
+        },
+        "6": "name",
+        "description": {
+            "order": 7,
+            "type": "text"
+        },
+        "7": "description",
+        "priority": {
+            "order": 8,
+            "type": "int(11)"
+        },
+        "8": "priority",
+        "isDefault": {
+            "order": 9,
+            "type": "varchar(255)"
+        },
+        "9": "isDefault"
+    },
+    "job_titles": {
+        "id": {
+            "order": 1,
+            "type": "int(11)"
+        },
+        "1": "id",
+        "created": {
+            "order": 2,
+            "type": "datetime"
+        },
+        "2": "created",
+        "modified": {
+            "order": 3,
+            "type": "datetime"
+        },
+        "3": "modified",
+        "owner": {
+            "order": 4,
+            "type": "varchar(255)"
+        },
+        "4": "owner",
+        "updated_by": {
+            "order": 5,
+            "type": "varchar(255)"
+        },
+        "5": "updated_by",
+        "name": {
+            "order": 6,
+            "type": "varchar(255)"
+        },
+        "6": "name"
+    },
+    "mentions": {
+        "id": {
+            "order": 1,
+            "type": "int(11)"
+        },
+        "1": "id",
+        "created": {
+            "order": 2,
+            "type": "datetime"
+        },
+        "2": "created",
+        "modified": {
+            "order": 3,
+            "type": "datetime"
+        },
+        "3": "modified",
+        "owner": {
+            "order": 4,
+            "type": "varchar(255)"
+        },
+        "4": "owner",
+        "updated_by": {
+            "order": 5,
+            "type": "varchar(255)"
+        },
+        "5": "updated_by",
+        "description": {
+            "order": 6,
+            "type": "varchar(255)"
+        },
+        "6": "description",
+        "reference": {
+            "order": 7,
+            "type": "varchar(255)"
+        },
+        "7": "reference"
+    },
+    "messages": {
+        "id": {
+            "order": 1,
+            "type": "int(11)"
+        },
+        "1": "id",
+        "created": {
+            "order": 2,
+            "type": "datetime"
+        },
+        "2": "created",
+        "modified": {
+            "order": 3,
+            "type": "datetime"
+        },
+        "3": "modified",
+        "owner": {
+            "order": 4,
+            "type": "varchar(255)"
+        },
+        "4": "owner",
+        "updated_by": {
+            "order": 5,
+            "type": "varchar(255)"
+        },
+        "5": "updated_by",
+        "account": {
+            "order": 6,
+            "type": "varchar(255)"
+        },
+        "6": "account",
+        "folder": {
+            "order": 7,
+            "type": "varchar(255)"
+        },
+        "7": "folder",
+        "mid": {
+            "order": 8,
+            "type": "varchar(255)"
+        },
+        "8": "mid",
+        "uid": {
+            "order": 9,
+            "type": "varchar(255)"
+        },
+        "9": "uid",
+        "reply_to_id": {
+            "order": 10,
+            "type": "varchar(255)"
+        },
+        "10": "reply_to_id",
+        "reference_id": {
+            "order": 11,
+            "type": "text"
+        },
+        "11": "reference_id",
+        "sender": {
+            "order": 12,
+            "type": "varchar(255)"
+        },
+        "12": "sender",
+        "from": {
+            "order": 13,
+            "type": "varchar(255)"
+        },
+        "13": "from",
+        "to": {
+            "order": 14,
+            "type": "varchar(255)"
+        },
+        "14": "to",
+        "cc": {
+            "order": 15,
+            "type": "text"
+        },
+        "15": "cc",
+        "bcc": {
+            "order": 16,
+            "type": "text"
+        },
+        "16": "bcc",
+        "meta": {
+            "order": 17,
+            "type": "text"
+        },
+        "17": "meta",
+        "subject_original": {
+            "order": 18,
+            "type": "text"
+        },
+        "18": "subject_original",
+        "subject_stripped": {
+            "order": 19,
+            "type": "text"
+        },
+        "19": "subject_stripped",
+        "body_original": {
+            "order": 20,
+            "type": "text"
+        },
+        "20": "body_original",
+        "body_unquoted": {
+            "order": 21,
+            "type": "text"
+        },
+        "21": "body_unquoted",
+        "attachments": {
+            "order": 22,
+            "type": "varchar(255)"
+        },
+        "22": "attachments",
+        "isAttached": {
+            "order": 23,
+            "type": "varchar(255)"
+        },
+        "23": "isAttached"
+    },
+    "notes": {
+        "id": {
+            "order": 1,
+            "type": "int(11)"
+        },
+        "1": "id",
+        "created": {
+            "order": 2,
+            "type": "datetime"
+        },
+        "2": "created",
+        "modified": {
+            "order": 3,
+            "type": "datetime"
+        },
+        "3": "modified",
+        "owner": {
+            "order": 4,
+            "type": "varchar(255)"
+        },
+        "4": "owner",
+        "updated_by": {
+            "order": 5,
+            "type": "varchar(255)"
+        },
+        "5": "updated_by",
+        "by": {
+            "order": 6,
+            "type": "varchar(255)"
+        },
+        "6": "by",
+        "content": {
+            "order": 7,
+            "type": "text"
+        },
+        "7": "content",
+        "relationship": {
+            "order": 8,
+            "type": "varchar(255)"
+        },
+        "8": "relationship",
+        "link_to": {
+            "order": 9,
+            "type": "varchar(255)"
+        },
+        "9": "link_to"
+    },
+    "notifications": {
+        "id": {
+            "order": 1,
+            "type": "int(11)"
+        },
+        "1": "id",
+        "created": {
+            "order": 2,
+            "type": "datetime"
+        },
+        "2": "created",
+        "modified": {
+            "order": 3,
+            "type": "datetime"
+        },
+        "3": "modified",
+        "owner": {
+            "order": 4,
+            "type": "varchar(255)"
+        },
+        "4": "owner",
+        "updated_by": {
+            "order": 5,
+            "type": "varchar(255)"
+        },
+        "5": "updated_by",
+        "icon": {
+            "order": 6,
+            "type": "varchar(255)"
+        },
+        "6": "icon",
+        "subject": {
+            "order": 7,
+            "type": "varchar(255)"
+        },
+        "7": "subject",
+        "dissmissed": {
+            "order": 8,
+            "type": "varchar(255)"
+        },
+        "8": "dissmissed",
+        "user": {
+            "order": 9,
+            "type": "varchar(255)"
+        },
+        "9": "user",
+        "href": {
+            "order": 10,
+            "type": "varchar(255)"
+        },
+        "10": "href"
+    },
+    "options": {
+        "id": {
+            "order": 1,
+            "type": "int(11)"
+        },
+        "1": "id",
+        "created": {
+            "order": 2,
+            "type": "datetime"
+        },
+        "2": "created",
+        "modified": {
+            "order": 3,
+            "type": "datetime"
+        },
+        "3": "modified",
+        "owner": {
+            "order": 4,
+            "type": "varchar(255)"
+        },
+        "4": "owner",
+        "updated_by": {
+            "order": 5,
+            "type": "varchar(255)"
+        },
+        "5": "updated_by",
+        "name": {
+            "order": 6,
+            "type": "varchar(255)"
+        },
+        "6": "name",
+        "type": {
+            "order": 7,
+            "type": "varchar(255)"
+        },
+        "7": "type",
+        "value": {
+            "order": 8,
+            "type": "varchar(255)"
+        },
+        "8": "value",
+        "relationship": {
+            "order": 9,
+            "type": "varchar(255)"
+        },
+        "9": "relationship",
+        "link_to": {
+            "order": 10,
+            "type": "varchar(255)"
+        },
+        "10": "link_to",
+        "user": {
+            "order": 11,
+            "type": "varchar(255)"
+        },
+        "11": "user",
+        "plugin": {
+            "order": 12,
+            "type": "varchar(255)"
+        },
+        "12": "plugin",
+        "view": {
+            "order": 13,
+            "type": "varchar(255)"
+        },
+        "13": "view",
+        "record": {
+            "order": 14,
+            "type": "varchar(255)"
+        },
+        "14": "record"
+    },
+    "organizations": {
+        "id": {
+            "order": 1,
+            "type": "int(11)"
+        },
+        "1": "id",
+        "created": {
+            "order": 2,
+            "type": "datetime"
+        },
+        "2": "created",
+        "modified": {
+            "order": 3,
+            "type": "datetime"
+        },
+        "3": "modified",
+        "owner": {
+            "order": 4,
+            "type": "varchar(255)"
+        },
+        "4": "owner",
+        "updated_by": {
+            "order": 5,
+            "type": "varchar(255)"
+        },
+        "5": "updated_by",
+        "name": {
+            "order": 6,
+            "type": "varchar(255)"
+        },
+        "6": "name",
+        "code": {
+            "order": 7,
+            "type": "varchar(255)"
+        },
+        "7": "code",
+        "business_num": {
+            "order": 8,
+            "type": "varchar(255)"
+        },
+        "8": "business_num",
+        "status": {
+            "order": 9,
+            "type": "varchar(255)"
+        },
+        "9": "status",
+        "address": {
+            "order": 10,
+            "type": "varchar(255)"
+        },
+        "10": "address",
+        "city": {
+            "order": 11,
+            "type": "varchar(255)"
+        },
+        "11": "city",
+        "state": {
+            "order": 12,
+            "type": "varchar(255)"
+        },
+        "12": "state",
+        "country": {
+            "order": 13,
+            "type": "varchar(255)"
+        },
+        "13": "country",
+        "zipcode": {
+            "order": 14,
+            "type": "varchar(255)"
+        },
+        "14": "zipcode",
+        "email": {
+            "order": 15,
+            "type": "varchar(255)"
+        },
+        "15": "email",
+        "fax": {
+            "order": 16,
+            "type": "varchar(255)"
+        },
+        "16": "fax",
+        "phone": {
+            "order": 17,
+            "type": "varchar(255)"
+        },
+        "17": "phone",
+        "toll_free": {
+            "order": 18,
+            "type": "varchar(255)"
+        },
+        "18": "toll_free",
+        "website": {
+            "order": 19,
+            "type": "varchar(255)"
+        },
+        "19": "website",
+        "tags": {
+            "order": 20,
+            "type": "varchar(255)"
+        },
+        "20": "tags",
+        "assigned_to": {
+            "order": 21,
+            "type": "varchar(255)"
+        },
+        "21": "assigned_to",
+        "isLead": {
+            "order": 22,
+            "type": "varchar(255)"
+        },
+        "22": "isLead",
+        "isClient": {
+            "order": 23,
+            "type": "varchar(255)"
+        },
+        "23": "isClient",
+        "isImporter": {
+            "order": 24,
+            "type": "varchar(255)"
+        },
+        "24": "isImporter",
+        "isExporter": {
+            "order": 25,
+            "type": "varchar(255)"
+        },
+        "25": "isExporter",
+        "isFreightForwarder": {
+            "order": 26,
+            "type": "varchar(255)"
+        },
+        "26": "isFreightForwarder",
+        "isInternationalFreightProfile": {
+            "order": 27,
+            "type": "varchar(255)"
+        },
+        "27": "isInternationalFreightProfile",
+        "isUSBroker": {
+            "order": 28,
+            "type": "varchar(255)"
+        },
+        "28": "isUSBroker",
+        "isCarrier": {
+            "order": 29,
+            "type": "varchar(255)"
+        },
+        "29": "isCarrier",
+        "isCustomsOffice": {
+            "order": 30,
+            "type": "varchar(255)"
+        },
+        "30": "isCustomsOffice",
+        "isSubLocation": {
+            "order": 31,
+            "type": "varchar(255)"
+        },
+        "31": "isSubLocation",
+        "isSupplier": {
+            "order": 32,
+            "type": "varchar(255)"
+        },
+        "32": "isSupplier",
+        "isConsignee": {
+            "order": 33,
+            "type": "varchar(255)"
+        },
+        "33": "isConsignee",
+        "isBusiness": {
+            "order": 34,
+            "type": "varchar(255)"
+        },
+        "34": "isBusiness",
+        "isProperty": {
+            "order": 35,
+            "type": "varchar(255)"
+        },
+        "35": "isProperty",
+        "isOwner": {
+            "order": 36,
+            "type": "varchar(255)"
+        },
+        "36": "isOwner",
+        "isActive": {
+            "order": 37,
+            "type": "varchar(255)"
+        },
+        "37": "isActive",
+        "setCodeCCN": {
+            "order": 38,
+            "type": "varchar(255)"
+        },
+        "38": "setCodeCCN",
+        "setCodeITMR4": {
+            "order": 39,
+            "type": "varchar(255)"
+        },
+        "39": "setCodeITMR4",
+        "setCodeHVS": {
+            "order": 40,
+            "type": "varchar(255)"
+        },
+        "40": "setCodeHVS",
+        "setCurrency": {
+            "order": 41,
+            "type": "varchar(255)"
+        },
+        "41": "setCurrency",
+        "setDomain": {
+            "order": 42,
+            "type": "varchar(255)"
+        },
+        "42": "setDomain",
+        "setSMTPhost": {
+            "order": 43,
+            "type": "varchar(255)"
+        },
+        "43": "setSMTPhost",
+        "setSMTPport": {
+            "order": 44,
+            "type": "varchar(255)"
+        },
+        "44": "setSMTPport",
+        "setSMTPencryption": {
+            "order": 45,
+            "type": "varchar(255)"
+        },
+        "45": "setSMTPencryption"
+    },
+    "permissions": {
+        "id": {
+            "order": 1,
+            "type": "int(11)"
+        },
+        "1": "id",
+        "created": {
+            "order": 2,
+            "type": "datetime"
+        },
+        "2": "created",
+        "modified": {
+            "order": 3,
+            "type": "datetime"
+        },
+        "3": "modified",
+        "owner": {
+            "order": 4,
+            "type": "varchar(255)"
+        },
+        "4": "owner",
+        "updated_by": {
+            "order": 5,
+            "type": "varchar(255)"
+        },
+        "5": "updated_by",
+        "name": {
+            "order": 6,
+            "type": "varchar(255)"
+        },
+        "6": "name",
+        "table": {
+            "order": 7,
+            "type": "varchar(255)"
+        },
+        "7": "table",
+        "plugin": {
+            "order": 8,
+            "type": "varchar(255)"
+        },
+        "8": "plugin",
+        "type": {
+            "order": 9,
+            "type": "varchar(255)"
+        },
+        "9": "type",
+        "level": {
+            "order": 10,
+            "type": "int(11)"
+        },
+        "10": "level",
+        "isLocked": {
+            "order": 11,
+            "type": "varchar(255)"
+        },
+        "11": "isLocked",
+        "role_id": {
+            "order": 12,
+            "type": "varchar(255)"
+        },
+        "12": "role_id"
+    },
+    "priorities": {
+        "id": {
+            "order": 1,
+            "type": "int(11)"
+        },
+        "1": "id",
+        "created": {
+            "order": 2,
+            "type": "datetime"
+        },
+        "2": "created",
+        "modified": {
+            "order": 3,
+            "type": "datetime"
+        },
+        "3": "modified",
+        "owner": {
+            "order": 4,
+            "type": "varchar(255)"
+        },
+        "4": "owner",
+        "updated_by": {
+            "order": 5,
+            "type": "varchar(255)"
+        },
+        "5": "updated_by",
+        "name": {
+            "order": 6,
+            "type": "varchar(255)"
+        },
+        "6": "name",
+        "icon": {
+            "order": 7,
+            "type": "varchar(255)"
+        },
+        "7": "icon",
+        "color": {
+            "order": 8,
+            "type": "varchar(255)"
+        },
+        "8": "color",
+        "order": {
+            "order": 9,
+            "type": "int(11)"
+        },
+        "9": "order",
+        "relationship": {
+            "order": 10,
+            "type": "varchar(255)"
+        },
+        "10": "relationship"
+    },
+    "promotions": {
+        "id": {
+            "order": 1,
+            "type": "int(11)"
+        },
+        "1": "id",
+        "created": {
+            "order": 2,
+            "type": "datetime"
+        },
+        "2": "created",
+        "modified": {
+            "order": 3,
+            "type": "datetime"
+        },
+        "3": "modified",
+        "owner": {
+            "order": 4,
+            "type": "varchar(255)"
+        },
+        "4": "owner",
+        "updated_by": {
+            "order": 5,
+            "type": "varchar(255)"
+        },
+        "5": "updated_by",
+        "title": {
+            "order": 6,
+            "type": "varchar(255)"
+        },
+        "6": "title",
+        "list_of_tasks": {
+            "order": 7,
+            "type": "text"
+        },
+        "7": "list_of_tasks",
+        "reference": {
+            "order": 8,
+            "type": "varchar(255)"
+        },
+        "8": "reference"
+    },
+    "references": {
+        "id": {
+            "order": 1,
+            "type": "int(11)"
+        },
+        "1": "id",
+        "created": {
+            "order": 2,
+            "type": "datetime"
+        },
+        "2": "created",
+        "modified": {
+            "order": 3,
+            "type": "datetime"
+        },
+        "3": "modified",
+        "owner": {
+            "order": 4,
+            "type": "varchar(255)"
+        },
+        "4": "owner",
+        "updated_by": {
+            "order": 5,
+            "type": "varchar(255)"
+        },
+        "5": "updated_by",
+        "employer": {
+            "order": 6,
+            "type": "varchar(255)"
+        },
+        "6": "employer",
+        "title": {
+            "order": 7,
+            "type": "varchar(255)"
+        },
+        "7": "title",
+        "list_of_tasks": {
+            "order": 8,
+            "type": "text"
+        },
+        "8": "list_of_tasks",
+        "start": {
+            "order": 9,
+            "type": "date"
+        },
+        "9": "start",
+        "end": {
+            "order": 10,
+            "type": "date"
+        },
+        "10": "end",
+        "reason_for_termination": {
+            "order": 11,
+            "type": "text"
+        },
+        "11": "reason_for_termination",
+        "reason_for_termination_details": {
+            "order": 12,
+            "type": "text"
+        },
+        "12": "reason_for_termination_details",
+        "would_you_hire_him_back": {
+            "order": 13,
+            "type": "varchar(255)"
+        },
+        "13": "would_you_hire_him_back",
+        "punctuality": {
+            "order": 14,
+            "type": "varchar(255)"
+        },
+        "14": "punctuality",
+        "qualities": {
+            "order": 15,
+            "type": "text"
+        },
+        "15": "qualities",
+        "flaws": {
+            "order": 16,
+            "type": "text"
+        },
+        "16": "flaws",
+        "filled_by": {
+            "order": 17,
+            "type": "varchar(255)"
+        },
+        "17": "filled_by",
+        "filled_by_title": {
+            "order": 18,
+            "type": "varchar(255)"
+        },
+        "18": "filled_by_title",
+        "approved_by": {
+            "order": 19,
+            "type": "varchar(255)"
+        },
+        "19": "approved_by",
+        "approved_by_title": {
+            "order": 20,
+            "type": "varchar(255)"
+        },
+        "20": "approved_by_title"
+    },
+    "relationships": {
+        "id": {
+            "order": 1,
+            "type": "int(11)"
+        },
+        "1": "id",
+        "created": {
+            "order": 2,
+            "type": "datetime"
+        },
+        "2": "created",
+        "modified": {
+            "order": 3,
+            "type": "datetime"
+        },
+        "3": "modified",
+        "owner": {
+            "order": 4,
+            "type": "varchar(255)"
+        },
+        "4": "owner",
+        "updated_by": {
+            "order": 5,
+            "type": "varchar(255)"
+        },
+        "5": "updated_by",
+        "relationship_1": {
+            "order": 6,
+            "type": "varchar(255)"
+        },
+        "6": "relationship_1",
+        "link_to_1": {
+            "order": 7,
+            "type": "varchar(255)"
+        },
+        "7": "link_to_1",
+        "relationship_2": {
+            "order": 8,
+            "type": "varchar(255)"
+        },
+        "8": "relationship_2",
+        "link_to_2": {
+            "order": 9,
+            "type": "varchar(255)"
+        },
+        "9": "link_to_2",
+        "relationship_3": {
+            "order": 10,
+            "type": "varchar(255)"
+        },
+        "10": "relationship_3",
+        "link_to_3": {
+            "order": 11,
+            "type": "varchar(255)"
+        },
+        "11": "link_to_3"
+    },
+    "roles": {
+        "id": {
+            "order": 1,
+            "type": "int(11)"
+        },
+        "1": "id",
+        "created": {
+            "order": 2,
+            "type": "datetime"
+        },
+        "2": "created",
+        "modified": {
+            "order": 3,
+            "type": "datetime"
+        },
+        "3": "modified",
+        "owner": {
+            "order": 4,
+            "type": "varchar(255)"
+        },
+        "4": "owner",
+        "updated_by": {
+            "order": 5,
+            "type": "varchar(255)"
+        },
+        "5": "updated_by",
+        "name": {
+            "order": 6,
+            "type": "varchar(255)"
+        },
+        "6": "name"
+    },
     "sales_genie": {
         "id": {
             "order": 1,
@@ -508,7 +2496,7 @@
         },
         "44": "link_to"
     },
-    "issues": {
+    "services": {
         "id": {
             "order": 1,
             "type": "int(11)"
@@ -538,24 +2526,9 @@
             "order": 6,
             "type": "varchar(255)"
         },
-        "6": "name",
-        "description": {
-            "order": 7,
-            "type": "text"
-        },
-        "7": "description",
-        "priority": {
-            "order": 8,
-            "type": "int(11)"
-        },
-        "8": "priority",
-        "isDefault": {
-            "order": 9,
-            "type": "varchar(255)"
-        },
-        "9": "isDefault"
+        "6": "name"
     },
-    "options": {
+    "statistics": {
         "id": {
             "order": 1,
             "type": "int(11)"
@@ -586,221 +2559,18 @@
             "type": "varchar(255)"
         },
         "6": "name",
-        "type": {
+        "user": {
             "order": 7,
             "type": "varchar(255)"
         },
-        "7": "type",
+        "7": "user",
         "value": {
             "order": 8,
             "type": "varchar(255)"
         },
-        "8": "value",
-        "relationship": {
-            "order": 9,
-            "type": "varchar(255)"
-        },
-        "9": "relationship",
-        "link_to": {
-            "order": 10,
-            "type": "varchar(255)"
-        },
-        "10": "link_to",
-        "user": {
-            "order": 11,
-            "type": "varchar(255)"
-        },
-        "11": "user",
-        "plugin": {
-            "order": 12,
-            "type": "varchar(255)"
-        },
-        "12": "plugin",
-        "view": {
-            "order": 13,
-            "type": "varchar(255)"
-        },
-        "13": "view",
-        "record": {
-            "order": 14,
-            "type": "varchar(255)"
-        },
-        "14": "record"
+        "8": "value"
     },
-    "notifications": {
-        "id": {
-            "order": 1,
-            "type": "int(11)"
-        },
-        "1": "id",
-        "created": {
-            "order": 2,
-            "type": "datetime"
-        },
-        "2": "created",
-        "modified": {
-            "order": 3,
-            "type": "datetime"
-        },
-        "3": "modified",
-        "owner": {
-            "order": 4,
-            "type": "varchar(255)"
-        },
-        "4": "owner",
-        "updated_by": {
-            "order": 5,
-            "type": "varchar(255)"
-        },
-        "5": "updated_by",
-        "icon": {
-            "order": 6,
-            "type": "varchar(255)"
-        },
-        "6": "icon",
-        "subject": {
-            "order": 7,
-            "type": "varchar(255)"
-        },
-        "7": "subject",
-        "dissmissed": {
-            "order": 8,
-            "type": "varchar(255)"
-        },
-        "8": "dissmissed",
-        "user": {
-            "order": 9,
-            "type": "varchar(255)"
-        },
-        "9": "user",
-        "href": {
-            "order": 10,
-            "type": "varchar(255)"
-        },
-        "10": "href"
-    },
-    "job_titles": {
-        "id": {
-            "order": 1,
-            "type": "int(11)"
-        },
-        "1": "id",
-        "created": {
-            "order": 2,
-            "type": "datetime"
-        },
-        "2": "created",
-        "modified": {
-            "order": 3,
-            "type": "datetime"
-        },
-        "3": "modified",
-        "owner": {
-            "order": 4,
-            "type": "varchar(255)"
-        },
-        "4": "owner",
-        "updated_by": {
-            "order": 5,
-            "type": "varchar(255)"
-        },
-        "5": "updated_by",
-        "name": {
-            "order": 6,
-            "type": "varchar(255)"
-        },
-        "6": "name"
-    },
-    "roles": {
-        "id": {
-            "order": 1,
-            "type": "int(11)"
-        },
-        "1": "id",
-        "created": {
-            "order": 2,
-            "type": "datetime"
-        },
-        "2": "created",
-        "modified": {
-            "order": 3,
-            "type": "datetime"
-        },
-        "3": "modified",
-        "owner": {
-            "order": 4,
-            "type": "varchar(255)"
-        },
-        "4": "owner",
-        "updated_by": {
-            "order": 5,
-            "type": "varchar(255)"
-        },
-        "5": "updated_by",
-        "name": {
-            "order": 6,
-            "type": "varchar(255)"
-        },
-        "6": "name"
-    },
-    "comments": {
-        "id": {
-            "order": 1,
-            "type": "int(11)"
-        },
-        "1": "id",
-        "created": {
-            "order": 2,
-            "type": "datetime"
-        },
-        "2": "created",
-        "modified": {
-            "order": 3,
-            "type": "datetime"
-        },
-        "3": "modified",
-        "owner": {
-            "order": 4,
-            "type": "varchar(255)"
-        },
-        "4": "owner",
-        "updated_by": {
-            "order": 5,
-            "type": "varchar(255)"
-        },
-        "5": "updated_by",
-        "from": {
-            "order": 6,
-            "type": "varchar(255)"
-        },
-        "6": "from",
-        "type": {
-            "order": 7,
-            "type": "varchar(255)"
-        },
-        "7": "type",
-        "content": {
-            "order": 8,
-            "type": "text"
-        },
-        "8": "content",
-        "isRead": {
-            "order": 9,
-            "type": "varchar(255)"
-        },
-        "9": "isRead",
-        "relationship": {
-            "order": 10,
-            "type": "varchar(255)"
-        },
-        "10": "relationship",
-        "link_to": {
-            "order": 11,
-            "type": "varchar(255)"
-        },
-        "11": "link_to"
-    },
-    "files": {
+    "statuses": {
         "id": {
             "order": 1,
             "type": "int(11)"
@@ -831,43 +2601,28 @@
             "type": "varchar(255)"
         },
         "6": "name",
-        "filename": {
+        "icon": {
             "order": 7,
             "type": "varchar(255)"
         },
-        "7": "filename",
-        "file": {
+        "7": "icon",
+        "color": {
             "order": 8,
-            "type": "longblob"
-        },
-        "8": "file",
-        "type": {
-            "order": 9,
             "type": "varchar(255)"
         },
-        "9": "type",
-        "size": {
+        "8": "color",
+        "order": {
+            "order": 9,
+            "type": "int(11)"
+        },
+        "9": "order",
+        "relationship": {
             "order": 10,
             "type": "varchar(255)"
         },
-        "10": "size",
-        "encoding": {
-            "order": 11,
-            "type": "varchar(255)"
-        },
-        "11": "encoding",
-        "meta": {
-            "order": 12,
-            "type": "text"
-        },
-        "12": "meta",
-        "isAttachment": {
-            "order": 13,
-            "type": "varchar(255)"
-        },
-        "13": "isAttachment"
+        "10": "relationship"
     },
-    "appointments": {
+    "sub_categories": {
         "id": {
             "order": 1,
             "type": "int(11)"
@@ -893,48 +2648,23 @@
             "type": "varchar(255)"
         },
         "5": "updated_by",
-        "date": {
+        "name": {
             "order": 6,
-            "type": "date"
+            "type": "varchar(255)"
         },
-        "6": "date",
-        "time": {
-            "order": 7,
-            "type": "time"
-        },
-        "7": "time",
+        "6": "name",
         "status": {
+            "order": 7,
+            "type": "varchar(255)"
+        },
+        "7": "status",
+        "relationship": {
             "order": 8,
-            "type": "int(11)"
-        },
-        "8": "status",
-        "contact": {
-            "order": 9,
             "type": "varchar(255)"
         },
-        "9": "contact",
-        "client": {
-            "order": 10,
-            "type": "varchar(255)"
-        },
-        "10": "client",
-        "divisions": {
-            "order": 11,
-            "type": "varchar(255)"
-        },
-        "11": "divisions",
-        "issues": {
-            "order": 12,
-            "type": "varchar(255)"
-        },
-        "12": "issues",
-        "assigned_to": {
-            "order": 13,
-            "type": "varchar(255)"
-        },
-        "13": "assigned_to"
+        "8": "relationship"
     },
-    "dashboard": {
+    "subscriptions": {
         "id": {
             "order": 1,
             "type": "int(11)"
@@ -960,31 +2690,26 @@
             "type": "varchar(255)"
         },
         "5": "updated_by",
-        "user": {
+        "category": {
             "order": 6,
             "type": "varchar(255)"
         },
-        "6": "user",
-        "box": {
+        "6": "category",
+        "sub_category": {
             "order": 7,
-            "type": "text"
+            "type": "varchar(255)"
         },
-        "7": "box",
-        "full": {
+        "7": "sub_category",
+        "relationship": {
             "order": 8,
-            "type": "text"
+            "type": "varchar(255)"
         },
-        "8": "full",
-        "left": {
+        "8": "relationship",
+        "link_to": {
             "order": 9,
-            "type": "text"
+            "type": "varchar(255)"
         },
-        "9": "left",
-        "right": {
-            "order": 10,
-            "type": "text"
-        },
-        "10": "right"
+        "9": "link_to"
     },
     "tags": {
         "id": {
@@ -1306,1730 +3031,5 @@
             "type": "datetime"
         },
         "37": "last_login"
-    },
-    "statuses": {
-        "id": {
-            "order": 1,
-            "type": "int(11)"
-        },
-        "1": "id",
-        "created": {
-            "order": 2,
-            "type": "datetime"
-        },
-        "2": "created",
-        "modified": {
-            "order": 3,
-            "type": "datetime"
-        },
-        "3": "modified",
-        "owner": {
-            "order": 4,
-            "type": "varchar(255)"
-        },
-        "4": "owner",
-        "updated_by": {
-            "order": 5,
-            "type": "varchar(255)"
-        },
-        "5": "updated_by",
-        "name": {
-            "order": 6,
-            "type": "varchar(255)"
-        },
-        "6": "name",
-        "icon": {
-            "order": 7,
-            "type": "varchar(255)"
-        },
-        "7": "icon",
-        "color": {
-            "order": 8,
-            "type": "varchar(255)"
-        },
-        "8": "color",
-        "type": {
-            "order": 9,
-            "type": "varchar(255)"
-        },
-        "9": "type",
-        "order": {
-            "order": 10,
-            "type": "int(11)"
-        },
-        "10": "order"
-    },
-    "organizations": {
-        "id": {
-            "order": 1,
-            "type": "int(11)"
-        },
-        "1": "id",
-        "created": {
-            "order": 2,
-            "type": "datetime"
-        },
-        "2": "created",
-        "modified": {
-            "order": 3,
-            "type": "datetime"
-        },
-        "3": "modified",
-        "owner": {
-            "order": 4,
-            "type": "varchar(255)"
-        },
-        "4": "owner",
-        "updated_by": {
-            "order": 5,
-            "type": "varchar(255)"
-        },
-        "5": "updated_by",
-        "name": {
-            "order": 6,
-            "type": "varchar(255)"
-        },
-        "6": "name",
-        "code": {
-            "order": 7,
-            "type": "varchar(255)"
-        },
-        "7": "code",
-        "business_num": {
-            "order": 8,
-            "type": "varchar(255)"
-        },
-        "8": "business_num",
-        "status": {
-            "order": 9,
-            "type": "varchar(255)"
-        },
-        "9": "status",
-        "address": {
-            "order": 10,
-            "type": "varchar(255)"
-        },
-        "10": "address",
-        "city": {
-            "order": 11,
-            "type": "varchar(255)"
-        },
-        "11": "city",
-        "state": {
-            "order": 12,
-            "type": "varchar(255)"
-        },
-        "12": "state",
-        "country": {
-            "order": 13,
-            "type": "varchar(255)"
-        },
-        "13": "country",
-        "zipcode": {
-            "order": 14,
-            "type": "varchar(255)"
-        },
-        "14": "zipcode",
-        "email": {
-            "order": 15,
-            "type": "varchar(255)"
-        },
-        "15": "email",
-        "fax": {
-            "order": 16,
-            "type": "varchar(255)"
-        },
-        "16": "fax",
-        "phone": {
-            "order": 17,
-            "type": "varchar(255)"
-        },
-        "17": "phone",
-        "toll_free": {
-            "order": 18,
-            "type": "varchar(255)"
-        },
-        "18": "toll_free",
-        "website": {
-            "order": 19,
-            "type": "varchar(255)"
-        },
-        "19": "website",
-        "tags": {
-            "order": 20,
-            "type": "varchar(255)"
-        },
-        "20": "tags",
-        "assigned_to": {
-            "order": 21,
-            "type": "varchar(255)"
-        },
-        "21": "assigned_to",
-        "isLead": {
-            "order": 22,
-            "type": "varchar(255)"
-        },
-        "22": "isLead",
-        "isClient": {
-            "order": 23,
-            "type": "varchar(255)"
-        },
-        "23": "isClient",
-        "isImporter": {
-            "order": 24,
-            "type": "varchar(255)"
-        },
-        "24": "isImporter",
-        "isExporter": {
-            "order": 25,
-            "type": "varchar(255)"
-        },
-        "25": "isExporter",
-        "isFreightForwarder": {
-            "order": 26,
-            "type": "varchar(255)"
-        },
-        "26": "isFreightForwarder",
-        "isInternationalFreightProfile": {
-            "order": 27,
-            "type": "varchar(255)"
-        },
-        "27": "isInternationalFreightProfile",
-        "isUSBroker": {
-            "order": 28,
-            "type": "varchar(255)"
-        },
-        "28": "isUSBroker",
-        "isCarrier": {
-            "order": 29,
-            "type": "varchar(255)"
-        },
-        "29": "isCarrier",
-        "isCustomsOffice": {
-            "order": 30,
-            "type": "varchar(255)"
-        },
-        "30": "isCustomsOffice",
-        "isSubLocation": {
-            "order": 31,
-            "type": "varchar(255)"
-        },
-        "31": "isSubLocation",
-        "isSupplier": {
-            "order": 32,
-            "type": "varchar(255)"
-        },
-        "32": "isSupplier",
-        "isConsignee": {
-            "order": 33,
-            "type": "varchar(255)"
-        },
-        "33": "isConsignee",
-        "isBusiness": {
-            "order": 34,
-            "type": "varchar(255)"
-        },
-        "34": "isBusiness",
-        "isProperty": {
-            "order": 35,
-            "type": "varchar(255)"
-        },
-        "35": "isProperty",
-        "isOwner": {
-            "order": 36,
-            "type": "varchar(255)"
-        },
-        "36": "isOwner",
-        "isActive": {
-            "order": 37,
-            "type": "varchar(255)"
-        },
-        "37": "isActive",
-        "setCodeCCN": {
-            "order": 38,
-            "type": "varchar(255)"
-        },
-        "38": "setCodeCCN",
-        "setCodeITMR4": {
-            "order": 39,
-            "type": "varchar(255)"
-        },
-        "39": "setCodeITMR4",
-        "setCodeHVS": {
-            "order": 40,
-            "type": "varchar(255)"
-        },
-        "40": "setCodeHVS",
-        "setCurrency": {
-            "order": 41,
-            "type": "varchar(255)"
-        },
-        "41": "setCurrency",
-        "setDomain": {
-            "order": 42,
-            "type": "varchar(255)"
-        },
-        "42": "setDomain",
-        "setSMTPhost": {
-            "order": 43,
-            "type": "varchar(255)"
-        },
-        "43": "setSMTPhost",
-        "setSMTPport": {
-            "order": 44,
-            "type": "varchar(255)"
-        },
-        "44": "setSMTPport",
-        "setSMTPencryption": {
-            "order": 45,
-            "type": "varchar(255)"
-        },
-        "45": "setSMTPencryption"
-    },
-    "history": {
-        "id": {
-            "order": 1,
-            "type": "int(11)"
-        },
-        "1": "id",
-        "created": {
-            "order": 2,
-            "type": "datetime"
-        },
-        "2": "created",
-        "modified": {
-            "order": 3,
-            "type": "datetime"
-        },
-        "3": "modified",
-        "owner": {
-            "order": 4,
-            "type": "varchar(255)"
-        },
-        "4": "owner",
-        "updated_by": {
-            "order": 5,
-            "type": "varchar(255)"
-        },
-        "5": "updated_by",
-        "action": {
-            "order": 6,
-            "type": "varchar(255)"
-        },
-        "6": "action",
-        "description": {
-            "order": 7,
-            "type": "varchar(255)"
-        },
-        "7": "description",
-        "user": {
-            "order": 8,
-            "type": "varchar(255)"
-        },
-        "8": "user",
-        "query": {
-            "order": 9,
-            "type": "text"
-        },
-        "9": "query",
-        "table": {
-            "order": 10,
-            "type": "varchar(255)"
-        },
-        "10": "table",
-        "status": {
-            "order": 11,
-            "type": "varchar(255)"
-        },
-        "11": "status",
-        "link_to": {
-            "order": 12,
-            "type": "varchar(255)"
-        },
-        "12": "link_to",
-        "ip": {
-            "order": 13,
-            "type": "varchar(255)"
-        },
-        "13": "ip"
-    },
-    "mentions": {
-        "id": {
-            "order": 1,
-            "type": "int(11)"
-        },
-        "1": "id",
-        "created": {
-            "order": 2,
-            "type": "datetime"
-        },
-        "2": "created",
-        "modified": {
-            "order": 3,
-            "type": "datetime"
-        },
-        "3": "modified",
-        "owner": {
-            "order": 4,
-            "type": "varchar(255)"
-        },
-        "4": "owner",
-        "updated_by": {
-            "order": 5,
-            "type": "varchar(255)"
-        },
-        "5": "updated_by",
-        "description": {
-            "order": 6,
-            "type": "varchar(255)"
-        },
-        "6": "description",
-        "reference": {
-            "order": 7,
-            "type": "varchar(255)"
-        },
-        "7": "reference"
-    },
-    "decisions": {
-        "id": {
-            "order": 1,
-            "type": "int(11)"
-        },
-        "1": "id",
-        "created": {
-            "order": 2,
-            "type": "datetime"
-        },
-        "2": "created",
-        "modified": {
-            "order": 3,
-            "type": "datetime"
-        },
-        "3": "modified",
-        "owner": {
-            "order": 4,
-            "type": "varchar(255)"
-        },
-        "4": "owner",
-        "updated_by": {
-            "order": 5,
-            "type": "varchar(255)"
-        },
-        "5": "updated_by",
-        "trs": {
-            "order": 6,
-            "type": "varchar(255)"
-        },
-        "6": "trs",
-        "cas59": {
-            "order": 7,
-            "type": "varchar(255)"
-        },
-        "7": "cas59",
-        "cas60": {
-            "order": 8,
-            "type": "varchar(255)"
-        },
-        "8": "cas60",
-        "cas67": {
-            "order": 9,
-            "type": "varchar(255)"
-        },
-        "9": "cas67",
-        "type": {
-            "order": 10,
-            "type": "varchar(255)"
-        },
-        "10": "type",
-        "date_issued": {
-            "order": 11,
-            "type": "date"
-        },
-        "11": "date_issued",
-        "effective_date": {
-            "order": 12,
-            "type": "date"
-        },
-        "12": "effective_date",
-        "reference#": {
-            "order": 13,
-            "type": "varchar(255)"
-        },
-        "13": "reference#",
-        "client": {
-            "order": 14,
-            "type": "varchar(255)"
-        },
-        "14": "client",
-        "description": {
-            "order": 15,
-            "type": "varchar(255)"
-        },
-        "15": "description",
-        "original_hs": {
-            "order": 16,
-            "type": "varchar(255)"
-        },
-        "16": "original_hs",
-        "requested_hs": {
-            "order": 17,
-            "type": "varchar(255)"
-        },
-        "17": "requested_hs",
-        "tariff_code": {
-            "order": 18,
-            "type": "varchar(255)"
-        },
-        "18": "tariff_code",
-        "gpt": {
-            "order": 19,
-            "type": "varchar(255)"
-        },
-        "19": "gpt",
-        "mfn": {
-            "order": 20,
-            "type": "varchar(255)"
-        },
-        "20": "mfn",
-        "appealed": {
-            "order": 21,
-            "type": "varchar(255)"
-        },
-        "21": "appealed",
-        "assigned_to": {
-            "order": 22,
-            "type": "varchar(255)"
-        },
-        "22": "assigned_to"
-    },
-    "promotions": {
-        "id": {
-            "order": 1,
-            "type": "int(11)"
-        },
-        "1": "id",
-        "created": {
-            "order": 2,
-            "type": "datetime"
-        },
-        "2": "created",
-        "modified": {
-            "order": 3,
-            "type": "datetime"
-        },
-        "3": "modified",
-        "owner": {
-            "order": 4,
-            "type": "varchar(255)"
-        },
-        "4": "owner",
-        "updated_by": {
-            "order": 5,
-            "type": "varchar(255)"
-        },
-        "5": "updated_by",
-        "title": {
-            "order": 6,
-            "type": "varchar(255)"
-        },
-        "6": "title",
-        "list_of_tasks": {
-            "order": 7,
-            "type": "text"
-        },
-        "7": "list_of_tasks",
-        "reference": {
-            "order": 8,
-            "type": "varchar(255)"
-        },
-        "8": "reference"
-    },
-    "statistics": {
-        "id": {
-            "order": 1,
-            "type": "int(11)"
-        },
-        "1": "id",
-        "created": {
-            "order": 2,
-            "type": "datetime"
-        },
-        "2": "created",
-        "modified": {
-            "order": 3,
-            "type": "datetime"
-        },
-        "3": "modified",
-        "owner": {
-            "order": 4,
-            "type": "varchar(255)"
-        },
-        "4": "owner",
-        "updated_by": {
-            "order": 5,
-            "type": "varchar(255)"
-        },
-        "5": "updated_by",
-        "name": {
-            "order": 6,
-            "type": "varchar(255)"
-        },
-        "6": "name",
-        "user": {
-            "order": 7,
-            "type": "varchar(255)"
-        },
-        "7": "user",
-        "value": {
-            "order": 8,
-            "type": "varchar(255)"
-        },
-        "8": "value"
-    },
-    "subscriptions": {
-        "id": {
-            "order": 1,
-            "type": "int(11)"
-        },
-        "1": "id",
-        "created": {
-            "order": 2,
-            "type": "datetime"
-        },
-        "2": "created",
-        "modified": {
-            "order": 3,
-            "type": "datetime"
-        },
-        "3": "modified",
-        "owner": {
-            "order": 4,
-            "type": "varchar(255)"
-        },
-        "4": "owner",
-        "updated_by": {
-            "order": 5,
-            "type": "varchar(255)"
-        },
-        "5": "updated_by",
-        "category": {
-            "order": 6,
-            "type": "varchar(255)"
-        },
-        "6": "category",
-        "sub_category": {
-            "order": 7,
-            "type": "varchar(255)"
-        },
-        "7": "sub_category",
-        "relationship": {
-            "order": 8,
-            "type": "varchar(255)"
-        },
-        "8": "relationship",
-        "link_to": {
-            "order": 9,
-            "type": "varchar(255)"
-        },
-        "9": "link_to"
-    },
-    "sub_categories": {
-        "id": {
-            "order": 1,
-            "type": "int(11)"
-        },
-        "1": "id",
-        "created": {
-            "order": 2,
-            "type": "datetime"
-        },
-        "2": "created",
-        "modified": {
-            "order": 3,
-            "type": "datetime"
-        },
-        "3": "modified",
-        "owner": {
-            "order": 4,
-            "type": "varchar(255)"
-        },
-        "4": "owner",
-        "updated_by": {
-            "order": 5,
-            "type": "varchar(255)"
-        },
-        "5": "updated_by",
-        "name": {
-            "order": 6,
-            "type": "varchar(255)"
-        },
-        "6": "name",
-        "status": {
-            "order": 7,
-            "type": "varchar(255)"
-        },
-        "7": "status",
-        "relationship": {
-            "order": 8,
-            "type": "varchar(255)"
-        },
-        "8": "relationship"
-    },
-    "services": {
-        "id": {
-            "order": 1,
-            "type": "int(11)"
-        },
-        "1": "id",
-        "created": {
-            "order": 2,
-            "type": "datetime"
-        },
-        "2": "created",
-        "modified": {
-            "order": 3,
-            "type": "datetime"
-        },
-        "3": "modified",
-        "owner": {
-            "order": 4,
-            "type": "varchar(255)"
-        },
-        "4": "owner",
-        "updated_by": {
-            "order": 5,
-            "type": "varchar(255)"
-        },
-        "5": "updated_by",
-        "name": {
-            "order": 6,
-            "type": "varchar(255)"
-        },
-        "6": "name"
-    },
-    "groups": {
-        "id": {
-            "order": 1,
-            "type": "int(11)"
-        },
-        "1": "id",
-        "created": {
-            "order": 2,
-            "type": "datetime"
-        },
-        "2": "created",
-        "modified": {
-            "order": 3,
-            "type": "datetime"
-        },
-        "3": "modified",
-        "owner": {
-            "order": 4,
-            "type": "varchar(255)"
-        },
-        "4": "owner",
-        "updated_by": {
-            "order": 5,
-            "type": "varchar(255)"
-        },
-        "5": "updated_by",
-        "name": {
-            "order": 6,
-            "type": "varchar(255)"
-        },
-        "6": "name",
-        "type": {
-            "order": 7,
-            "type": "varchar(255)"
-        },
-        "7": "type",
-        "location": {
-            "order": 8,
-            "type": "varchar(255)"
-        },
-        "8": "location"
-    },
-    "calendar": {
-        "id": {
-            "order": 1,
-            "type": "int(11)"
-        },
-        "1": "id",
-        "created": {
-            "order": 2,
-            "type": "datetime"
-        },
-        "2": "created",
-        "modified": {
-            "order": 3,
-            "type": "datetime"
-        },
-        "3": "modified",
-        "owner": {
-            "order": 4,
-            "type": "varchar(255)"
-        },
-        "4": "owner",
-        "updated_by": {
-            "order": 5,
-            "type": "varchar(255)"
-        },
-        "5": "updated_by",
-        "title": {
-            "order": 6,
-            "type": "varchar(255)"
-        },
-        "6": "title",
-        "start": {
-            "order": 7,
-            "type": "datetime"
-        },
-        "7": "start",
-        "end": {
-            "order": 8,
-            "type": "datetime"
-        },
-        "8": "end",
-        "allDay": {
-            "order": 9,
-            "type": "varchar(255)"
-        },
-        "9": "allDay",
-        "backgroundColor": {
-            "order": 10,
-            "type": "varchar(255)"
-        },
-        "10": "backgroundColor",
-        "borderColor": {
-            "order": 11,
-            "type": "varchar(255)"
-        },
-        "11": "borderColor",
-        "url": {
-            "order": 12,
-            "type": "varchar(255)"
-        },
-        "12": "url",
-        "relationship": {
-            "order": 13,
-            "type": "varchar(255)"
-        },
-        "13": "relationship",
-        "link_to": {
-            "order": 14,
-            "type": "varchar(255)"
-        },
-        "14": "link_to",
-        "users": {
-            "order": 15,
-            "type": "text"
-        },
-        "15": "users",
-        "groups": {
-            "order": 16,
-            "type": "text"
-        },
-        "16": "groups"
-    },
-    "references": {
-        "id": {
-            "order": 1,
-            "type": "int(11)"
-        },
-        "1": "id",
-        "created": {
-            "order": 2,
-            "type": "datetime"
-        },
-        "2": "created",
-        "modified": {
-            "order": 3,
-            "type": "datetime"
-        },
-        "3": "modified",
-        "owner": {
-            "order": 4,
-            "type": "varchar(255)"
-        },
-        "4": "owner",
-        "updated_by": {
-            "order": 5,
-            "type": "varchar(255)"
-        },
-        "5": "updated_by",
-        "employer": {
-            "order": 6,
-            "type": "varchar(255)"
-        },
-        "6": "employer",
-        "title": {
-            "order": 7,
-            "type": "varchar(255)"
-        },
-        "7": "title",
-        "list_of_tasks": {
-            "order": 8,
-            "type": "text"
-        },
-        "8": "list_of_tasks",
-        "start": {
-            "order": 9,
-            "type": "date"
-        },
-        "9": "start",
-        "end": {
-            "order": 10,
-            "type": "date"
-        },
-        "10": "end",
-        "reason_for_termination": {
-            "order": 11,
-            "type": "text"
-        },
-        "11": "reason_for_termination",
-        "reason_for_termination_details": {
-            "order": 12,
-            "type": "text"
-        },
-        "12": "reason_for_termination_details",
-        "would_you_hire_him_back": {
-            "order": 13,
-            "type": "varchar(255)"
-        },
-        "13": "would_you_hire_him_back",
-        "punctuality": {
-            "order": 14,
-            "type": "varchar(255)"
-        },
-        "14": "punctuality",
-        "qualities": {
-            "order": 15,
-            "type": "text"
-        },
-        "15": "qualities",
-        "flaws": {
-            "order": 16,
-            "type": "text"
-        },
-        "16": "flaws",
-        "filled_by": {
-            "order": 17,
-            "type": "varchar(255)"
-        },
-        "17": "filled_by",
-        "filled_by_title": {
-            "order": 18,
-            "type": "varchar(255)"
-        },
-        "18": "filled_by_title",
-        "approved_by": {
-            "order": 19,
-            "type": "varchar(255)"
-        },
-        "19": "approved_by",
-        "approved_by_title": {
-            "order": 20,
-            "type": "varchar(255)"
-        },
-        "20": "approved_by_title"
-    },
-    "containers": {
-        "id": {
-            "order": 1,
-            "type": "int(11)"
-        },
-        "1": "id",
-        "created": {
-            "order": 2,
-            "type": "datetime"
-        },
-        "2": "created",
-        "modified": {
-            "order": 3,
-            "type": "datetime"
-        },
-        "3": "modified",
-        "owner": {
-            "order": 4,
-            "type": "varchar(255)"
-        },
-        "4": "owner",
-        "updated_by": {
-            "order": 5,
-            "type": "varchar(255)"
-        },
-        "5": "updated_by",
-        "shipper": {
-            "order": 6,
-            "type": "varchar(255)"
-        },
-        "6": "shipper",
-        "load_num": {
-            "order": 7,
-            "type": "varchar(255)"
-        },
-        "7": "load_num",
-        "container_num": {
-            "order": 8,
-            "type": "varchar(255)"
-        },
-        "8": "container_num",
-        "container_size": {
-            "order": 9,
-            "type": "varchar(255)"
-        },
-        "9": "container_size",
-        "client": {
-            "order": 10,
-            "type": "varchar(255)"
-        },
-        "10": "client",
-        "branch_num": {
-            "order": 11,
-            "type": "varchar(255)"
-        },
-        "11": "branch_num",
-        "location": {
-            "order": 12,
-            "type": "varchar(255)"
-        },
-        "12": "location",
-        "status": {
-            "order": 13,
-            "type": "int(11)"
-        },
-        "13": "status",
-        "pick_up_num": {
-            "order": 14,
-            "type": "varchar(255)"
-        },
-        "14": "pick_up_num",
-        "bill_of_lading": {
-            "order": 15,
-            "type": "varchar(255)"
-        },
-        "15": "bill_of_lading",
-        "vessel": {
-            "order": 16,
-            "type": "varchar(255)"
-        },
-        "16": "vessel",
-        "carrier": {
-            "order": 17,
-            "type": "varchar(255)"
-        },
-        "17": "carrier",
-        "port": {
-            "order": 18,
-            "type": "varchar(255)"
-        },
-        "18": "port",
-        "sub_location": {
-            "order": 19,
-            "type": "varchar(255)"
-        },
-        "19": "sub_location",
-        "ETD": {
-            "order": 20,
-            "type": "date"
-        },
-        "20": "ETD",
-        "ETA_port": {
-            "order": 21,
-            "type": "date"
-        },
-        "21": "ETA_port",
-        "custom_clearance": {
-            "order": 22,
-            "type": "date"
-        },
-        "22": "custom_clearance",
-        "storage_date": {
-            "order": 23,
-            "type": "date"
-        },
-        "23": "storage_date",
-        "last_free_day": {
-            "order": 24,
-            "type": "date"
-        },
-        "24": "last_free_day",
-        "delivery_appointment": {
-            "order": 25,
-            "type": "datetime"
-        },
-        "25": "delivery_appointment",
-        "detention_date": {
-            "order": 26,
-            "type": "date"
-        },
-        "26": "detention_date",
-        "returned": {
-            "order": 27,
-            "type": "varchar(255)"
-        },
-        "27": "returned",
-        "charge_to_shipper": {
-            "order": 28,
-            "type": "varchar(255)"
-        },
-        "28": "charge_to_shipper",
-        "charge_to_other": {
-            "order": 29,
-            "type": "varchar(255)"
-        },
-        "29": "charge_to_other",
-        "active": {
-            "order": 30,
-            "type": "varchar(255)"
-        },
-        "30": "active"
-    },
-    "calls": {
-        "id": {
-            "order": 1,
-            "type": "int(11)"
-        },
-        "1": "id",
-        "created": {
-            "order": 2,
-            "type": "datetime"
-        },
-        "2": "created",
-        "modified": {
-            "order": 3,
-            "type": "datetime"
-        },
-        "3": "modified",
-        "owner": {
-            "order": 4,
-            "type": "varchar(255)"
-        },
-        "4": "owner",
-        "updated_by": {
-            "order": 5,
-            "type": "varchar(255)"
-        },
-        "5": "updated_by",
-        "date": {
-            "order": 6,
-            "type": "date"
-        },
-        "6": "date",
-        "time": {
-            "order": 7,
-            "type": "time"
-        },
-        "7": "time",
-        "status": {
-            "order": 8,
-            "type": "int(11)"
-        },
-        "8": "status",
-        "phone": {
-            "order": 9,
-            "type": "varchar(255)"
-        },
-        "9": "phone",
-        "contact": {
-            "order": 10,
-            "type": "varchar(255)"
-        },
-        "10": "contact",
-        "organization": {
-            "order": 11,
-            "type": "varchar(255)"
-        },
-        "11": "organization",
-        "assigned_to": {
-            "order": 12,
-            "type": "varchar(255)"
-        },
-        "12": "assigned_to"
-    },
-    "automatons": {
-        "id": {
-            "order": 1,
-            "type": "int(11)"
-        },
-        "1": "id",
-        "created": {
-            "order": 2,
-            "type": "datetime"
-        },
-        "2": "created",
-        "modified": {
-            "order": 3,
-            "type": "datetime"
-        },
-        "3": "modified",
-        "owner": {
-            "order": 4,
-            "type": "varchar(255)"
-        },
-        "4": "owner",
-        "updated_by": {
-            "order": 5,
-            "type": "varchar(255)"
-        },
-        "5": "updated_by",
-        "name": {
-            "order": 6,
-            "type": "varchar(255)"
-        },
-        "6": "name",
-        "type": {
-            "order": 7,
-            "type": "varchar(255)"
-        },
-        "7": "type",
-        "json": {
-            "order": 8,
-            "type": "longtext"
-        },
-        "8": "json",
-        "relationship": {
-            "order": 9,
-            "type": "varchar(255)"
-        },
-        "9": "relationship",
-        "link_to": {
-            "order": 10,
-            "type": "varchar(255)"
-        },
-        "10": "link_to"
-    },
-    "bookmarks": {
-        "id": {
-            "order": 1,
-            "type": "int(11)"
-        },
-        "1": "id",
-        "created": {
-            "order": 2,
-            "type": "datetime"
-        },
-        "2": "created",
-        "modified": {
-            "order": 3,
-            "type": "datetime"
-        },
-        "3": "modified",
-        "owner": {
-            "order": 4,
-            "type": "varchar(255)"
-        },
-        "4": "owner",
-        "updated_by": {
-            "order": 5,
-            "type": "varchar(255)"
-        },
-        "5": "updated_by",
-        "icon": {
-            "order": 6,
-            "type": "varchar(255)"
-        },
-        "6": "icon",
-        "name": {
-            "order": 7,
-            "type": "varchar(255)"
-        },
-        "7": "name",
-        "user": {
-            "order": 8,
-            "type": "varchar(255)"
-        },
-        "8": "user",
-        "relationship": {
-            "order": 9,
-            "type": "varchar(255)"
-        },
-        "9": "relationship",
-        "link_to": {
-            "order": 10,
-            "type": "varchar(255)"
-        },
-        "10": "link_to",
-        "urlparm": {
-            "order": 11,
-            "type": "varchar(255)"
-        },
-        "11": "urlparm"
-    },
-    "blacklist": {
-        "id": {
-            "order": 1,
-            "type": "int(11)"
-        },
-        "1": "id",
-        "created": {
-            "order": 2,
-            "type": "datetime"
-        },
-        "2": "created",
-        "modified": {
-            "order": 3,
-            "type": "datetime"
-        },
-        "3": "modified",
-        "owner": {
-            "order": 4,
-            "type": "varchar(255)"
-        },
-        "4": "owner",
-        "updated_by": {
-            "order": 5,
-            "type": "varchar(255)"
-        },
-        "5": "updated_by",
-        "ip": {
-            "order": 6,
-            "type": "varchar(255)"
-        },
-        "6": "ip"
-    },
-    "relationships": {
-        "id": {
-            "order": 1,
-            "type": "int(11)"
-        },
-        "1": "id",
-        "created": {
-            "order": 2,
-            "type": "datetime"
-        },
-        "2": "created",
-        "modified": {
-            "order": 3,
-            "type": "datetime"
-        },
-        "3": "modified",
-        "owner": {
-            "order": 4,
-            "type": "varchar(255)"
-        },
-        "4": "owner",
-        "updated_by": {
-            "order": 5,
-            "type": "varchar(255)"
-        },
-        "5": "updated_by",
-        "relationship_1": {
-            "order": 6,
-            "type": "varchar(255)"
-        },
-        "6": "relationship_1",
-        "link_to_1": {
-            "order": 7,
-            "type": "varchar(255)"
-        },
-        "7": "link_to_1",
-        "relationship_2": {
-            "order": 8,
-            "type": "varchar(255)"
-        },
-        "8": "relationship_2",
-        "link_to_2": {
-            "order": 9,
-            "type": "varchar(255)"
-        },
-        "9": "link_to_2",
-        "relationship_3": {
-            "order": 10,
-            "type": "varchar(255)"
-        },
-        "10": "relationship_3",
-        "link_to_3": {
-            "order": 11,
-            "type": "varchar(255)"
-        },
-        "11": "link_to_3"
-    },
-    "permissions": {
-        "id": {
-            "order": 1,
-            "type": "int(11)"
-        },
-        "1": "id",
-        "created": {
-            "order": 2,
-            "type": "datetime"
-        },
-        "2": "created",
-        "modified": {
-            "order": 3,
-            "type": "datetime"
-        },
-        "3": "modified",
-        "owner": {
-            "order": 4,
-            "type": "varchar(255)"
-        },
-        "4": "owner",
-        "updated_by": {
-            "order": 5,
-            "type": "varchar(255)"
-        },
-        "5": "updated_by",
-        "name": {
-            "order": 6,
-            "type": "varchar(255)"
-        },
-        "6": "name",
-        "table": {
-            "order": 7,
-            "type": "varchar(255)"
-        },
-        "7": "table",
-        "plugin": {
-            "order": 8,
-            "type": "varchar(255)"
-        },
-        "8": "plugin",
-        "type": {
-            "order": 9,
-            "type": "varchar(255)"
-        },
-        "9": "type",
-        "level": {
-            "order": 10,
-            "type": "int(11)"
-        },
-        "10": "level",
-        "isLocked": {
-            "order": 11,
-            "type": "varchar(255)"
-        },
-        "11": "isLocked",
-        "role_id": {
-            "order": 12,
-            "type": "varchar(255)"
-        },
-        "12": "role_id"
-    },
-    "notes": {
-        "id": {
-            "order": 1,
-            "type": "int(11)"
-        },
-        "1": "id",
-        "created": {
-            "order": 2,
-            "type": "datetime"
-        },
-        "2": "created",
-        "modified": {
-            "order": 3,
-            "type": "datetime"
-        },
-        "3": "modified",
-        "owner": {
-            "order": 4,
-            "type": "varchar(255)"
-        },
-        "4": "owner",
-        "updated_by": {
-            "order": 5,
-            "type": "varchar(255)"
-        },
-        "5": "updated_by",
-        "by": {
-            "order": 6,
-            "type": "varchar(255)"
-        },
-        "6": "by",
-        "content": {
-            "order": 7,
-            "type": "text"
-        },
-        "7": "content",
-        "relationship": {
-            "order": 8,
-            "type": "varchar(255)"
-        },
-        "8": "relationship",
-        "link_to": {
-            "order": 9,
-            "type": "varchar(255)"
-        },
-        "9": "link_to"
-    },
-    "priorities": {
-        "id": {
-            "order": 1,
-            "type": "int(11)"
-        },
-        "1": "id",
-        "created": {
-            "order": 2,
-            "type": "datetime"
-        },
-        "2": "created",
-        "modified": {
-            "order": 3,
-            "type": "datetime"
-        },
-        "3": "modified",
-        "owner": {
-            "order": 4,
-            "type": "varchar(255)"
-        },
-        "4": "owner",
-        "updated_by": {
-            "order": 5,
-            "type": "varchar(255)"
-        },
-        "5": "updated_by",
-        "name": {
-            "order": 6,
-            "type": "varchar(255)"
-        },
-        "6": "name",
-        "icon": {
-            "order": 7,
-            "type": "varchar(255)"
-        },
-        "7": "icon",
-        "color": {
-            "order": 8,
-            "type": "varchar(255)"
-        },
-        "8": "color",
-        "type": {
-            "order": 9,
-            "type": "varchar(255)"
-        },
-        "9": "type",
-        "order": {
-            "order": 10,
-            "type": "int(11)"
-        },
-        "10": "order"
-    },
-    "conversations": {
-        "id": {
-            "order": 1,
-            "type": "int(11)"
-        },
-        "1": "id",
-        "created": {
-            "order": 2,
-            "type": "datetime"
-        },
-        "2": "created",
-        "modified": {
-            "order": 3,
-            "type": "datetime"
-        },
-        "3": "modified",
-        "owner": {
-            "order": 4,
-            "type": "varchar(255)"
-        },
-        "4": "owner",
-        "updated_by": {
-            "order": 5,
-            "type": "varchar(255)"
-        },
-        "5": "updated_by",
-        "account": {
-            "order": 6,
-            "type": "varchar(255)"
-        },
-        "6": "account",
-        "status": {
-            "order": 7,
-            "type": "int(11)"
-        },
-        "7": "status",
-        "messages": {
-            "order": 8,
-            "type": "longtext"
-        },
-        "8": "messages",
-        "files": {
-            "order": 9,
-            "type": "varchar(255)"
-        },
-        "9": "files",
-        "organizations": {
-            "order": 10,
-            "type": "varchar(255)"
-        },
-        "10": "organizations",
-        "contacts": {
-            "order": 11,
-            "type": "varchar(255)"
-        },
-        "11": "contacts",
-        "meta": {
-            "order": 12,
-            "type": "text"
-        },
-        "12": "meta",
-        "hasNew": {
-            "order": 13,
-            "type": "varchar(255)"
-        },
-        "13": "hasNew"
-    },
-    "messages": {
-        "id": {
-            "order": 1,
-            "type": "int(11)"
-        },
-        "1": "id",
-        "created": {
-            "order": 2,
-            "type": "datetime"
-        },
-        "2": "created",
-        "modified": {
-            "order": 3,
-            "type": "datetime"
-        },
-        "3": "modified",
-        "owner": {
-            "order": 4,
-            "type": "varchar(255)"
-        },
-        "4": "owner",
-        "updated_by": {
-            "order": 5,
-            "type": "varchar(255)"
-        },
-        "5": "updated_by",
-        "account": {
-            "order": 6,
-            "type": "varchar(255)"
-        },
-        "6": "account",
-        "folder": {
-            "order": 7,
-            "type": "varchar(255)"
-        },
-        "7": "folder",
-        "mid": {
-            "order": 8,
-            "type": "varchar(255)"
-        },
-        "8": "mid",
-        "uid": {
-            "order": 9,
-            "type": "varchar(255)"
-        },
-        "9": "uid",
-        "reply_to_id": {
-            "order": 10,
-            "type": "varchar(255)"
-        },
-        "10": "reply_to_id",
-        "reference_id": {
-            "order": 11,
-            "type": "text"
-        },
-        "11": "reference_id",
-        "sender": {
-            "order": 12,
-            "type": "varchar(255)"
-        },
-        "12": "sender",
-        "from": {
-            "order": 13,
-            "type": "varchar(255)"
-        },
-        "13": "from",
-        "to": {
-            "order": 14,
-            "type": "varchar(255)"
-        },
-        "14": "to",
-        "cc": {
-            "order": 15,
-            "type": "text"
-        },
-        "15": "cc",
-        "bcc": {
-            "order": 16,
-            "type": "text"
-        },
-        "16": "bcc",
-        "meta": {
-            "order": 17,
-            "type": "text"
-        },
-        "17": "meta",
-        "subject_original": {
-            "order": 18,
-            "type": "text"
-        },
-        "18": "subject_original",
-        "subject_stripped": {
-            "order": 19,
-            "type": "text"
-        },
-        "19": "subject_stripped",
-        "body_original": {
-            "order": 20,
-            "type": "text"
-        },
-        "20": "body_original",
-        "body_unquoted": {
-            "order": 21,
-            "type": "text"
-        },
-        "21": "body_unquoted",
-        "attachments": {
-            "order": 22,
-            "type": "varchar(255)"
-        },
-        "22": "attachments",
-        "isAttached": {
-            "order": 23,
-            "type": "varchar(255)"
-        },
-        "23": "isAttached"
-    },
-    "categories": {
-        "id": {
-            "order": 1,
-            "type": "int(11)"
-        },
-        "1": "id",
-        "created": {
-            "order": 2,
-            "type": "datetime"
-        },
-        "2": "created",
-        "modified": {
-            "order": 3,
-            "type": "datetime"
-        },
-        "3": "modified",
-        "owner": {
-            "order": 4,
-            "type": "varchar(255)"
-        },
-        "4": "owner",
-        "updated_by": {
-            "order": 5,
-            "type": "varchar(255)"
-        },
-        "5": "updated_by",
-        "name": {
-            "order": 6,
-            "type": "varchar(255)"
-        },
-        "6": "name",
-        "status": {
-            "order": 7,
-            "type": "varchar(255)"
-        },
-        "7": "status",
-        "relationship": {
-            "order": 8,
-            "type": "varchar(255)"
-        },
-        "8": "relationship"
     }
 }
