@@ -87,7 +87,6 @@ class Installer {
 
               // Importing Sample Records
               if((isset($_POST['site_sample']))&&($_POST['site_sample'] == 'true')){
-    						echo "Creating database sample records<br>\n";
     						if(file_exists(dirname(__FILE__,3).'/dist/data/sample.json')){
     							$this->LSP->insertRecords(dirname(__FILE__,3).'/dist/data/sample.json');
     							echo "Database sample records were created successfully<br>\n";
@@ -98,22 +97,33 @@ class Installer {
               foreach($this->Manifest['plugins'] as $plugin => $conf){
                 if(!is_dir(dirname(__FILE__,3)."/plugins/".$plugin)){
                   // Install Files
-                  echo "Installing ".$plugin."<br>\n";
+                  echo "Installing Plugin [".$plugin."]<br>\n";
                   shell_exec("git clone --branch ".$this->Settings['repository']['branch']." ".$this->Plugins[$plugin]['repository']['host']['git'].$this->Plugins[$plugin]['repository']['name'].".git"." ".dirname(__FILE__,3)."/tmp/".$this->Plugins[$plugin]['repository']['name']);
                   mkdir(dirname(__FILE__,3)."/plugins/".$plugin);
                   shell_exec("rsync -aP ".dirname(__FILE__,3)."/tmp/".$this->Plugins[$plugin]['repository']['name']."/* ".dirname(__FILE__,3)."/plugins/".$plugin."/.");
                   shell_exec("rm -rf ".dirname(__FILE__,3)."/tmp/".$this->Plugins[$plugin]['repository']['name']);
 
           				// Updating Database
-                  if(is_file(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/structure.json')){ $this->LSP->updateStructure(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/structure.json'); }
-          				if(is_file(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/skeleton.json')){ $this->LSP->insertRecords(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/skeleton.json'); }
-          				if(is_file(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/sample.json')){ if((isset($args['sample']))&&($args['sample'])){ $this->LSP->insertRecords(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/sample.json'); } }
+                  if(is_file(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/structure.json')){
+                    $this->LSP->updateStructure(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/structure.json');
+                    echo "Database structure was updated with Plugin [".$plugin."]<br>\n";
+                  }
+          				if(is_file(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/skeleton.json')){
+                    echo "Database default records were created successfully for [".$plugin."]<br>\n";
+                    $this->LSP->insertRecords(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/skeleton.json');
+                  }
+          				if(is_file(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/sample.json')){
+                    if((isset($_POST['site_sample']))&&($_POST['site_sample'] == 'true')){
+                      echo "Database sample records were created successfully for [".$plugin."]<br>\n";
+                      $this->LSP->insertRecords(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/sample.json');
+                    }
+                  }
 
                   // Set Plugin Settings
                   $this->Settings['plugins'][$plugin] = json_decode(file_get_contents(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/manifest.json'),true);
                   if(!isset($this->Settings['plugins'][$plugin]['status'])){$this->Settings['plugins'][$plugin]['status'] = $conf['status'];}
-                  echo $plugin." has been installed<br>\n";
-                } else { echo $plugin." is already installed<br>\n"; }
+                  echo "Plugin [".$plugin."] has been installed<br>\n";
+                } else { echo "Plugin [".$plugin."] is already installed<br>\n"; }
               }
 
               // Saving Settings
