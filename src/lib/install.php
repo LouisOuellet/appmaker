@@ -17,6 +17,8 @@ class Installer {
   public function __construct(){
     // Test SQL
     $this->configDB();
+    var_dump($this->Connection);
+    var_dump($this->Database);
     if(isset($this->Connection,$this->Database) && !empty($this->Connection) && !empty($this->Database)){
       echo "SQL Database Connexion Successfull!<br>\n";
 
