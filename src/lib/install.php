@@ -40,6 +40,10 @@ class Installer {
       $this->Settings['timezone'] = $_POST['site_timezone'];
       $this->Settings['background_jobs'] = $_POST["site_background_jobs"];
       $this->Settings['last_background_jobs'] = date("Y-m-d H:i:s");
+      $this->Settings['sql']['host'] = $_POST['sql_host'];
+      $this->Settings['sql']['database'] = $_POST['sql_database'];
+      $this->Settings['sql']['username'] = $_POST['sql_username'];
+      $this->Settings['sql']['password'] = $_POST['sql_password'];
 
       // Set Timezone
       date_default_timezone_set($this->Settings['timezone']);
@@ -50,7 +54,6 @@ class Installer {
       } else { $this->LSP = new LSP(); }
     	if($this->LSP->Status){
         // Connect LSP SQL
-        var_dump($this->Settings);
         $this->LSP->configdb($this->Settings['sql']['host'],$this->Settings['sql']['username'],$this->Settings['sql']['password'],$this->Settings['sql']['database']);
         if(isset($this->Manifest['lsp']['required'])&&$this->Manifest['lsp']['required']){ echo "Application Activation Successfull!<br>\n"; }
 
