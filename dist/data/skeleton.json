@@ -76,7 +76,7 @@
             "tokenLogin": null,
             "tokenAPI": null,
             "tokenReset": null,
-            "last_login": "2021-10-19 16:15:49"
+            "last_login": "2021-10-20 15:28:05"
         }
     ],
     "groups": [
@@ -3208,8 +3208,8 @@
             "name": "Low",
             "icon": "fas fa-gavel",
             "color": "secondary",
-            "type": "issues",
-            "order": 1
+            "order": 1,
+            "relationship": "issues"
         },
         {
             "id": 2,
@@ -3220,8 +3220,8 @@
             "name": "Normal",
             "icon": "fas fa-gavel",
             "color": "primary",
-            "type": "issues",
-            "order": 2
+            "order": 2,
+            "relationship": "issues"
         },
         {
             "id": 3,
@@ -3232,8 +3232,8 @@
             "name": "Medium",
             "icon": "fas fa-gavel",
             "color": "warning",
-            "type": "issues",
-            "order": 3
+            "order": 3,
+            "relationship": "issues"
         },
         {
             "id": 4,
@@ -3244,8 +3244,8 @@
             "name": "High",
             "icon": "fas fa-gavel",
             "color": "orange",
-            "type": "issues",
-            "order": 4
+            "order": 4,
+            "relationship": "issues"
         },
         {
             "id": 5,
@@ -3256,8 +3256,8 @@
             "name": "Important",
             "icon": "fas fa-gavel",
             "color": "danger",
-            "type": "issues",
-            "order": 5
+            "order": 5,
+            "relationship": "issues"
         },
         {
             "id": 6,
@@ -3268,8 +3268,8 @@
             "name": "Low",
             "icon": "fas fa-theater-masks",
             "color": "secondary",
-            "type": "tickets",
-            "order": 1
+            "order": 1,
+            "relationship": "tickets"
         },
         {
             "id": 7,
@@ -3280,8 +3280,8 @@
             "name": "Normal",
             "icon": "fas fa-tint",
             "color": "primary",
-            "type": "tickets",
-            "order": 2
+            "order": 2,
+            "relationship": "tickets"
         },
         {
             "id": 8,
@@ -3292,8 +3292,8 @@
             "name": "Medium",
             "icon": "fas fa-exclamation-triangle",
             "color": "warning",
-            "type": "tickets",
-            "order": 3
+            "order": 3,
+            "relationship": "tickets"
         },
         {
             "id": 9,
@@ -3304,8 +3304,8 @@
             "name": "High",
             "icon": "fas fa-skull",
             "color": "orange",
-            "type": "tickets",
-            "order": 4
+            "order": 4,
+            "relationship": "tickets"
         },
         {
             "id": 10,
@@ -3316,8 +3316,8 @@
             "name": "Important",
             "icon": "fas fa-fire",
             "color": "danger",
-            "type": "tickets",
-            "order": 5
+            "order": 5,
+            "relationship": "tickets"
         }
     ],
     "statuses": [
@@ -3330,8 +3330,8 @@
             "name": "Follow Up",
             "icon": "fas fa-flag",
             "color": "info",
-            "type": "appointments",
-            "order": 1
+            "order": 1,
+            "relationship": "appointments"
         },
         {
             "id": 2,
@@ -3342,8 +3342,8 @@
             "name": "Missed",
             "icon": "far fa-clock",
             "color": "danger",
-            "type": "appointments",
-            "order": 2
+            "order": 2,
+            "relationship": "appointments"
         },
         {
             "id": 3,
@@ -3354,8 +3354,8 @@
             "name": "Started",
             "icon": "far fa-clock",
             "color": "warning",
-            "type": "appointments",
-            "order": 3
+            "order": 3,
+            "relationship": "appointments"
         },
         {
             "id": 4,
@@ -3366,8 +3366,8 @@
             "name": "Re-Schedule",
             "icon": "fas fa-history",
             "color": "primary",
-            "type": "appointments",
-            "order": 4
+            "order": 4,
+            "relationship": "appointments"
         },
         {
             "id": 5,
@@ -3378,8 +3378,8 @@
             "name": "Completed",
             "icon": "fas fa-check",
             "color": "success",
-            "type": "appointments",
-            "order": 5
+            "order": 5,
+            "relationship": "appointments"
         },
         {
             "id": 6,
@@ -3390,8 +3390,8 @@
             "name": "Canceled",
             "icon": "fas fa-ban",
             "color": "danger",
-            "type": "appointments",
-            "order": 6
+            "order": 6,
+            "relationship": "appointments"
         },
         {
             "id": 7,
@@ -3402,8 +3402,8 @@
             "name": "Follow Up",
             "icon": "fas fa-flag",
             "color": "info",
-            "type": "calls",
-            "order": 1
+            "order": 1,
+            "relationship": "calls"
         },
         {
             "id": 8,
@@ -3414,8 +3414,8 @@
             "name": "Missed",
             "icon": "far fa-clock",
             "color": "danger",
-            "type": "calls",
-            "order": 2
+            "order": 2,
+            "relationship": "calls"
         },
         {
             "id": 9,
@@ -3426,8 +3426,8 @@
             "name": "Started",
             "icon": "far fa-clock",
             "color": "warning",
-            "type": "calls",
-            "order": 3
+            "order": 3,
+            "relationship": "calls"
         },
         {
             "id": 10,
@@ -3438,8 +3438,8 @@
             "name": "Re-Scheduled",
             "icon": "fas fa-history",
             "color": "primary",
-            "type": "calls",
-            "order": 4
+            "order": 4,
+            "relationship": "calls"
         },
         {
             "id": 11,
@@ -3450,8 +3450,8 @@
             "name": "Completed",
             "icon": "fas fa-check",
             "color": "success",
-            "type": "calls",
-            "order": 5
+            "order": 5,
+            "relationship": "calls"
         },
         {
             "id": 12,
@@ -3462,8 +3462,8 @@
             "name": "Canceled",
             "icon": "fas fa-ban",
             "color": "danger",
-            "type": "calls",
-            "order": 6
+            "order": 6,
+            "relationship": "calls"
         },
         {
             "id": 13,
@@ -3474,8 +3474,8 @@
             "name": "Enabled",
             "icon": "fas fa-check",
             "color": "success",
-            "type": "categories",
-            "order": 1
+            "order": 1,
+            "relationship": "categories"
         },
         {
             "id": 14,
@@ -3486,8 +3486,8 @@
             "name": "Disabled",
             "icon": "fas fa-exclamation-triangle",
             "color": "danger",
-            "type": "categories",
-            "order": 2
+            "order": 2,
+            "relationship": "categories"
         },
         {
             "id": 15,
@@ -3498,8 +3498,8 @@
             "name": "Enabled",
             "icon": "fas fa-check",
             "color": "success",
-            "type": "sub_categories",
-            "order": 1
+            "order": 1,
+            "relationship": "sub_categories"
         },
         {
             "id": 16,
@@ -3510,8 +3510,8 @@
             "name": "Disabled",
             "icon": "fas fa-exclamation-triangle",
             "color": "danger",
-            "type": "sub_categories",
-            "order": 2
+            "order": 2,
+            "relationship": "sub_categories"
         },
         {
             "id": 17,
@@ -3522,8 +3522,8 @@
             "name": "Success",
             "icon": "fas fa-check",
             "color": "success",
-            "type": "history",
-            "order": 1
+            "order": 1,
+            "relationship": "history"
         },
         {
             "id": 18,
@@ -3534,8 +3534,8 @@
             "name": "Error",
             "icon": "fas fa-ban",
             "color": "danger",
-            "type": "history",
-            "order": 2
+            "order": 2,
+            "relationship": "history"
         },
         {
             "id": 19,
@@ -3546,8 +3546,8 @@
             "name": "Linked",
             "icon": "fas fa-link",
             "color": "primary",
-            "type": "issues",
-            "order": 1
+            "order": 1,
+            "relationship": "issues"
         },
         {
             "id": 20,
@@ -3558,8 +3558,8 @@
             "name": "Called",
             "icon": "fas fa-phone-volume",
             "color": "info",
-            "type": "issues",
-            "order": 2
+            "order": 2,
+            "relationship": "issues"
         },
         {
             "id": 21,
@@ -3570,8 +3570,8 @@
             "name": "Presented",
             "icon": "fas fa-chalkboard-teacher",
             "color": "warning",
-            "type": "issues",
-            "order": 3
+            "order": 3,
+            "relationship": "issues"
         },
         {
             "id": 22,
@@ -3582,8 +3582,8 @@
             "name": "Signed Tentative",
             "icon": "fas fa-file-signature",
             "color": "orange",
-            "type": "issues",
-            "order": 4
+            "order": 4,
+            "relationship": "issues"
         },
         {
             "id": 23,
@@ -3594,8 +3594,8 @@
             "name": "Appointment",
             "icon": "far fa-calendar-check",
             "color": "primary",
-            "type": "issues",
-            "order": 5
+            "order": 5,
+            "relationship": "issues"
         },
         {
             "id": 24,
@@ -3606,8 +3606,8 @@
             "name": "Signed Allocated",
             "icon": "fas fa-file-contract",
             "color": "olive",
-            "type": "issues",
-            "order": 6
+            "order": 6,
+            "relationship": "issues"
         },
         {
             "id": 25,
@@ -3618,8 +3618,8 @@
             "name": "Firm only",
             "icon": "fas fa-file-invoice-dollar",
             "color": "teal",
-            "type": "issues",
-            "order": 7
+            "order": 7,
+            "relationship": "issues"
         },
         {
             "id": 26,
@@ -3630,8 +3630,8 @@
             "name": "Completed",
             "icon": "fas fa-check",
             "color": "success",
-            "type": "issues",
-            "order": 8
+            "order": 8,
+            "relationship": "issues"
         },
         {
             "id": 27,
@@ -3642,8 +3642,8 @@
             "name": "Dead",
             "icon": "fas fa-book-dead",
             "color": "danger",
-            "type": "issues",
-            "order": 9
+            "order": 9,
+            "relationship": "issues"
         },
         {
             "id": 28,
@@ -3654,8 +3654,8 @@
             "name": "Current",
             "icon": "fas fa-exclamation-triangle",
             "color": "danger",
-            "type": "notifications",
-            "order": 1
+            "order": 1,
+            "relationship": "notifications"
         },
         {
             "id": 29,
@@ -3666,8 +3666,8 @@
             "name": "Dissmissed",
             "icon": "fas fa-check",
             "color": "success",
-            "type": "notifications",
-            "order": 2
+            "order": 2,
+            "relationship": "notifications"
         },
         {
             "id": 30,
@@ -3678,8 +3678,8 @@
             "name": "New",
             "icon": "fas fa-asterisk",
             "color": "lime",
-            "type": "tickets",
-            "order": 1
+            "order": 1,
+            "relationship": "tickets"
         },
         {
             "id": 31,
@@ -3690,8 +3690,8 @@
             "name": "Open",
             "icon": "fas fa-bookmark",
             "color": "primary",
-            "type": "tickets",
-            "order": 2
+            "order": 2,
+            "relationship": "tickets"
         },
         {
             "id": 32,
@@ -3702,8 +3702,8 @@
             "name": "Reopened",
             "icon": "fas fa-bookmark",
             "color": "info",
-            "type": "tickets",
-            "order": 3
+            "order": 3,
+            "relationship": "tickets"
         },
         {
             "id": 33,
@@ -3714,8 +3714,8 @@
             "name": "In progress",
             "icon": "fas fa-spinner",
             "color": "warning",
-            "type": "tickets",
-            "order": 4
+            "order": 4,
+            "relationship": "tickets"
         },
         {
             "id": 34,
@@ -3726,8 +3726,8 @@
             "name": "Solved",
             "icon": "fas fa-check",
             "color": "success",
-            "type": "tickets",
-            "order": 5
+            "order": 5,
+            "relationship": "tickets"
         },
         {
             "id": 35,
@@ -3738,8 +3738,8 @@
             "name": "Closed",
             "icon": "fas fa-exclamation-triangle",
             "color": "danger",
-            "type": "tickets",
-            "order": 6
+            "order": 6,
+            "relationship": "tickets"
         },
         {
             "id": 36,
@@ -3750,8 +3750,8 @@
             "name": "None",
             "icon": "fas fa-ban",
             "color": "danger",
-            "type": "permissions",
-            "order": 0
+            "order": 0,
+            "relationship": "permissions"
         },
         {
             "id": 37,
@@ -3762,8 +3762,8 @@
             "name": "Read",
             "icon": "fas fa-eye",
             "color": "primary",
-            "type": "permissions",
-            "order": 1
+            "order": 1,
+            "relationship": "permissions"
         },
         {
             "id": 38,
@@ -3774,8 +3774,8 @@
             "name": "Create",
             "icon": "fas fa-asterisk",
             "color": "success",
-            "type": "permissions",
-            "order": 2
+            "order": 2,
+            "relationship": "permissions"
         },
         {
             "id": 39,
@@ -3786,8 +3786,8 @@
             "name": "Edit",
             "icon": "fas fa-edit",
             "color": "warning",
-            "type": "permissions",
-            "order": 3
+            "order": 3,
+            "relationship": "permissions"
         },
         {
             "id": 40,
@@ -3798,8 +3798,8 @@
             "name": "Delete",
             "icon": "fas fa-trash-alt",
             "color": "danger",
-            "type": "permissions",
-            "order": 4
+            "order": 4,
+            "relationship": "permissions"
         },
         {
             "id": 41,
@@ -3810,8 +3810,8 @@
             "name": "Pending",
             "icon": "fas fa-clock",
             "color": "secondary",
-            "type": "tasks",
-            "order": 1
+            "order": 1,
+            "relationship": "tasks"
         },
         {
             "id": 42,
@@ -3822,8 +3822,8 @@
             "name": "Starting",
             "icon": "fas fa-play",
             "color": "info",
-            "type": "tasks",
-            "order": 2
+            "order": 2,
+            "relationship": "tasks"
         },
         {
             "id": 43,
@@ -3834,8 +3834,8 @@
             "name": "Running",
             "icon": "fas fa-sync-alt fa-spin",
             "color": "primary",
-            "type": "tasks",
-            "order": 3
+            "order": 3,
+            "relationship": "tasks"
         },
         {
             "id": 44,
@@ -3846,8 +3846,8 @@
             "name": "Done",
             "icon": "fas fa-check",
             "color": "success",
-            "type": "tasks",
-            "order": 4
+            "order": 4,
+            "relationship": "tasks"
         },
         {
             "id": 45,
@@ -3858,8 +3858,8 @@
             "name": "Error",
             "icon": "fas fa-exclamation-triangle",
             "color": "danger",
-            "type": "tasks",
-            "order": 5
+            "order": 5,
+            "relationship": "tasks"
         },
         {
             "id": 46,
@@ -3870,8 +3870,8 @@
             "name": "New",
             "icon": "fas fa-asterisk",
             "color": "info",
-            "type": "containers",
-            "order": 1
+            "order": 1,
+            "relationship": "containers"
         },
         {
             "id": 47,
@@ -3882,8 +3882,8 @@
             "name": "On Sea",
             "icon": "fas fa-ship",
             "color": "navy",
-            "type": "containers",
-            "order": 2
+            "order": 2,
+            "relationship": "containers"
         },
         {
             "id": 48,
@@ -3894,8 +3894,8 @@
             "name": "In Transit",
             "icon": "fas fa-dolly",
             "color": "lightblue",
-            "type": "containers",
-            "order": 3
+            "order": 3,
+            "relationship": "containers"
         },
         {
             "id": 49,
@@ -3906,8 +3906,8 @@
             "name": "On Rail",
             "icon": "fas fa-train",
             "color": "orange",
-            "type": "containers",
-            "order": 4
+            "order": 4,
+            "relationship": "containers"
         },
         {
             "id": 50,
@@ -3918,8 +3918,8 @@
             "name": "Dispatch",
             "icon": "fas fa-truck-loading",
             "color": "teal",
-            "type": "containers",
-            "order": 5
+            "order": 5,
+            "relationship": "containers"
         },
         {
             "id": 51,
@@ -3930,8 +3930,8 @@
             "name": "On Delivery",
             "icon": "fas fa-truck-moving",
             "color": "olive",
-            "type": "containers",
-            "order": 6
+            "order": 6,
+            "relationship": "containers"
         },
         {
             "id": 52,
@@ -3942,8 +3942,8 @@
             "name": "At Warehouse",
             "icon": "fas fa-warehouse",
             "color": "indigo",
-            "type": "containers",
-            "order": 7
+            "order": 7,
+            "relationship": "containers"
         },
         {
             "id": 53,
@@ -3954,8 +3954,8 @@
             "name": "Storage",
             "icon": "fas fa-dollar-sign",
             "color": "danger",
-            "type": "containers",
-            "order": 8
+            "order": 8,
+            "relationship": "containers"
         },
         {
             "id": 54,
@@ -3966,8 +3966,8 @@
             "name": "Missing Info",
             "icon": "fas fa-info-circle",
             "color": "warning",
-            "type": "containers",
-            "order": 9
+            "order": 9,
+            "relationship": "containers"
         },
         {
             "id": 55,
@@ -3978,8 +3978,8 @@
             "name": "Problem",
             "icon": "fas fa-exclamation-triangle",
             "color": "danger",
-            "type": "containers",
-            "order": 10
+            "order": 10,
+            "relationship": "containers"
         },
         {
             "id": 56,
@@ -3990,8 +3990,8 @@
             "name": "Delivered",
             "icon": "fas fa-check",
             "color": "success",
-            "type": "containers",
-            "order": 11
+            "order": 11,
+            "relationship": "containers"
         },
         {
             "id": 58,
@@ -4002,8 +4002,8 @@
             "name": "Returned",
             "icon": "fas fa-check",
             "color": "success",
-            "type": "containers",
-            "order": 13
+            "order": 13,
+            "relationship": "containers"
         },
         {
             "id": 59,
@@ -4014,8 +4014,8 @@
             "name": "Detention",
             "icon": "fas fa-dollar-sign",
             "color": "danger",
-            "type": "containers",
-            "order": 12
+            "order": 12,
+            "relationship": "containers"
         },
         {
             "id": 60,
@@ -4026,8 +4026,8 @@
             "name": "Minor",
             "icon": "fas fa-exclamation-triangle",
             "color": "info",
-            "type": "alerts",
-            "order": 1
+            "order": 1,
+            "relationship": "alerts"
         },
         {
             "id": 61,
@@ -4038,8 +4038,8 @@
             "name": "Normal",
             "icon": "fas fa-exclamation-triangle",
             "color": "primary",
-            "type": "alerts",
-            "order": 2
+            "order": 2,
+            "relationship": "alerts"
         },
         {
             "id": 62,
@@ -4050,8 +4050,8 @@
             "name": "Important",
             "icon": "fas fa-exclamation-triangle",
             "color": "success",
-            "type": "alerts",
-            "order": 3
+            "order": 3,
+            "relationship": "alerts"
         },
         {
             "id": 63,
@@ -4062,8 +4062,8 @@
             "name": "Major",
             "icon": "fas fa-exclamation-triangle",
             "color": "warning",
-            "type": "alerts",
-            "order": 4
+            "order": 4,
+            "relationship": "alerts"
         },
         {
             "id": 64,
@@ -4074,8 +4074,8 @@
             "name": "Severe",
             "icon": "fas fa-exclamation-triangle",
             "color": "danger",
-            "type": "alerts",
-            "order": 5
+            "order": 5,
+            "relationship": "alerts"
         },
         {
             "id": 65,
@@ -4086,8 +4086,8 @@
             "name": "File Open",
             "icon": "fas fa-folder-open",
             "color": "primary",
-            "type": "b3",
-            "order": 1
+            "order": 1,
+            "relationship": "b3"
         },
         {
             "id": 66,
@@ -4098,8 +4098,8 @@
             "name": "IID-Ready",
             "icon": "fas fa-clipboard-check",
             "color": "warning",
-            "type": "b3",
-            "order": 2
+            "order": 2,
+            "relationship": "b3"
         },
         {
             "id": 67,
@@ -4110,8 +4110,8 @@
             "name": "IID-Sent",
             "icon": "fas fa-paper-plane",
             "color": "info",
-            "type": "b3",
-            "order": 3
+            "order": 3,
+            "relationship": "b3"
         },
         {
             "id": 68,
@@ -4122,8 +4122,8 @@
             "name": "IID-Accept",
             "icon": "fas fa-check",
             "color": "lime",
-            "type": "b3",
-            "order": 4
+            "order": 4,
+            "relationship": "b3"
         },
         {
             "id": 69,
@@ -4134,8 +4134,8 @@
             "name": "IID-Reject",
             "icon": "fas fa-exclamation-triangle",
             "color": "danger",
-            "type": "b3",
-            "order": 5
+            "order": 5,
+            "relationship": "b3"
         },
         {
             "id": 70,
@@ -4146,8 +4146,8 @@
             "name": "RNS-Accept",
             "icon": "fas fa-check",
             "color": "lime",
-            "type": "b3",
-            "order": 6
+            "order": 6,
+            "relationship": "b3"
         },
         {
             "id": 71,
@@ -4158,8 +4158,8 @@
             "name": "REL-LVS",
             "icon": "fas fa-check-circle",
             "color": "success",
-            "type": "b3",
-            "order": 7
+            "order": 7,
+            "relationship": "b3"
         },
         {
             "id": 72,
@@ -4170,8 +4170,8 @@
             "name": "REL-HVS",
             "icon": "fas fa-check-circle",
             "color": "success",
-            "type": "b3",
-            "order": 8
+            "order": 8,
+            "relationship": "b3"
         },
         {
             "id": 73,
@@ -4182,8 +4182,8 @@
             "name": "REL-RNS",
             "icon": "fas fa-check-circle",
             "color": "success",
-            "type": "b3",
-            "order": 9
+            "order": 9,
+            "relationship": "b3"
         },
         {
             "id": 74,
@@ -4194,8 +4194,8 @@
             "name": "B3-Ready",
             "icon": "fas fa-clipboard-check",
             "color": "warning",
-            "type": "b3",
-            "order": 10
+            "order": 10,
+            "relationship": "b3"
         },
         {
             "id": 75,
@@ -4206,8 +4206,8 @@
             "name": "B3-Sent",
             "icon": "fas fa-paper-plane",
             "color": "info",
-            "type": "b3",
-            "order": 11
+            "order": 11,
+            "relationship": "b3"
         },
         {
             "id": 76,
@@ -4218,8 +4218,8 @@
             "name": "B3-Accept",
             "icon": "fas fa-check",
             "color": "lime",
-            "type": "b3",
-            "order": 12
+            "order": 12,
+            "relationship": "b3"
         },
         {
             "id": 77,
@@ -4230,8 +4230,8 @@
             "name": "B3-Reject",
             "icon": "fas fa-exclamation-triangle",
             "color": "danger",
-            "type": "b3",
-            "order": 13
+            "order": 13,
+            "relationship": "b3"
         },
         {
             "id": 78,
@@ -4242,8 +4242,8 @@
             "name": "K84",
             "icon": "fas fa-check-double",
             "color": "success",
-            "type": "b3",
-            "order": 14
+            "order": 14,
+            "relationship": "b3"
         },
         {
             "id": 79,
@@ -4254,8 +4254,8 @@
             "name": "Cold",
             "icon": "fas fa-snowflake",
             "color": "primary",
-            "type": "organizations",
-            "order": 1
+            "order": 1,
+            "relationship": "organizations"
         },
         {
             "id": 80,
@@ -4266,8 +4266,8 @@
             "name": "Warm",
             "icon": "fas fa-fire",
             "color": "warning",
-            "type": "organizations",
-            "order": 2
+            "order": 2,
+            "relationship": "organizations"
         },
         {
             "id": 81,
@@ -4278,8 +4278,8 @@
             "name": "Hot",
             "icon": "fas fa-fire-extinguisher",
             "color": "danger",
-            "type": "organizations",
-            "order": 3
+            "order": 3,
+            "relationship": "organizations"
         },
         {
             "id": 82,
@@ -4290,8 +4290,8 @@
             "name": "Open",
             "icon": "fas fa-envelope-open-text",
             "color": "success",
-            "type": "conversations",
-            "order": 1
+            "order": 1,
+            "relationship": "conversations"
         },
         {
             "id": 83,
@@ -4302,8 +4302,8 @@
             "name": "Closed",
             "icon": "far fa-envelope",
             "color": "danger",
-            "type": "conversations",
-            "order": 2
+            "order": 2,
+            "relationship": "conversations"
         },
         {
             "id": 84,
@@ -4314,8 +4314,8 @@
             "name": "Merged",
             "icon": "fas fa-mail-bulk",
             "color": "primary",
-            "type": "conversations",
-            "order": 3
+            "order": 3,
+            "relationship": "conversations"
         }
     ],
     "categories": [
