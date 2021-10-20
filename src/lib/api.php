@@ -160,7 +160,7 @@ class API{
 		$statuses = $this->Auth->read('statuses');
 		if($statuses != NULL){
 			foreach($statuses->all() as $status){
-				$Lists['Statuses'][$status['type']][$status['order']] = [
+				$Lists['Statuses'][$status['relationship']][$status['order']] = [
 					'name' => $status['name'],
 					'icon' => $status['icon'],
 					'color' => $status['color'],
@@ -170,7 +170,7 @@ class API{
 		$priorities = $this->Auth->read('priorities');
 		if($priorities != NULL){
 			foreach($priorities->all() as $priority){
-				$Lists['Priorities'][$priority['type']][$priority['order']] = [
+				$Lists['Priorities'][$priority['relationship']][$priority['order']] = [
 					'name' => $priority['name'],
 					'icon' => $priority['icon'],
 					'color' => $priority['color'],
