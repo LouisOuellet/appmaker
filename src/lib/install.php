@@ -371,4 +371,4 @@ class Installer {
 	}
 }
 
-echo new Installer;
+new Installer;
