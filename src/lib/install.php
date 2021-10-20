@@ -99,10 +99,10 @@ class Installer {
                 if(!is_dir(dirname(__FILE__,3)."/plugins/".$plugin)){
                   // Install Files
                   echo "Installing ".$plugin."<br>\n";
-                  shell_exec("git clone --branch ".$this->Settings['repository']['branch']." ".$plugins[$plugin]['repository']['host']['git'].$plugins[$plugin]['repository']['name'].".git"." ".dirname(__FILE__,3)."/tmp/".$plugins[$plugin]['repository']['name']);
+                  shell_exec("git clone --branch ".$this->Settings['repository']['branch']." ".$this->Plugins[$plugin]['repository']['host']['git'].$this->Plugins[$plugin]['repository']['name'].".git"." ".dirname(__FILE__,3)."/tmp/".$this->Plugins[$plugin]['repository']['name']);
                   mkdir(dirname(__FILE__,3)."/plugins/".$plugin);
-                  shell_exec("rsync -aP ".dirname(__FILE__,3)."/tmp/".$plugins[$plugin]['repository']['name']."/* ".dirname(__FILE__,3)."/plugins/".$plugin."/.");
-                  shell_exec("rm -rf ".dirname(__FILE__,3)."/tmp/".$plugins[$plugin]['repository']['name']);
+                  shell_exec("rsync -aP ".dirname(__FILE__,3)."/tmp/".$this->Plugins[$plugin]['repository']['name']."/* ".dirname(__FILE__,3)."/plugins/".$plugin."/.");
+                  shell_exec("rm -rf ".dirname(__FILE__,3)."/tmp/".$this->Plugins[$plugin]['repository']['name']);
 
           				// Updating Database
                   if(is_file(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/structure.json')){ $this->LSP->updateStructure(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/structure.json'); }
