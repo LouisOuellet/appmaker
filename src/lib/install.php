@@ -50,6 +50,7 @@ class Installer {
       } else { $this->LSP = new LSP(); }
     	if($this->LSP->Status){
         // Connect LSP SQL
+        var_dump($this->Settings);
         $this->LSP->configdb($this->Settings['sql']['host'],$this->Settings['sql']['username'],$this->Settings['sql']['password'],$this->Settings['sql']['database']);
         if(isset($this->Manifest['lsp']['required'])&&$this->Manifest['lsp']['required']){ echo "Application Activation Successfull!<br>\n"; }
 
