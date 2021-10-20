@@ -15,11 +15,15 @@ class Installer {
   protected $QueryClosed = TRUE;
 
   public function __construct(){
+
+    // Set SQL Config
+    $this->Settings['sql']['host'] = $_POST['sql_host'];
+    $this->Settings['sql']['database'] = $_POST['sql_database'];
+    $this->Settings['sql']['username'] = $_POST['sql_username'];
+    $this->Settings['sql']['password'] = $_POST['sql_password'];
+
     // Test SQL
-    $this->configDB();
-    var_dump($this->Connection);
-    var_dump($this->Database);
-    if(isset($this->Connection,$this->Database) && !empty($this->Connection) && !empty($this->Database)){
+    if($this->configDB()){
       echo "SQL Database Connexion Successfull!<br>\n";
 
       // Import Data
@@ -39,12 +43,6 @@ class Installer {
 
       // Set Timezone
       date_default_timezone_set($this->Settings['timezone']);
-
-      // Set SQL Config
-      $this->Settings['sql']['host'] = $_POST['sql_host'];
-      $this->Settings['sql']['database'] = $_POST['sql_database'];
-      $this->Settings['sql']['username'] = $_POST['sql_username'];
-      $this->Settings['sql']['password'] = $_POST['sql_password'];
 
       // Set LSP
       if(isset($this->Manifest['lsp']['required'],$this->Settings['license'])&&$this->Manifest['lsp']['required']){
@@ -134,11 +132,11 @@ class Installer {
       $this->Connection = new mysqli($this->Settings['sql']['host'], $this->Settings['sql']['username'], $this->Settings['sql']['password'], $this->Settings['sql']['database']);
       error_reporting(-1);
   		if($this->Connection->connect_error){
-  			unset($this->Connection);
-        unset($this->Database);
+  			return false;
   		} else {
         $this->Database = $this->Settings['sql']['database'];
         if(isset($this->Settings['sql']['charset'])){ $this->Connection->set_charset($this->Settings['sql']['charset']); } else { $this->Connection->set_charset('utf8'); }
+        return true;
       }
     }
 	}
