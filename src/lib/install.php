@@ -8,7 +8,7 @@ class Installer {
   protected $Manifest = [];
   protected $Settings = [];
   protected $Plugins = [];
-  protected $this->LSP;
+  protected $LSP;
   protected $Database;
   protected $Connection;
 	protected $Query;
