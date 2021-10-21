@@ -2478,7 +2478,9 @@ var API = {
 							} else {
 								API.request('users','read',function(result){
 									var dataset = JSON.parse(result);
-									for(var [key, val] of Object.entries(dataset.output.results)){ API.Helper.set(API.Contents,['data','dom','users',val.username],val); }
+									for(var [key, val] of Object.entries(dataset.output.results)){
+										if(val.username != null && val.username != '' && val.username != undefined){ API.Helper.set(API.Contents,['data','dom','users',val.username],val); }
+									}
 									for(var [key, val] of Object.entries(dataset.output.raw)){ API.Helper.set(API.Contents,['data','raw','users',val.id],val); }
 									inputForm += '<select data-key="'+index+'" title="'+title+'" class="form-control select2bs4 select2-hidden-accessible" name="'+index+'">';
 									for(var [key, val] of Object.entries(API.Contents.data.dom.users)){
