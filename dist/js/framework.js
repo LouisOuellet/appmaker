@@ -2478,6 +2478,7 @@ var API = {
 							} else {
 								API.request('users','read',function(result){
 									var dataset = JSON.parse(result);
+									console.log(dataset);
 									for(var [key, val] of Object.entries(dataset.output.results)){
 										if(val.username != null && val.username != '' && val.username != undefined){ API.Helper.set(API.Contents,['data','dom','users',val.username],val); }
 									}
