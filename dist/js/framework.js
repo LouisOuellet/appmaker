@@ -670,7 +670,7 @@ var API = {
 					},function(result){
 						var dataset = JSON.parse(result), html = '', etoast = false;
 						if(typeof dataset.success !== 'undefined'){
-							for(var [key, value] of Object.entries(dataset.output.results)){
+							for(var [key, value] of Object.entries(dataset.output.dom)){
 								if($('[data-notification="'+value.id+'"]').length == 0){
 									value.create = false;
 									etoast = true;
@@ -2478,10 +2478,7 @@ var API = {
 							} else {
 								API.request('users','read',function(result){
 									var dataset = JSON.parse(result);
-									console.log(dataset);
-									for(var [key, val] of Object.entries(dataset.output.results)){
-										if(val.username != null && val.username != '' && val.username != undefined){ API.Helper.set(API.Contents,['data','dom','users',val.username],val); }
-									}
+									for(var [key, val] of Object.entries(dataset.output.dom)){ API.Helper.set(API.Contents,['data','dom','users',val.username],val); }
 									for(var [key, val] of Object.entries(dataset.output.raw)){ API.Helper.set(API.Contents,['data','raw','users',val.id],val); }
 									inputForm += '<select data-key="'+index+'" title="'+title+'" class="form-control select2bs4 select2-hidden-accessible" name="'+index+'">';
 									for(var [key, val] of Object.entries(API.Contents.data.dom.users)){
@@ -2507,7 +2504,7 @@ var API = {
 							} else {
 								API.request('organizations','read',function(result){
 									var dataset = JSON.parse(result);
-									for(var [key, val] of Object.entries(dataset.output.results)){ API.Helper.set(API.Contents,['data','dom','organizations',val.id],val); }
+									for(var [key, val] of Object.entries(dataset.output.dom)){ API.Helper.set(API.Contents,['data','dom','organizations',val.id],val); }
 									for(var [key, val] of Object.entries(dataset.output.raw)){ API.Helper.set(API.Contents,['data','raw','organizations',val.id],val); }
 									inputForm += '<select data-key="'+index+'" title="'+title+'" class="form-control select2bs4 select2-hidden-accessible" name="'+index+'">';
 									for(var [key, val] of Object.entries(API.Contents.data.dom.organizations)){
@@ -2533,7 +2530,7 @@ var API = {
 							} else {
 								API.request('groups','read',function(result){
 									var dataset = JSON.parse(result);
-									for(var [key, val] of Object.entries(dataset.output.results)){ API.Helper.set(API.Contents,['data','dom','groups',val.name],val); }
+									for(var [key, val] of Object.entries(dataset.output.dom)){ API.Helper.set(API.Contents,['data','dom','groups',val.name],val); }
 									for(var [key, val] of Object.entries(dataset.output.raw)){ API.Helper.set(API.Contents,['data','raw','groups',val.id],val); }
 									inputForm += '<select data-key="'+index+'" title="'+title+'" class="form-control select2bs4 select2-hidden-accessible" name="'+index+'">';
 									for(var [key, val] of Object.entries(API.Contents.data.dom.groups)){
@@ -2561,7 +2558,7 @@ var API = {
 							} else {
 								API.request('organizations','read',function(result){
 									var dataset = JSON.parse(result);
-									for(var [key, val] of Object.entries(dataset.output.results)){ API.Helper.set(API.Contents,['data','form',plugin,view,index,val.name],val); }
+									for(var [key, val] of Object.entries(dataset.output.dom)){ API.Helper.set(API.Contents,['data','form',plugin,view,index,val.name],val); }
 									for(var [key, val] of Object.entries(dataset.output.raw)){ API.Helper.set(API.Contents,['data','form',plugin,view,index,val.name],val); }
 									inputForm += '<select data-key="'+index+'" title="'+title+'" class="form-control select2bs4 select2-hidden-accessible" name="'+index+'">';
 									for(var [key, val] of Object.entries(API.Contents.data.form[plugin][view][index])){
@@ -2596,7 +2593,7 @@ var API = {
 								} else {
 									API.request('contacts','read',function(result){
 										var dataset = JSON.parse(result);
-										for(var [key, val] of Object.entries(dataset.output.results)){ API.Helper.set(API.Contents,['data','dom','clients',val.id],val); }
+										for(var [key, val] of Object.entries(dataset.output.dom)){ API.Helper.set(API.Contents,['data','dom','clients',val.id],val); }
 										for(var [key, val] of Object.entries(dataset.output.raw)){ API.Helper.set(API.Contents,['data','raw','clients',val.id],val); }
 										inputForm += '<select data-key="'+index+'" title="'+title+'" class="form-control select2bs4 select2-hidden-accessible" name="'+index+'">';
 										for(var [key, val] of Object.entries(API.Contents.data.dom.contacts)){
@@ -2693,7 +2690,7 @@ var API = {
 								API.request('categories','read',function(result){
 									var dataset = JSON.parse(result);
 									inputForm += '<select data-key="'+index+'" title="'+title+'" class="form-control select2bs4 select2-hidden-accessible" name="'+index+'">';
-									for(var [key, val] of Object.entries(dataset.output.results)){
+									for(var [key, val] of Object.entries(dataset.output.dom)){
 										API.Helper.set(API.Contents,['data','dom','clients',val.id],val);
 										if(plugin == val.relationship){
 											if(key == value){ inputForm += '<option value="'+val.id+'" selected="selected">'+val.name+'</option>'; } else { inputForm += '<option value="'+val.id+'">'+val.name+'</option>'; }
@@ -2723,7 +2720,7 @@ var API = {
 								API.request('sub_categories','read',function(result){
 									var dataset = JSON.parse(result);
 									inputForm += '<select data-key="'+index+'" title="'+title+'" class="form-control select2bs4 select2-hidden-accessible" name="'+index+'">';
-									for(var [key, val] of Object.entries(dataset.output.results)){
+									for(var [key, val] of Object.entries(dataset.output.dom)){
 										API.Helper.set(API.Contents,['data','dom','clients',val.id],val);
 										if(plugin == val.relationship){
 											if(key == value){ inputForm += '<option value="'+val.id+'" selected="selected">'+val.name+'</option>'; } else { inputForm += '<option value="'+val.id+'">'+val.name+'</option>'; }
@@ -2774,7 +2771,7 @@ var API = {
 							} else {
 								API.request('issues','read',function(result){
 									var dataset = JSON.parse(result);
-									for(var [key, val] of Object.entries(dataset.output.results)){ API.Helper.set(API.Contents,['data','dom','issues',val.id],val); }
+									for(var [key, val] of Object.entries(dataset.output.dom)){ API.Helper.set(API.Contents,['data','dom','issues',val.id],val); }
 									for(var [key, val] of Object.entries(dataset.output.raw)){ API.Helper.set(API.Contents,['data','raw','issues',val.id],val); }
 									inputForm += '<select data-key="'+index+'" title="'+title+'" class="form-control select2bs4 select2-hidden-accessible" name="'+index+'">';
 									for(var [key, val] of Object.entries(API.Contents.data.dom.issues)){
@@ -2803,7 +2800,7 @@ var API = {
 							} else {
 								API.request('services','read',function(result){
 									var dataset = JSON.parse(result);
-									for(var [key, val] of Object.entries(dataset.output.results)){ API.Helper.set(API.Contents,['data','dom','services',val.id],val); }
+									for(var [key, val] of Object.entries(dataset.output.dom)){ API.Helper.set(API.Contents,['data','dom','services',val.id],val); }
 									for(var [key, val] of Object.entries(dataset.output.raw)){ API.Helper.set(API.Contents,['data','raw','services',val.id],val); }
 									inputForm += '<select data-key="'+index+'" title="'+title+'" class="form-control select2bs4 select2-hidden-accessible" name="'+index+'">';
 									for(var [key, val] of Object.entries(API.Contents.data.dom.services)){
@@ -2832,7 +2829,7 @@ var API = {
 							} else {
 								API.request('tags','read',function(result){
 									var dataset = JSON.parse(result);
-									for(var [key, val] of Object.entries(dataset.output.results)){ API.Helper.set(API.Contents,['data','dom','tags',val.name],val); }
+									for(var [key, val] of Object.entries(dataset.output.dom)){ API.Helper.set(API.Contents,['data','dom','tags',val.name],val); }
 									for(var [key, val] of Object.entries(dataset.output.raw)){ API.Helper.set(API.Contents,['data','raw','tags',val.name],val); }
 									inputForm += '<select data-key="'+index+'" multiple="" title="'+title+'" class="form-control select2bs4 select2-hidden-accessible" name="'+index+'">';
 									if(typeof API.Contents.data.dom.tags !== 'undefined'){
@@ -3216,7 +3213,7 @@ var API = {
 							},function(result){
 								var dataset = JSON.parse(result);
 								if(typeof dataset.success !== 'undefined'){
-									for(var [key, value] of Object.entries(dataset.output.results)){
+									for(var [key, value] of Object.entries(dataset.output.dom)){
 										API.Helper.set(API.Contents,['Auth','Options','hide',value.plugin,value.view,value.record,value.relationship,value.link_to,value.name],null);
 									}
 									if(callback != undefined){ callback(element); }
