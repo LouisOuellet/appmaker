@@ -192,9 +192,9 @@ class CRUDAPI extends APIextend{
 					],
 				];
 				if((isset($record['status'],$result['status']))&&($record['status'] != $result['status'])){
-					$status = $this->Auth->query('SELECT * FROM `statuses` WHERE `relationship` = ? AND `order` = ?',$request,$result['status']);
+					$status = $this->Auth->query('SELECT * FROM `statuses` WHERE `relationship` = ? AND `order` = ?',$request,$result['status'])->fetchAll();
 					if($status != null){
-						$status = $status->fetchAll()->all();
+						$status = $status->all();
 						if(!empty($status)){
 							$status = $status[0];
 							$id = $this->Auth->create('relationships',[
