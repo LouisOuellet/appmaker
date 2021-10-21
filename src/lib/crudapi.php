@@ -192,18 +192,24 @@ class CRUDAPI extends APIextend{
 					],
 				];
 				if((isset($record['status'],$result['status']))&&($record['status'] != $result['status'])){
-					$status = $this->Auth->query('SELECT * FROM `statuses` WHERE `relationship` = ? AND `order` = ?',$request,$result['status'])->fetchAll()->all()[0];
-					$id = $this->Auth->create('relationships',[
-						'relationship_1' => $request,
-						'link_to_1' => $record['id'],
-						'relationship_2' => 'statuses',
-						'link_to_2' => $status['id'],
-					]);
-					$relationship = $this->Auth->read('relationships',$id)->all()[0];
-					$relationship = $this->convertToDOM($relationship);
-					$status['created'] = $relationship['created'];
-					$status['owner'] = $relationship['owner'];
-					$results['output']['status'] = $status;
+					$status = $this->Auth->query('SELECT * FROM `statuses` WHERE `relationship` = ? AND `order` = ?',$request,$result['status']);
+					if($status != null){
+						$status = $status->fetchAll()->all();
+						if(!empty($status)){
+							$status = $status[0];
+							$id = $this->Auth->create('relationships',[
+								'relationship_1' => $request,
+								'link_to_1' => $record['id'],
+								'relationship_2' => 'statuses',
+								'link_to_2' => $status['id'],
+							]);
+							$relationship = $this->Auth->read('relationships',$id)->all()[0];
+							$relationship = $this->convertToDOM($relationship);
+							$status['created'] = $relationship['created'];
+							$status['owner'] = $relationship['owner'];
+							$results['output']['status'] = $status;
+						}
+					}
 				}
 			} else {
 				$results = [
