@@ -47,8 +47,7 @@ class CRUDAPI extends APIextend{
 				"request" => $request,
 				"data" => $data,
 				"output" => [
-					'results' => $result,
-					'record' => $this->convertToDOM($record),
+					'dom' => $this->convertToDOM($record),
 					'raw' => $record,
 				],
 			];
@@ -73,7 +72,6 @@ class CRUDAPI extends APIextend{
 					"request" => $request,
 					"data" => $data,
 					"output" => [
-						'results' => $this->convertToDOM($result),
 						'dom' => $this->convertToDOM($result),
 						'raw' => $result,
 					],
@@ -84,7 +82,7 @@ class CRUDAPI extends APIextend{
 					"request" => $request,
 					"data" => $data,
 					"output" => [
-						'results' => $result,
+						'dom' => $result,
 					],
 				];
 			}
@@ -161,7 +159,6 @@ class CRUDAPI extends APIextend{
 				"output" => [
 					'headers' => $headers,
 					'raw' => $raw,
-					'results' => $result,
 					'dom' => $result,
 				],
 			];
@@ -186,7 +183,6 @@ class CRUDAPI extends APIextend{
 					"request" => $request,
 					"data" => $data,
 					"output" => [
-						'results' => $this->convertToDOM($result),
 						'dom' => $this->convertToDOM($result),
 						'raw' => $result,
 					],
@@ -217,7 +213,7 @@ class CRUDAPI extends APIextend{
 					"request" => $request,
 					"data" => $data,
 					"output" => [
-						'results' => $result,
+						'dom' => $result,
 					],
 				];
 			}
@@ -246,8 +242,6 @@ class CRUDAPI extends APIextend{
 						"request" => $request,
 						"data" => $data,
 						"output" => [
-							'results' => $result,
-							'record' => $this->convertToDOM($organization),
 							'dom' => $this->convertToDOM($organization),
 							'raw' => $organization,
 						],
@@ -269,8 +263,6 @@ class CRUDAPI extends APIextend{
 						"request" => $request,
 						"data" => $data,
 						"output" => [
-							'results' => $result,
-							'record' => $this->convertToDOM($organization),
 							'dom' => $this->convertToDOM($organization),
 							'raw' => $organization,
 						],
@@ -282,7 +274,7 @@ class CRUDAPI extends APIextend{
 					"request" => $request,
 					"data" => $data,
 					"output" => [
-						'results' => $organization,
+						'dom' => $organization,
 					],
 				];
 			}
@@ -849,7 +841,7 @@ class optionsAPI extends APIextend {
 						"request" => $request,
 						"data" => $data,
 						"output" => [
-							'results' => $DOM,
+							'dom' => $DOM,
 							'raw' => $results,
 						],
 					];
@@ -859,7 +851,7 @@ class optionsAPI extends APIextend {
 						"request" => $request,
 						"data" => $data,
 						"output" => [
-							'results' => $this->convertToDOM($results),
+							'dom' => $this->convertToDOM($results),
 						],
 					];
 				}
@@ -869,7 +861,7 @@ class optionsAPI extends APIextend {
 					"request" => $request,
 					"data" => $data,
 					"output" => [
-						'results' => [],
+						'dom' => [],
 					],
 				];
 			}

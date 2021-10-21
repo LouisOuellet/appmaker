@@ -652,9 +652,9 @@ var API = {
 							API.GUI.Navbar.Notification.element.dismiss.click(function(){
 								API.GUI.Navbar.Notification.dismissAll();
 							});
+							API.GUI.Navbar.Notification.fetch();
 						}
 					}, 100);
-					API.GUI.Navbar.Notification.fetch();
 					var checkNotifs = setInterval(function() {
 						if(API.initiated){API.GUI.Navbar.Notification.fetch();}
 					}, 30000);
@@ -666,6 +666,7 @@ var API = {
 							{ relationship:'equal', name:'dissmissed', value:1},
 						]},
 						toast:false,
+						report:true,
 						pace:false,
 					},function(result){
 						var dataset = JSON.parse(result), html = '', etoast = false;
@@ -679,6 +680,7 @@ var API = {
 							}
 							if(etoast){ API.Toast.show.fire({ type: 'info', text: API.Contents.Language['You have new notifications'] }); }
 						}
+						if(typeof dataset.error !== 'undefined' && typeof dataset.code !== 'undefined' && dataset.code == 403){ location.reload(); }
 					});
 				},
 				add:function(options = {}, callback = null){
@@ -717,19 +719,19 @@ var API = {
 								},function(result){
 									var dataset = JSON.parse(result), html = '';
 									if(typeof dataset.success !== 'undefined'){
-										var nurl = new URL(url.origin+dataset.output.results.href);
+										var nurl = new URL(url.origin+dataset.output.dom.href);
 										++API.GUI.Navbar.Notification.count;
 										API.GUI.Navbar.Notification.element.badge.html(API.GUI.Navbar.Notification.count);
 										API.GUI.Navbar.Notification.element.list.find('.dropdown-header').first().remove();
-										html += '<div data-notification="'+dataset.output.results.id+'" class="dropdown-divider"></div>';
-										html += '<a data-notification="'+dataset.output.results.id+'" href="'+dataset.output.results.href+'" class="dropdown-item">';
-											html += '<i class="'+dataset.output.results.icon+'"></i>'+dataset.output.results.subject;
-											html += '<span class="float-right text-muted text-sm"><time class="timeago" datetime="'+dataset.output.results.created.replace(/ /g, "T")+'">'+dataset.output.results.created+'</time></span>';
+										html += '<div data-notification="'+dataset.output.dom.id+'" class="dropdown-divider"></div>';
+										html += '<a data-notification="'+dataset.output.dom.id+'" href="'+dataset.output.dom.href+'" class="dropdown-item">';
+											html += '<i class="'+dataset.output.dom.icon+'"></i>'+dataset.output.dom.subject;
+											html += '<span class="float-right text-muted text-sm"><time class="timeago" datetime="'+dataset.output.dom.created.replace(/ /g, "T")+'">'+dataset.output.dom.created+'</time></span>';
 										html += '</a>';
 										API.GUI.Navbar.Notification.element.list.prepend(html);
 										API.GUI.Navbar.Notification.element.list.prepend('<span class="dropdown-item dropdown-header">'+API.GUI.Navbar.Notification.count+' '+API.Contents.Language['Notifications']+'</span>');
-										$('[data-notification="'+dataset.output.results.id+'"]').find('time').timeago();
-										var element = $('[data-notification="'+dataset.output.results.id+'"]').last();
+										$('[data-notification="'+dataset.output.dom.id+'"]').find('time').timeago();
+										var element = $('[data-notification="'+dataset.output.dom.id+'"]').last();
 										element.click(function(action){
 											action.preventDefault();
 											var id = $(this).attr('data-notification');
@@ -742,7 +744,7 @@ var API = {
 											API.GUI.Navbar.Notification.dismiss(id);
 											API.GUI.Navbar.Notification.element.list.find('a').removeClass('active');
 										});
-										if(callback != undefined){ callback(options, dataset.output.results, element, $('[data-notification="'+dataset.output.results.id+'"]').first()); }
+										if(callback != undefined){ callback(options, dataset.output.dom, element, $('[data-notification="'+dataset.output.dom.id+'"]').first()); }
 									}
 								});
 							} else {
@@ -796,7 +798,7 @@ var API = {
 								API.GUI.Navbar.Notification.element.list.find('.dropdown-header').first().remove();
 								API.GUI.Navbar.Notification.element.badge.html(API.GUI.Navbar.Notification.count);
 								API.GUI.Navbar.Notification.element.list.prepend('<span class="dropdown-item dropdown-header">'+API.GUI.Navbar.Notification.count+' '+API.Contents.Language['Notifications']+'</span>');
-								API.GUI.Navbar.Notification.element.list.find('[data-notification="'+dataset.output.results.id+'"]').remove();
+								API.GUI.Navbar.Notification.element.list.find('[data-notification="'+dataset.output.dom.id+'"]').remove();
 							}, 5000);
 							if(callback != undefined){ callback(notification); }
 						}
@@ -3354,8 +3356,8 @@ var API = {
 									if(API.Helper.isSet(API,['Contents','Auth','Options','filter',plugin,view,'any',id])){
 										API.Helper.set(API.Contents,['Auth','Options','filter',plugin,view,'any',id],{});
 									}
-									if(dataset.output.results.length > 0){
-										var results = dataset.output.results;
+									if(dataset.output.dom.length > 0){
+										var results = dataset.output.dom;
 										for(var [key, value] of Object.entries(results)){
 											API.Helper.set(API.Contents,['Auth','Options','filter',value.plugin,value.view,value.record,value.link_to,value.name],{ value:value.value, relationship:value.relationship });
 										}
@@ -3822,17 +3824,17 @@ var API = {
 																++tagID;
 																API.Helper.set(API.Contents.data.dom.tags,[details.name],{
 																	id:tagID,
-																	created:dataset.output.results.created,
-																	modified:dataset.output.results.modified,
-																	owner:dataset.output.results.owner,
-																	updated_by:dataset.output.results.updated_by,
+																	created:dataset.output.dom.created,
+																	modified:dataset.output.dom.modified,
+																	owner:dataset.output.dom.owner,
+																	updated_by:dataset.output.dom.updated_by,
 																	name:details.name
 																});
 															}
 														}
 													}
 													if(typeof options.table !== 'undefined'){
-														var row = options.table.DataTable().row.add(dataset.output.results).draw(false);
+														var row = options.table.DataTable().row.add(dataset.output.dom).draw(false);
 														options.table.find('button').each(function(){
 															var control = $(this).attr('data-control');
 															var rowdata = options.table.DataTable().row($(this).parents('tr')).data();
@@ -3872,7 +3874,7 @@ var API = {
 														});
 													}
 													API.GUI.Navbar.Task.update(task.attr('data-task'), 1);
-													if((callback != undefined)&&(callback != null)){ callback(true, {dom:dataset.output.results,raw:dataset.output.raw}); }
+													if((callback != undefined)&&(callback != null)){ callback(true, {dom:dataset.output.dom,raw:dataset.output.raw}); }
 												} else {
 													if((callback != undefined)&&(callback != null)){ callback(false, {}); }
 												}
@@ -4188,24 +4190,24 @@ var API = {
 													++tagID;
 													API.Helper.set(API.Contents.data.dom,["tags",tag],{
 														id:tagID,
-														created:dataset.output.results.modified,
-														modified:dataset.output.results.modified,
-														owner:dataset.output.results.owner,
-														updated_by:dataset.output.results.updated_by,
+														created:dataset.output.dom.modified,
+														modified:dataset.output.dom.modified,
+														owner:dataset.output.dom.owner,
+														updated_by:dataset.output.dom.updated_by,
 														name:tag
 													});
 													API.Helper.set(API.Contents.data.raw,["tags",tag],{
 														id:tagID,
-														created:dataset.output.results.modified,
-														modified:dataset.output.results.modified,
-														owner:dataset.output.results.owner,
-														updated_by:dataset.output.results.updated_by,
+														created:dataset.output.dom.modified,
+														modified:dataset.output.dom.modified,
+														owner:dataset.output.dom.owner,
+														updated_by:dataset.output.dom.updated_by,
 														name:tag
 													});
 												}
 											}
 											if((typeof options.table !== 'undefined')&&(typeof options.row !== 'undefined')){
-												var row = options.table.DataTable().row(options.row).data(dataset.output.results).draw(false);
+												var row = options.table.DataTable().row(options.row).data(dataset.output.dom).draw(false);
 												options.table.find('button').each(function(){
 													var control = $(this).attr('data-control');
 													var rowdata = options.table.DataTable().row($(this).parents('tr')).data();
@@ -4245,9 +4247,9 @@ var API = {
 													});
 												});
 											}
-											if(typeof options.container !== 'undefined'){ API.GUI.insert(dataset.output.results); }
+											if(typeof options.container !== 'undefined'){ API.GUI.insert(dataset.output.dom); }
 											API.GUI.Navbar.Task.update(task.attr('data-task'), 1);
-											if(callback != undefined){ callback({dom:dataset.output.results,raw:dataset.output.raw}); }
+											if(callback != undefined){ callback({dom:dataset.output.dom,raw:dataset.output.raw}); }
 										}
 									} else {
 										var report = task.find('div.row').last().find('span.float-left');
@@ -4507,7 +4509,7 @@ var API = {
 									if(result.charAt(0) == '{'){
 										var dataset = JSON.parse(result);
 										if(typeof dataset.success !== 'undefined'){
-											table.DataTable().row('#'+dataset.output.results.id).data(dataset.output.results).draw(false);
+											table.DataTable().row('#'+dataset.output.dom.id).data(dataset.output.dom).draw(false);
 										} else { completed = false; }
 										++started;
 										API.GUI.Navbar.Task.update(id,started);
@@ -4601,7 +4603,7 @@ var API = {
 									if(result.charAt(0) == '{'){
 										var dataset = JSON.parse(result);
 										if(typeof dataset.success !== 'undefined'){
-											table.DataTable().row('#'+dataset.output.results.id).data(dataset.output.results).draw(false);
+											table.DataTable().row('#'+dataset.output.dom.id).data(dataset.output.dom).draw(false);
 										} else { completed = false; }
 										++started;
 										API.GUI.Navbar.Task.update(id,started);
@@ -4690,7 +4692,7 @@ var API = {
 									if(result.charAt(0) == '{'){
 										var dataset = JSON.parse(result);
 										if(typeof dataset.success !== 'undefined'){
-											table.DataTable().row('#'+dataset.output.results.id).data(dataset.output.results).draw(false);
+											table.DataTable().row('#'+dataset.output.dom.id).data(dataset.output.dom).draw(false);
 										} else { completed = false; }
 										++started;
 										API.GUI.Navbar.Task.update(id,started);
@@ -4779,7 +4781,7 @@ var API = {
 									if(result.charAt(0) == '{'){
 										var dataset = JSON.parse(result);
 										if(typeof dataset.success !== 'undefined'){
-											table.DataTable().row('#'+dataset.output.results.id).data(dataset.output.results).draw(false);
+											table.DataTable().row('#'+dataset.output.dom.id).data(dataset.output.dom).draw(false);
 										} else { completed = false; }
 										++started;
 										API.GUI.Navbar.Task.update(id,started);

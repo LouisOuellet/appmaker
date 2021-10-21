@@ -99,11 +99,19 @@ if(!empty($_POST)){
 				}
 			}
 		}
+	} else {
+		$return = [
+			"error" => $API->Language->Field["no login info"],
+			"request" => $_POST,
+			"code" => 403,
+		];
+		echo json_encode($return, JSON_PRETTY_PRINT);
 	}
 } else {
 	$return = [
 		"error" => $API->Language->Field["no request received"],
 		"request" => $_POST,
+		"code" => 404,
 	];
 	echo json_encode($return, JSON_PRETTY_PRINT);
 }
