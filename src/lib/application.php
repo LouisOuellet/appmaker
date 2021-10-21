@@ -2,8 +2,6 @@
 
 // Import Librairies
 require_once dirname(__FILE__,3) . '/src/lib/api.php';
-require_once dirname(__FILE__,3) . '/src/lib/helper.php';
-require_once dirname(__FILE__,3) . '/src/lib/builder.php';
 require_once dirname(__FILE__,3) . '/src/lib/parsedown.php';
 
 class Application extends API{
@@ -16,7 +14,6 @@ class Application extends API{
 	protected $View = 'index'; // Stores the active view
 	protected $ID = null; // Stores the active record
 	protected $Parsedown; // This contains the Parsedown class
-	public $Builder; // This contains all the Builder
 
   public function __construct(){
 
@@ -38,7 +35,6 @@ class Application extends API{
 
 		// Initialise Classes
     $this->Parsedown = new Parsedown();
-    $this->Builder = new Builder();
   }
 
 	public function start(){

@@ -12,6 +12,7 @@ require_once dirname(__FILE__,3) . '/src/lib/exchange.php';
 require_once dirname(__FILE__,3) . '/src/lib/smtp.php';
 require_once dirname(__FILE__,3) . '/src/lib/extendapi.php';
 require_once dirname(__FILE__,3) . '/src/lib/crudapi.php';
+require_once dirname(__FILE__,3) . '/src/lib/validator.php';
 
 class API{
 
@@ -20,6 +21,7 @@ class API{
   protected $States; // Stores available states
   protected $Plugins; // Stores available states
 	protected $Structure = []; // Stores the database structure
+  protected $Validator;
 	public $Settings; // Stores settings loaded from manifest.json and conf.json
   public $Auth; // This contains the Auth class & the Database class for MySQL queries
 	protected $LSP; // This contains the LSP class
@@ -122,6 +124,9 @@ class API{
 
 		// Initialise PDF
 		$this->PDF = new PDF();
+
+    // Initialise Validator
+    $this->Validator = new Validator();
 
 		// Initialise EXCHANGE
 		// $this->Exchange = new EXCHANGE();
