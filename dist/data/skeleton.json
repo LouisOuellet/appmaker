@@ -76,7 +76,7 @@
             "tokenLogin": null,
             "tokenAPI": null,
             "tokenReset": null,
-            "last_login": "2021-10-22 11:22:31"
+            "last_login": "2021-10-22 14:52:02"
         }
     ],
     "groups": [
@@ -2869,6 +2869,48 @@
             "level": 4,
             "isLocked": "true",
             "role_id": "1"
+        },
+        {
+            "id": 182,
+            "created": "2021-05-26 09:28:02",
+            "modified": "2021-05-26 09:28:02",
+            "owner": "1",
+            "updated_by": "1",
+            "name": "search",
+            "table": null,
+            "plugin": null,
+            "type": "plugin",
+            "level": 1,
+            "isLocked": "true",
+            "role_id": "3"
+        },
+        {
+            "id": 183,
+            "created": "2021-05-26 09:28:02",
+            "modified": "2021-05-26 09:28:02",
+            "owner": "1",
+            "updated_by": "1",
+            "name": "search",
+            "table": null,
+            "plugin": null,
+            "type": "api",
+            "level": 1,
+            "isLocked": "true",
+            "role_id": "3"
+        },
+        {
+            "id": 184,
+            "created": "2021-05-26 09:28:02",
+            "modified": "2021-05-26 09:28:02",
+            "owner": "1",
+            "updated_by": "1",
+            "name": "index",
+            "table": null,
+            "plugin": "search",
+            "type": "view",
+            "level": 1,
+            "isLocked": "true",
+            "role_id": "3"
         }
     ],
     "relationships": [
