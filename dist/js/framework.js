@@ -4,7 +4,8 @@ $.fn.modal.Constructor.prototype._enforceFocus = function() {};
 
 var API = {
 	initiated:false,
-	debug:true,
+	loggedin:false,
+	debug:false,
 	init:function(){
 		API.request('api','initialize',{
 			toast: false,
@@ -29,6 +30,7 @@ var API = {
 				API.Contents.data = {dom:{},raw:{}};
 				API.debug = API.Contents.Settings.Debug;
 				API.initiated = true;
+				if(API.Helper.isSet(API.Contents.Auth,["User","id"])){ API.loggedin = true; }
 				API.GUI.init();
 			}
 		});
@@ -652,11 +654,11 @@ var API = {
 							API.GUI.Navbar.Notification.element.dismiss.click(function(){
 								API.GUI.Navbar.Notification.dismissAll();
 							});
-							API.GUI.Navbar.Notification.fetch();
+							if(API.loggedin){ API.GUI.Navbar.Notification.fetch(); }
 						}
 					}, 100);
 					var checkNotifs = setInterval(function() {
-						if(API.initiated){API.GUI.Navbar.Notification.fetch();}
+						if(API.initiated&&API.loggedin){API.GUI.Navbar.Notification.fetch();}
 					}, 30000);
 				},
 				fetch:function(){
