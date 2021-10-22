@@ -193,13 +193,12 @@ class CRUDAPI extends APIextend{
 						$status = $status->all();
 						if(!empty($status)){
 							$status = $status[0];
-							$id = $this->Auth->create('relationships',[
+							$relationship = $this->createRelationship([
 								'relationship_1' => $request,
 								'link_to_1' => $record['id'],
 								'relationship_2' => 'statuses',
 								'link_to_2' => $status['id'],
 							]);
-							$relationship = $this->Auth->read('relationships',$id)->all()[0];
 							$relationship = $this->convertToDOM($relationship);
 							$status['created'] = $relationship['created'];
 							$status['owner'] = $relationship['owner'];
@@ -296,31 +295,21 @@ class CRUDAPI extends APIextend{
 			$organization = $this->Auth->read($request,$data['id']);
 			if($organization != null){
 				$organization = $organization->all()[0];
-				$relationship = $this->Auth->create('relationships',[
+				$relationship = $this->createRelationship([
 					'relationship_1' => $request,
 					'link_to_1' => $organization['id'],
 					'relationship_2' => 'users',
 					'link_to_2' => $this->Auth->User['id'],
 				]);
-				$relationship = $this->Auth->read('relationships',$relationship);
-				if($relationship != null){
-					$relationship = $relationship->All()[0];
-					// Return
-					$results = [
-						"success" => $this->Language->Field["Record successfully subscribed"],
-						"request" => $request,
-						"data" => $data,
-						"output" => [
-							"relationship" => $relationship,
-						],
-					];
-				} else {
-					$results = [
-						"error" => $this->Language->Field["Unable to complete the request"],
-						"request" => $request,
-						"data" => $data,
-					];
-				}
+				// Return
+				$results = [
+					"success" => $this->Language->Field["Record successfully subscribed"],
+					"request" => $request,
+					"data" => $data,
+					"output" => [
+						"relationship" => $relationship,
+					],
+				];
 			} else {
 				$results = [
 					"error" => $this->Language->Field["Unable to complete the request"],
@@ -527,15 +516,14 @@ class CRUDAPI extends APIextend{
 			$comment = $this->Auth->create('comments',$data);
 			$comment = $this->Auth->read('comments',$comment)->all()[0];
 			// Create Relationship
-			$relationship = $this->Auth->create('relationships',[
+			$relationship = $this->createRelationship([
 				'relationship_1' => $request,
 				'link_to_1' => $organization['id'],
 				'relationship_2' => 'comments',
 				'link_to_2' => $comment['id'],
 			]);
-			$relationship = $this->Auth->read('relationships',$relationship)->all()[0];
 			if((isset($organization['organization']))&&($organization['organization'] != '')&&($request != 'organizations')){
-				$relationship = $this->Auth->create('relationships',[
+				$relationship = $this->createRelationship([
 					'relationship_1' => 'organizations',
 					'link_to_1' => $linkedOrganization['id'],
 					'relationship_2' => 'comments',
@@ -647,7 +635,7 @@ class CRUDAPI extends APIextend{
 				foreach($this->Auth->read('statuses',$organization['status'],'order')->all() as $statuses){
 					if($statuses['relationship'] == "organizations"){ $status = $statuses; }
 				}
-				$relationship = $this->Auth->create('relationships',[
+				$relationship = $this->createRelationship([
 					'relationship_1' => $request,
 					'link_to_1' => $organization['id'],
 					'relationship_2' => 'statuses',
@@ -701,15 +689,14 @@ class CRUDAPI extends APIextend{
 				$note = $this->Auth->create('notes',$data);
 				$note = $this->Auth->read('notes',$note)->all()[0];
 				// Create Relationship
-				$relationship = $this->Auth->create('relationships',[
+				$relationship = $this->createRelationship([
 					'relationship_1' => $request,
 					'link_to_1' => $organization['id'],
 					'relationship_2' => 'notes',
 					'link_to_2' => $note['id'],
 				]);
-				$relationship = $this->Auth->read('relationships',$relationship)->all()[0];
 				if((isset($organization['organization']))&&($organization['organization'] != '')&&($request != 'organizations')){
-					$relationship = $this->Auth->create('relationships',[
+					$relationship = $this->createRelationship([
 						'relationship_1' => 'organizations',
 						'link_to_1' => $linkedOrganization['id'],
 						'relationship_2' => 'notes',
