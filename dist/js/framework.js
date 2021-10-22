@@ -30,7 +30,7 @@ var API = {
 				API.Contents.data = {dom:{},raw:{}};
 				API.debug = API.Contents.Settings.Debug;
 				API.initiated = true;
-				if(API.Helper.isSet(API.Contents.Auth,["User","id"])){ API.loggedin = true; }
+				if(API.Helper.isSet(API.Contents.Auth,["User","id"])){ API.loggedin = true; } else { document.title = API.Contents.Language.Sign_in; }
 				API.GUI.init();
 			}
 		});
