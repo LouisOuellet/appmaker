@@ -1110,6 +1110,13 @@ var API = {
 			}
 			return datetime;
 		},
+		getUrlVars:function() {
+	    var vars = {};
+	    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+	        vars[key] = value;
+	    });
+	    return vars;
+		},
 		getFileSize:function(bytes, si=false, dp=1) {
 		  const thresh = si ? 1000 : 1024;
 		  if (Math.abs(bytes) < thresh) { return bytes + ' B'; }
