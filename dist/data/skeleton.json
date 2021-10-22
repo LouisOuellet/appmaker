@@ -48,7 +48,7 @@
             "username": "Administrator",
             "type": "MySQL",
             "location": null,
-            "password": "$2y$10$N\/rs40IsbI\/pwZcbqsh.XevgMPYhTrbWtnPl6RrtzCi5ul9Tx2.WC",
+            "password": "JTI0MnklMjQxMCUyNGZ6NHhSaGlZeGdvY0I5aWVaai5iY3VDSnd1ZDZNMDJscUhCaTNKUSUyRlN2NjUydzZySCUyRmpoTw==",
             "organization": null,
             "supervisor": "1",
             "first_name": null,
@@ -70,13 +70,13 @@
             "isUser": "true",
             "isWelcomed": null,
             "isActive": "true",
-            "token": "faa3cc67a174a8ad76562dc63d070f09e20765a252ae4035",
+            "token": "69406c9b94df9e95ae651038b2072ade52987c2a0ae43532",
             "api_token": null,
             "reset_token": null,
             "tokenLogin": null,
             "tokenAPI": null,
             "tokenReset": null,
-            "last_login": "2021-10-22 11:10:02"
+            "last_login": "2021-10-22 11:22:31"
         }
     ],
     "groups": [
