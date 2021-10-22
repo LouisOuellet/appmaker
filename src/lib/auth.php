@@ -417,7 +417,7 @@ class Auth extends History{
 			if(($user['isUser'] == 'true')&&($user['isActive'] == 'true')){
 				switch($user['type']){
 					case "MySQL":
-						if(password_verify($password, $user['password'])){ $try=TRUE; }
+						if(password_verify($password, urldecode(base64_decode($user['password'])))){ $try=TRUE; }
 						break;
 					case "LDAP":
 						if($this->LDAP->login($user['username'],$password)){ $try=TRUE; }
