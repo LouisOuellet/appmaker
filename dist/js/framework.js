@@ -635,31 +635,33 @@ var API = {
 					var checkExist = setInterval(function() {
 						if((API.initiated)&&(typeof API.GUI.Navbar.element.left !== "undefined")&&(typeof API.GUI.Navbar.element.right !== "undefined")){
 							clearInterval(checkExist);
-							var html = '';
-							html += '<li class="nav-item dropdown">';
-							  html += '<a class="nav-link" data-toggle="dropdown" data-display="static">';
-							    html += '<i class="fas fa-bell"></i>';
-									html += '<span class="badge badge-danger navbar-badge">'+API.GUI.Navbar.Notification.count+'</span>';
-							  html += '</a>';
-								html += '<div class="dropdown-menu dropdown-menu-mobile dropdown-menu-notification scrollable-menu">';
-									html += '<span class="dropdown-item dropdown-header">'+API.GUI.Navbar.Notification.count+' '+API.Contents.Language['Notifications']+'</span>';
-									html += '<div class="dropdown-divider"></div>';
-									html += '<a class="dropdown-item dropdown-header">'+API.Contents.Language['Dismiss All']+'</a>';
-								html += '</div>';
-							html += '</li>';
-							API.GUI.Navbar.element.right.prepend(html);
-							API.GUI.Navbar.Notification.element.list = API.GUI.Navbar.element.right.find('.dropdown-menu').first();
-							API.GUI.Navbar.Notification.element.badge = API.GUI.Navbar.element.right.find('.badge').first();
-							API.GUI.Navbar.Notification.element.dismiss = API.GUI.Navbar.Notification.element.list.find('.dropdown-header').last();
-							API.GUI.Navbar.Notification.element.dismiss.click(function(){
-								API.GUI.Navbar.Notification.dismissAll();
-							});
-							if(API.loggedin){ API.GUI.Navbar.Notification.fetch(); }
+							if(API.loggedin){
+								var html = '';
+								html += '<li class="nav-item dropdown">';
+								  html += '<a class="nav-link" data-toggle="dropdown" data-display="static">';
+								    html += '<i class="fas fa-bell"></i>';
+										html += '<span class="badge badge-danger navbar-badge">'+API.GUI.Navbar.Notification.count+'</span>';
+								  html += '</a>';
+									html += '<div class="dropdown-menu dropdown-menu-mobile dropdown-menu-notification scrollable-menu">';
+										html += '<span class="dropdown-item dropdown-header">'+API.GUI.Navbar.Notification.count+' '+API.Contents.Language['Notifications']+'</span>';
+										html += '<div class="dropdown-divider"></div>';
+										html += '<a class="dropdown-item dropdown-header">'+API.Contents.Language['Dismiss All']+'</a>';
+									html += '</div>';
+								html += '</li>';
+								API.GUI.Navbar.element.right.prepend(html);
+								API.GUI.Navbar.Notification.element.list = API.GUI.Navbar.element.right.find('.dropdown-menu').first();
+								API.GUI.Navbar.Notification.element.badge = API.GUI.Navbar.element.right.find('.badge').first();
+								API.GUI.Navbar.Notification.element.dismiss = API.GUI.Navbar.Notification.element.list.find('.dropdown-header').last();
+								API.GUI.Navbar.Notification.element.dismiss.click(function(){
+									API.GUI.Navbar.Notification.dismissAll();
+								});
+								API.GUI.Navbar.Notification.fetch();
+							}
 						}
 					}, 100);
 					var checkNotifs = setInterval(function() {
 						if(API.initiated&&API.loggedin){API.GUI.Navbar.Notification.fetch();}
-					}, 10000);
+					}, 5000);
 				},
 				fetch:function(){
 					API.request('notifications','read',{
