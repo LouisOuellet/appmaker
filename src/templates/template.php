@@ -10,9 +10,8 @@
 	if(isset($_GET['p'])){ $p = $_GET['p']; } else { $p = $this->Parameters[0]; }
 	if(isset($_GET['v'])){ $v = $_GET['v']; } else { $v = 'index'; }
 	if(isset($_GET['id'])){ $id = $_GET['id']; } else { $id = ''; }
-	$title = ucwords(str_replace('_',' ',$p));
-	if($this->View != 'index'){ $title .= ' - '.ucwords($this->View); }
-	if($this->ID != null){ $title .= ' - '.ucwords($this->ID); }
+  if($this->Auth->isLogin()){ $title = ucwords(str_replace('_',' ',$p)); }
+	else { $title = $this->Language->Field['Sign_in']; }
 	?>
   <title><?= $title ?></title>
 	<link rel="shortcut icon" href="./dist/img/favicon.ico" />
@@ -159,8 +158,8 @@
 	</script>
   <!-- Pace-Progress -->
 	<script src="./vendor/pace-progress/pace.min.js"></script>
-<!-- overlayScrollbars -->
-<script src="./vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+  <!-- overlayScrollbars -->
+  <script src="./vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
   <!-- AdminLTE App -->
   <script src="./dist/js/adminlte.min.js"></script>
   <!-- extended CSS -->
