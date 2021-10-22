@@ -113,7 +113,14 @@ class API{
 
     // Customize SMTP template
     if(isset($this->Settings['url'],$this->Settings['smtp'],$this->Settings['smtp']['username'],$this->Settings['smtp']['password'],$this->Settings['smtp']['host'],$this->Settings['smtp']['port'],$this->Settings['smtp']['encryption'])){
-      $this->Auth->Mail->Customization($this->Settings['title'],["logo" => $this->Settings['url']."dist/img/logo.png","support" => $this->Settings['url']."?p=support","trademark" => $this->Settings['url']."?p=trademark","policy" => $this->Settings['url']."?p=policy"]);
+      $customization = [
+        "logo" => $this->Settings['url']."dist/img/logo.png",
+        "support" => $this->Settings['url']."?p=support",
+        "trademark" => $this->Settings['url']."?p=trademark",
+        "policy" => $this->Settings['url']."?p=policy"
+      ];
+      if(is_file(dirname(__FILE__,3).'/dist/img/custom-logo.png')){ $customization['logo'] = $this->Settings['url']."dist/img/custom-logo.png"; }
+      $this->Auth->Mail->Customization($this->Settings['title'],$customization);
     }
 
 		// Load APIs
