@@ -63,7 +63,6 @@ var API = {
 								if(decodedResult.charAt(0) == '{'){
 									try {
 										var response = JSON.parse(decodedResult);
-										if(typeof response.error !== 'undefined' && typeof response.code !== 'undefined' && response.code == 403){ location.reload(); }
 										if((typeof response.error !== 'undefined')&&(options.toast)){
 											API.Toast.show.fire({
 												type: 'error',
@@ -196,7 +195,6 @@ var API = {
 							if(decodedResult.charAt(0) == '{'){
 								try {
 									var response = JSON.parse(decodedResult);
-									if(typeof response.error !== 'undefined' && typeof response.code !== 'undefined' && response.code == 403){ location.reload(); }
 									if((typeof response.error !== 'undefined')&&(options.toast)){
 										API.Toast.show.fire({
 											type: 'error',
@@ -684,6 +682,7 @@ var API = {
 							}
 							if(etoast){ API.Toast.show.fire({ type: 'info', text: API.Contents.Language['You have new notifications'] }); }
 						}
+						if(typeof dataset.error !== 'undefined' && typeof dataset.code !== 'undefined' && dataset.code == 403){ location.reload(); }
 					});
 				},
 				add:function(options = {}, callback = null){
