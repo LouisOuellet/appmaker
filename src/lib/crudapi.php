@@ -645,7 +645,7 @@ class CRUDAPI extends APIextend{
 				$organization = $this->Auth->read('organizations',$organization['id'])->all()[0];
 				// Create Relationship
 				foreach($this->Auth->read('statuses',$organization['status'],'order')->all() as $statuses){
-					if($statuses['type'] == "organizations"){ $status = $statuses; }
+					if($statuses['relationship'] == "organizations"){ $status = $statuses; }
 				}
 				$relationship = $this->Auth->create('relationships',[
 					'relationship_1' => $request,

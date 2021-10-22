@@ -659,7 +659,7 @@ var API = {
 					}, 100);
 					var checkNotifs = setInterval(function() {
 						if(API.initiated&&API.loggedin){API.GUI.Navbar.Notification.fetch();}
-					}, 30000);
+					}, 10000);
 				},
 				fetch:function(){
 					API.request('notifications','read',{
