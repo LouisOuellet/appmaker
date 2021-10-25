@@ -1,11 +1,32 @@
 #!/bin/bash
 
+# Identify OS
+unameOut="$(uname -s)"
+case "${unameOut}" in
+    Linux*)     OS=Linux;;
+    Darwin*)    OS=Mac;;
+    CYGWIN*)    OS=Cygwin;;
+    MINGW*)     OS=MinGw;;
+    *)          OS="UNKNOWN:${unameOut}"
+esac
+
+if [ "$OS" == "Linux" ]; then
+  sourceDir=$(dirname $(readlink -f $0))
+  sourceCLI="${sourceDir}/cli.php"
+  sourceUser=$(stat -c '%U' ${sourceCLI})
+else
+  if [ "$OS" == "Mac" ]; then
+    sourceDir=$(dirname $(greadlink -f $0))
+    sourceCLI="${sourceDir}/cli.php"
+    sourceUser=$(stat -f '%Su' ${sourceCLI})
+  else
+    echo "Unsupported Operating System [${OS}]\n"
+    exit 0
+  fi
+fi
+
 while(true);do
-  # if [ "$(php -v | egrep -i 'php 7')" != "" ]; then
-    php /opt/ALB-Connect/cli.php --cron
-  # else
-  #   php7.2 /opt/ALB-Connect/cli.php --cron
-  # fi
+  sudo -u ${sourceUser} php ${sourceCLI} --cron
 done
 
 exit 0
