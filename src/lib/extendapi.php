@@ -514,6 +514,8 @@ class APIextend extends API{
 					$new['id'] = $this->Auth->create('relationships',$new);
 					$new['created'] = date("Y-m-d H:i:s");
 					$new['modified'] = date("Y-m-d H:i:s");
+					$new['owner'] = $this->Auth->User['id'];
+					$new['updated_by'] = $this->Auth->User['id'];
 					return $new;
 				} else {
 					return $relations[0];
