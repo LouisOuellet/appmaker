@@ -1061,6 +1061,9 @@ var API = {
 			}
 			return string;
 		},
+		isInt:function(num){
+			if((num+"").match(/^\d+$/)){ return true; } else { return false; }
+		},
 		pad:function(str, max){
 		  str = str.toString();
 		  return str.length < max ? pad("0" + str, max) : str;
