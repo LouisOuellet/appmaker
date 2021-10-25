@@ -139,6 +139,10 @@ class API{
 		// $this->Exchange = new EXCHANGE();
   }
 
+  public function getLanguage(){
+    return [ "Lists" => [ "Language" => $this->Language->Field ] ];
+  }
+
 	public function initApp(){
 		$Settings['LandingPage'] = $this->Settings['page'];
 		$Settings['customization'] = $this->Settings['customization'];

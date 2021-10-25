@@ -52,6 +52,8 @@ if(!empty($_POST)){
 	if($API->Auth->isLogin()){
 		if((isset($_POST['request'],$_POST['type']))&&($_POST['request'] == 'api')&&($_POST['type'] == 'initialize')){
 			echo json_encode($API->initApp(), JSON_PRETTY_PRINT);
+		} elseif((isset($_POST['request'],$_POST['type']))&&($_POST['request'] == 'api')&&($_POST['type'] == 'getLanguage')){
+			echo json_encode($API->getLanguage(), JSON_PRETTY_PRINT);
 		} elseif((isset($_POST['request'],$_POST['type']))&&($_POST['request'] == 'smtp')&&($_POST['type'] == 'send')){
 			if(isset($decodedJSON['extra'])){$API->Auth->Mail->send($decodedJSON['email'],$decodedJSON['message'],$decodedJSON['extra']);}
 			else{$API->Auth->Mail->send($decodedJSON['email'],$decodedJSON['message']);}
