@@ -375,41 +375,6 @@ var API = {
 		},
 	},
 	GUI:{
-		load:function(element, href, options = null, callback = null){
-			var windowLocation = new URL(window.location.href);
-			var url = new URL(windowLocation.origin+href);
-			if((options != null)&&(options instanceof Function)){ callback = options; options = {}; }
-			title = API.Helper.ucfirst(API.Helper.clean(url.searchParams.get("p")));
-			document.title = title;
-			window.history.pushState({page: 1},title, url.origin+href);
-			$('a[href^="?p"]').removeClass('active');
-			$('a[href^="'+href+'"]').addClass('active');
-			if(element.prop("tagName") == "SECTION"){ $('#page-title h1').html(title); }
-			if(url.searchParams.get("v") == undefined){
-				var view = './plugins/'+url.searchParams.get("p")+'/src/views/index.php';
-				var fview = 'index';
-			} else {
-				var view = './plugins/'+url.searchParams.get("p")+'/src/views/'+url.searchParams.get("v")+'.php';
-				var fview = url.searchParams.get("v");
-			}
-			if((API.Auth.validate('plugin', url.searchParams.get("p"), 1))&&(API.Auth.validate('view', fview, 1, url.searchParams.get("p")))){
-				$.ajax({
-			    url: view,
-			    type: 'HEAD',
-			    error: function(){ element.load('./src/views/404.php'); },
-			    success: function(){
-						element.first().html('');
-		        element.first().load(view,null,function(response,status){
-							if(status == 'success'){
-								if((options != null)&&(typeof options.keys !== 'undefined')){ API.GUI.insert(options.keys); }
-								API.Plugins.init();
-								if(callback != null){ callback(element); }
-							} else { element.load('./src/views/500.php'); }
-						});
-			    }
-				});
-			} else { element.load('./src/views/403.php'); }
-		},
 		init:function(){
 			var checkExist = setInterval(function() {
 				if((API.initiated)&&($('.breadcrumb-item').length)){
@@ -501,6 +466,131 @@ var API = {
 				}
 			}, 100);
 			API.GUI.Navbar.init();
+		},
+		load:function(element, href, options = null, callback = null){
+			var windowLocation = new URL(window.location.href);
+			var url = new URL(windowLocation.origin+href);
+			if((options != null)&&(options instanceof Function)){ callback = options; options = {}; }
+			title = API.Helper.ucfirst(API.Helper.clean(url.searchParams.get("p")));
+			document.title = title;
+			window.history.pushState({page: 1},title, url.origin+href);
+			$('a[href^="?p"]').removeClass('active');
+			$('a[href^="'+href+'"]').addClass('active');
+			if(element.prop("tagName") == "SECTION"){ $('#page-title h1').html(title); }
+			if(url.searchParams.get("v") == undefined){
+				var view = './plugins/'+url.searchParams.get("p")+'/src/views/index.php';
+				var fview = 'index';
+			} else {
+				var view = './plugins/'+url.searchParams.get("p")+'/src/views/'+url.searchParams.get("v")+'.php';
+				var fview = url.searchParams.get("v");
+			}
+			if((API.Auth.validate('plugin', url.searchParams.get("p"), 1))&&(API.Auth.validate('view', fview, 1, url.searchParams.get("p")))){
+				$.ajax({
+			    url: view,
+			    type: 'HEAD',
+			    error: function(){ element.load('./src/views/404.php'); },
+			    success: function(){
+						element.first().html('');
+		        element.first().load(view,null,function(response,status){
+							if(status == 'success'){
+								if((options != null)&&(typeof options.keys !== 'undefined')){ API.GUI.insert(options.keys); }
+								API.Plugins.init();
+								if(callback != null){ callback(element); }
+							} else { element.load('./src/views/500.php'); }
+						});
+			    }
+				});
+			} else { element.load('./src/views/403.php'); }
+		},
+		insert:function(data, options = null, callback = null){
+			var url = new URL(window.location.href);
+			if((options != null)&&(options instanceof Function)){ callback = options; options = {}; }
+			if(options == null){ options = {}; }
+			if(typeof options.plugin !== 'undefined'){ plugin = options.plugin; } else { plugin = url.searchParams.get("p"); }
+			for (var [key, value] of Object.entries(data)) {
+				switch(key){
+					case'tags':
+						if(value != null){
+							var tags = value.replace(/; /g, ";").split(';');
+							$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').html('');
+							for(var [index, tag] of Object.entries(tags)){
+								var html = '';
+								if(index > 0){ $('[data-plugin="'+plugin+'"][data-key="'+key+'"]').append('<span style="display:none;">;</span>'); }
+								if(tag != ''){
+									html += '<div class="btn-group m-1 text-light">';
+										html += '<a class="btn btn-xs btn-primary"><i class="icon icon-tag mr-1"></i>'+tag+'</a>'
+										html += '<a class="btn btn-xs btn-danger"><i class="icon icon-untag"></i></a>'
+									html += '</div>';
+									$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').append(html);
+								}
+							}
+						}
+						break;
+					case'assigned_to':
+						if(value != null){
+							var users = value.replace(/; /g, ";").split(';');
+							$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').html('');
+							for (var [index, user] of Object.entries(users)) {
+								var html = '';
+								if(index > 0){ $('[data-plugin="'+plugin+'"][data-key="'+key+'"]').append('<span style="display:none;">;</span>'); }
+								if(user != ''){
+									html += '<div class="btn-group m-1 text-light">';
+										html += '<a class="btn btn-xs btn-primary"><i class="icon icon-user mr-1"></i>'+user+'</a>'
+										html += '<a class="btn btn-xs btn-danger"><i class="icon icon-unassign"></i></a>'
+									html += '</div>';
+									$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').append(html);
+								}
+							}
+						}
+						break;
+					case'website':
+						$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').html(value);
+						$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').attr('href',value);
+						break;
+					case'email':
+						$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').html(value);
+						$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').attr('href','mailto:'+value);
+						break;
+					case'phone':
+					case'mobile':
+					case'toll_free':
+					case'office_num':
+					case'other_num':
+						$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').html(value);
+						$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').attr('href','tel:'+value);
+						break;
+					case'client':
+						$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').html(value);
+						$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').attr('href','?p=organizations&v=details&id='+value);
+						break;
+					case'user':
+						$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').html(value);
+						$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').attr('href','?p=users&v=details&id='+value);
+						break;
+					case'project':
+						$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').html(value);
+						$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').attr('href','?p=projects&v=details&id='+value);
+						break;
+					case'link_to':
+						$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').html(value);
+						$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').attr('href','?p='+data.relationship+'&v=details&id='+value);
+						$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').click(function(action){
+							action.preventDefault();
+							if(API.Helper.isSet(API,['Contents',data.relationship,value])){
+								API.GUI.Breadcrumbs.add(value, '?p='+data.relationship+'&v=details&id='+value, { keys:API.Contents.data[data.relationship][value] });
+								API.CRUD.read.show({ keys:API.Contents.data[data.relationship][value], title:value, href:'?p='+data.relationship+'&v=details&id='+value, modal:true });
+							} else {
+								API.GUI.Breadcrumbs.add(value, '?p='+data.relationship+'&v=details&id='+value);
+								API.CRUD.read.show({ href:'?p='+data.relationship+'&v=details&id='+value, title:value, modal:true });
+							}
+						});
+						break;
+					default:
+						$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').html(value);
+						break;
+				}
+			}
+			if(callback != null){ callback(data); }
 		},
 		Navbar:{
 			element:{},
@@ -947,95 +1037,87 @@ var API = {
 				}, 100);
 			},
 		},
-		insert:function(data, options = null, callback = null){
-			var url = new URL(window.location.href);
-			if((options != null)&&(options instanceof Function)){ callback = options; options = {}; }
-			if(options == null){ options = {}; }
-			if(typeof options.plugin !== 'undefined'){ plugin = options.plugin; } else { plugin = url.searchParams.get("p"); }
-			for (var [key, value] of Object.entries(data)) {
-				switch(key){
-					case'tags':
-						if(value != null){
-							var tags = value.replace(/; /g, ";").split(';');
-							$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').html('');
-							for(var [index, tag] of Object.entries(tags)){
-								var html = '';
-								if(index > 0){ $('[data-plugin="'+plugin+'"][data-key="'+key+'"]').append('<span style="display:none;">;</span>'); }
-								if(tag != ''){
-									html += '<div class="btn-group m-1 text-light">';
-										html += '<a class="btn btn-xs btn-primary"><i class="icon icon-tag mr-1"></i>'+tag+'</a>'
-										html += '<a class="btn btn-xs btn-danger"><i class="icon icon-untag"></i></a>'
+		Layouts:{
+			counts:{
+				index: 0,
+				details: 0,
+			},
+			index:function(container,dataset,options = {},callback = null){
+				API.GUI.Layouts.counts.index++;
+				if(options instanceof Function){ callback = options; options = {}; }
+				API.Builder.table(container, dataset.output.dom, {
+					headers:dataset.output.headers,
+					id:'OrganizationsIndex',
+					modal:true,
+					key:'name',
+					clickable:{ enable:true, view:'details'},
+					set:{status:1,isActive:"true"},
+					controls:{ toolbar:true},
+					import:{ key:'name', },
+					load:false,
+				});
+			},
+			details:function(container,dataset,options = {},callback = null){
+				API.GUI.Layouts.counts.details++;
+				if(options instanceof Function){ callback = options; options = {}; }
+				var html = '';
+				var defaults = {
+					title: "Details",
+					image: "/dist/img/building.png",
+				};
+				if(API.Helper.isSet(options,['title'])){ defaults.title = options.title; }
+				html += '<div class="row" id="details_'+API.GUI.Layouts.counts.details+'">';
+					html += '<div class="col-md-4">';
+						html += '<div class="card" id="details_record_'+API.GUI.Layouts.counts.details+'">';
+				      html += '<div class="card-header d-flex p-0">';
+				        html += '<h3 class="card-title p-3">'+defaults.title+'</h3>';
+				      html += '</div>';
+				      html += '<div class="card-body p-0">';
+								html += '<div class="row">';
+									html += '<div class="col-12 p-4 text-center">';
+										html += '<img class="profile-user-img img-fluid img-circle" style="height:150px;width:150px;" src="'+defaults.image+'">';
 									html += '</div>';
-									$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').append(html);
-								}
-							}
-						}
-						break;
-					case'assigned_to':
-						if(value != null){
-							var users = value.replace(/; /g, ";").split(';');
-							$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').html('');
-							for (var [index, user] of Object.entries(users)) {
-								var html = '';
-								if(index > 0){ $('[data-plugin="'+plugin+'"][data-key="'+key+'"]').append('<span style="display:none;">;</span>'); }
-								if(user != ''){
-									html += '<div class="btn-group m-1 text-light">';
-										html += '<a class="btn btn-xs btn-primary"><i class="icon icon-user mr-1"></i>'+user+'</a>'
-										html += '<a class="btn btn-xs btn-danger"><i class="icon icon-unassign"></i></a>'
-									html += '</div>';
-									$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').append(html);
-								}
-							}
-						}
-						break;
-					case'website':
-						$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').html(value);
-						$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').attr('href',value);
-						break;
-					case'email':
-						$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').html(value);
-						$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').attr('href','mailto:'+value);
-						break;
-					case'phone':
-					case'mobile':
-					case'toll_free':
-					case'office_num':
-					case'other_num':
-						$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').html(value);
-						$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').attr('href','tel:'+value);
-						break;
-					case'client':
-						$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').html(value);
-						$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').attr('href','?p=organizations&v=details&id='+value);
-						break;
-					case'user':
-						$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').html(value);
-						$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').attr('href','?p=users&v=details&id='+value);
-						break;
-					case'project':
-						$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').html(value);
-						$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').attr('href','?p=projects&v=details&id='+value);
-						break;
-					case'link_to':
-						$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').html(value);
-						$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').attr('href','?p='+data.relationship+'&v=details&id='+value);
-						$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').click(function(action){
-							action.preventDefault();
-							if(API.Helper.isSet(API,['Contents',data.relationship,value])){
-								API.GUI.Breadcrumbs.add(value, '?p='+data.relationship+'&v=details&id='+value, { keys:API.Contents.data[data.relationship][value] });
-								API.CRUD.read.show({ keys:API.Contents.data[data.relationship][value], title:value, href:'?p='+data.relationship+'&v=details&id='+value, modal:true });
-							} else {
-								API.GUI.Breadcrumbs.add(value, '?p='+data.relationship+'&v=details&id='+value);
-								API.CRUD.read.show({ href:'?p='+data.relationship+'&v=details&id='+value, title:value, modal:true });
-							}
-						});
-						break;
-					default:
-						$('[data-plugin="'+plugin+'"][data-key="'+key+'"]').html(value);
-						break;
-				}
-			}
-			if(callback != null){ callback(data); }
+									html += '<div class="col-12 pt-2 pl-2 pr-2 pb-0 m-0">';
+										html += '<table class="table table-striped table-hover m-0">';
+											html += '<thead class="m-0 p-0" style="border-spacing: 0px; line-height: 0px;">';
+												html += '<tr>';
+													html += '<th colspan="2" class="p-0">';
+														html += '<div class="btn-group btn-block" id="details_record_controls_'+API.GUI.Layouts.counts.details+'">></div>';
+													html += '</th>';
+												html += '</tr>';
+											html += '</thead>';
+											html += '<tbody></tbody>';
+										html += '</table>';
+							    html += '</div>';
+						    html += '</div>';
+							html += '</div>';
+				    html += '</div>';
+					html += '</div>';
+					html += '<div class="col-md-8">';
+						html += '<div class="card" id="details_main_'+API.GUI.Layouts.counts.details+'">';
+				      html += '<div class="card-header d-flex p-0">';
+				        html += '<ul class="nav nav-pills p-2" id="details_main_tabs_'+API.GUI.Layouts.counts.details+'"></ul>';
+								html += '<div id="details_main_controls_'+API.GUI.Layouts.counts.details+'" class="btn-group ml-auto">';
+									html += '<button type="button" data-action="subscribe" style="display:none;" class="btn"><i class="fas fa-bell"></i></button>';
+									html += '<button type="button" data-action="unsubscribe" style="display:none;" class="btn"><i class="fas fa-bell-slash"></i></button>';
+								html += '</div>';
+				      html += '</div>';
+				      html += '<div class="card-body p-0">';
+				        html += '<div class="tab-content" id="details_main_tabs_content_'+API.GUI.Layouts.counts.details+'></div>';
+				      html += '</div>';
+				    html += '</div>';
+					html += '</div>';
+				html += '</div>';
+				container.html(html);
+				if(callback != null){ callback(container.find('#details_'+API.GUI.Layouts.counts.details), dataset, {
+					details: container.find('#details_record_'+API.GUI.Layouts.counts.details),
+					controls: container.find('#details_record_controls_'+API.GUI.Layouts.counts.details),
+					main: container.find('#details_main_'+API.GUI.Layouts.counts.details),
+					buttons: container.find('#details_main_controls_'+API.GUI.Layouts.counts.details),
+					tabs: container.find('#details_main_tabs_'+API.GUI.Layouts.counts.details),
+					content: container.find('#details_main_tabs_content_'+API.GUI.Layouts.counts.details),
+				}); }
+			},
 		},
 	},
 	Helper:{
