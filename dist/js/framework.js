@@ -1057,66 +1057,94 @@ var API = {
 					load:false,
 				});
 			},
-			details:function(container,dataset,options = {},callback = null){
-				API.GUI.Layouts.counts.details++;
-				if(options instanceof Function){ callback = options; options = {}; }
-				var html = '';
-				var defaults = {
-					title: "Details",
-					image: "/dist/img/building.png",
-				};
-				if(API.Helper.isSet(options,['title'])){ defaults.title = options.title; }
-				html += '<div class="row" id="details_'+API.GUI.Layouts.counts.details+'">';
-					html += '<div class="col-md-4">';
-						html += '<div class="card" id="details_record_'+API.GUI.Layouts.counts.details+'">';
-				      html += '<div class="card-header d-flex p-0">';
-				        html += '<h3 class="card-title p-3">'+defaults.title+'</h3>';
-				      html += '</div>';
-				      html += '<div class="card-body p-0">';
-								html += '<div class="row">';
-									html += '<div class="col-12 p-4 text-center">';
-										html += '<img class="profile-user-img img-fluid img-circle" style="height:150px;width:150px;" src="'+defaults.image+'">';
-									html += '</div>';
-									html += '<div class="col-12 pt-2 pl-2 pr-2 pb-0 m-0">';
-										html += '<table class="table table-striped table-hover m-0">';
-											html += '<thead class="m-0 p-0" style="border-spacing: 0px; line-height: 0px;">';
-												html += '<tr>';
-													html += '<th colspan="2" class="p-0">';
-														html += '<div class="btn-group btn-block" id="details_record_controls_'+API.GUI.Layouts.counts.details+'">></div>';
-													html += '</th>';
-												html += '</tr>';
-											html += '</thead>';
-											html += '<tbody></tbody>';
-										html += '</table>';
+			details:{
+				build:function(dataset,container,options = {},callback = null){
+					API.GUI.Layouts.counts.details++;
+					if(options instanceof Function){ callback = options; options = {}; }
+					var html = '';
+					var defaults = {
+						title: "Details",
+						image: "/dist/img/logo.png",
+					};
+					if(API.Helper.isSet(options,['title'])){ defaults.title = options.title; }
+					if(API.Helper.isSet(options,['image'])){ defaults.image = options.image; }
+					html += '<div class="row" id="details_'+API.GUI.Layouts.counts.details+'">';
+						html += '<div class="col-md-4">';
+							html += '<div class="card" id="details_record_'+API.GUI.Layouts.counts.details+'">';
+					      html += '<div class="card-header d-flex p-0">';
+					        html += '<h3 class="card-title p-3">'+defaults.title+'</h3>';
+					      html += '</div>';
+					      html += '<div class="card-body p-0">';
+									html += '<div class="row">';
+										html += '<div class="col-12 p-4 text-center">';
+											html += '<img class="profile-user-img img-fluid img-circle" style="height:150px;width:150px;" src="'+defaults.image+'">';
+										html += '</div>';
+										html += '<div class="col-12 pt-2 pl-2 pr-2 pb-0 m-0">';
+											html += '<table class="table table-striped table-hover m-0">';
+												html += '<thead class="m-0 p-0" style="border-spacing: 0px; line-height: 0px;">';
+													html += '<tr>';
+														html += '<th colspan="2" class="p-0">';
+															html += '<div class="btn-group btn-block" id="details_record_controls_'+API.GUI.Layouts.counts.details+'"></div>';
+														html += '</th>';
+													html += '</tr>';
+												html += '</thead>';
+												html += '<tbody></tbody>';
+											html += '</table>';
+								    html += '</div>';
 							    html += '</div>';
-						    html += '</div>';
-							html += '</div>';
-				    html += '</div>';
-					html += '</div>';
-					html += '<div class="col-md-8">';
-						html += '<div class="card" id="details_main_'+API.GUI.Layouts.counts.details+'">';
-				      html += '<div class="card-header d-flex p-0">';
-				        html += '<ul class="nav nav-pills p-2" id="details_main_tabs_'+API.GUI.Layouts.counts.details+'"></ul>';
-								html += '<div id="details_main_controls_'+API.GUI.Layouts.counts.details+'" class="btn-group ml-auto">';
-									html += '<button type="button" data-action="subscribe" style="display:none;" class="btn"><i class="fas fa-bell"></i></button>';
-									html += '<button type="button" data-action="unsubscribe" style="display:none;" class="btn"><i class="fas fa-bell-slash"></i></button>';
 								html += '</div>';
-				      html += '</div>';
-				      html += '<div class="card-body p-0">';
-				        html += '<div class="tab-content" id="details_main_tabs_content_'+API.GUI.Layouts.counts.details+'></div>';
-				      html += '</div>';
-				    html += '</div>';
+					    html += '</div>';
+						html += '</div>';
+						html += '<div class="col-md-8">';
+							html += '<div class="card" id="details_main_'+API.GUI.Layouts.counts.details+'">';
+					      html += '<div class="card-header d-flex p-0">';
+					        html += '<ul class="nav nav-pills p-2" id="details_main_tabs_'+API.GUI.Layouts.counts.details+'"></ul>';
+									html += '<div id="details_main_controls_'+API.GUI.Layouts.counts.details+'" class="btn-group ml-auto">';
+										html += '<button type="button" data-action="subscribe" style="display:none;" class="btn"><i class="fas fa-bell"></i></button>';
+										html += '<button type="button" data-action="unsubscribe" style="display:none;" class="btn"><i class="fas fa-bell-slash"></i></button>';
+									html += '</div>';
+					      html += '</div>';
+					      html += '<div class="card-body p-0">';
+					        html += '<div class="tab-content" id="details_main_tabs_content_'+API.GUI.Layouts.counts.details+'"></div>';
+					      html += '</div>';
+					    html += '</div>';
+						html += '</div>';
 					html += '</div>';
-				html += '</div>';
-				container.html(html);
-				if(callback != null){ callback(container.find('#details_'+API.GUI.Layouts.counts.details), dataset, {
-					details: container.find('#details_record_'+API.GUI.Layouts.counts.details),
-					controls: container.find('#details_record_controls_'+API.GUI.Layouts.counts.details),
-					main: container.find('#details_main_'+API.GUI.Layouts.counts.details),
-					buttons: container.find('#details_main_controls_'+API.GUI.Layouts.counts.details),
-					tabs: container.find('#details_main_tabs_'+API.GUI.Layouts.counts.details),
-					content: container.find('#details_main_tabs_content_'+API.GUI.Layouts.counts.details),
-				}); }
+					container.html(html);
+					if(callback != null){ callback(dataset, {
+						id: API.GUI.Layouts.counts.details,
+						details: container.find('#details_record_'+API.GUI.Layouts.counts.details),
+						controls: container.find('#details_record_controls_'+API.GUI.Layouts.counts.details),
+						main: container.find('#details_main_'+API.GUI.Layouts.counts.details),
+						buttons: container.find('#details_main_controls_'+API.GUI.Layouts.counts.details),
+						tabs: container.find('#details_main_tabs_'+API.GUI.Layouts.counts.details),
+						content: container.find('#details_main_tabs_content_'+API.GUI.Layouts.counts.details),
+					}); }
+				},
+				data:function(dataset,layout,options = {},callback = null){
+					if(options instanceof Function){ callback = options; options = {}; }
+					var html = '';
+					var defaults = {
+						field: "name",
+						plugin: "",
+						td: "",
+					};
+					if(API.Helper.isSet(options,['field'])){ defaults.field = options.field; }
+					if(API.Helper.isSet(options,['plugin'])){ defaults.plugin = options.plugin; }
+					if(API.Helper.isSet(options,['td'])){ defaults.td = options.td; }
+					else {
+						defaults.td = '<td data-plugin="'+defaults.plugin+'" data-key="'+defaults.field+'">';
+							if(API.Helper.isSet(dataset,['this','dom',defaults.field])){ defaults.td += dataset.this.dom[defaults.field]; }
+						defaults.td += '</td>';
+					}
+					html +='<tr>';
+						html +='<td data-edit="'+defaults.field+'"><b>'+API.Helper.ucfirst(API.Contents.Language[defaults.field])+'</b></td>';
+						html +=defaults.td;
+					html +='</tr>';
+					layout.details.find('tbody').append(html);
+					var tr = layout.details.find('tbody tr').last();
+					if(callback != null){ callback(dataset,layout,tr); }
+				},
 			},
 		},
 	},
