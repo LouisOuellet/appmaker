@@ -635,14 +635,14 @@ class CRUDAPI extends APIextend{
 		if(isset($data)){
 			if(!is_array($data)){ $data = json_decode($data, true); }
 			if(!isset($data['key'])){ $data['key'] = 'id'; }
-			if(!is_int($data['status'])){ $data['status'] = intval($data['status']); }
+			if(isset($data['status']) && !is_int($data['status'])){ $data['status'] = intval($data['status']); }
 			// Fetch Organization
 			$organization = $this->Auth->read($request,$data['link_to'])->all()[0];
 			if((isset($organization['organization']))&&($organization['organization'] != '')){
 				// Fetch Linked Organization
 				$linkedOrganization = $this->Auth->read('organizations',$organization['organization'])->all()[0];
 				// Fetch Contacts
-				$list = $this->Auth->query('SELECT * FROM `contacts` WHERE `relationship` = ? AND `link_to` = ?','organizations',$linkedOrganization['id'])->fetchAll()->all();
+				$list = $this->Auth->query('SELECT * FROM `contacts` WHERE `organization` = ?',$linkedOrganization['id'])->fetchAll()->all();
 				foreach($list as $contact){ $contacts[$contact['id']] = $contact; }
 			}
 			// Fetch Category
@@ -674,57 +674,59 @@ class CRUDAPI extends APIextend{
 			// Init Messages
 			$messages = [];
 			// Update Status
-			$status = null;
-			if(((array_key_exists("status",$data))&&(array_key_exists("status",$organization)))&&($organization['status'] != $data['status'])){
-				$organization['status'] = $data['status'];
-				$this->Auth->update('organizations',$organization,$organization['id']);
-				$organization = $this->Auth->read('organizations',$organization['id'])->all()[0];
-				// Create Relationship
-				foreach($this->Auth->read('statuses',$organization['status'],'order')->all() as $statuses){
-					if($statuses['relationship'] == "organizations"){ $status = $statuses; }
-				}
-				$relationship = $this->createRelationship([
-					'relationship_1' => $request,
-					'link_to_1' => $organization['id'],
-					'relationship_2' => 'statuses',
-					'link_to_2' => $status['id'],
-				]);
-				// Send Notifications
-				if((isset($relationships))&&(!empty($relationships))){
-					foreach($relationships as $id => $links){
-						foreach($links as $relationship){
-							// Fetch Contact Information
-							unset($contact);
-							if(($relationship['relationship'] == "users")||($relationship['relationship'] == "contacts")){
-								$query = $this->Auth->read($relationship['relationship'],$relationship['link_to']);
-								if($query != null){ $contact = $query->all()[0]; }
-							}
-							if(isset($contact)){
-								if((isset($subscriptions['status']['users'][$contact['id']]))||(isset($subscriptions['status']['contacts'][$contact['id']]))){
-									// Send Internal Notifications
-									if(isset($contact['username'])){
-										parent::create('notifications',[
-											'icon' => 'fas fa-info mr-2',
-											'subject' => $organization[$data['key']].' is now '.$status['name'],
-											'dissmissed' => 1,
-											'user' => $contact['id'],
-											'href' => '?p=organizations&v=details&id='.$organization[$data['key']],
-										]);
-									}
-									// Send Mail Notifications
-									if(isset($contact['email'])){
-										$message = [
-											'email' => $contact['email'],
-											'message' => 'Status set to '.$status['name'],
-											'extra' => [
-												'from' => $this->Auth->User['email'],
-												'replyto' => $this->Settings['contacts'][$request],
-												'subject' => "ALB Connect -"." ID:".$organization['id']." Organization:".$organization[$data['key']],
-												'href' => "?p=organizations&v=details&id=".$organization[$data['key']],
-											],
-										];
-										array_push($messages,$message);
-										$this->Auth->Mail->send($message['email'],$message['message'],$message['extra']);
+			if(isset($data['status'])){
+				$status = null;
+				if(((array_key_exists("status",$data))&&(array_key_exists("status",$organization)))&&($organization['status'] != $data['status'])){
+					$organization['status'] = $data['status'];
+					$this->Auth->update('organizations',$organization,$organization['id']);
+					$organization = $this->Auth->read('organizations',$organization['id'])->all()[0];
+					// Create Relationship
+					foreach($this->Auth->read('statuses',$organization['status'],'order')->all() as $statuses){
+						if($statuses['relationship'] == "organizations"){ $status = $statuses; }
+					}
+					$relationship = $this->createRelationship([
+						'relationship_1' => $request,
+						'link_to_1' => $organization['id'],
+						'relationship_2' => 'statuses',
+						'link_to_2' => $status['id'],
+					]);
+					// Send Notifications
+					if((isset($relationships))&&(!empty($relationships))){
+						foreach($relationships as $id => $links){
+							foreach($links as $relationship){
+								// Fetch Contact Information
+								unset($contact);
+								if(($relationship['relationship'] == "users")||($relationship['relationship'] == "contacts")){
+									$query = $this->Auth->read($relationship['relationship'],$relationship['link_to']);
+									if($query != null){ $contact = $query->all()[0]; }
+								}
+								if(isset($contact)){
+									if((isset($subscriptions['status']['users'][$contact['id']]))||(isset($subscriptions['status']['contacts'][$contact['id']]))){
+										// Send Internal Notifications
+										if(isset($contact['username'])){
+											parent::create('notifications',[
+												'icon' => 'fas fa-info mr-2',
+												'subject' => $organization[$data['key']].' is now '.$status['name'],
+												'dissmissed' => 1,
+												'user' => $contact['id'],
+												'href' => '?p=organizations&v=details&id='.$organization[$data['key']],
+											]);
+										}
+										// Send Mail Notifications
+										if(isset($contact['email'])){
+											$message = [
+												'email' => $contact['email'],
+												'message' => 'Status set to '.$status['name'],
+												'extra' => [
+													'from' => $this->Auth->User['email'],
+													'replyto' => $this->Settings['contacts'][$request],
+													'subject' => "ALB Connect -"." ID:".$organization['id']." Organization:".$organization[$data['key']],
+													'href' => "?p=organizations&v=details&id=".$organization[$data['key']],
+												],
+											];
+											array_push($messages,$message);
+											$this->Auth->Mail->send($message['email'],$message['message'],$message['extra']);
+										}
 									}
 								}
 							}
@@ -799,8 +801,7 @@ class CRUDAPI extends APIextend{
 					}
 				}
 			}
-			// Return
-			return [
+			$return = [
 				"success" => $this->Language->Field["This request was successfull"],
 				"request" => $request,
 				"data" => $data,
@@ -812,9 +813,11 @@ class CRUDAPI extends APIextend{
 					'relationships' => $relationships,
 					'subscriptions' => $subscriptions,
 					'messages' => $messages,
-					'status' => $status,
 				],
 			];
+			if(isset($data['status'])){ $return['output']['status'] = $status;}
+			// Return
+			return$return;
 		}
 	}
 
