@@ -493,7 +493,7 @@ var API = {
 						element.first().html('');
 		        element.first().load(view,null,function(response,status){
 							if(status == 'success'){
-								if((options != null)&&(typeof options.keys !== 'undefined')){ API.GUI.insert(options.keys); }
+								// if((options != null)&&(typeof options.keys !== 'undefined')){ API.GUI.insert(options.keys); }
 								API.Plugins.init();
 								if(callback != null){ callback(element); }
 							} else { element.load('./src/views/500.php'); }
@@ -774,7 +774,7 @@ var API = {
 							}
 							if(etoast){ API.Toast.show.fire({ type: 'info', text: API.Contents.Language['You have new notifications'] }); }
 						}
-						if(typeof dataset.error !== 'undefined' && typeof dataset.code !== 'undefined' && dataset.code == 403){ location.reload(); }
+						if(typeof dataset.error !== 'undefined' && typeof dataset.code !== 'undefined' && (dataset.code == 403 || dataset.code == 500)){ location.reload(); }
 					});
 				},
 				add:function(options = {}, callback = null){
@@ -1041,6 +1041,7 @@ var API = {
 			counts:{
 				index: 0,
 				details: 0,
+				tabs: 0,
 			},
 			index:function(container,dataset,options = {},callback = null){
 				API.GUI.Layouts.counts.index++;
@@ -1145,10 +1146,68 @@ var API = {
 					var tr = layout.details.find('tbody tr').last();
 					if(callback != null){ callback(dataset,layout,tr); }
 				},
+				control:function(dataset,layout,options = {},callback = null){
+					if(options instanceof Function){ callback = options; options = {}; }
+					var html = '';
+					var defaults = {
+						color: "primary",
+						icon: "fas fa-cog",
+						text: "",
+					};
+					if(API.Helper.isSet(options,['color'])){ defaults.color = options.color; }
+					if(API.Helper.isSet(options,['icon'])){ defaults.icon = options.icon; }
+					if(API.Helper.isSet(options,['text'])){ defaults.text = options.text; }
+					html += '<button class="btn btn-flat btn-'+defaults.color+'">';
+					if(defaults.text != ''){ html += '<i class="'+defaults.icon+' mr-1"></i>'+defaults.text; }
+					else { html += '<i class="'+defaults.icon+'"></i>'; }
+					html += '</button>';
+					layout.controls.append(html);
+					var button = layout.controls.find('button').last();
+					if(callback != null){ callback(dataset,layout,button); }
+				},
+				button:function(dataset,layout,options = {},callback = null){
+					if(options instanceof Function){ callback = options; options = {}; }
+					var defaults = {icon: "fas fa-cog"};
+					if(API.Helper.isSet(options,['icon'])){ defaults.icon = options.icon; }
+					layout.buttons.append('<button class="btn"><i class="'+defaults.icon+'"></i></button>');
+					var button = layout.buttons.find('button').last();
+					if(callback != null){ callback(dataset,layout,button); }
+				},
+				tab:function(dataset,layout,options = {},callback = null){
+					API.GUI.Layouts.counts.tabs++;
+					if(options instanceof Function){ callback = options; options = {}; }
+					var html = '';
+					var defaults = {
+						icon: "fas fa-cog",
+						text: "",
+					};
+					if(API.Helper.isSet(options,['icon'])){ defaults.icon = options.icon; }
+					if(API.Helper.isSet(options,['text'])){ defaults.text = options.text; }
+					html += '<li class="nav-item"><a class="nav-link" href="#tab_'+API.GUI.Layouts.counts.tabs+'" data-toggle="tab">';
+					if(defaults.text != ''){ html += '<i class="'+defaults.icon+' mr-1"></i>'+defaults.text; }
+					else { html += '<i class="'+defaults.icon+'"></i>'; }
+					html += '</a></li>';
+					layout.tabs.append(html);
+					layout.content.append('<div class="tab-pane" id="tab_'+API.GUI.Layouts.counts.tabs+'"></div>');
+					var tab = layout.tabs.find('li').last();
+					var content = layout.content.find('div.tab-pane').last();
+					if(layout.tabs.find('li').length <= 1){ tab.find('a').addClass('active'); }
+					if(layout.content.find('div.tab-pane').length <= 1){ content.addClass('active'); }
+					if(callback != null){ callback(dataset,layout,tab,content); }
+				},
 			},
 		},
 	},
 	Helper:{
+		toString:function(date){
+			var day = String(date.getDate()).padStart(2, '0');
+			var month = String(date.getMonth() + 1).padStart(2, '0');
+			var year = date.getFullYear();
+			var hours = String(date.getHours()).padStart(2, '0');
+			var minutes = String(date.getMinutes()).padStart(2, '0');
+			var secondes = String(date.getSeconds()).padStart(2, '0');
+			return year+'-'+month+'-'+day+' '+hours+':'+minutes+':'+secondes;
+		},
 		htmlentities:function(obj){
 			for(var key in obj){
 	      if(typeof obj[key] == "object" && obj[key] !== null){ API.Helper.htmlentities(obj[key]); }
@@ -1495,7 +1554,7 @@ var API = {
 					var dateItem = new Date(item.created);
 					var dateUS = dateItem.toLocaleDateString('en-US', {day: 'numeric', month: 'short', year: 'numeric'}).replace(/ /g, '-').replace(/,/g, '');
 					if(timeline.length > 0){
-						plugin = timeline.parent().attr('id');
+						plugin = timeline.attr('data-plugin');
 						API.Builder.Timeline.add.date(timeline,item.created);
 						var checkExist = setInterval(function() {
 							if(timeline.find('div.time-label[data-dateus="'+dateUS+'"]').length > 0){
@@ -1611,7 +1670,7 @@ var API = {
 									html += '<i class="fas fa-'+icon+' bg-'+color+'"></i>';
 									html += '<div class="timeline-item">';
 										html += '<span class="time"><i class="fas fa-clock mr-2"></i><time class="timeago" datetime="'+item.created.replace(/ /g, "T")+'">'+item.created+'</time></span>';
-										html += '<h3 class="timeline-header">Issue '+item.id+' - '+item.name+' was linked and set to'+status+'</h3>';
+										html += '<h3 class="timeline-header">Issue '+item.id+' - '+item.name+' was'+status+'</h3>';
 									html += '</div>';
 								html += '</div>';
 								timeline.find('div.time-label[data-dateus="'+dateUS+'"]').after(html);
@@ -1642,7 +1701,8 @@ var API = {
 									html += '<i class="fas fa-'+icon+' bg-'+color+'"></i>';
 									html += '<div class="timeline-item">';
 										html += '<span class="time"><i class="fas fa-clock mr-2"></i><time class="timeago" datetime="'+item.created.replace(/ /g, "T")+'">'+item.created+'</time></span>';
-										html += '<h3 class="timeline-header">'+item.email+' was subscribed</h3>';
+										if(item.id == API.Contents.Auth.User.id){ html += '<h3 class="timeline-header">'+API.Contents.Language['You are subscribed']+'</h3>'; }
+										else { html += '<h3 class="timeline-header">'+item.email+API.Contents.Language[' was subscribed']+'</h3>'; }
 									html += '</div>';
 								html += '</div>';
 								timeline.find('div.time-label[data-dateus="'+dateUS+'"]').after(html);
@@ -2946,6 +3006,7 @@ var API = {
 							}
 						break;
 					case "tags":
+					case "tag":
 						inputForm += '<div class="input-group" data-key="'+index+'">';
 							inputForm += '<div class="input-group-prepend"><span class="input-group-text"><i class="'+icon+' mr-1"></i>'+title+'</span></div>';
 							if(typeof API.Contents.data.dom.tags !== 'undefined'){
@@ -3163,6 +3224,7 @@ var API = {
 								case "lead":
 								case "client":
 								case "organization":
+								case "tag":
 								case "tags":
 									input.find('select').select2({
 									  theme: 'bootstrap4',

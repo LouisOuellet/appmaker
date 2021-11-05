@@ -23,7 +23,7 @@ class APIextend extends API{
 					case"contact":
 						if($value != ''){
 							if(is_numeric($value)){
-								$contact = $this->Auth->read('users',$value);
+								$contact = $this->Auth->read('contacts',$value);
 								if($contact != null){
 									$relation = $contact->all()[0];
 									$result[$key] = '';
@@ -508,7 +508,7 @@ class APIextend extends API{
 					])->fetchAll();
 				}
 			}
-			if($relations != null){
+			if(isset($relations) && $relations != null){
 				$relations = $relations->all();
 				if(count($relations) <= 0){
 					$new['id'] = $this->Auth->create('relationships',$new);
@@ -519,6 +519,11 @@ class APIextend extends API{
 					return $new;
 				} else {
 					return $relations[0];
+				}
+			} else {
+				if(!isset($relations)){
+					echo "unable to create this relationship";
+					var_dump($relationship);
 				}
 			}
 		}
