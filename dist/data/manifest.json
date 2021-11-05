@@ -106,11 +106,11 @@
         }
     },
     "log_level": 3,
-    "version": "21.11-pre-release",
-    "build": 316,
+    "version": "21.11-dev",
+    "build": 317,
     "repository": {
         "name": "appmaker",
-        "branch": "pre-release",
+        "branch": "dev",
         "host": {
             "git": "https:\/\/github.com\/LouisOuellet\/",
             "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
