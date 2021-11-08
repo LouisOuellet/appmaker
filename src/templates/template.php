@@ -10,8 +10,18 @@
 	if(isset($_GET['p'])){ $p = $_GET['p']; } else { $p = $this->Parameters[0]; }
 	if(isset($_GET['v'])){ $v = $_GET['v']; } else { $v = 'index'; }
 	if(isset($_GET['id'])){ $id = $_GET['id']; } else { $id = ''; }
-  if($this->Auth->isLogin()){ $title = ucwords(str_replace('_',' ',$p)); }
-	else { $title = $this->Language->Field['Sign_in']; }
+  // Title
+  if($this->Validate()){
+    if((isset($this->Settings['license']))&&((isset($this->LSP->Status))&&($this->LSP->Status))){
+      if(!$this->Auth->isBlacklisted($this->Auth->getClientIP())){
+        if((!isset($this->Settings['maintenance']))||(!$this->Settings['maintenance'])){
+          if($this->Auth->isLogin()){
+            $title = ucwords(str_replace('_',' ',$p));
+          } else { $title = $this->Language->Field['Sign_in']; }
+        } else { $title = $this->Language->Field['Maintenance']; }
+      } else { $title = $this->Language->Field['Blacklisted']; }
+    } else { $title = $this->Language->Field['Activation']; }
+  } else { $title = $this->Language->Field['Installation']; }
 	?>
   <title><?= $title ?></title>
 	<link rel="shortcut icon" href="./dist/img/favicon.ico" />
