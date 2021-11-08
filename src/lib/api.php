@@ -525,6 +525,7 @@ class API{
         if(file_exists(dirname(__FILE__,3).'/config/config.json') && isset($this->Settings['serverid'])){
           if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Saving new configurations\n";}
           $this->Settings['build'] = $manifest['build'];
+          $this->Settings['version'] = $manifest['version'];
           $this->Settings['maintenance'] = false;
           $this->Settings['serverid'] = password_hash(md5($_SERVER['DOCUMENT_ROOT'].$_SERVER['SCRIPT_FILENAME'].$_SERVER['PATH']), PASSWORD_BCRYPT, ['cost' => 10]);
           $this->SaveCfg($this->Settings);
