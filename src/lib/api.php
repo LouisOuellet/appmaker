@@ -492,6 +492,8 @@ class API{
           if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Enabling Maintenance\n";}
           $this->Settings['maintenance'] = true;
           $this->SaveCfg($this->Settings);
+          if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Logging off everyone\n";}
+          $this->Auth->query('UPDATE `users` SET `token` = ?',null);
         }
 				// We backup the database using a JSON file.
         if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Creating backup of build [".$this->Settings['build']."]\n";}
