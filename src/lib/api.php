@@ -37,7 +37,7 @@ class API{
   public function __construct(){
 
     // Increase PHP memory limit
-    ini_set('memory_limit', '1024M');
+    ini_set('memory_limit', '2048M');
 
 		// Gathering Server Information
 		$this->PHPVersion=substr(phpversion(),0,3);

@@ -18,7 +18,10 @@ class LSP {
 	public $Update = FALSE;
 
 	public function __construct($server = null,$app = null,$license = null,$hash = null){
-		ini_set('memory_limit', '1024M');
+
+    // Increase PHP memory limit
+		ini_set('memory_limit', '2048M');
+		
 		$this->Server = $server;
 		$this->App = $app;
 		$this->License = md5($license);
