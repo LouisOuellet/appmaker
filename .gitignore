@@ -9,6 +9,7 @@ composer.phar
 /tmp/*
 */tmp/
 */tmp/*
+!/tmp/.htaccess
 /data/*
 /error/
 /stats/

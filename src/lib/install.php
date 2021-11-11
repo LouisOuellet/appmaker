@@ -22,9 +22,9 @@ class Installer {
 
     // Init Log
     if(is_file(dirname(__FILE__,3) . '/tmp/install.log')){ unlink(dirname(__FILE__,3) . '/tmp/install.log'); }
-    $this->log("====================================================\n");
-    $this->log("  Installation Log ".date("Y-m-d H:i:s")."\n");
-    $this->log("====================================================\n");
+    $this->log("====================================================");
+    $this->log("  Installation Log ".date("Y-m-d H:i:s")."");
+    $this->log("====================================================");
     $this->log("\n");
 
     // Set SQL Config
@@ -35,7 +35,7 @@ class Installer {
 
     // Test SQL
     if($this->configDB()){
-      $this->log("SQL Database Connexion Successfull!\n");
+      $this->log("SQL Database Connexion Successfull!");
 
       // Import Data
       $this->Manifest = json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/manifest.json'),true);
@@ -66,49 +66,49 @@ class Installer {
     	if($this->LSP->Status){
         // Connect LSP SQL
         $this->LSP->configdb($this->Settings['sql']['host'],$this->Settings['sql']['username'],$this->Settings['sql']['password'],$this->Settings['sql']['database']);
-        if(isset($this->Manifest['lsp']['required'])&&$this->Manifest['lsp']['required']){ $this->log("Application Activation Successfull!\n"); }
+        if(isset($this->Manifest['lsp']['required'])&&$this->Manifest['lsp']['required']){ $this->log("Application Activation Successfull!"); }
 
         // Is Application Already Installed?
         if(!file_exists(dirname(__FILE__,3).'/config/config.json')){
 
           // Removing Existing Tables
-          $this->log("Removing existing tables from the database\n");
+          $this->log("Removing existing tables from the database");
   		    $query = 'SET foreign_key_checks = 1';
   		    if ($this->Connection->query($query) === TRUE){
   		      if($result = $this->Connection->query("SHOW TABLES")){
   		        while($row = $result->fetch_array(MYSQLI_NUM)){
   		          $query = 'DROP TABLE IF EXISTS '.$row[0];
-  		          if ($this->Connection->query($query) === TRUE){ $this->log("Table ".$row[0]." was successfully dropped \n"); }
-                else { $this->log("Error while removing table ".$row[0]." \n"); }
+  		          if ($this->Connection->query($query) === TRUE){ $this->log("Table ".$row[0]." was successfully dropped "); }
+                else { $this->log("Error while removing table ".$row[0]." "); }
   		        }
   		      }
-  		    } else { $this->log("Error while removing tables"."\n"); }
+  		    } else { $this->log("Error while removing tables".""); }
   		    $query = 'SET foreign_key_checks = 1';
-  		    if ($this->Connection->query($query) !== TRUE){ $this->log("Error while removing tables"."\n"); }
+  		    if ($this->Connection->query($query) !== TRUE){ $this->log("Error while removing tables".""); }
 
           // Creating Database Structure
     			if(file_exists(dirname(__FILE__,3).'/dist/data/structure.json')){
     				$this->LSP->updateStructure(dirname(__FILE__,3).'/dist/data/structure.json');
-    				$this->log("Database structure was created successfully\n");
+    				$this->log("Database structure was created successfully");
 
             // Importing Default Records
             if(file_exists(dirname(__FILE__,3).'/dist/data/skeleton.json')){
     					$this->LSP->insertRecords(dirname(__FILE__,3).'/dist/data/skeleton.json');
-    					$this->log("Database default records were created successfully\n");
+    					$this->log("Database default records were created successfully");
 
               // Importing Sample Records
               if((isset($_POST['site_sample']))&&($_POST['site_sample'] == 'true')){
     						if(file_exists(dirname(__FILE__,3).'/dist/data/sample.json')){
     							$this->LSP->insertRecords(dirname(__FILE__,3).'/dist/data/sample.json');
-    							$this->log("Database sample records were created successfully\n");
-    						} else { $this->log("Unable to import the database sample records\n"); }
+    							$this->log("Database sample records were created successfully");
+    						} else { $this->log("Unable to import the database sample records"); }
     					}
 
               // Installing Plugins
               foreach($this->Manifest['plugins'] as $plugin => $conf){
                 if(!is_dir(dirname(__FILE__,3)."/plugins/".$plugin)){
                   // Install Files
-                  $this->log("Installing Plugin [".$plugin."]\n");
+                  $this->log("Installing Plugin [".$plugin."]");
                   shell_exec("git clone --branch ".$this->Settings['repository']['branch']." ".$this->Plugins[$plugin]['repository']['host']['git'].$this->Plugins[$plugin]['repository']['name'].".git"." ".dirname(__FILE__,3)."/tmp/".$this->Plugins[$plugin]['repository']['name']);
                   mkdir(dirname(__FILE__,3)."/plugins/".$plugin);
                   shell_exec("rsync -aP ".dirname(__FILE__,3)."/tmp/".$this->Plugins[$plugin]['repository']['name']."/* ".dirname(__FILE__,3)."/plugins/".$plugin."/.");
@@ -117,15 +117,15 @@ class Installer {
           				// Updating Database
                   if(is_file(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/structure.json')){
                     $this->LSP->updateStructure(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/structure.json');
-                    $this->log("Database structure was updated with Plugin [".$plugin."]\n");
+                    $this->log("Database structure was updated with Plugin [".$plugin."]");
                   }
           				if(is_file(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/skeleton.json')){
-                    $this->log("Database default records were created successfully for [".$plugin."]\n");
+                    $this->log("Database default records were created successfully for [".$plugin."]");
                     $this->LSP->insertRecords(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/skeleton.json');
                   }
           				if(is_file(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/sample.json')){
                     if((isset($_POST['site_sample']))&&($_POST['site_sample'] == 'true')){
-                      $this->log("Database sample records were created successfully for [".$plugin."]\n");
+                      $this->log("Database sample records were created successfully for [".$plugin."]");
                       $this->LSP->insertRecords(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/sample.json');
                     }
                   }
@@ -133,8 +133,8 @@ class Installer {
                   // Set Plugin Settings
                   $this->Settings['plugins'][$plugin] = json_decode(file_get_contents(dirname(__FILE__,3)."/plugins/".$plugin.'/dist/data/manifest.json'),true);
                   if(!isset($this->Settings['plugins'][$plugin]['status'])){$this->Settings['plugins'][$plugin]['status'] = $conf['status'];}
-                  $this->log("Plugin [".$plugin."] has been installed\n");
-                } else { $this->log("Plugin [".$plugin."] is already installed\n"); }
+                  $this->log("Plugin [".$plugin."] has been installed");
+                } else { $this->log("Plugin [".$plugin."] is already installed"); }
               }
 
               // Saving Settings
@@ -143,12 +143,12 @@ class Installer {
     					fclose($json);
 
               // Done
-    			    $this->log("Installation has completed successfully at ".date("Y-m-d H:i:s")."!\n");
-            } else { $this->log("Unable to import the database default records\n"); }
-          } else { $this->log("Unable to import the database structure\n"); }
-        } else { $this->log("Application is already installed\n"); }
-      } else { $this->log("Unable to activate the application, verify you license key\n"); }
-    } else { $this->log("Unable to connect to SQL Server\n"); }
+    			    $this->log("Installation has completed successfully at ".date("Y-m-d H:i:s")."!");
+            } else { $this->log("Unable to import the database default records"); }
+          } else { $this->log("Unable to import the database structure"); }
+        } else { $this->log("Application is already installed"); }
+      } else { $this->log("Unable to activate the application, verify you license key"); }
+    } else { $this->log("Unable to connect to SQL Server"); }
     ini_restore('max_execution_time');
   }
 
