@@ -467,64 +467,94 @@ class APIextend extends API{
 
 	protected function createRelationship($relationship = []){
 		if(!empty($relationship)){
+			// Initialize
+			$create = false;
 			// Sanitization
 			if(isset($relationship['relationship_1'],$relationship['link_to_1'])){
-				$record = $this->Auth->read($relationship['relationship_1'],$relationship['link_to_1']);
-				if($record != null){
+				if($this->Auth->query('SELECT * FROM `'.$relationship['relationship_1'].'` WHERE `id` = ?',$relationship['link_to_1'])->numRows() > 0){
 					$new['relationship_1'] = $relationship['relationship_1'];
 					$new['link_to_1'] = $relationship['link_to_1'];
 				}
 			}
 			if(isset($relationship['relationship_2'],$relationship['link_to_2'])){
-				$record = $this->Auth->read($relationship['relationship_2'],$relationship['link_to_2']);
-				if($record != null){
+				if($this->Auth->query('SELECT * FROM `'.$relationship['relationship_2'].'` WHERE `id` = ?',$relationship['link_to_2'])->numRows() > 0){
 					$new['relationship_2'] = $relationship['relationship_2'];
 					$new['link_to_2'] = $relationship['link_to_2'];
 				}
 			}
 			if(isset($relationship['relationship_3'],$relationship['link_to_3'])){
-				$record = $this->Auth->read($relationship['relationship_3'],$relationship['link_to_3']);
-				if($record != null){
+				if($this->Auth->query('SELECT * FROM `'.$relationship['relationship_3'].'` WHERE `id` = ?',$relationship['link_to_3'])->numRows() > 0){
 					$new['relationship_3'] = $relationship['relationship_3'];
 					$new['link_to_3'] = $relationship['link_to_3'];
 				}
 			}
 			if(isset($new['relationship_1'],$new['relationship_2'])){
 				if(isset($new['relationship_3'])){
-					$relations = $this->Auth->query('SELECT * FROM `relationships` WHERE `relationship_1` = ? AND `link_to_1` = ? AND `relationship_2` = ? AND `link_to_2` = ? AND `relationship_3` = ? AND `link_to_3` = ?',[
-						$new['relationship_1'],
-						$new['link_to_1'],
-						$new['relationship_2'],
-						$new['link_to_2'],
-						$new['relationship_3'],
-						$new['link_to_3'],
-					])->fetchAll();
+					if($new['relationship_3'] == 'statuses'){
+						$relations = $this->Auth->query('SELECT * FROM `relationships` WHERE `relationship_1` = ? AND `link_to_1` = ? AND `relationship_2` = ? AND `link_to_2` = ? AND `relationship_3` = ?',[
+							$new['relationship_1'],
+							$new['link_to_1'],
+							$new['relationship_2'],
+							$new['link_to_2'],
+							$new['relationship_3']
+						]);
+						if($relations->numRows() > 0){
+							$relations = $relations->fetchAll()->all();
+							$last = end($relations);
+							if($last['link_to_3'] != $new['link_to_3']){ $create = true; }
+						} else {
+							$relations = $relations->fetchAll()->all();
+							$create = true;
+						}
+					} else {
+						$relations = $this->Auth->query('SELECT * FROM `relationships` WHERE `relationship_1` = ? AND `link_to_1` = ? AND `relationship_2` = ? AND `link_to_2` = ? AND `relationship_3` = ? AND `link_to_3` = ?',[
+							$new['relationship_1'],
+							$new['link_to_1'],
+							$new['relationship_2'],
+							$new['link_to_2'],
+							$new['relationship_3'],
+							$new['link_to_3'],
+						]);
+						if($relations->numRows() <= 0){
+							$relations = $relations->fetchAll()->all();
+							$create = true;
+						}
+					}
 				} else {
 					$relations = $this->Auth->query('SELECT * FROM `relationships` WHERE `relationship_1` = ? AND `link_to_1` = ? AND `relationship_2` = ? AND `link_to_2` = ?',[
 						$new['relationship_1'],
 						$new['link_to_1'],
 						$new['relationship_2'],
 						$new['link_to_2'],
-					])->fetchAll();
+					]);
+					if($relations->numRows() <= 0){
+						$relations = $relations->fetchAll()->all();
+						$create = true;
+					}
 				}
 			}
-			if(isset($relations) && $relations != null){
-				$relations = $relations->all();
-				if(count($relations) <= 0){
-					$new['id'] = $this->Auth->create('relationships',$new);
-					$new['created'] = date("Y-m-d H:i:s");
-					$new['modified'] = date("Y-m-d H:i:s");
-					$new['owner'] = $this->Auth->User['id'];
-					$new['updated_by'] = $this->Auth->User['id'];
-					return $new;
+			if($create){
+				$new['created'] = date("Y-m-d H:i:s");
+				$new['modified'] = date("Y-m-d H:i:s");
+				$new['owner'] = $this->Auth->User['id'];
+				$new['updated_by'] = $this->Auth->User['id'];
+				if(isset($new['relationship_3'])){
+					$new['id'] = $this->Auth->query('INSERT INTO `relationships` (created,modified,owner,updated_by,relationship_1,link_to_1,relationship_2,link_to_2,relationship_3,link_to_3) VALUES (?,?,?,?,?,?,?,?,?,?)',
+						$new['created'],$new['modified'],$new['owner'],$new['updated_by'],
+						$new['relationship_1'],$new['link_to_1'],
+						$new['relationship_2'],$new['link_to_2'],
+						$new['relationship_3'],$new['link_to_3']
+					)->dump()['insert_id'];
 				} else {
-					return $relations[0];
+					$new['id'] = $this->Auth->query('INSERT INTO `relationships` (created,modified,owner,updated_by,relationship_1,link_to_1,relationship_2,link_to_2) VALUES (?,?,?,?,?,?,?,?)',
+						$new['created'],$new['modified'],$new['owner'],$new['updated_by'],
+						$new['relationship_1'],$new['link_to_1'],
+						$new['relationship_2'],$new['link_to_2']
+					)->dump()['insert_id'];
 				}
+				if($new['id'] != NULL){ return $new; }
 			} else {
-				if(!isset($relations)){
-					echo "unable to create this relationship";
-					var_dump($relationship);
-				}
+				if(isset($relations)){ return $relations; }
 			}
 		}
 	}

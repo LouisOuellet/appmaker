@@ -1843,201 +1843,196 @@
             "type": "varchar(255)"
         },
         "6": "name",
-        "code": {
+        "business_num": {
             "order": 7,
             "type": "varchar(255)"
         },
-        "7": "code",
-        "business_num": {
+        "7": "business_num",
+        "status": {
             "order": 8,
             "type": "varchar(255)"
         },
-        "8": "business_num",
-        "status": {
+        "8": "status",
+        "address": {
             "order": 9,
             "type": "varchar(255)"
         },
-        "9": "status",
-        "address": {
+        "9": "address",
+        "city": {
             "order": 10,
             "type": "varchar(255)"
         },
-        "10": "address",
-        "city": {
+        "10": "city",
+        "state": {
             "order": 11,
             "type": "varchar(255)"
         },
-        "11": "city",
-        "state": {
+        "11": "state",
+        "country": {
             "order": 12,
             "type": "varchar(255)"
         },
-        "12": "state",
-        "country": {
+        "12": "country",
+        "zipcode": {
             "order": 13,
             "type": "varchar(255)"
         },
-        "13": "country",
-        "zipcode": {
+        "13": "zipcode",
+        "email": {
             "order": 14,
             "type": "varchar(255)"
         },
-        "14": "zipcode",
-        "email": {
+        "14": "email",
+        "fax": {
             "order": 15,
             "type": "varchar(255)"
         },
-        "15": "email",
-        "fax": {
+        "15": "fax",
+        "phone": {
             "order": 16,
             "type": "varchar(255)"
         },
-        "16": "fax",
-        "phone": {
+        "16": "phone",
+        "toll_free": {
             "order": 17,
             "type": "varchar(255)"
         },
-        "17": "phone",
-        "toll_free": {
+        "17": "toll_free",
+        "website": {
             "order": 18,
             "type": "varchar(255)"
         },
-        "18": "toll_free",
-        "website": {
+        "18": "website",
+        "tags": {
             "order": 19,
             "type": "varchar(255)"
         },
-        "19": "website",
-        "tags": {
+        "19": "tags",
+        "assigned_to": {
             "order": 20,
             "type": "varchar(255)"
         },
-        "20": "tags",
-        "assigned_to": {
+        "20": "assigned_to",
+        "isLead": {
             "order": 21,
             "type": "varchar(255)"
         },
-        "21": "assigned_to",
-        "isLead": {
+        "21": "isLead",
+        "isClient": {
             "order": 22,
             "type": "varchar(255)"
         },
-        "22": "isLead",
-        "isClient": {
+        "22": "isClient",
+        "isImporter": {
             "order": 23,
             "type": "varchar(255)"
         },
-        "23": "isClient",
-        "isImporter": {
+        "23": "isImporter",
+        "isExporter": {
             "order": 24,
             "type": "varchar(255)"
         },
-        "24": "isImporter",
-        "isExporter": {
+        "24": "isExporter",
+        "isFreightForwarder": {
             "order": 25,
             "type": "varchar(255)"
         },
-        "25": "isExporter",
-        "isFreightForwarder": {
+        "25": "isFreightForwarder",
+        "isInternationalFreightProfile": {
             "order": 26,
             "type": "varchar(255)"
         },
-        "26": "isFreightForwarder",
-        "isInternationalFreightProfile": {
+        "26": "isInternationalFreightProfile",
+        "isUSBroker": {
             "order": 27,
             "type": "varchar(255)"
         },
-        "27": "isInternationalFreightProfile",
-        "isUSBroker": {
+        "27": "isUSBroker",
+        "isCarrier": {
             "order": 28,
             "type": "varchar(255)"
         },
-        "28": "isUSBroker",
-        "isCarrier": {
+        "28": "isCarrier",
+        "isCustomsOffice": {
             "order": 29,
             "type": "varchar(255)"
         },
-        "29": "isCarrier",
-        "isCustomsOffice": {
+        "29": "isCustomsOffice",
+        "isSubLocation": {
             "order": 30,
             "type": "varchar(255)"
         },
-        "30": "isCustomsOffice",
-        "isSubLocation": {
+        "30": "isSubLocation",
+        "isSupplier": {
             "order": 31,
             "type": "varchar(255)"
         },
-        "31": "isSubLocation",
-        "isSupplier": {
+        "31": "isSupplier",
+        "isConsignee": {
             "order": 32,
             "type": "varchar(255)"
         },
-        "32": "isSupplier",
-        "isConsignee": {
+        "32": "isConsignee",
+        "isBusiness": {
             "order": 33,
             "type": "varchar(255)"
         },
-        "33": "isConsignee",
-        "isBusiness": {
+        "33": "isBusiness",
+        "isProperty": {
             "order": 34,
             "type": "varchar(255)"
         },
-        "34": "isBusiness",
-        "isProperty": {
+        "34": "isProperty",
+        "isOwner": {
             "order": 35,
             "type": "varchar(255)"
         },
-        "35": "isProperty",
-        "isOwner": {
+        "35": "isOwner",
+        "isActive": {
             "order": 36,
             "type": "varchar(255)"
         },
-        "36": "isOwner",
-        "isActive": {
+        "36": "isActive",
+        "setCodeCCN": {
             "order": 37,
             "type": "varchar(255)"
         },
-        "37": "isActive",
-        "setCodeCCN": {
+        "37": "setCodeCCN",
+        "setCodeITMR4": {
             "order": 38,
             "type": "varchar(255)"
         },
-        "38": "setCodeCCN",
-        "setCodeITMR4": {
+        "38": "setCodeITMR4",
+        "setCodeHVS": {
             "order": 39,
             "type": "varchar(255)"
         },
-        "39": "setCodeITMR4",
-        "setCodeHVS": {
+        "39": "setCodeHVS",
+        "setCurrency": {
             "order": 40,
             "type": "varchar(255)"
         },
-        "40": "setCodeHVS",
-        "setCurrency": {
+        "40": "setCurrency",
+        "setDomain": {
             "order": 41,
             "type": "varchar(255)"
         },
-        "41": "setCurrency",
-        "setDomain": {
+        "41": "setDomain",
+        "setSMTPhost": {
             "order": 42,
             "type": "varchar(255)"
         },
-        "42": "setDomain",
-        "setSMTPhost": {
+        "42": "setSMTPhost",
+        "setSMTPport": {
             "order": 43,
             "type": "varchar(255)"
         },
-        "43": "setSMTPhost",
-        "setSMTPport": {
+        "43": "setSMTPport",
+        "setSMTPencryption": {
             "order": 44,
             "type": "varchar(255)"
         },
-        "44": "setSMTPport",
-        "setSMTPencryption": {
-            "order": 45,
-            "type": "varchar(255)"
-        },
-        "45": "setSMTPencryption"
+        "44": "setSMTPencryption"
     },
     "permissions": {
         "id": {
@@ -2412,201 +2407,166 @@
             "type": "varchar(255)"
         },
         "5": "updated_by",
-        "businessStatusCode": {
+        "organization": {
             "order": 6,
             "type": "varchar(255)"
         },
-        "6": "businessStatusCode",
-        "corporateSalesVolume": {
+        "6": "organization",
+        "infogroup_id": {
             "order": 7,
             "type": "varchar(255)"
         },
-        "7": "corporateSalesVolume",
-        "corporateSalesVolumeRange": {
+        "7": "infogroup_id",
+        "num_employees": {
             "order": 8,
             "type": "varchar(255)"
         },
-        "8": "corporateSalesVolumeRange",
-        "locationSalesVolumeRange": {
+        "8": "num_employees",
+        "district": {
             "order": 9,
             "type": "varchar(255)"
         },
-        "9": "locationSalesVolumeRange",
-        "locationSalesVolumeRangeCode": {
+        "9": "district",
+        "CMA": {
             "order": 10,
             "type": "varchar(255)"
         },
-        "10": "locationSalesVolumeRangeCode",
-        "locationSalesVolumeActual": {
+        "10": "CMA",
+        "credit_rating": {
             "order": 11,
             "type": "varchar(255)"
         },
-        "11": "locationSalesVolumeActual",
-        "salesVolumeActual": {
+        "11": "credit_rating",
+        "sales_volume": {
             "order": 12,
             "type": "varchar(255)"
         },
-        "12": "salesVolumeActual",
-        "salesVolumeRange": {
+        "12": "sales_volume",
+        "stock_ticker_symbol": {
             "order": 13,
             "type": "varchar(255)"
         },
-        "13": "salesVolumeRange",
-        "salesVolumeCode": {
+        "13": "stock_ticker_symbol",
+        "stock_exchange": {
             "order": 14,
             "type": "varchar(255)"
         },
-        "14": "salesVolumeCode",
-        "salesVolume": {
+        "14": "stock_exchange",
+        "latitude": {
             "order": 15,
             "type": "varchar(255)"
         },
-        "15": "salesVolume",
-        "corporateEmployeeSizeActual": {
+        "15": "latitude",
+        "longitude": {
             "order": 16,
             "type": "varchar(255)"
         },
-        "16": "corporateEmployeeSizeActual",
-        "corporateEmployeeSizeRange": {
+        "16": "longitude",
+        "primary_SIC": {
             "order": 17,
             "type": "varchar(255)"
         },
-        "17": "corporateEmployeeSizeRange",
-        "locationEmployeeSizeActual": {
+        "17": "primary_SIC",
+        "primary_SIC_description": {
             "order": 18,
             "type": "varchar(255)"
         },
-        "18": "locationEmployeeSizeActual",
-        "locationEmployeeSizeRange": {
+        "18": "primary_SIC_description",
+        "primary_SIC_ad_size": {
             "order": 19,
             "type": "varchar(255)"
         },
-        "19": "locationEmployeeSizeRange",
-        "locationEmployeeSizeRangeCode": {
+        "19": "primary_SIC_ad_size",
+        "primary_SIC_year_first_appeared": {
             "order": 20,
             "type": "varchar(255)"
         },
-        "20": "locationEmployeeSizeRangeCode",
-        "employeeSizeActual": {
+        "20": "primary_SIC_year_first_appeared",
+        "primary_NAICS": {
             "order": 21,
             "type": "varchar(255)"
         },
-        "21": "employeeSizeActual",
-        "employeeSizeRange": {
+        "21": "primary_NAICS",
+        "primary_NAICS_description": {
             "order": 22,
             "type": "varchar(255)"
         },
-        "22": "employeeSizeRange",
-        "employeeSizeCode": {
+        "22": "primary_NAICS_description",
+        "codeSIC1": {
             "order": 23,
             "type": "varchar(255)"
         },
-        "23": "employeeSizeCode",
-        "employeeSize": {
+        "23": "codeSIC1",
+        "codeSIC1_description": {
             "order": 24,
             "type": "varchar(255)"
         },
-        "24": "employeeSize",
-        "cma": {
+        "24": "codeSIC1_description",
+        "codeSIC1_ad_size": {
             "order": 25,
             "type": "varchar(255)"
         },
-        "25": "cma",
-        "locationType": {
+        "25": "codeSIC1_ad_size",
+        "codeSIC1_year_appeared": {
             "order": 26,
             "type": "varchar(255)"
         },
-        "26": "locationType",
-        "primarySic": {
+        "26": "codeSIC1_year_appeared",
+        "codeSIC2": {
             "order": 27,
             "type": "varchar(255)"
         },
-        "27": "primarySic",
-        "primarySicDescription": {
+        "27": "codeSIC2",
+        "codeSIC2_description": {
             "order": 28,
             "type": "varchar(255)"
         },
-        "28": "primarySicDescription",
-        "parentInfogroupId": {
+        "28": "codeSIC2_description",
+        "codeSIC2_ad_size": {
             "order": 29,
             "type": "varchar(255)"
         },
-        "29": "parentInfogroupId",
-        "isVerified": {
+        "29": "codeSIC2_ad_size",
+        "codeSIC2_year_appeared": {
             "order": 30,
             "type": "varchar(255)"
         },
-        "30": "isVerified",
-        "primarySicFormatted": {
+        "30": "codeSIC2_year_appeared",
+        "codeNAICS1": {
             "order": 31,
             "type": "varchar(255)"
         },
-        "31": "primarySicFormatted",
-        "businessName": {
+        "31": "codeNAICS1",
+        "codeNAICS1_description": {
             "order": 32,
             "type": "varchar(255)"
         },
-        "32": "businessName",
-        "latitude": {
+        "32": "codeNAICS1_description",
+        "codeNAICS2": {
             "order": 33,
             "type": "varchar(255)"
         },
-        "33": "latitude",
-        "longitude": {
+        "33": "codeNAICS2",
+        "codeNAICS2_description": {
             "order": 34,
             "type": "varchar(255)"
         },
-        "34": "longitude",
-        "msa": {
+        "34": "codeNAICS2_description",
+        "isGovernmentContractor": {
             "order": 35,
             "type": "varchar(255)"
         },
-        "35": "msa",
-        "unitNumber": {
+        "35": "isGovernmentContractor",
+        "isEcommerce": {
             "order": 36,
             "type": "varchar(255)"
         },
-        "36": "unitNumber",
-        "streetSuffix": {
+        "36": "isEcommerce",
+        "isVerified": {
             "order": 37,
             "type": "varchar(255)"
         },
-        "37": "streetSuffix",
-        "latitudeFromatted": {
-            "order": 38,
-            "type": "varchar(255)"
-        },
-        "38": "latitudeFromatted",
-        "longitudeFromatted": {
-            "order": 39,
-            "type": "varchar(255)"
-        },
-        "39": "longitudeFromatted",
-        "infogroupId": {
-            "order": 40,
-            "type": "varchar(255)"
-        },
-        "40": "infogroupId",
-        "isCallablePhone": {
-            "order": 41,
-            "type": "varchar(255)"
-        },
-        "41": "isCallablePhone",
-        "isLinkageUp": {
-            "order": 42,
-            "type": "varchar(255)"
-        },
-        "42": "isLinkageUp",
-        "relationship": {
-            "order": 43,
-            "type": "varchar(255)"
-        },
-        "43": "relationship",
-        "link_to": {
-            "order": 44,
-            "type": "varchar(255)"
-        },
-        "44": "link_to"
+        "37": "isVerified"
     },
     "services": {
         "id": {
