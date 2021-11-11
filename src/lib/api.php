@@ -38,6 +38,7 @@ class API{
 
     // Increase PHP memory limit
     ini_set('memory_limit', '2048M');
+    ini_set('FcgidIOTimeout', '1200');
 
 		// Gathering Server Information
 		$this->PHPVersion=substr(phpversion(),0,3);
