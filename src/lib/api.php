@@ -38,6 +38,7 @@ class API{
 
     // Increase PHP memory limit
     ini_set('memory_limit', '1024M');
+    ini_set('memory_limit', '-1');
 
 		// Gathering Server Information
 		$this->PHPVersion=substr(phpversion(),0,3);
