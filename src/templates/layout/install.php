@@ -471,43 +471,55 @@ $(document).ready(function () {
       $(element).removeClass('is-invalid');
     },
     submitHandler: function() {
-        $('#log').collapse('show');
-        $('#log_container').html("");
-        var sql_host = document.getElementById("sql_host").value;
-        var sql_database = document.getElementById("sql_database").value;
-        var sql_username = document.getElementById("sql_username").value;
-        var sql_password = document.getElementById("sql_password").value;
-        var site_name = document.getElementById("site_name").value;
-        var site_sample = document.getElementById("site_sample").checked;
-        var site_page = document.getElementById("site_page").value;
-        var site_background_jobs = document.getElementById("site_background_jobs").value;
-        var site_timezone = document.getElementById("site_timezone").value;
-        var activation_license = document.getElementById("activation_license").value;
-        var serverid = "<?php echo $_SERVER['SERVER_SOFTWARE'].$_SERVER['DOCUMENT_ROOT'].$_SERVER['SCRIPT_FILENAME'].$_SERVER['GATEWAY_INTERFACE'].$_SERVER['PATH']; ?>"
-        // Returns successful data submission message when the entered information is stored in database.
-        var dataString = {
-            sql_host: sql_host,
-            sql_database: sql_database,
-            sql_username: sql_username,
-            sql_password: sql_password,
-            site_name: site_name,
-            site_sample: site_sample,
-            site_page: site_page,
-            site_background_jobs: site_background_jobs,
-            site_timezone: site_timezone,
-            activation_license: activation_license,
-            serverid: serverid,
-        }
-        // AJAX code to submit form.
+      $('#log').collapse('show');
+      $('#log_container').html("");
+      var sql_host = document.getElementById("sql_host").value;
+      var sql_database = document.getElementById("sql_database").value;
+      var sql_username = document.getElementById("sql_username").value;
+      var sql_password = document.getElementById("sql_password").value;
+      var site_name = document.getElementById("site_name").value;
+      var site_sample = document.getElementById("site_sample").checked;
+      var site_page = document.getElementById("site_page").value;
+      var site_background_jobs = document.getElementById("site_background_jobs").value;
+      var site_timezone = document.getElementById("site_timezone").value;
+      var activation_license = document.getElementById("activation_license").value;
+      var serverid = "<?php echo $_SERVER['SERVER_SOFTWARE'].$_SERVER['DOCUMENT_ROOT'].$_SERVER['SCRIPT_FILENAME'].$_SERVER['GATEWAY_INTERFACE'].$_SERVER['PATH']; ?>"
+      // Returns successful data submission message when the entered information is stored in database.
+      var dataString = {
+        sql_host: sql_host,
+        sql_database: sql_database,
+        sql_username: sql_username,
+        sql_password: sql_password,
+        site_name: site_name,
+        site_sample: site_sample,
+        site_page: site_page,
+        site_background_jobs: site_background_jobs,
+        site_timezone: site_timezone,
+        activation_license: activation_license,
+        serverid: serverid,
+      }
+      // AJAX code to submit form.
+      $.ajax({
+        type: "POST",
+        url: "/src/lib/install.php",
+        data: dataString,
+        cache: false,
+        success: function(response) {
+            $('#log_container').html("<?= $this->Language->Field['Output'] ?> :<br>\n" + response);
+        },
+      });
+      var count = 0;
+      var checkLog = setInterval(function() {
         $.ajax({
-            type: "POST",
-            url: "/src/lib/install.php",
-            data: dataString,
-            cache: false,
-            success: function(response) {
-                $('#log_container').html("<?= $this->Language->Field['Output'] ?> :<br>\n" + response);
-            },
+          url : "/tmp/install.log",
+          dataType:"text",
+          success :function(data){
+            count++;
+            $('#log_container').html(data);
+            if(count >= 10){ clearInterval(checkLog); }
+          }
         });
+			}, 1000);
     },
   });
 });
