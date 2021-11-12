@@ -508,13 +508,13 @@ $(document).ready(function () {
         data: dataString,
         cache: false,
       });
-      var max = <?= 4+count($this->Manifest['plugins'])+1 ?>;
+      var max = <?= 4+count($this->Settings['plugins'])+1 ?>;
       var now = 0;
       var error = 0;
       function setProgress(value){
         console.log('value: ',value);
         console.log('now: ',now);
-        console.log('now: ',max);
+        console.log('max: ',max);
         var progress = ((value / max) * 100);
         $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated");
         $('#log_progress').attr('aria-valuenow',progress).width(progress+'%').html(progress+'%');
@@ -544,7 +544,7 @@ $(document).ready(function () {
             setProgress(now);
             if(now == max){
               console.log('now: ',now);
-              console.log('now: ',max);
+              console.log('max: ',max);
               clearInterval(checkLog);
               $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated");
               $('#log_progress').addClass('bg-success').html('Completed');
