@@ -539,7 +539,9 @@ $(document).ready(function () {
             now = now + (data.match(new RegExp("has been installed", "g")) || []).length;
             if(data.includes("Installation has completed successfully")){ now++; }
             setProgress(now);
-            if(now = max){
+            if(now == max){
+              console.log('now: ',now);
+              console.log('now: ',max);
               clearInterval(checkLog);
               $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated");
               $('#log_progress').addClass('bg-success').html('Completed');
