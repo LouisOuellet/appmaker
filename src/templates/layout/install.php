@@ -515,11 +515,12 @@ $(document).ready(function () {
           dataType:"text",
           success :function(data){
             count++;
-            $('#log_container').html(data);
+            $('#log_container').html(data.replace("\n","<br>","g"));
+            console.log((data.split("\n").last());
             if(count >= 10){ clearInterval(checkLog); }
           }
         });
-			}, 1000);
+			}, 5000);
     },
   });
 });
