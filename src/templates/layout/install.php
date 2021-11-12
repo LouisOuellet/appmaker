@@ -516,10 +516,9 @@ $(document).ready(function () {
       var error = 0;
       function setProgress(value){
         var progress = Math.round(((value / max) * 100));
-        console.log('progress: ', progress,'attr: ', parseInt($('#log_progress').attr('aria-valuenow')));
+        console.log('progress: ', progress,'attr: ', parseInt($('#log_progress').attr('aria-valuenow')),parseInt(progress) == parseInt($('#log_progress').attr('aria-valuenow')));
         console.log('error: ', error);
-        console.log('if: ',parseInt(error) == parseInt($('#log_progress').attr('aria-valuenow')));
-        if(parseInt(error) == parseInt($('#log_progress').attr('aria-valuenow'))){ error++; } else { error = 0; }
+        if(parseInt(progress) == parseInt($('#log_progress').attr('aria-valuenow'))){ error++; } else { error = 0; }
         $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated");
         $('#log_progress').attr('aria-valuenow',progress).width(progress+'%').html(progress+'%');
         if(error == 30){
