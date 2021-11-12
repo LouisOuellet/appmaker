@@ -39,6 +39,20 @@
       div.pace{
         display:none;
       }
+      .terminal{
+        max-height:500px;
+        overflow:scroll;
+        display:flex;
+        flex-direction:column-reverse;
+        background-color:#30353A;
+        color:#FAFAFA;
+        font-family:monospace;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .terminal::-webkit-scrollbar {
+        display: none;
+      }
   </style>
 </head>
 <body class="hold-transition login-page">
@@ -332,7 +346,7 @@
                 <div class="progress" style="height: 48px;">
                   <div id="log_progress" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
                 </div>
-                <div class="m-3" style="max-height:500px;overflow:scroll;display:flex;flex-direction:column-reverse;"><p class="card-text" id="log_container"></p></div>
+                <div class="m-3 p-2 terminal"><p class="card-text" id="log_container"></p></div>
               </div>
               <div class="card-footer">
                 <button type="button" data-target="#welcome" data-toggle="collapse" aria-expanded="false"  class="btn btn-default"><i class="nav-icon fas fa-chevron-left mr-2"></i><?= $this->Language->Field['Back'] ?></button>
@@ -552,7 +566,8 @@ $(document).ready(function () {
             now = now + (data.match(new RegExp("Records imported in ", "g")) || []).length;
             if(data.includes("Installation has completed successfully")){ now++; }
             setProgress(now);
-            if(now == max){
+            if(now >= max){
+              setProgress(max);
               clearInterval(checkLog);
               $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated");
               $('#log_progress').addClass('bg-success').html('Completed');
