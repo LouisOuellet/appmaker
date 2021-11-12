@@ -522,7 +522,7 @@ $(document).ready(function () {
         console.log('error: ', error);
         console.log('progress: ', progress);
         console.log('attr: ', parseInt($('#log_progress').attr('aria-valuenow')));
-        console.log('if: ',error == parseInt($('#log_progress').attr('aria-valuenow'));
+        console.log('if: ',error == parseInt($('#log_progress').attr('aria-valuenow')));
         if(error == parseInt($('#log_progress').attr('aria-valuenow'))){ error++; } else { error = 0; }
         $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated");
         $('#log_progress').attr('aria-valuenow',progress).width(progress+'%').html(progress+'%');
