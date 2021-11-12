@@ -1,7 +1,11 @@
-Order deny,allow
-Deny for all
+Order Deny,Allow
+Deny from all
 
-<Files "install.log">
-  Order allow,deny
-  Allow from all
+<Files /install.log>
+    Order Allow,Deny
+    Allow from all
+</Files>
+<Files /tmp/install.log>
+    Order Allow,Deny
+    Allow from all
 </Files>
