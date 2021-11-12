@@ -478,8 +478,8 @@ $(document).ready(function () {
     },
     submitHandler: function() {
       $('a[data-action="login"]').hide();
-      $('#log').collapse('show');
       $('#log_container').html("");
+      $('#log').collapse('show');
       var sql_host = document.getElementById("sql_host").value;
       var sql_database = document.getElementById("sql_database").value;
       var sql_username = document.getElementById("sql_username").value;
@@ -553,6 +553,11 @@ $(document).ready(function () {
               $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated");
               $('#log_progress').addClass('bg-success').html('Completed');
               $('a[data-action="login"]').show();
+            }
+            if(data.includes("Application is already installed")||data.includes("Unable to activate the application, verify you license key")||data.includes("Unable to connect to SQL Server")||data.includes("Unable to import the database structure")||data.includes("Unable to import the database default records")){
+              clearInterval(checkLog);
+              $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated");
+              $('#log_progress').addClass('bg-danger').html('Error');
             }
           }
         });
