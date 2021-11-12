@@ -12,7 +12,7 @@ class Installer {
   protected $Database;
   protected $Connection;
 	protected $Query;
-	protected $Log = dirname(__FILE__,3) . '/tmp/install.log';
+	protected $Log;
   protected $QueryClosed = TRUE;
 
   public function __construct(){
@@ -22,6 +22,7 @@ class Installer {
     ini_set('memory_limit','2048M');
 
     // Init Log
+    $this->Log = dirname(__FILE__,3) . '/tmp/install.log';
     if(is_file(dirname(__FILE__,3) . '/tmp/install.log')){ unlink(dirname(__FILE__,3) . '/tmp/install.log'); }
     $this->log("====================================================");
     $this->log("  Installation Log ".date("Y-m-d H:i:s")."");
