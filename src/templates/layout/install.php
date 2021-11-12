@@ -505,23 +505,24 @@ $(document).ready(function () {
         data: dataString,
         cache: false,
       });
-      var count = 0;
       var checkLog = setInterval(function() {
         $.ajax({
           url : "/tmp/install.log",
           dataType:"text",
           success:function(data){
-            console.log(count);
-            count++;
+            console.log('data:');
             console.log(data);
             var string = data.toString();
+            console.log('string:');
             console.log(string);
             var txt = string.replace("\n","<br>","g");
+            console.log('txt:');
             console.log(txt);
             var last = string.split("\n").last();
+            console.log('last:');
             console.log(last);
             $('#log_container').html(txt);
-            if(count >= 1){ clearInterval(checkLog); }
+            clearInterval(checkLog);
           }
         });
 			}, 5000);
