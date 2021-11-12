@@ -517,9 +517,11 @@ $(document).ready(function () {
         console.log('value: ', value);
         console.log('max: ', max);
         console.log('error: ', error);
+        console.log('progress: ', progress);
+        console.log('attr: ', $('#log_progress').attr('aria-valuenow'));
+        if(error == $('#log_progress').attr('aria-valuenow')){ error++; } else { error = 0; }
         $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated");
         $('#log_progress').attr('aria-valuenow',progress).width(progress+'%').html(progress+'%');
-        if(error == $('#log_progress').attr('aria-valuenow')){ error++; } else { error = 0; }
         if(error == 30){
           $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated");
           $('#log_progress').addClass('bg-warning');
