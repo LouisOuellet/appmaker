@@ -23,7 +23,7 @@ class Installer {
 
     // Init Log
     $this->Log = dirname(__FILE__,3) . '/tmp/install.log';
-    if(is_file(dirname(__FILE__,3) . '/tmp/install.log')){ unlink(dirname(__FILE__,3) . '/tmp/install.log'); }
+    if(is_file($this->Log)){ unlink($this->Log); }
     $this->log("====================================================");
     $this->log("  Installation Log ".date("Y-m-d H:i:s")."");
     $this->log("====================================================");
