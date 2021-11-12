@@ -508,14 +508,11 @@ $(document).ready(function () {
         data: dataString,
         cache: false,
       });
-      var max = <?= 4+count($this->Settings['plugins'])+1 ?>;
+      var max = <?= 5+count($this->Settings['plugins'])+1 ?>;
       var now = 0;
       var error = 0;
       function setProgress(value){
-        console.log('value: ',value);
-        console.log('now: ',now);
-        console.log('max: ',max);
-        var progress = ((value / max) * 100);
+        var progress = Math.round(((value / max) * 100));
         $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated");
         $('#log_progress').attr('aria-valuenow',progress).width(progress+'%').html(progress+'%');
         if(error == $('#log_progress').attr('aria-valuenow')){ error++; } else { error = 0; }
@@ -537,14 +534,15 @@ $(document).ready(function () {
             $('#log_container').html(data.replace(/\n/g, "<br>"));
             now = 0;
             if(data.includes("SQL Database Connexion Successfull!")){ now++; }
+            if(data.includes("Removing existing tables from the database")){ now++; }
             if(data.includes("Database has been cleared")){ now++; }
+            if(data.includes("Database structure was created successfully")){ now++; }
+            if(data.includes("Database default records were created successfully")){ now++; }
             now = now + (data.match(new RegExp("is already installed", "g")) || []).length;
             now = now + (data.match(new RegExp("has been installed", "g")) || []).length;
             if(data.includes("Installation has completed successfully")){ now++; }
             setProgress(now);
             if(now == max){
-              console.log('now: ',now);
-              console.log('max: ',max);
               clearInterval(checkLog);
               $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated");
               $('#log_progress').addClass('bg-success').html('Completed');
