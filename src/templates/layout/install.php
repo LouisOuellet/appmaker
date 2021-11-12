@@ -369,6 +369,7 @@
 <script src="/vendor/jquery-validation/additional-methods.min.js"></script>
 <!-- AdminLTE App -->
 <script src="/dist/js/adminlte.min.js"></script>
+<script>$(function(){paceOptions = {startOnPageLoad:false}})</script>
 <script>
 	$("#reviewBTN").click(function(){
 		$('#DivSQL_host').html($(document.getElementById("sql_host")).val());
@@ -459,7 +460,6 @@ $(document).ready(function () {
   <?php if($this->Settings['lsp']['required']){ ?>
     rules.activation_license = { required: true };
   <?php } ?>
-  $('body').removeClass('pace pace-primary');
   $('#SetupWizard').validate({
     ignore: [],
     rules: rules,
@@ -520,6 +520,7 @@ $(document).ready(function () {
         console.log('error: ', error);
         console.log('progress: ', progress);
         console.log('attr: ', $('#log_progress').attr('aria-valuenow'));
+        console.log('if: ',error == $('#log_progress').attr('aria-valuenow'));
         if(error == $('#log_progress').attr('aria-valuenow')){ error++; } else { error = 0; }
         $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated");
         $('#log_progress').attr('aria-valuenow',progress).width(progress+'%').html(progress+'%');
