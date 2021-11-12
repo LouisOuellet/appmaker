@@ -511,16 +511,10 @@ $(document).ready(function () {
           dataType:"text",
           success:function(data){
             clearInterval(checkLog);
-            console.log('data:',data);
-            var string = data + '';
-            console.log('string:',string);
-            var txt = string.replace(/\n/g, "<br>");
-            console.log('txt:',txt);
-            var lines = txt.split("<br>");
-            console.log('lines:',lines);
-            var last = lines.last();
-            console.log('last:',last);
-            $('#log_container').html(txt);
+            $('#log_container').html(data.replace(/\n/g, "<br>"));
+            console.log('last:',data.replace(/\n/g, "<br>").split("<br>").slice( -1 ));
+            console.log('if:',data.replace(/\n/g, "<br>").split("<br>").slice( -1 ).includes("Installation has completed successfully"));
+            if(data.replace(/\n/g, "<br>").split("<br>").slice( -1 ).includes("Installation has completed successfully")){ clearInterval(checkLog); }
           }
         });
 			}, 5000);
