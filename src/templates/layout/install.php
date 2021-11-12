@@ -544,11 +544,11 @@ $(document).ready(function () {
             if(data.includes("Database has been cleared")){ now++; }
             if(data.includes("Database structure was created successfully")){ now++; }
             if(data.includes("Database default records were created successfully")){ now++; }
-            now = now + (data.match(new RegExp("\] is already installed", "g")) || []).length;
-            now = now + (data.match(new RegExp("\] has been installed", "g")) || []).length;
-            now = now + (data.match(new RegExp("\] was updated", "g")) || []).length;
-            now = now + (data.match(new RegExp("\] was created", "g")) || []).length;
-            now = now + (data.match(new RegExp("Records imported in \[", "g")) || []).length;
+            now = now + (data.match(new RegExp(" is already installed", "g")) || []).length;
+            now = now + (data.match(new RegExp(" has been installed", "g")) || []).length;
+            now = now + (data.match(new RegExp(" was updated", "g")) || []).length;
+            now = now + (data.match(new RegExp(" was created", "g")) || []).length;
+            now = now + (data.match(new RegExp("Records imported in ", "g")) || []).length;
             if(data.includes("Installation has completed successfully")){ now++; }
             setProgress(now);
             if(now == max){
