@@ -510,7 +510,6 @@ $(document).ready(function () {
           url : "/tmp/install.log",
           dataType:"text",
           success:function(data){
-            clearInterval(checkLog);
             $('#log_container').html(data.replace(/\n/g, "<br>"));
             console.log('last:',data.replace(/\n/g, "<br>").split("<br>").slice( -1 ));
             console.log('if:',data.replace(/\n/g, "<br>").split("<br>").slice( -1 ).includes("Installation has completed successfully"));
