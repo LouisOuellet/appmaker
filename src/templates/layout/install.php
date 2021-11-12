@@ -518,15 +518,15 @@ $(document).ready(function () {
         var progress = Math.round(((value / max) * 100));
         console.log('error: ', error,'progress: ', progress,'attr: ', parseInt($('#log_progress').attr('aria-valuenow')),parseInt(progress) == parseInt($('#log_progress').attr('aria-valuenow')));
         if(parseInt(progress) == parseInt($('#log_progress').attr('aria-valuenow'))){ error++; } else { error = 0; }
-        $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated");
         $('#log_progress').attr('aria-valuenow',progress).width(progress+'%').html(progress+'%');
-        if(error >= 30){
-          $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated");
-          $('#log_progress').addClass('bg-warning');
-        }
-        if(error >= 60){
-          $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated");
-          $('#log_progress').addClass('bg-danger');
+        switch(error){
+          case (0 <= error &&  error < 15): $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated");break;
+          case (15 <= error &&  error < 30): $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated bg-info");break;
+          case (30 <= error &&  error < 60): $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated bg-lightblue");break;
+          case (60 <= error &&  error < 120): $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated bg-navy");break;
+          case (120 <= error &&  error < 180): $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated bg-warning");break;
+          case (180 <= error &&  error < 240): $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated bg-orange");break;
+          case (240 <= error): $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated bg-danger");break;
         }
       }
       setProgress(now);
