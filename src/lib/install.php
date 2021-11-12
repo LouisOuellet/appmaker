@@ -82,6 +82,7 @@ class Installer {
                 else { $this->log("Error while removing table ".$row[0]." "); }
   		        }
   		      }
+            $this->log("Database has been cleared");
   		    } else { $this->log("Error while removing tables".""); }
   		    $query = 'SET foreign_key_checks = 1';
   		    if ($this->Connection->query($query) !== TRUE){ $this->log("Error while removing tables".""); }

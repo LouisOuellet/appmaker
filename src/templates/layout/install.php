@@ -326,11 +326,14 @@
                 <h5 class="m-0"><?= $this->Language->Field['Installation_Details'] ?></h5>
               </div>
               <div class="card-body" style="max-height:500px;overflow:scroll;">
-                <p class="card-text" id="log_container"></p>
+                <div class="progress">
+                  <div id="log_progress" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+                </div>
+                <div><p class="card-text" id="log_container"></p></div>
               </div>
               <div class="card-footer">
                 <button type="button" data-target="#welcome" data-toggle="collapse" aria-expanded="false"  class="btn btn-default"><i class="nav-icon fas fa-chevron-left mr-2"></i><?= $this->Language->Field['Back'] ?></button>
-                <a href="<?=$this->URL?>" class="btn btn-primary float-right">
+                <a href="<?=$this->URL?>" data-action="login" class="btn btn-success float-right fade" style="display:none;">
                   <?= $this->Language->Field['Sign_In'] ?><i class="nav-icon fas fa-sign-in-alt ml-2"></i>
                 </a>
               </div>
@@ -505,15 +508,30 @@ $(document).ready(function () {
         data: dataString,
         cache: false,
       });
+      var max = <?= 4+count($this->Manifest['plugins'])+1 ?>;
+      var now = 0;
+      function setProgress(value){
+        var progress = (value / max * 100);
+        $('#log_progress').attr('aria-valuenow',progress).width(progress+'%');
+      }
+      setProgress(now);
       var checkLog = setInterval(function() {
         $.ajax({
           url : "/tmp/install.log",
           dataType:"text",
           success:function(data){
             $('#log_container').html(data.replace(/\n/g, "<br>"));
-            console.log('last:',data.replace(/\n/g, "<br>").split("<br>").slice( -1 ));
-            console.log('if:',data.replace(/\n/g, "<br>").split("<br>").slice( -1 ).includes("Installation has completed successfully"));
-            if(data.replace(/\n/g, "<br>").split("<br>").slice( -1 ).includes("Installation has completed successfully")){ clearInterval(checkLog); }
+            now = 0;
+            if(data.includes("SQL Database Connexion Successfull!")){ now++; }
+            if(data.includes("Database has been cleared")){ now++; }
+            now = now + (data.match(new RegExp("is already installed", "g")) || []).length;
+            now = now + (data.match(new RegExp("has been installed", "g")) || []).length;
+            if(data.includes("Installation has completed successfully")){
+              clearInterval(checkLog);
+              now++;
+              $('a[data-action="login"]').show();
+            }
+            setProgress(now);
           }
         });
 			}, 5000);
