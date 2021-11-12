@@ -512,7 +512,8 @@ $(document).ready(function () {
         data: dataString,
         cache: false,
       });
-      var max = <?= 5+count($this->Tables)+count($this->Skeletons)+count($this->Samples)+count($this->Settings['plugins'])+1 ?>;
+      var max = <?= 5+count($this->Tables)+count($this->Skeletons)+count($this->Settings['plugins'])+1 ?>;
+      if(site_sample){ max = (max + <?= count($this->Samples) ?>); }
       console.log('Tables: ',<?= count($this->Tables) ?>,'Skeletons: ',<?= count($this->Skeletons) ?>,'Samples: ',<?= count($this->Samples) ?>,'Plugins: ',<?= count($this->Settings['plugins']) ?>,'max: ',max);
       var now = 0;
       var error = 0;
