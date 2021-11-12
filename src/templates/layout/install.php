@@ -369,6 +369,13 @@
 <script src="/vendor/jquery-validation/additional-methods.min.js"></script>
 <!-- AdminLTE App -->
 <script src="/dist/js/adminlte.min.js"></script>
+<script>$(function(){
+  Pace.options = {
+    restartOnRequestAfter: false,
+    ajax: false
+  }
+  Pace.stop();
+})</script>
 <script>
 	$("#reviewBTN").click(function(){
 		$('#DivSQL_host').html($(document.getElementById("sql_host")).val());
@@ -476,7 +483,6 @@ $(document).ready(function () {
     submitHandler: function() {
       $('#log').collapse('show');
       $('#log_container').html("");
-      Pace.stop();
       var sql_host = document.getElementById("sql_host").value;
       var sql_database = document.getElementById("sql_database").value;
       var sql_username = document.getElementById("sql_username").value;
