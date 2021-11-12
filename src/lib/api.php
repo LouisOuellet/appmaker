@@ -20,7 +20,10 @@ class API{
   protected $Countries; // Stores available countries
   protected $States; // Stores available states
   protected $Plugins; // Stores available states
-	protected $Structure = []; // Stores the database structure
+	public $Structure = []; // Stores the database structure
+	public $Tables = []; // Stores the database structure
+	public $Samples = []; // Stores the database structure
+	public $Skeletons = []; // Stores the database structure
   protected $Validator;
 	public $Settings; // Stores settings loaded from manifest.json and conf.json
   public $Auth; // This contains the Auth class & the Database class for MySQL queries
@@ -106,7 +109,14 @@ class API{
 		}
 
 		// Create Table Structure
-    if(isset($this->Settings['sql'])){ $this->Structure = $this->LSP->createStructure(); }
+    if(isset($this->Settings['sql'])){
+      $this->Structure = $this->LSP->createStructure();
+      foreach($this->Structure as $table => $columns){ array_push($this->Tables,$table); }
+    } else {
+      foreach(json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/structure.json'),true) as $table => $columns){ array_push($this->Tables,$table); }
+      foreach(json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/skeleton.json'),true) as $table => $columns){ array_push($this->Skeletons,$table); }
+      foreach(json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/sample.json'),true) as $table => $columns){ array_push($this->Samples,$table); }
+    }
 
 		// Initialise Auth
 		$this->Auth = new Auth($this->Settings);

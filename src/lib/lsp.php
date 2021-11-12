@@ -13,6 +13,7 @@ class LSP {
 	protected $query;
 	protected $database;
   protected $query_closed = TRUE;
+  protected $Log = null;
   protected $Branch = 'master';
 	public $Status = FALSE;
 	public $Update = FALSE;
@@ -21,7 +22,7 @@ class LSP {
 
     // Increase PHP memory limit
 		ini_set('memory_limit', '2048M');
-		
+
 		$this->Server = $server;
 		$this->App = $app;
 		$this->License = md5($license);
@@ -53,6 +54,12 @@ class LSP {
     for ($i = 0; $i < $length; $i++) { $randomString .= $characters[rand(0, $charactersLength - 1)]; }
     return $randomString;
 	}
+
+  public function setLog($log){ $this->Log = $log; }
+
+  private function log($txt){
+		if($this->Log != null){ return file_put_contents($this->Log, $txt.PHP_EOL , FILE_APPEND | LOCK_EX); }
+  }
 
 	private function get_client_ip() {
 	  $ipaddress = '';
@@ -301,7 +308,7 @@ class LSP {
 		} else { return ["error" => "No table found"]; }
 	}
 
-	public function updateStructure($json){
+	public function updateStructure($json, $log = null){
 		if($this->Status){
 			$structures = json_decode(file_get_contents($json),true);
 			foreach($this->query('SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = ?',$this->database)->fetchAll() as $fields){
@@ -311,6 +318,7 @@ class LSP {
 			}
 			foreach($structures as $table_name => $table){
 				if(isset($db[$table_name])){
+					$this->log("Updating table [".$table_name."]");
 					foreach($table as $column_name => $column){
 						if(!is_int($column_name)){
 							if(isset($db[$table_name][$column_name])){
@@ -326,7 +334,9 @@ class LSP {
 							set_time_limit(20);
 						}
 					}
+					$this->log("Table [".$table_name."] was updated");
 				} else {
+					$this->log("Creating table [".$table_name."]");
 					$this->query('CREATE TABLE `'.$table_name.'` (id INT NOT NULL AUTO_INCREMENT,PRIMARY KEY (id))');
 					$this->query('ALTER TABLE `'.$table_name.'` auto_increment = 100000');
 					$this->query('ALTER TABLE `'.$table_name.'` row_format=dynamic');
@@ -337,6 +347,7 @@ class LSP {
 							set_time_limit(20);
 						}
 					}
+					$this->log("Table [".$table_name."] was created");
 				}
 			}
 		}
@@ -372,6 +383,7 @@ class LSP {
 		if($this->Status){
 			$tables=json_decode(file_get_contents($file),true);
 			foreach($tables as $table => $records){
+				$this->log("Importing records in [".$table_name."]");
 				if(!$asNew){
 					foreach($records as $record){
 						$find = $this->query('SELECT * FROM `'.$table.'` WHERE id = ?', $record['id']);
@@ -410,6 +422,7 @@ class LSP {
 					}
 					foreach($records as $record){ $this->create($record, $table, $asNew); }
 				}
+				$this->log("Records imported in [".$table_name."]");
 			}
 		}
 	}

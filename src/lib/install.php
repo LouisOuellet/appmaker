@@ -12,6 +12,7 @@ class Installer {
   protected $Database;
   protected $Connection;
 	protected $Query;
+	protected $Log = dirname(__FILE__,3) . '/tmp/install.log';
   protected $QueryClosed = TRUE;
 
   public function __construct(){
@@ -87,23 +88,29 @@ class Installer {
   		    $query = 'SET foreign_key_checks = 1';
   		    if ($this->Connection->query($query) !== TRUE){ $this->log("Error while removing tables".""); }
 
+          // Enable LSP Logging
+          $this->LSP->setLog($this->Log);
+
           // Creating Database Structure
     			if(file_exists(dirname(__FILE__,3).'/dist/data/structure.json')){
-    				$this->LSP->updateStructure(dirname(__FILE__,3).'/dist/data/structure.json');
+    				$this->LSP->updateStructure(dirname(__FILE__,3).'/dist/data/structure.json',$this->Log);
     				$this->log("Database structure was created successfully");
 
             // Importing Default Records
             if(file_exists(dirname(__FILE__,3).'/dist/data/skeleton.json')){
-    					$this->LSP->insertRecords(dirname(__FILE__,3).'/dist/data/skeleton.json');
+    					$this->LSP->insertRecords(dirname(__FILE__,3).'/dist/data/skeleton.json',$this->Log);
     					$this->log("Database default records were created successfully");
 
               // Importing Sample Records
               if((isset($_POST['site_sample']))&&($_POST['site_sample'] == 'true')){
     						if(file_exists(dirname(__FILE__,3).'/dist/data/sample.json')){
-    							$this->LSP->insertRecords(dirname(__FILE__,3).'/dist/data/sample.json');
+    							$this->LSP->insertRecords(dirname(__FILE__,3).'/dist/data/sample.json',$this->Log);
     							$this->log("Database sample records were created successfully");
     						} else { $this->log("Unable to import the database sample records"); }
     					}
+
+              // Disable LSP Logging
+              $this->LSP->setLog(null);
 
               // Installing Plugins
               foreach($this->Manifest['plugins'] as $plugin => $conf){
@@ -169,7 +176,7 @@ class Installer {
 	}
 
   private function log($txt){
-    return file_put_contents(dirname(__FILE__,3) . '/tmp/install.log', $txt.PHP_EOL , FILE_APPEND | LOCK_EX);
+    return file_put_contents($this->Log, $txt.PHP_EOL , FILE_APPEND | LOCK_EX);
   }
 
   private function generateRandomString($length = 10) {

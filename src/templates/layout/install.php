@@ -512,7 +512,7 @@ $(document).ready(function () {
         data: dataString,
         cache: false,
       });
-      var max = <?= 5+count($this->Settings['plugins'])+1 ?>;
+      var max = <?= 5+count($this->Tables)+count($this->Skeletons)+count($this->Samples)+count($this->Settings['plugins'])+1 ?>;
       var now = 0;
       var error = 0;
       function setProgress(value){
@@ -546,6 +546,9 @@ $(document).ready(function () {
             if(data.includes("Database default records were created successfully")){ now++; }
             now = now + (data.match(new RegExp("is already installed", "g")) || []).length;
             now = now + (data.match(new RegExp("has been installed", "g")) || []).length;
+            now = now + (data.match(new RegExp("] was updated", "g")) || []).length;
+            now = now + (data.match(new RegExp("] was created", "g")) || []).length;
+            now = now + (data.match(new RegExp("Records imported in [", "g")) || []).length;
             if(data.includes("Installation has completed successfully")){ now++; }
             setProgress(now);
             if(now == max){
@@ -556,8 +559,8 @@ $(document).ready(function () {
             }
             if(data.includes("Application is already installed")||data.includes("Unable to activate the application, verify you license key")||data.includes("Unable to connect to SQL Server")||data.includes("Unable to import the database structure")||data.includes("Unable to import the database default records")){
               clearInterval(checkLog);
-              $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated");
-              $('#log_progress').addClass('bg-danger').html('Error');
+              setProgress(max);
+              $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated").addClass('bg-danger').html('Error');
             }
           }
         });
