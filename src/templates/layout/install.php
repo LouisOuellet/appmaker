@@ -516,9 +516,10 @@ $(document).ready(function () {
       var error = 0;
       function setProgress(value){
         var progress = Math.round(((value / max) * 100));
-        console.log('error: ', error,'progress: ', progress,'attr: ', parseInt($('#log_progress').attr('aria-valuenow')),parseInt(progress) == parseInt($('#log_progress').attr('aria-valuenow')));
+        // console.log('error: ', error,'progress: ', progress,'attr: ', parseInt($('#log_progress').attr('aria-valuenow')),parseInt(progress) == parseInt($('#log_progress').attr('aria-valuenow')));
         if(parseInt(progress) == parseInt($('#log_progress').attr('aria-valuenow'))){ error++; } else { error = 0; }
         $('#log_progress').attr('aria-valuenow',progress).width(progress+'%').html(progress+'%');
+        if(site_sample){ $('#log_progress').append(' - This may take a while'); }
         switch(true){
           case (0 <= error &&  error < 15): $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated");break;
           case (15 <= error &&  error < 30): $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated bg-info");break;
@@ -526,7 +527,7 @@ $(document).ready(function () {
           case (60 <= error &&  error < 120): $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated bg-navy");break;
           case (120 <= error &&  error < 180): $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated bg-warning");break;
           case (180 <= error &&  error < 240): $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated bg-orange");break;
-          case (240 <= error): $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated bg-danger");break;
+          case (240 <= error): $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated bg-danger").html(progress+"% - It's been a while");break;
         }
       }
       setProgress(now);
