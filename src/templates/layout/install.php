@@ -514,12 +514,14 @@ $(document).ready(function () {
             console.log(count);
             count++;
             console.log(data);
-            var txt = data.replace("\n","<br>","g");
+            var string = data.toString();
+            console.log(string);
+            var txt = string.replace("\n","<br>","g");
             console.log(txt);
-            var last = data.split("\n").last();
+            var last = string.split("\n").last();
             console.log(last);
             $('#log_container').html(txt);
-            if(count >= 10){ clearInterval(checkLog); }
+            if(count >= 1){ clearInterval(checkLog); }
           }
         });
 			}, 5000);
