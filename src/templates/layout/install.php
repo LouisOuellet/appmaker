@@ -510,9 +510,10 @@ $(document).ready(function () {
           url : "/tmp/install.log",
           dataType:"text",
           success:function(data){
+            clearInterval(checkLog);
             console.log('data:');
             console.log(data);
-            var string = data.toString();
+            var string = data + '';
             console.log('string:');
             console.log(string);
             var txt = string.replace("\n","<br>","g");
@@ -522,7 +523,6 @@ $(document).ready(function () {
             console.log('last:');
             console.log(last);
             $('#log_container').html(txt);
-            clearInterval(checkLog);
           }
         });
 			}, 5000);
