@@ -544,7 +544,7 @@ $(document).ready(function () {
             if(data.includes("SQL Database Connexion Successfull!")){ now++; }
             if(data.includes("Removing existing tables from the database")){ now++; }
             if(data.includes("Database has been cleared")){ now++; }
-            if(data.includes("Database structure was created successfully")){ now++; }
+            if(data.includes("Database structure was added successfully")){ now++; }
             if(data.includes("Database default records were created successfully")){ now++; }
             now = now + (data.match(new RegExp(" is already installed", "g")) || []).length;
             now = now + (data.match(new RegExp(" has been installed", "g")) || []).length;

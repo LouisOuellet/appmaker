@@ -79,7 +79,7 @@ class Installer {
   		    if ($this->Connection->query($query) === TRUE){
   		      if($result = $this->Connection->query("SHOW TABLES")){
   		        while($row = $result->fetch_array(MYSQLI_NUM)){
-  		          $query = 'DROP TABLE IF EXISTS '.$row[0];
+  		          $query = 'DROP TABLE IF EXISTS `'.$row[0].'`';
   		          if ($this->Connection->query($query) === TRUE){ $this->log("Table ".$row[0]." was successfully dropped "); }
                 else { $this->log("Error while removing table ".$row[0]." "); }
   		        }
@@ -95,7 +95,7 @@ class Installer {
           // Creating Database Structure
     			if(file_exists(dirname(__FILE__,3).'/dist/data/structure.json')){
     				$this->LSP->updateStructure(dirname(__FILE__,3).'/dist/data/structure.json',$this->Log);
-    				$this->log("Database structure was created successfully");
+    				$this->log("Database structure was added successfully");
 
             // Importing Default Records
             if(file_exists(dirname(__FILE__,3).'/dist/data/skeleton.json')){
