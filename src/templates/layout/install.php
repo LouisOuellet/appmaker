@@ -31,10 +31,13 @@
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <style>
       .login-box{
-          width: 800px;
+        width: 800px;
       }
       .invalid-feedback{
-          margin-left: 25%;
+        margin-left: 25%;
+      }
+      div.pace{
+        display:none;
       }
   </style>
 </head>
@@ -369,13 +372,6 @@
 <script src="/vendor/jquery-validation/additional-methods.min.js"></script>
 <!-- AdminLTE App -->
 <script src="/dist/js/adminlte.min.js"></script>
-<script>$(function(){
-  Pace.options = {
-    restartOnRequestAfter: false,
-    ajax: false
-  }
-  Pace.stop();
-})</script>
 <script>
 	$("#reviewBTN").click(function(){
 		$('#DivSQL_host').html($(document.getElementById("sql_host")).val());
