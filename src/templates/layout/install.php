@@ -519,7 +519,7 @@ $(document).ready(function () {
         console.log('error: ', error,'progress: ', progress,'attr: ', parseInt($('#log_progress').attr('aria-valuenow')),parseInt(progress) == parseInt($('#log_progress').attr('aria-valuenow')));
         if(parseInt(progress) == parseInt($('#log_progress').attr('aria-valuenow'))){ error++; } else { error = 0; }
         $('#log_progress').attr('aria-valuenow',progress).width(progress+'%').html(progress+'%');
-        switch(error){
+        switch(true){
           case (0 <= error &&  error < 15): $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated");break;
           case (15 <= error &&  error < 30): $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated bg-info");break;
           case (30 <= error &&  error < 60): $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated bg-lightblue");break;
