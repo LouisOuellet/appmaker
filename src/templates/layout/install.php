@@ -510,14 +510,20 @@ $(document).ready(function () {
       });
       var max = <?= 4+count($this->Manifest['plugins'])+1 ?>;
       var now = 0;
-      var progress = 0;
+      var error = 0;
       function setProgress(value){
         var progress = (value / max * 100);
         $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated");
         $('#log_progress').attr('aria-valuenow',progress).width(progress+'%').html(progress+'%');
-        if(progress = $('#log_progress').attr('aria-valuenow')){ progress++; } else { progress = 0; }
-        if(progress = 6){ $('#log_progress').addClass('bg-warning'); }
-        if(progress = 12){ $('#log_progress').addClass('bg-danger'); }
+        if(error == $('#log_progress').attr('aria-valuenow')){ error++; } else { error = 0; }
+        if(error == 6){
+          $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated");
+          $('#log_progress').addClass('bg-warning');
+        }
+        if(error == 12){
+          $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated");
+          $('#log_progress').addClass('bg-danger');
+        }
       }
       setProgress(now);
       var checkLog = setInterval(function() {
@@ -535,6 +541,7 @@ $(document).ready(function () {
             setProgress(now);
             if(now = max){
               clearInterval(checkLog);
+              $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated");
               $('#log_progress').addClass('bg-success').html('Completed');
               $('a[data-action="login"]').show();
             }
