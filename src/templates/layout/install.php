@@ -516,11 +516,11 @@ $(document).ready(function () {
         $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated");
         $('#log_progress').attr('aria-valuenow',progress).width(progress+'%').html(progress+'%');
         if(error == $('#log_progress').attr('aria-valuenow')){ error++; } else { error = 0; }
-        if(error == 6){
+        if(error == 30){
           $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated");
           $('#log_progress').addClass('bg-warning');
         }
-        if(error == 12){
+        if(error == 60){
           $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated");
           $('#log_progress').addClass('bg-danger');
         }
@@ -550,7 +550,7 @@ $(document).ready(function () {
             }
           }
         });
-			}, 5000);
+			}, 1000);
     },
   });
 });
