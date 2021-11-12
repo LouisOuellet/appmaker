@@ -329,7 +329,7 @@
                 <div class="progress" style="height: 48px;">
                   <div id="log_progress" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
                 </div>
-                <div class="p-3" style="max-height:500px;overflow:scroll;"><p class="card-text" id="log_container"></p></div>
+                <div class="p-3" style="max-height:500px;overflow:scroll;display:flex;flex-direction:column-reverse;"><p class="card-text" id="log_container"></p></div>
               </div>
               <div class="card-footer">
                 <button type="button" data-target="#welcome" data-toggle="collapse" aria-expanded="false"  class="btn btn-default"><i class="nav-icon fas fa-chevron-left mr-2"></i><?= $this->Language->Field['Back'] ?></button>
@@ -512,7 +512,10 @@ $(document).ready(function () {
       var now = 0;
       var error = 0;
       function setProgress(value){
-        var progress = (value / max * 100);
+        console.log('value: ',value);
+        console.log('now: ',now);
+        console.log('now: ',max);
+        var progress = ((value / max) * 100);
         $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated");
         $('#log_progress').attr('aria-valuenow',progress).width(progress+'%').html(progress+'%');
         if(error == $('#log_progress').attr('aria-valuenow')){ error++; } else { error = 0; }
