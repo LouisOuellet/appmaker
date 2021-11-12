@@ -510,9 +510,14 @@ $(document).ready(function () {
       });
       var max = <?= 4+count($this->Manifest['plugins'])+1 ?>;
       var now = 0;
+      var progress = 0;
       function setProgress(value){
         var progress = (value / max * 100);
+        $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated");
         $('#log_progress').attr('aria-valuenow',progress).width(progress+'%').html(progress+'%');
+        if(progress = $('#log_progress').attr('aria-valuenow')){ progress++; } else { progress = 0; }
+        if(progress = 6){ $('#log_progress').addClass('bg-warning'); }
+        if(progress = 12){ $('#log_progress').addClass('bg-danger'); }
       }
       setProgress(now);
       var checkLog = setInterval(function() {
@@ -527,12 +532,12 @@ $(document).ready(function () {
             now = now + (data.match(new RegExp("is already installed", "g")) || []).length;
             now = now + (data.match(new RegExp("has been installed", "g")) || []).length;
             if(data.includes("Installation has completed successfully")){ now++; }
+            setProgress(now);
             if(now = max){
               clearInterval(checkLog);
               $('#log_progress').addClass('bg-success').html('Completed');
               $('a[data-action="login"]').show();
             }
-            setProgress(now);
           }
         });
 			}, 5000);
