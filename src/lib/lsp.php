@@ -383,7 +383,7 @@ class LSP {
 		if($this->Status){
 			$tables=json_decode(file_get_contents($file),true);
 			foreach($tables as $table => $records){
-				$this->log("Importing records in [".$table_name."]");
+				$this->log("Importing records in [".$table."]");
 				if(!$asNew){
 					foreach($records as $record){
 						$find = $this->query('SELECT * FROM `'.$table.'` WHERE id = ?', $record['id']);
@@ -422,7 +422,7 @@ class LSP {
 					}
 					foreach($records as $record){ $this->create($record, $table, $asNew); }
 				}
-				$this->log("Records imported in [".$table_name."]");
+				$this->log("Records imported in [".$table."]");
 			}
 		}
 	}
