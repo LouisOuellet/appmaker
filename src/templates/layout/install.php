@@ -336,7 +336,7 @@
               </div>
               <div class="card-footer">
                 <button type="button" data-target="#welcome" data-toggle="collapse" aria-expanded="false"  class="btn btn-default"><i class="nav-icon fas fa-chevron-left mr-2"></i><?= $this->Language->Field['Back'] ?></button>
-                <a href="<?=$this->URL?>" data-action="login" class="btn btn-success float-right" style="display:none;">
+                <a href="<?=$this->URL?>" data-action="login" class="btn btn-success float-right">
                   <?= $this->Language->Field['Sign_In'] ?><i class="nav-icon fas fa-sign-in-alt ml-2"></i>
                 </a>
               </div>
@@ -477,6 +477,7 @@ $(document).ready(function () {
       $(element).removeClass('is-invalid');
     },
     submitHandler: function() {
+      $('a[data-action="login"]').hide();
       $('#log').collapse('show');
       $('#log_container').html("");
       var sql_host = document.getElementById("sql_host").value;
