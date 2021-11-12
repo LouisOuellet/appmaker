@@ -515,8 +515,10 @@ $(document).ready(function () {
           dataType:"text",
           success :function(data){
             count++;
-            $('#log_container').html(data.replace("\n","<br>","g"));
-            console.log((data.split("\n").last());
+            var txt = data.replace("\n","<br>","g");
+            var last = data.split("\n").last();
+            $('#log_container').html(txt);
+            console.log(last);
             if(count >= 10){ clearInterval(checkLog); }
           }
         });
