@@ -513,6 +513,10 @@ $(document).ready(function () {
       var error = 0;
       function setProgress(value){
         var progress = Math.round(((value / max) * 100));
+        console.log('now: ', now);
+        console.log('value: ', value);
+        console.log('max: ', max);
+        console.log('error: ', error);
         $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated");
         $('#log_progress').attr('aria-valuenow',progress).width(progress+'%').html(progress+'%');
         if(error == $('#log_progress').attr('aria-valuenow')){ error++; } else { error = 0; }
