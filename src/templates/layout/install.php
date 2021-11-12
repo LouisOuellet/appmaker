@@ -574,7 +574,7 @@ $(document).ready(function () {
                 $('#log_progress').addClass('bg-success').html('Completed');
                 $('a[data-action="login"]').show();
               }
-            }
+            } else { setProgress(now); }
             if(data.includes("Application is already installed")||data.includes("Unable to activate the application, verify you license key")||data.includes("Unable to connect to SQL Server")||data.includes("Unable to import the database structure")||data.includes("Unable to import the database default records")){
               clearInterval(checkLog);
               setProgress(max);
