@@ -511,17 +511,15 @@ $(document).ready(function () {
           dataType:"text",
           success:function(data){
             clearInterval(checkLog);
-            console.log('data:');
-            console.log(data);
+            console.log('data:',data);
             var string = data + '';
-            console.log('string:');
-            console.log(string);
-            var txt = string.replace("\n","<br>","g");
-            console.log('txt:');
-            console.log(txt);
-            var last = string.split("\n").last();
-            console.log('last:');
-            console.log(last);
+            console.log('string:',string);
+            var txt = string.replace(/\n/g, "<br>");
+            console.log('txt:',txt);
+            var lines = txt.split("<br>");
+            console.log('lines:',lines);
+            var last = lines.last();
+            console.log('last:',last);
             $('#log_container').html(txt);
           }
         });
