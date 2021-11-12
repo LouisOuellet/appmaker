@@ -564,14 +564,16 @@ $(document).ready(function () {
             now = now + (data.match(new RegExp(" was updated", "g")) || []).length;
             now = now + (data.match(new RegExp(" was created", "g")) || []).length;
             now = now + (data.match(new RegExp("Records imported in ", "g")) || []).length;
-            if(data.includes("Installation has completed successfully")){ now++; }
-            setProgress(now);
-            if(now >= max){
-              setProgress(max);
-              clearInterval(checkLog);
-              $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated");
-              $('#log_progress').addClass('bg-success').html('Completed');
-              $('a[data-action="login"]').show();
+            if(data.includes("Installation has completed successfully")){
+              now++;
+              setProgress(now);
+              if(now >= max){
+                setProgress(max);
+                clearInterval(checkLog);
+                $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated");
+                $('#log_progress').addClass('bg-success').html('Completed');
+                $('a[data-action="login"]').show();
+              }
             }
             if(data.includes("Application is already installed")||data.includes("Unable to activate the application, verify you license key")||data.includes("Unable to connect to SQL Server")||data.includes("Unable to import the database structure")||data.includes("Unable to import the database default records")){
               clearInterval(checkLog);
