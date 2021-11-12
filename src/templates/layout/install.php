@@ -459,6 +459,7 @@ $(document).ready(function () {
   <?php if($this->Settings['lsp']['required']){ ?>
     rules.activation_license = { required: true };
   <?php } ?>
+  $('body').removeClass('pace pace-primary');
   $('#SetupWizard').validate({
     ignore: [],
     rules: rules,
