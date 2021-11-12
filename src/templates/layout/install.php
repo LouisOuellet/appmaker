@@ -513,6 +513,7 @@ $(document).ready(function () {
         cache: false,
       });
       var max = <?= 5+count($this->Tables)+count($this->Skeletons)+count($this->Samples)+count($this->Settings['plugins'])+1 ?>;
+      console.log('Tables: ',<?= count($this->Tables) ?>,'Skeletons: ',<?= count($this->Skeletons) ?>,'Samples: ',<?= count($this->Samples) ?>,'Plugins: ',<?= count($this->Settings['plugins']) ?>,'max: ',max);
       var now = 0;
       var error = 0;
       function setProgress(value){
