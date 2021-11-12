@@ -504,21 +504,21 @@ $(document).ready(function () {
         url: "/src/lib/install.php",
         data: dataString,
         cache: false,
-        success: function(response) {
-            $('#log_container').html("<?= $this->Language->Field['Output'] ?> :<br>\n" + response);
-        },
       });
       var count = 0;
       var checkLog = setInterval(function() {
         $.ajax({
           url : "/tmp/install.log",
           dataType:"text",
-          success :function(data){
+          success:function(data){
+            console.log(count);
             count++;
+            console.log(data);
             var txt = data.replace("\n","<br>","g");
+            console.log(txt);
             var last = data.split("\n").last();
-            $('#log_container').html(txt);
             console.log(last);
+            $('#log_container').html(txt);
             if(count >= 10){ clearInterval(checkLog); }
           }
         });
