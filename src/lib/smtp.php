@@ -68,10 +68,10 @@ class MAIL{
 			$mail->SmtpConnect();
 			return true;
 		} catch (phpmailerException $e) {
-			// $e->errorMessage();
+			echo $e->errorMessage();
 		  return false;
 		} catch (Exception $e) {
-			// $e->getMessage();
+			echo $e->getMessage();
 		  return false;
 		}
 	}
