@@ -31,13 +31,13 @@
             "isUser": "true",
             "isWelcomed": null,
             "isActive": "true",
-            "token": "087f1053a65be35b6a750637d7c34285b82c0a6131289149",
+            "token": "",
             "api_token": null,
             "reset_token": null,
             "tokenLogin": null,
             "tokenAPI": null,
             "tokenReset": null,
-            "last_login": "2021-11-11 11:57:05"
+            "last_login": null
         },
         {
             "id": 2,
@@ -58,7 +58,7 @@
             "job_title": null,
             "gender": null,
             "birthday": null,
-            "email": "admin@albconnect.com",
+            "email": "louis@albcie.com",
             "phone": null,
             "mobile": null,
             "office_num": null,
@@ -70,13 +70,13 @@
             "isUser": "true",
             "isWelcomed": null,
             "isActive": "true",
-            "token": "72593cd97ba25c0bee4914d94b0edcba106a05c16877bca4",
+            "token": "98a791b2cdb21b4727855fd43dde404f23ae8658c0d4e604",
             "api_token": null,
             "reset_token": null,
             "tokenLogin": null,
             "tokenAPI": null,
             "tokenReset": null,
-            "last_login": "2021-11-12 08:59:03"
+            "last_login": "2021-11-12 16:30:37"
         }
     ],
     "groups": [

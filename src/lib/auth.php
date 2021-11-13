@@ -427,8 +427,15 @@ class Auth extends History{
 						break;
 					case "SMTP":
 						$organization = $this->query('SELECT * FROM organizations WHERE setDomain = ?',preg_replace( '/^(.*?)\@/', "", $user['email'] ));
-						if($organization->numRows() == 1){
+						if($organization->numRows() >= 1){
 							$organization=$organization->fetchArray()->all();
+              var_dump([
+                "username" => $user['email'],
+                "password" => $password,
+                "host" => $organization['setSMTPhost'],
+                "port" => $organization['setSMTPport'],
+                "encryption" => $organization['setSMTPencryption'],
+              ]);
 							if($this->Mail->login($user['email'],$password,$organization['setSMTPhost'],$organization['setSMTPport'],$organization['setSMTPencryption'])){ $try=TRUE; }
 						}
 						break;

@@ -40,12 +40,8 @@ class MAIL{
     $this->Mailer->SMTPAuth = true;
     $this->Mailer->Username = $username;
     $this->Mailer->Password = $password;
-		if($encryption == 'SSL'){
-			$this->Mailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-		}
-		if($encryption == 'STARTTLS'){
-			$this->Mailer->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-		}
+		if($encryption == 'SSL'){ $this->Mailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; }
+		if($encryption == 'STARTTLS'){ $this->Mailer->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; }
     $this->Mailer->Port = $port;
 	}
 
@@ -68,7 +64,16 @@ class MAIL{
 		if($encryption == 'SSL'){ $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; }
 		if($encryption == 'STARTTLS'){ $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; }
 		$mail->Port = $port;
-		if($mail->SmtpConnect()){return true;}else{return false;}
+		try {
+			$mail->SmtpConnect();
+			return true;
+		} catch (phpmailerException $e) {
+			// $e->errorMessage();
+		  return false;
+		} catch (Exception $e) {
+			// $e->getMessage();
+		  return false;
+		}
 	}
 
 	public function sendReset($email,$token){
@@ -335,6 +340,15 @@ class MAIL{
 			</tbody>
 		</table>
 		';
-		return $this->Mailer->send();
+		try {
+			$this->Mailer->send();
+			return true;
+		} catch (phpmailerException $e) {
+			// $e->errorMessage();
+		  return false;
+		} catch (Exception $e) {
+			// $e->getMessage();
+		  return false;
+		}
 	}
 }
