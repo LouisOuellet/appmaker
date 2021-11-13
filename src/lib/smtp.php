@@ -23,7 +23,7 @@ class MAIL{
 		"logo" => "https://mailer.com/dist/img/logo.png",
 	]; // Contains the various links required
 
-	public function __construct($host,$port,$encryption,$username,$password,$language = 'english'){
+	public function __construct($smtp = null,$language = 'english'){
 		// Setup Language
 		$this->Language = new Language($language);
 
@@ -34,15 +34,17 @@ class MAIL{
 		}
 
 		// Setup PHPMailer
-		$this->Mailer = new PHPMailer(true);
-		$this->Mailer->isSMTP();
-    $this->Mailer->Host = $host;
-    $this->Mailer->SMTPAuth = true;
-    $this->Mailer->Username = $username;
-    $this->Mailer->Password = $password;
-		if($encryption == 'SSL'){ $this->Mailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; }
-		if($encryption == 'STARTTLS'){ $this->Mailer->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; }
-    $this->Mailer->Port = $port;
+		if($smtp != null){
+			$this->Mailer = new PHPMailer(true);
+			$this->Mailer->isSMTP();
+	    $this->Mailer->Host = $smtp['host'];
+	    $this->Mailer->SMTPAuth = true;
+	    $this->Mailer->Username = $smtp['username'];
+	    $this->Mailer->Password = $smtp['password'];
+			if($smtp['encryption'] == 'SSL'){ $this->Mailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; }
+			if($smtp['encryption'] == 'STARTTLS'){ $this->Mailer->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; }
+	    $this->Mailer->Port = $smtp['port'];
+		}
 	}
 
 	public function customization($brand = "Mailer",$links = [ "support" => "https://mailer.com/support", "trademark" => "https://mailer.com/trademark", "policy" => "https://mailer.com/policy", "logo" => "https://mailer.com/dist/img/logo.png", ]){
@@ -65,21 +67,17 @@ class MAIL{
 		if($encryption == 'SSL'){ $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; }
 		if($encryption == 'STARTTLS'){ $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; }
 		$mail->Port = $port;
-		if($mail->smtpConnect()){
-	    $mail->smtpClose();
-	  	return true;
-		} else{ return false; }
-		// try {
-		// 	$mail->SmtpConnect();
-		// 	$mail->smtpClose();
-		// 	return true;
-		// } catch (phpmailerException $e) {
-		// 	echo $e->errorMessage();
-		//   return false;
-		// } catch (Exception $e) {
-		// 	echo $e->getMessage();
-		//   return false;
-		// }
+		try {
+			$mail->SmtpConnect();
+			$mail->smtpClose();
+			return true;
+		} catch (phpmailerException $e) {
+			echo $e->errorMessage();
+		  return false;
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		  return false;
+		}
 	}
 
 	public function sendReset($email,$token){
@@ -350,10 +348,10 @@ class MAIL{
 			$this->Mailer->send();
 			return true;
 		} catch (phpmailerException $e) {
-			// $e->errorMessage();
+			echo $e->errorMessage();
 		  return false;
 		} catch (Exception $e) {
-			// $e->getMessage();
+			echo $e->getMessage();
 		  return false;
 		}
 	}

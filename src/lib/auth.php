@@ -51,15 +51,8 @@ class Auth extends History{
 
 		// Setup Mail
 		if((isset($this->Settings['smtp']))&&(!empty($this->Settings['smtp']))){
-			$this->Mail = new MAIL(
-				$this->Settings['smtp']['host'],
-				$this->Settings['smtp']['port'],
-				$this->Settings['smtp']['encryption'],
-				$this->Settings['smtp']['username'],
-				$this->Settings['smtp']['password'],
-				$this->Settings['language']
-			);
-		}
+			$this->Mail = new MAIL($this->Settings['smtp'],$this->Settings['language']);
+		} else { $this->Mail = new MAIL(); }
 
 		// Setup Validator
 		$this->Validator = new Validator();
