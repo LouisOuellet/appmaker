@@ -31,7 +31,7 @@
             "isUser": "true",
             "isWelcomed": null,
             "isActive": "true",
-            "token": "",
+            "token": null,
             "api_token": null,
             "reset_token": null,
             "tokenLogin": null,
@@ -70,13 +70,13 @@
             "isUser": "true",
             "isWelcomed": null,
             "isActive": "true",
-            "token": "98a791b2cdb21b4727855fd43dde404f23ae8658c0d4e604",
+            "token": "5e7ceed202a4af47bdeadd95a53485fabec3858e738ee223",
             "api_token": null,
             "reset_token": null,
             "tokenLogin": null,
             "tokenAPI": null,
             "tokenReset": null,
-            "last_login": "2021-11-12 16:30:37"
+            "last_login": "2021-11-12 21:18:12"
         }
     ],
     "groups": [
