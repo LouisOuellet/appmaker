@@ -349,7 +349,7 @@
                 <div class="m-3 p-2 terminal"><p class="card-text" id="log_container"></p></div>
               </div>
               <div class="card-footer">
-                <button type="button" data-target="#welcome" data-toggle="collapse" aria-expanded="false"  class="btn btn-default"><i class="nav-icon fas fa-chevron-left mr-2"></i><?= $this->Language->Field['Back'] ?></button>
+                <button type="button" data-action="back" data-target="#welcome" data-toggle="collapse" aria-expanded="false"  class="btn btn-default"><i class="nav-icon fas fa-chevron-left mr-2"></i><?= $this->Language->Field['Back'] ?></button>
                 <a href="<?=$this->URL?>" data-action="login" class="btn btn-success float-right">
                   <?= $this->Language->Field['Sign_In'] ?><i class="nav-icon fas fa-sign-in-alt ml-2"></i>
                 </a>
@@ -444,6 +444,7 @@
         dataType:"text",
         success:function(data){
           clearInterval(checkInstall);
+          $('button[data-action="back"][data-target="#welcome"]').hide();
           $('a[data-action="login"]').hide();
           $('#log_container').html("");
           $('#log').collapse('show');
@@ -499,6 +500,7 @@
                   clearInterval(checkLog);
                   setProgress(max);
                   $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated").addClass('bg-danger').html('Error');
+                  $('button[data-action="back"][data-target="#welcome"]').show();
                 }
               }
             });
