@@ -41,6 +41,7 @@ class MAIL{
 	    $this->Mailer->SMTPAuth = true;
 	    $this->Mailer->Username = $smtp['username'];
 	    $this->Mailer->Password = $smtp['password'];
+			$this->Mailer->SMTPDebug = false;
 			if($smtp['encryption'] == 'SSL'){ $this->Mailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; }
 			if($smtp['encryption'] == 'STARTTLS'){ $this->Mailer->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; }
 	    $this->Mailer->Port = $smtp['port'];
@@ -63,21 +64,14 @@ class MAIL{
 		$mail->SMTPAuth = true;
 		$mail->Username = $username;
 		$mail->Password = $password;
-		$mail->SMTPDebug = 3;
+		$mail->SMTPDebug = false;
 		if($encryption == 'SSL'){ $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; }
 		if($encryption == 'STARTTLS'){ $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; }
 		$mail->Port = $port;
-		try {
-			$mail->SmtpConnect();
-			$mail->smtpClose();
-			return true;
-		} catch (phpmailerException $e) {
-			echo $e->errorMessage();
-		  return false;
-		} catch (Exception $e) {
-			echo $e->getMessage();
-		  return false;
-		}
+		// Test Connection
+		try { $mail->SmtpConnect();$mail->smtpClose(); return true; }
+		catch (phpmailerException $e) { return false; }
+		catch (Exception $e) { return false; }
 	}
 
 	public function sendReset($email,$token){
@@ -344,15 +338,8 @@ class MAIL{
 			</tbody>
 		</table>
 		';
-		try {
-			$this->Mailer->send();
-			return true;
-		} catch (phpmailerException $e) {
-			echo $e->errorMessage();
-		  return false;
-		} catch (Exception $e) {
-			echo $e->getMessage();
-		  return false;
-		}
+		try { $this->Mailer->send(); return true; }
+		catch (phpmailerException $e) { return false; }
+		catch (Exception $e) { return false; }
 	}
 }
