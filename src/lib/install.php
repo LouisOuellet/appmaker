@@ -8,6 +8,9 @@ class Installer {
   protected $Manifest = [];
   protected $Settings = [];
   protected $Plugins = [];
+  protected $Structure = [];
+  protected $Skeletons = [];
+  protected $Samples = [];
   protected $LSP;
   protected $Database;
   protected $Connection;
@@ -20,6 +23,19 @@ class Installer {
     // Increase PHP memory limit
     ini_set('max_execution_time','2400');
     ini_set('memory_limit','2048M');
+
+    // Import Data
+    $this->Manifest = json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/manifest.json'),true);
+    $this->Plugins = json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/plugins.json'),true);
+
+    // Init Installer
+    if(file_exists(dirname(__FILE__,3).'/dist/data/structure.json')){ $this->Structure = json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/structure.json'),true); }
+    if(file_exists(dirname(__FILE__,3).'/dist/data/skeleton.json')){ $this->Skeletons = json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/skeleton.json'),true); }
+    if(file_exists(dirname(__FILE__,3).'/dist/data/sample.json')){ $this->Samples = json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/sample.json'),true); }
+    $resume = (5+count($this->Structure)+count($this->Skeletons)+count($this->Manifest['plugins'])+1);
+    if((isset($_POST['site_sample']))&&($_POST['site_sample'] == 'true')){ $resume = $resume + count($this->Samples); }
+    if(is_file(dirname(__FILE__,3) . '/tmp/resume.install')){ unlink(dirname(__FILE__,3) . '/tmp/resume.install'); }
+    file_put_contents(dirname(__FILE__,3) . '/tmp/resume.install', $resume.PHP_EOL , FILE_APPEND | LOCK_EX);
 
     // Init Log
     $this->Log = dirname(__FILE__,3) . '/tmp/install.log';
@@ -38,10 +54,6 @@ class Installer {
     // Test SQL
     if($this->configDB()){
       $this->log("SQL Database Connexion Successfull!");
-
-      // Import Data
-      $this->Manifest = json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/manifest.json'),true);
-      $this->Plugins = json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/plugins.json'),true);
 
       // Prepare Settings
       $this->Settings = $this->Manifest;

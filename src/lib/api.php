@@ -52,6 +52,8 @@ class API{
     // Import Configurations
 		if(is_file(dirname(__FILE__,3) . "/config/config.json")){
 			$this->Settings = json_decode(file_get_contents(dirname(__FILE__,3) . '/config/config.json'),true);
+      if(is_file(dirname(__FILE__,3) . '/tmp/install.log')){ unlink(dirname(__FILE__,3) . '/tmp/install.log'); }
+      if(is_file(dirname(__FILE__,3) . '/tmp/resume.install')){ unlink(dirname(__FILE__,3) . '/tmp/resume.install'); }
 		} else {
       $this->Settings=json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/manifest.json'),true);
     }

@@ -437,7 +437,80 @@
   })
 </script>
 <script type="text/javascript">
+  function checkProgress(){
+    var checkInstall = setInterval(function(){
+      $.ajax({
+        url : "/tmp/resume.install",
+        dataType:"text",
+        success:function(data){
+          clearInterval(checkInstall);
+          $('a[data-action="login"]').hide();
+          $('#log_container').html("");
+          $('#log').collapse('show');
+          var max = parseInt(data);
+          var now = 0;
+          var error = 0;
+          function setProgress(value){
+            var progress = Math.round(((value / max) * 100));
+            // console.log('error: ', error,'progress: ', progress,'attr: ', parseInt($('#log_progress').attr('aria-valuenow')),parseInt(progress) == parseInt($('#log_progress').attr('aria-valuenow')));
+            if(parseInt(progress) == parseInt($('#log_progress').attr('aria-valuenow'))){ error++; } else { error = 0; }
+            $('#log_progress').attr('aria-valuenow',progress).width(progress+'%').html(progress+'%');
+            if(site_sample){ $('#log_progress').append(' - This may take a while'); }
+            switch(true){
+              case (0 <= error &&  error < 15): $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated");break;
+              case (15 <= error &&  error < 30): $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated bg-info");break;
+              case (30 <= error &&  error < 60): $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated bg-lightblue");break;
+              case (60 <= error &&  error < 120): $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated bg-navy");break;
+              case (120 <= error &&  error < 180): $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated bg-warning");break;
+              case (180 <= error &&  error < 240): $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated bg-orange");break;
+              case (240 <= error): $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated bg-danger").html(progress+"% - It's been a while");break;
+            }
+          }
+          setProgress(now);
+          var checkLog = setInterval(function(){
+            $.ajax({
+              url : "/tmp/install.log",
+              dataType:"text",
+              success:function(data){
+                $('#log_container').html(data.replace(/\n/g, "<br>"));
+                now = 0;
+                if(data.includes("SQL Database Connexion Successfull!")){ now++; }
+                if(data.includes("Removing existing tables from the database")){ now++; }
+                if(data.includes("Database has been cleared")){ now++; }
+                if(data.includes("Database structure was added successfully")){ now++; }
+                if(data.includes("Database default records were created successfully")){ now++; }
+                now = now + (data.match(new RegExp(" is already installed", "g")) || []).length;
+                now = now + (data.match(new RegExp(" has been installed", "g")) || []).length;
+                now = now + (data.match(new RegExp(" was updated", "g")) || []).length;
+                now = now + (data.match(new RegExp(" was created", "g")) || []).length;
+                now = now + (data.match(new RegExp("Records imported in ", "g")) || []).length;
+                if(data.includes("Installation has completed successfully")){
+                  now++;
+                  setProgress(now);
+                  if(now >= max){
+                    setProgress(max);
+                    clearInterval(checkLog);
+                    $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated");
+                    $('#log_progress').addClass('bg-success').html('Completed');
+                    $('a[data-action="login"]').show();
+                  }
+                } else { setProgress(now); }
+                if(data.includes("Application is already installed")||data.includes("Unable to activate the application, verify you license key")||data.includes("Unable to connect to SQL Server")||data.includes("Unable to import the database structure")||data.includes("Unable to import the database default records")){
+                  clearInterval(checkLog);
+                  setProgress(max);
+                  $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated").addClass('bg-danger').html('Error');
+                }
+              }
+            });
+          }, 1000);
+        }
+      });
+    }, 1000);
+  }
+</script>
+<script type="text/javascript">
 $(document).ready(function () {
+  checkProgress();
   $.validator.addMethod("pwcheck", function(value) {
     return /^[A-Za-z0-9\d=!\-+@._*]*$/.test(value) // consists of only these
       && /[a-z]/.test(value) // has a lowercase letter
@@ -526,63 +599,6 @@ $(document).ready(function () {
         data: dataString,
         cache: false,
       });
-      var max = <?= 5+count($this->Tables)+count($this->Skeletons)+count($this->Settings['plugins'])+1 ?>;
-      if(site_sample){ max = (max + <?= count($this->Samples) ?>); }
-      var now = 0;
-      var error = 0;
-      function setProgress(value){
-        var progress = Math.round(((value / max) * 100));
-        // console.log('error: ', error,'progress: ', progress,'attr: ', parseInt($('#log_progress').attr('aria-valuenow')),parseInt(progress) == parseInt($('#log_progress').attr('aria-valuenow')));
-        if(parseInt(progress) == parseInt($('#log_progress').attr('aria-valuenow'))){ error++; } else { error = 0; }
-        $('#log_progress').attr('aria-valuenow',progress).width(progress+'%').html(progress+'%');
-        if(site_sample){ $('#log_progress').append(' - This may take a while'); }
-        switch(true){
-          case (0 <= error &&  error < 15): $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated");break;
-          case (15 <= error &&  error < 30): $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated bg-info");break;
-          case (30 <= error &&  error < 60): $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated bg-lightblue");break;
-          case (60 <= error &&  error < 120): $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated bg-navy");break;
-          case (120 <= error &&  error < 180): $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated bg-warning");break;
-          case (180 <= error &&  error < 240): $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated bg-orange");break;
-          case (240 <= error): $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated bg-danger").html(progress+"% - It's been a while");break;
-        }
-      }
-      setProgress(now);
-      var checkLog = setInterval(function() {
-        $.ajax({
-          url : "/tmp/install.log",
-          dataType:"text",
-          success:function(data){
-            $('#log_container').html(data.replace(/\n/g, "<br>"));
-            now = 0;
-            if(data.includes("SQL Database Connexion Successfull!")){ now++; }
-            if(data.includes("Removing existing tables from the database")){ now++; }
-            if(data.includes("Database has been cleared")){ now++; }
-            if(data.includes("Database structure was added successfully")){ now++; }
-            if(data.includes("Database default records were created successfully")){ now++; }
-            now = now + (data.match(new RegExp(" is already installed", "g")) || []).length;
-            now = now + (data.match(new RegExp(" has been installed", "g")) || []).length;
-            now = now + (data.match(new RegExp(" was updated", "g")) || []).length;
-            now = now + (data.match(new RegExp(" was created", "g")) || []).length;
-            now = now + (data.match(new RegExp("Records imported in ", "g")) || []).length;
-            if(data.includes("Installation has completed successfully")){
-              now++;
-              setProgress(now);
-              if(now >= max){
-                setProgress(max);
-                clearInterval(checkLog);
-                $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated");
-                $('#log_progress').addClass('bg-success').html('Completed');
-                $('a[data-action="login"]').show();
-              }
-            } else { setProgress(now); }
-            if(data.includes("Application is already installed")||data.includes("Unable to activate the application, verify you license key")||data.includes("Unable to connect to SQL Server")||data.includes("Unable to import the database structure")||data.includes("Unable to import the database default records")){
-              clearInterval(checkLog);
-              setProgress(max);
-              $('#log_progress').attr("class", "progress-bar progress-bar-striped progress-bar-animated").addClass('bg-danger').html('Error');
-            }
-          }
-        });
-			}, 1000);
     },
   });
 });
