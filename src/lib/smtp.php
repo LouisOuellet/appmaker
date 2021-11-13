@@ -61,19 +61,25 @@ class MAIL{
 		$mail->SMTPAuth = true;
 		$mail->Username = $username;
 		$mail->Password = $password;
+		$mail->SMTPDebug = 3;
 		if($encryption == 'SSL'){ $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; }
 		if($encryption == 'STARTTLS'){ $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; }
 		$mail->Port = $port;
-		try {
-			$mail->SmtpConnect();
-			return true;
-		} catch (phpmailerException $e) {
-			echo $e->errorMessage();
-		  return false;
-		} catch (Exception $e) {
-			echo $e->getMessage();
-		  return false;
-		}
+		if($mail->smtpConnect()){
+	    $mail->smtpClose();
+	  	return true;
+		} else{ return false; }
+		// try {
+		// 	$mail->SmtpConnect();
+		// 	$mail->smtpClose();
+		// 	return true;
+		// } catch (phpmailerException $e) {
+		// 	echo $e->errorMessage();
+		//   return false;
+		// } catch (Exception $e) {
+		// 	echo $e->getMessage();
+		//   return false;
+		// }
 	}
 
 	public function sendReset($email,$token){
