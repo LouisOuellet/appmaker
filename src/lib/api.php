@@ -486,6 +486,20 @@ class API{
     }
   }
 
+  public function __reset($arg = []){
+		if($this->LSP->Status){
+      if((is_array($arg))&&(isset($arg['silent']) && $arg['silent'])){ $args = $arg; }
+      elseif((is_array($arg))&&(isset($arg[0]))){ $args=json_decode($arg[0],true); }
+      else { $args=[]; }
+      shell_exec("rm -r plugins");
+      shell_exec("mkdir plugins");
+      shell_exec("touch plugins/empty");
+      shell_exec("rm config/config.php");
+      shell_exec("rm tmp/install.log");
+      shell_exec("rm tmp/resume.install");
+    }
+  }
+
   public function __update($arg = []){
 		if($this->LSP->Status){
       if((is_array($arg))&&(isset($arg['silent']) && $arg['silent'])){ $args = $arg; }
