@@ -491,12 +491,12 @@ class API{
       if((is_array($arg))&&(isset($arg['silent']) && $arg['silent'])){ $args = $arg; }
       elseif((is_array($arg))&&(isset($arg[0]))){ $args=json_decode($arg[0],true); }
       else { $args=[]; }
-      shell_exec("rm -r plugins");
-      shell_exec("mkdir plugins");
-      shell_exec("touch plugins/empty");
-      shell_exec("rm config/config.php");
-      shell_exec("rm tmp/install.log");
-      shell_exec("rm tmp/resume.install");
+      shell_exec("rm -r plugins &> /dev/null");
+      shell_exec("mkdir plugins &> /dev/null");
+      shell_exec("touch plugins/empty &> /dev/null");
+      shell_exec("rm config/config.php &> /dev/null");
+      shell_exec("rm tmp/install.log &> /dev/null");
+      shell_exec("rm tmp/resume.install &> /dev/null");
     }
   }
 
