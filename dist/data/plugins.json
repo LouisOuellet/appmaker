@@ -408,5 +408,15 @@
             },
             "manifest": "\/dist\/data\/manifest.json"
         }
+    },
+    "welcome": {
+        "repository": {
+            "name": "appmaker-welcome",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
     }
 }

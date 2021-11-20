@@ -109,11 +109,14 @@
         },
         "users": {
             "status": true
+        },
+        "welcome": {
+            "status": true
         }
     },
     "log_level": 3,
     "version": "21.11-dev",
-    "build": 421,
+    "build": 422,
     "repository": {
         "name": "appmaker",
         "branch": "dev",
