@@ -494,7 +494,7 @@ class API{
       shell_exec("rm -r plugins &> /dev/null");
       shell_exec("mkdir plugins &> /dev/null");
       shell_exec("touch plugins/empty &> /dev/null");
-      shell_exec("rm config/config.php &> /dev/null");
+      shell_exec("rm config/config.json &> /dev/null");
       shell_exec("rm tmp/install.log &> /dev/null");
       shell_exec("rm tmp/resume.install &> /dev/null");
     }
