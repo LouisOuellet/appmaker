@@ -516,17 +516,12 @@ var API = {
 		Navbar:{
 			element:{},
 			init:function(){
-				var maxit = 25, start = 0;
 				var checkExist = setInterval(function() {
-					++start;
 					if((API.initiated)&&($('nav').length > 0)){
 						clearInterval(checkExist);
 						API.GUI.Navbar.element.left = $('#navbar-left');
 						API.GUI.Navbar.element.right = $('#navbar-right');
-						API.GUI.Navbar.Notification.init();
-						API.GUI.Navbar.Task.init();
 					}
-					if(start == maxit){ clearInterval(checkExist); }
 				}, 100);
 			},
 			Task:{
