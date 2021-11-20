@@ -497,6 +497,8 @@ class API{
       shell_exec("rm config/config.json &> /dev/null");
       shell_exec("rm tmp/install.log &> /dev/null");
       shell_exec("rm tmp/resume.install &> /dev/null");
+      shell_exec("rm dist/img/custom-logo.png &> /dev/null");
+      shell_exec("rm dist/img/background.png &> /dev/null");
     }
   }
 
