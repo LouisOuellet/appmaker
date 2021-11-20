@@ -118,7 +118,7 @@
     "credit": "ALB Compagnie International",
     "credit_url": "https:\/\/albcie.com\/",
     "version": "21.11-dev",
-    "build": 430,
+    "build": 431,
     "repository": {
         "name": "appmaker",
         "branch": "dev",
