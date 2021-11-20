@@ -1,3 +1,6 @@
+.content-background{
+	background-image: "/dist/img/background.png"!important;
+}
 .input-group.is-invalid input,.input-group.is-invalid .input-group-text,.input-group.is-invalid select,.input-group.is-invalid .select2-selection{
 	border-color:#dc3545;
 }
