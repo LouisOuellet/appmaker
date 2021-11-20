@@ -32,7 +32,7 @@
             "type": "select"
         },
         "darkmode": {
-            "value": false,
+            "value": true,
             "type": "switch"
         },
         "swalPosition": {
@@ -116,7 +116,7 @@
     },
     "log_level": 3,
     "version": "21.11-dev",
-    "build": 427,
+    "build": 428,
     "repository": {
         "name": "appmaker",
         "branch": "dev",

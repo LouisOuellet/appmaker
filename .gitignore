@@ -5,6 +5,7 @@ composer.phar
 /config/config.json
 /config/config.json.bak
 /dist/img/custom-logo.png
+/dist/img/background.png
 /tmp/
 /tmp/*
 */tmp/
