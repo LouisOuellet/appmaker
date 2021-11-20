@@ -249,6 +249,16 @@
             "manifest": "\/dist\/data\/manifest.json"
         }
     },
+    "notifications": {
+        "repository": {
+            "name": "appmaker-notifications",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
     "organizations": {
         "repository": {
             "name": "appmaker-organizations",
@@ -362,6 +372,16 @@
     "tags": {
         "repository": {
             "name": "appmaker-tags",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "tasks": {
+        "repository": {
+            "name": "appmaker-tasks",
             "host": {
                 "git": "https:\/\/github.com\/LouisOuellet\/",
                 "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"

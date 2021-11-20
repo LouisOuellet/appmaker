@@ -89,6 +89,9 @@
         "plugins": {
             "status": true
         },
+        "notifications": {
+            "status": true
+        },
         "profile": {
             "status": true
         },
@@ -101,13 +104,16 @@
         "settings": {
             "status": true
         },
+        "tasks": {
+            "status": true
+        },
         "users": {
             "status": true
         }
     },
     "log_level": 3,
     "version": "21.11-dev",
-    "build": 419,
+    "build": 420,
     "repository": {
         "name": "appmaker",
         "branch": "dev",
