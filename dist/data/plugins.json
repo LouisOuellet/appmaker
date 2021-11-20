@@ -189,6 +189,16 @@
             "manifest": "\/dist\/data\/manifest.json"
         }
     },
+    "motd": {
+        "repository": {
+            "name": "appmaker-motd",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
     "my_clients": {
         "repository": {
             "name": "appmaker-my_clients",
