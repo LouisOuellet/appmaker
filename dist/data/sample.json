@@ -3102,6 +3102,188 @@
             "level": 1,
             "isLocked": "true",
             "role_id": "4"
+        },
+        {
+            "id": 211,
+            "created": "2021-05-26 09:28:02",
+            "modified": "2021-05-26 09:28:02",
+            "owner": "1",
+            "updated_by": "1",
+            "name": "index",
+            "table": null,
+            "plugin": "motd",
+            "type": "view",
+            "level": 1,
+            "isLocked": "true",
+            "role_id": "3"
+        },
+        {
+            "id": 212,
+            "created": "2021-05-26 09:28:02",
+            "modified": "2021-05-26 09:28:02",
+            "owner": "1",
+            "updated_by": "1",
+            "name": "motd",
+            "table": null,
+            "plugin": null,
+            "type": "api",
+            "level": 1,
+            "isLocked": "true",
+            "role_id": "3"
+        },
+        {
+            "id": 213,
+            "created": "2021-05-26 09:28:02",
+            "modified": "2021-05-26 09:28:02",
+            "owner": "1",
+            "updated_by": "1",
+            "name": "motd",
+            "table": null,
+            "plugin": null,
+            "type": "plugin",
+            "level": 1,
+            "isLocked": "true",
+            "role_id": "3"
+        },
+        {
+            "id": 214,
+            "created": "2021-05-26 09:28:02",
+            "modified": "2021-05-26 09:28:02",
+            "owner": "1",
+            "updated_by": "1",
+            "name": "notifications",
+            "table": null,
+            "plugin": null,
+            "type": "api",
+            "level": 1,
+            "isLocked": "true",
+            "role_id": "3"
+        },
+        {
+            "id": 215,
+            "created": "2021-05-26 09:28:02",
+            "modified": "2021-05-26 09:28:02",
+            "owner": "1",
+            "updated_by": "1",
+            "name": "index",
+            "table": null,
+            "plugin": "notifications",
+            "type": "view",
+            "level": 1,
+            "isLocked": "true",
+            "role_id": "3"
+        },
+        {
+            "id": 216,
+            "created": "2021-05-26 09:28:02",
+            "modified": "2021-05-26 09:28:02",
+            "owner": "1",
+            "updated_by": "1",
+            "name": "tasks",
+            "table": null,
+            "plugin": null,
+            "type": "plugin",
+            "level": 1,
+            "isLocked": "true",
+            "role_id": "3"
+        },
+        {
+            "id": 217,
+            "created": "2021-05-26 09:28:02",
+            "modified": "2021-05-26 09:28:02",
+            "owner": "1",
+            "updated_by": "1",
+            "name": "tasks",
+            "table": null,
+            "plugin": null,
+            "type": "api",
+            "level": 1,
+            "isLocked": "true",
+            "role_id": "3"
+        },
+        {
+            "id": 218,
+            "created": "2021-05-26 09:28:02",
+            "modified": "2021-05-26 09:28:02",
+            "owner": "1",
+            "updated_by": "1",
+            "name": "index",
+            "table": null,
+            "plugin": "tasks",
+            "type": "view",
+            "level": 1,
+            "isLocked": "true",
+            "role_id": "3"
+        },
+        {
+            "id": 219,
+            "created": "2021-05-26 09:28:02",
+            "modified": "2021-05-26 09:28:02",
+            "owner": "1",
+            "updated_by": "1",
+            "name": "motd",
+            "table": null,
+            "plugin": null,
+            "type": "nav-item",
+            "level": 1,
+            "isLocked": "true",
+            "role_id": "3"
+        },
+        {
+            "id": 220,
+            "created": "2021-05-26 09:28:02",
+            "modified": "2021-05-26 09:28:02",
+            "owner": "1",
+            "updated_by": "1",
+            "name": "tasks",
+            "table": null,
+            "plugin": null,
+            "type": "nav-item",
+            "level": 1,
+            "isLocked": "true",
+            "role_id": "3"
+        },
+        {
+            "id": 221,
+            "created": "2021-05-26 09:28:02",
+            "modified": "2021-05-26 09:28:02",
+            "owner": "1",
+            "updated_by": "1",
+            "name": "notifications",
+            "table": null,
+            "plugin": null,
+            "type": "nav-item",
+            "level": 1,
+            "isLocked": "true",
+            "role_id": "3"
+        },
+        {
+            "id": 222,
+            "created": "2021-05-26 09:28:02",
+            "modified": "2021-05-26 09:28:02",
+            "owner": "1",
+            "updated_by": "1",
+            "name": "notifications",
+            "table": null,
+            "plugin": null,
+            "type": "table",
+            "level": 1,
+            "isLocked": "true",
+            "role_id": "3"
+        },
+        {
+            "id": 223,
+            "created": "2021-05-26 09:28:02",
+            "modified": "2021-05-26 09:28:02",
+            "owner": "1",
+            "updated_by": "1",
+            "name": "notifications",
+            "table": null,
+            "plugin": null,
+            "type": "plugin",
+            "level": 1,
+            "isLocked": "true",
+            "role_id": "3"
         }
     ],
     "priorities": [
@@ -3654,32 +3836,7 @@
             "name": "Transport Coordinators"
         }
     ],
-    "services": [
-        {
-            "id": 1,
-            "created": "2021-04-30 10:00:23",
-            "modified": "2021-04-30 10:00:23",
-            "owner": "1",
-            "updated_by": "1",
-            "name": "Brokerage"
-        },
-        {
-            "id": 2,
-            "created": "2021-04-30 10:00:23",
-            "modified": "2021-04-30 10:00:23",
-            "owner": "1",
-            "updated_by": "1",
-            "name": "Consultation"
-        },
-        {
-            "id": 3,
-            "created": "2021-04-30 10:00:23",
-            "modified": "2021-04-30 10:00:23",
-            "owner": "1",
-            "updated_by": "1",
-            "name": "Freight"
-        }
-    ],
+    "services": [],
     "statistics": [],
     "statuses": [
         {
@@ -4804,13 +4961,13 @@
             "isUser": "true",
             "isWelcomed": null,
             "isActive": "true",
-            "token": "2e1fa0e340236f0b83293450a576377dbb72dfcaaa9cf3f9",
+            "token": "b001ea32279108aab08839a73d50a3279e1bc488151259bc",
             "api_token": null,
             "reset_token": null,
             "tokenLogin": null,
             "tokenAPI": null,
             "tokenReset": null,
-            "last_login": "2021-11-20 13:19:47"
+            "last_login": "2021-11-20 23:35:00"
         }
     ]
 }

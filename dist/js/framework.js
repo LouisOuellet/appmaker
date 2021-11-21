@@ -397,6 +397,7 @@ var API = {
 			window.history.pushState({page: 1},title, url.origin+href);
 			$('a[href^="?p"]').removeClass('active');
 			$('a[href^="'+href+'"]').addClass('active');
+			$('.content-header').show();
 			if(element.prop("tagName") == "SECTION"){ $('#page-title h1').html(title); }
 			if(url.searchParams.get("v") == undefined){
 				var view = './plugins/'+url.searchParams.get("p")+'/src/views/index.php';
