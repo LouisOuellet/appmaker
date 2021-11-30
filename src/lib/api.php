@@ -517,14 +517,14 @@ class API{
       if((is_array($arg))&&(isset($arg['silent']) && $arg['silent'])){ $args = $arg; }
       elseif((is_array($arg))&&(isset($arg[0]))){ $args=json_decode($arg[0],true); }
       else { $args=[]; }
-      if(isset($arg['plugin'])){
-        $process = ["plugin" => $arg['plugin'],"silent" => true];
+      if(isset($args['plugin'])){
+        $process = ["plugin" => $args['plugin'],"silent" => true];
         $settings = $this->Settings['plugins'][$process['plugin']];
         if($this->__uninstall($process)){
           $process['force']=true;
           if($this->__install($process)){
-            $this->Settings['plugins'][$arg['plugin']] = array_merge($settings,$this->Settings['plugins'][$arg['plugin']]);
-            if(isset($settings['status'])){ $this->Settings['plugins'][$arg['plugin']]['status'] = $settings['status']; }
+            $this->Settings['plugins'][$args['plugin']] = array_merge($settings,$this->Settings['plugins'][$args['plugin']]);
+            if(isset($settings['status'])){ $this->Settings['plugins'][$args['plugin']]['status'] = $settings['status']; }
             $this->SaveCfg(['plugins' => $this->Settings['plugins']]);
             if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "[".$arg['plugin']."] updated successfully\n";}
     				if(isset($args['silent'])&&$args['silent']) { return ["success" => $this->Language->Field["Plugin updated successfully"]]; }
