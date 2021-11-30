@@ -526,7 +526,7 @@ class API{
             $this->Settings['plugins'][$args['plugin']] = array_merge($settings,$this->Settings['plugins'][$args['plugin']]);
             if(isset($settings['status'])){ $this->Settings['plugins'][$args['plugin']]['status'] = $settings['status']; }
             $this->SaveCfg(['plugins' => $this->Settings['plugins']]);
-            if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "[".$arg['plugin']."] updated successfully\n";}
+            if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "[".$args['plugin']."] updated successfully\n";}
     				if(isset($args['silent'])&&$args['silent']) { return ["success" => $this->Language->Field["Plugin updated successfully"]]; }
           }
         }
