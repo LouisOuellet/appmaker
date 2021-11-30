@@ -8,7 +8,7 @@
     "forgot": true,
     "customization": {
         "pace": {
-            "value": "primary",
+            "value": "info",
             "type": "select"
         },
         "logobg": {
@@ -16,7 +16,7 @@
             "type": "select"
         },
         "nav": {
-            "value": "info",
+            "value": "primary",
             "type": "select"
         },
         "navmode": {
@@ -24,7 +24,7 @@
             "type": "select"
         },
         "sidenav": {
-            "value": "info",
+            "value": "primary",
             "type": "select"
         },
         "sidenavmode": {
@@ -118,7 +118,7 @@
     "credit": "ALB Compagnie International",
     "credit_url": "https:\/\/albcie.com\/",
     "version": "21.11-dev",
-    "build": 434,
+    "build": 435,
     "repository": {
         "name": "appmaker",
         "branch": "dev",
