@@ -465,6 +465,52 @@ class APIextend extends API{
 		return $result;
 	}
 
+	protected function buildRelations($get){
+		foreach($get['output']['relationships'] as $rid => $relations){
+			foreach($relations as $uid => $relation){
+				if(isset($get['output']['details'][$relation['relationship']]['dom'][$relation['link_to']])){
+					$get['output']['relations'][$relation['relationship']][$relation['link_to']] = $get['output']['details'][$relation['relationship']]['dom'][$relation['link_to']];
+					$get['output']['relations'][$relation['relationship']][$relation['link_to']]['owner'] = $relation['owner'];
+					$get['output']['relations'][$relation['relationship']][$relation['link_to']]['created'] = $relation['created'];
+					if($relation['relationship'] == 'galleries'){
+						$pictures = $this->Auth->query('SELECT * FROM `pictures` WHERE `dirname` = ?',$get['output']['details'][$relation['relationship']]['dom'][$relation['link_to']]['dirname']);
+						if($pictures->numRows() > 0){
+							$get['output']['relations'][$relation['relationship']][$relation['link_to']]['pictures'] = $pictures->fetchAll()->All();
+						} else { $get['output']['relations'][$relation['relationship']][$relation['link_to']]['pictures'] = []; }
+						foreach($get['output']['relations'][$relation['relationship']][$relation['link_to']]['pictures'] as $key => $picture){
+							$get['output']['relations'][$relation['relationship']][$relation['link_to']]['pictures'][$key]['dirname'] = str_replace(dirname(__FILE__,3),'',$get['output']['relations'][$relation['relationship']][$relation['link_to']]['pictures'][$key]['dirname']);
+						}
+					}
+					if(isset($relation['statuses'])){
+						$get['output']['relations'][$relation['relationship']][$relation['link_to']]['status'] = $get['output']['details']['statuses']['dom'][$relation['statuses']]['order'];
+					}
+					if(!isset($get['output']['relations'][$relation['relationship']][$relation['link_to']]['name']) && isset($get['output']['relations'][$relation['relationship']][$relation['link_to']]['first_name'])){
+						$get['output']['relations'][$relation['relationship']][$relation['link_to']]['name'] = '';
+						if($get['output']['relations'][$relation['relationship']][$relation['link_to']]['first_name'] != ''){
+							if($get['output']['relations'][$relation['relationship']][$relation['link_to']]['name'] != ''){
+								$get['output']['relations'][$relation['relationship']][$relation['link_to']]['name'] .= ' ';
+							}
+							$get['output']['relations'][$relation['relationship']][$relation['link_to']]['name'] .= $get['output']['relations'][$relation['relationship']][$relation['link_to']]['first_name'];
+						}
+						if($get['output']['relations'][$relation['relationship']][$relation['link_to']]['middle_name'] != ''){
+							if($get['output']['relations'][$relation['relationship']][$relation['link_to']]['name'] != ''){
+								$get['output']['relations'][$relation['relationship']][$relation['link_to']]['name'] .= ' ';
+							}
+							$get['output']['relations'][$relation['relationship']][$relation['link_to']]['name'] .= $get['output']['relations'][$relation['relationship']][$relation['link_to']]['middle_name'];
+						}
+						if($get['output']['relations'][$relation['relationship']][$relation['link_to']]['last_name'] != ''){
+							if($get['output']['relations'][$relation['relationship']][$relation['link_to']]['name'] != ''){
+								$get['output']['relations'][$relation['relationship']][$relation['link_to']]['name'] .= ' ';
+							}
+							$get['output']['relations'][$relation['relationship']][$relation['link_to']]['name'] .= $get['output']['relations'][$relation['relationship']][$relation['link_to']]['last_name'];
+						}
+					}
+				}
+			}
+		}
+		return $get;
+	}
+
 	protected function createRelationship($relationship = []){
 		if(!empty($relationship)){
 			// Initialize

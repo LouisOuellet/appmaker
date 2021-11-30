@@ -233,6 +233,16 @@ class API{
     }
   }
 
+  public function mkdir($directory){
+    $make = dirname(__FILE__,3);
+    $directories = explode('/',$directory);
+    foreach($directories as $subdirectory){
+      $make .= '/'.$subdirectory;
+      if(!is_file($make)&&!is_dir($make)){ mkdir($make); }
+    }
+    return $make;
+  }
+
   protected function getTimeDiff($datetime1,$datetime2){
     $datetime1 = new DateTime($datetime1);
     $datetime2 = new DateTime($datetime2);
@@ -507,65 +517,80 @@ class API{
       if((is_array($arg))&&(isset($arg['silent']) && $arg['silent'])){ $args = $arg; }
       elseif((is_array($arg))&&(isset($arg[0]))){ $args=json_decode($arg[0],true); }
       else { $args=[]; }
-      $curl = curl_init();
-      curl_setopt($curl, CURLOPT_URL, $this->Settings['repository']['host']['raw'].$this->Settings['repository']['name'].'/'.$this->Settings['repository']['branch'].$this->Settings['repository']['manifest']);
-      curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-      $manifest = json_decode(curl_exec($curl), true);
-      curl_close($curl);
-			if(($this->Settings['build'] < $manifest['build'])||((isset($args['force']))&&($args['force']))){
-				// We configure our database access
-				$this->LSP->configdb($this->Settings['sql']['host'], $this->Settings['sql']['username'], $this->Settings['sql']['password'], $this->Settings['sql']['database']);
-        // Putting Server in maintenance mode
-        if(file_exists(dirname(__FILE__,3).'/config/config.json') && isset($this->Settings['serverid'])){
-          if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Enabling Maintenance\n";}
-          $this->Settings['maintenance'] = true;
-          $this->SaveCfg($this->Settings);
-          if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Logging off everyone\n";}
-          $this->Auth->query('UPDATE `users` SET `token` = ?',null);
+      if(isset($arg['plugin'])){
+        $process = ["plugin" => $arg['plugin'],"silent" => true];
+        $settings = $this->Settings['plugins'][$process['plugin']];
+        if($this->__uninstall($process)){
+          $process['force']=true;
+          if($this->__install($process)){
+            $this->Settings['plugins'][$arg['plugin']] = array_merge($settings,$this->Settings['plugins'][$arg['plugin']]);
+            if(isset($settings['status'])){ $this->Settings['plugins'][$arg['plugin']]['status'] = $settings['status']; }
+            $this->SaveCfg(['plugins' => $this->Settings['plugins']]);
+            if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "[".$arg['plugin']."] updated successfully\n";}
+    				if(isset($args['silent'])&&$args['silent']) { return ["success" => $this->Language->Field["Plugin updated successfully"]]; }
+          }
         }
-				// We backup the database using a JSON file.
-        if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Creating backup of build [".$this->Settings['build']."]\n";}
-        if(isset($this->Settings['sql'])){
-  				$timestamp = new Datetime();
-          if(!is_dir(dirname(__FILE__,3).'/tmp')){mkdir(dirname(__FILE__,3).'/tmp');}
-  				$this->LSP->createStructure(dirname(__FILE__,3).'/tmp/lsp-structure-backup-'.$timestamp->format('U').'.json');
-  				$this->LSP->createRecords(dirname(__FILE__,3).'/tmp/lsp-data-backup-'.$timestamp->format('U').'.json');
-        } else {
-          if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "No database found\n";}
-        }
-				// We update the local files
-        if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Updating local files\n";}
-        shell_exec("git clone --branch ".$this->Settings['repository']['branch']." ".$this->Settings['repository']['host']['git'].$this->Settings['repository']['name'].".git"." ".dirname(__FILE__,3)."/tmp/".$this->Settings['repository']['name']." &> /dev/null");
-        shell_exec("rsync -aP --exclude='.git/' --exclude='.gitignore' ".dirname(__FILE__,3)."/tmp/".$this->Settings['repository']['name']."/* ".dirname(__FILE__,3)."/.");
-        shell_exec("rsync -aP --exclude='.git/' --exclude='.gitignore' ".dirname(__FILE__,3)."/tmp/".$this->Settings['repository']['name']."/.??* ".dirname(__FILE__,3)."/.");
-        shell_exec("rm -rf ".dirname(__FILE__,3)."/tmp/".$this->Settings['repository']['name']);
-        // Update Manifest Data
-        $manifest = json_decode(file_get_contents(dirname(__FILE__,3).'/dist/data/manifest.json'),true);
-        if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Local files updated to build [".$manifest['build']."]\n";}
-				// We start updating our database
-        if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Upgrading database\n";}
-        if(isset($this->Settings['sql'])){
-          if(is_file(dirname(__FILE__,3).'/dist/data/structure.json')){ $this->LSP->updateStructure(dirname(__FILE__,3).'/dist/data/structure.json'); }
-  				if(is_file(dirname(__FILE__,3).'/dist/data/skeleton.json')){ $this->LSP->insertRecords(dirname(__FILE__,3).'/dist/data/skeleton.json'); }
-  				if(is_file(dirname(__FILE__,3).'/dist/data/sample.json')){ if((isset($args['sample']))&&($args['sample'])){ $this->LSP->insertRecords(dirname(__FILE__,3).'/dist/data/sample.json'); } }
-        }
-        // Saving new configurations
-        if(file_exists(dirname(__FILE__,3).'/config/config.json') && isset($this->Settings['serverid'])){
-          if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Saving new configurations\n";}
-          $this->Settings['build'] = $manifest['build'];
-          $this->Settings['version'] = $manifest['version'];
-          $this->Settings['maintenance'] = false;
-          $this->Settings['serverid'] = password_hash(md5($_SERVER['DOCUMENT_ROOT'].$_SERVER['SCRIPT_FILENAME'].$_SERVER['PATH']), PASSWORD_BCRYPT, ['cost' => 10]);
-          $this->SaveCfg($this->Settings);
-        } else {
-          if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Application is not installed\n";}
-        }
-        if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Application updated successfully\n";}
-				if(isset($args['silent'])&&$args['silent']) { return ["success" => $this->Language->Field["Application updated successfully"]]; }
-			} else {
-        if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "No updates available\n";}
-				if(isset($args['silent'])&&$args['silent']) { return ["error" => $this->Language->Field["No updates available"]]; }
-			}
+      } else {
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $this->Settings['repository']['host']['raw'].$this->Settings['repository']['name'].'/'.$this->Settings['repository']['branch'].$this->Settings['repository']['manifest']);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        $manifest = json_decode(curl_exec($curl), true);
+        curl_close($curl);
+  			if(($this->Settings['build'] < $manifest['build'])||((isset($args['force']))&&($args['force']))){
+  				// We configure our database access
+  				$this->LSP->configdb($this->Settings['sql']['host'], $this->Settings['sql']['username'], $this->Settings['sql']['password'], $this->Settings['sql']['database']);
+          // Putting Server in maintenance mode
+          if(file_exists(dirname(__FILE__,3).'/config/config.json') && isset($this->Settings['serverid'])){
+            if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Enabling Maintenance\n";}
+            $this->Settings['maintenance'] = true;
+            $this->SaveCfg($this->Settings);
+            if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Logging off everyone\n";}
+            $this->Auth->query('UPDATE `users` SET `token` = ?',null);
+          }
+  				// We backup the database using a JSON file.
+          if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Creating backup of build [".$this->Settings['build']."]\n";}
+          if(isset($this->Settings['sql'])){
+    				$timestamp = new Datetime();
+            if(!is_dir(dirname(__FILE__,3).'/tmp')){mkdir(dirname(__FILE__,3).'/tmp');}
+    				$this->LSP->createStructure(dirname(__FILE__,3).'/tmp/lsp-structure-backup-'.$timestamp->format('U').'.json');
+    				$this->LSP->createRecords(dirname(__FILE__,3).'/tmp/lsp-data-backup-'.$timestamp->format('U').'.json');
+          } else {
+            if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "No database found\n";}
+          }
+  				// We update the local files
+          if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Updating local files\n";}
+          shell_exec("git clone --branch ".$this->Settings['repository']['branch']." ".$this->Settings['repository']['host']['git'].$this->Settings['repository']['name'].".git"." ".dirname(__FILE__,3)."/tmp/".$this->Settings['repository']['name']." &> /dev/null");
+          shell_exec("rsync -aP --exclude='.git/' --exclude='.gitignore' ".dirname(__FILE__,3)."/tmp/".$this->Settings['repository']['name']."/* ".dirname(__FILE__,3)."/.");
+          shell_exec("rsync -aP --exclude='.git/' --exclude='.gitignore' ".dirname(__FILE__,3)."/tmp/".$this->Settings['repository']['name']."/.??* ".dirname(__FILE__,3)."/.");
+          shell_exec("rm -rf ".dirname(__FILE__,3)."/tmp/".$this->Settings['repository']['name']);
+          // Update Manifest Data
+          $manifest = json_decode(file_get_contents(dirname(__FILE__,3).'/dist/data/manifest.json'),true);
+          if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Local files updated to build [".$manifest['build']."]\n";}
+  				// We start updating our database
+          if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Upgrading database\n";}
+          if(isset($this->Settings['sql'])){
+            if(is_file(dirname(__FILE__,3).'/dist/data/structure.json')){ $this->LSP->updateStructure(dirname(__FILE__,3).'/dist/data/structure.json'); }
+    				if(is_file(dirname(__FILE__,3).'/dist/data/skeleton.json')){ $this->LSP->insertRecords(dirname(__FILE__,3).'/dist/data/skeleton.json'); }
+    				if(is_file(dirname(__FILE__,3).'/dist/data/sample.json')){ if((isset($args['sample']))&&($args['sample'])){ $this->LSP->insertRecords(dirname(__FILE__,3).'/dist/data/sample.json'); } }
+          }
+          // Saving new configurations
+          if(file_exists(dirname(__FILE__,3).'/config/config.json') && isset($this->Settings['serverid'])){
+            if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Saving new configurations\n";}
+            $this->Settings['build'] = $manifest['build'];
+            $this->Settings['version'] = $manifest['version'];
+            $this->Settings['maintenance'] = false;
+            $this->Settings['serverid'] = password_hash(md5($_SERVER['DOCUMENT_ROOT'].$_SERVER['SCRIPT_FILENAME'].$_SERVER['PATH']), PASSWORD_BCRYPT, ['cost' => 10]);
+            $this->SaveCfg($this->Settings);
+          } else {
+            if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Application is not installed\n";}
+          }
+          if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Application updated successfully\n";}
+  				if(isset($args['silent'])&&$args['silent']) { return ["success" => $this->Language->Field["Application updated successfully"]]; }
+  			} else {
+          if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "No updates available\n";}
+  				if(isset($args['silent'])&&$args['silent']) { return ["error" => $this->Language->Field["No updates available"]]; }
+  			}
+      }
 		} else {
       if(!isset($args['silent'])||(isset($args['silent'])&&!$args['silent'])){echo "Application not activated\n";}
 			if(isset($args['silent'])&&$args['silent']) { return ["error" => $this->Language->Field["Application not activated"]]; }

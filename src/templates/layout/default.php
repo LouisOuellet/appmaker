@@ -1,5 +1,5 @@
 <!-- Site wrapper -->
-<div class="wrapper">
+<div class="wrapper" id="ControlPanel">
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-<?=$navmode?> p-0 navbar-<?=$nav?> elevation-2">
     <!-- Left navbar links -->
@@ -47,8 +47,8 @@
     <!-- /.sidebar -->
   </aside>
   <!-- Content Wrapper. Contains page content -->
-	<div class="content-wrapper content-background">
-		<section class="content-header">
+	<div class="content-wrapper content-background" style="background-image: url('/dist/img/background.png')!important;">
+		<section class="content-header content-background">
 			<div class="container-fluid">
 				<div class="row mb-2" id="page-title">
 					<div class="col-sm-6">
@@ -63,7 +63,7 @@
 				</div>
 			</div>
 		</section>
-		<section class="content p-3" id="ContentFrame">
+		<section class="content content-background p-3" id="ContentFrame">
 			<?php
 				$file = "/plugins/$p/src/views/$v.php";
 				if(file_exists(dirname(__FILE__,4).$file)){

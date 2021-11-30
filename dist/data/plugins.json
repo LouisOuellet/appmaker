@@ -199,6 +199,36 @@
             "manifest": "\/dist\/data\/manifest.json"
         }
     },
+    "events": {
+        "repository": {
+            "name": "appmaker-events",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "url": {
+        "repository": {
+            "name": "appmaker-url",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "galleries": {
+        "repository": {
+            "name": "appmaker-galleries",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
     "my_clients": {
         "repository": {
             "name": "appmaker-my_clients",

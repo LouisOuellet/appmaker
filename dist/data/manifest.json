@@ -32,7 +32,7 @@
             "type": "select"
         },
         "darkmode": {
-            "value": false,
+            "value": true,
             "type": "switch"
         },
         "swalPosition": {
@@ -118,7 +118,7 @@
     "credit": "ALB Compagnie International",
     "credit_url": "https:\/\/albcie.com\/",
     "version": "21.11-dev",
-    "build": 432,
+    "build": 433,
     "repository": {
         "name": "appmaker",
         "branch": "dev",

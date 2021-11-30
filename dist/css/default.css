@@ -1,8 +1,15 @@
 .content-background{
-	background-image: url("/dist/img/background.png")!important;
 	background-position: center!important;
   background-repeat: no-repeat!important;
   background-size: cover!important;
+}
+.noselect {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 .input-group.is-invalid input,.input-group.is-invalid .input-group-text,.input-group.is-invalid select,.input-group.is-invalid .select2-selection{
 	border-color:#dc3545;
@@ -18,6 +25,9 @@
 }
 .dark-mode .welcome i{
 	border-color: #FFF !important;
+}
+.hide {
+  display: none;
 }
 .close{
 	text-shadow: none !important;
