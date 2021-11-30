@@ -1016,10 +1016,7 @@ var API = {
 							html += '<div class="card" id="details_main_'+API.GUI.Layouts.counts.details+'">';
 					      html += '<div class="card-header d-flex p-0">';
 					        html += '<ul class="nav nav-pills p-2" id="details_main_tabs_'+API.GUI.Layouts.counts.details+'"></ul>';
-									html += '<div id="details_main_controls_'+API.GUI.Layouts.counts.details+'" class="btn-group ml-auto">';
-										html += '<button type="button" data-action="subscribe" style="display:none;" class="btn"><i class="fas fa-bell"></i></button>';
-										html += '<button type="button" data-action="unsubscribe" style="display:none;" class="btn"><i class="fas fa-bell-slash"></i></button>';
-									html += '</div>';
+									html += '<div id="details_main_controls_'+API.GUI.Layouts.counts.details+'" class="btn-layouts-details-controls btn-group ml-auto"></div>';
 					      html += '</div>';
 					      html += '<div class="card-body p-0">';
 					        html += '<div class="tab-content" id="details_main_tabs_content_'+API.GUI.Layouts.counts.details+'"></div>';

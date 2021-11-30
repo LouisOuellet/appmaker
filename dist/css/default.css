@@ -26,6 +26,9 @@
 .dark-mode .welcome i{
 	border-color: #FFF !important;
 }
+.dark-mode .btn-layouts-details-controls .btn{
+	color: #FFF !important;
+}
 .hide {
   display: none;
 }
