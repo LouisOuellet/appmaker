@@ -1121,6 +1121,10 @@ var API = {
 			var secondes = String(date.getSeconds()).padStart(2, '0');
 			return year+'-'+month+'-'+day+' '+hours+':'+minutes+':'+secondes;
 		},
+		html2text:function(html){
+			var text = $('<div>').html(html);
+			return text.text();
+		},
 		htmlentities:function(obj){
 			for(var key in obj){
 	      if(typeof obj[key] == "object" && obj[key] !== null){ API.Helper.htmlentities(obj[key]); }
