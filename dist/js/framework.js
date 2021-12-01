@@ -524,112 +524,6 @@ var API = {
 					}
 				}, 100);
 			},
-			Task:{
-				count:0,
-				element:{
-					list:{},
-					badge:{},
-				},
-				init:function(){
-					var checkExist = setInterval(function() {
-						if((API.initiated)&&(typeof API.GUI.Navbar.element.left !== "undefined")&&(typeof API.GUI.Navbar.element.right !== "undefined")){
-							clearInterval(checkExist);
-							var html = '';
-							html += '<li class="nav-item dropdown">';
-							  html += '<a class="nav-link" data-toggle="dropdown" data-display="static">';
-							    html += '<i class="fas fa-tasks"></i>';
-									html += '<span class="badge badge-primary navbar-badge">'+API.GUI.Navbar.Task.count+'</span>';
-							  html += '</a>';
-								html += '<div class="dropdown-menu dropdown-menu-mobile dropdown-menu-task scrollable-menu">';
-									html += '<span class="dropdown-item dropdown-header">'+API.GUI.Navbar.Task.count+' '+API.Contents.Language['Tasks']+'</span>';
-								html += '</div>';
-							html += '</li>';
-							API.GUI.Navbar.element.right.prepend(html);
-							API.GUI.Navbar.Task.element.list = API.GUI.Navbar.element.right.find('.dropdown-menu').first();
-							API.GUI.Navbar.Task.element.badge = API.GUI.Navbar.element.right.find('.badge').first();
-						}
-					}, 100);
-				},
-				add:function(options = {}, callback = null){
-					if(options instanceof Function){ callback = options; options = {}; }
-					var url = new URL(window.location.href);
-					var checkExist = setInterval(function() {
-						if((API.initiated)&&(typeof API.GUI.Navbar.Task.element.list !== "undefined")&&(typeof API.GUI.Navbar.Task.element.badge !== "undefined")){
-							clearInterval(checkExist);
-							var html = '';
-							++API.GUI.Navbar.Task.count;
-							options.id = API.GUI.Navbar.Task.count;
-							if(typeof options.title === 'undefined'){ options.title = 'Task '+options.id; }
-							if(typeof options.created === 'undefined'){ options.created = API.Helper.now('ISO_8601'); }
-							if(typeof options.plugin === 'undefined'){
-								if(typeof url.searchParams.get("p") !== 'undefined'){ options.plugin = url.searchParams.get("p"); } else { options.plugin = options.title; }
-							}
-							if(typeof options.icon === 'undefined'){ options.icon = 'icon icon-'+options.plugin; } else {
-								if(options.icon.substring(0, 2) == 'fa'){ options.icon = options.icon+' mr-2'; } else {
-									options.icon = 'icon icon-'+options.icon;
-								}
-							}
-							if(typeof options.extra === 'undefined'){ options.extra = API.Helper.ucfirst(options.plugin); }
-							if(typeof options.value === 'undefined'){ options.value = 0; }
-							if(typeof options.max === 'undefined'){ options.max = 1; }
-							var value = ((options.value / options.max) * 100);
-							if(0 <= value &&  value < 25){ var bg = 'warning'; }
-							else if (25 <= value &&  value < 50){ var bg = 'info'; }
-							else if (50 <= value &&  value < 75){ var bg = 'info'; }
-							else if (75 <= value &&  value < 100){ var bg = 'primary'; }
-							else if (100 == value){ var bg = 'success'; }
-							API.GUI.Navbar.Task.element.badge.html(options.id);
-							API.GUI.Navbar.Task.element.list.find('.dropdown-header').first().remove();
-							html += '<div data-task="'+options.id+'" class="dropdown-divider"></div>';
-							html += '<a data-task="'+options.id+'" class="dropdown-item">';
-								html += '<div class="row"><div class="col-md-12">'+options.title+'</div></div>';
-								html += '<div class="row">';
-									html += '<div class="col-md-1"><i class="'+options.icon+'"></i></div>';
-									html += '<div class="col-md-11 p-2"><div class="progress progress-sm"><div class="progress-bar bg-'+bg+' progress-bar-striped" role="progressbar" aria-valuenow="'+options.value+'" aria-valuemin="0" aria-valuemax="'+options.max+'" style="width: '+((options.value / options.max) * 100)+'%">'+Math.trunc((options.value / options.max) * 100)+'%</div></div></div>';
-								html += '</div>';
-								html += '<div class="row">';
-									html += '<div class="col-md-12">';
-										html += '<span class="float-left text-muted text-sm">'+options.extra+'</span>';
-										html += '<span class="float-right text-muted text-sm"><time class="timeago" datetime="'+options.created+'"></time></span>';
-									html += '</div>';
-								html += '</div>';
-							html += '</a>';
-							API.GUI.Navbar.Task.element.list.prepend(html);
-							API.GUI.Navbar.Task.element.list.prepend('<span class="dropdown-item dropdown-header">'+options.id+' '+API.Contents.Language['Tasks']+'</span>');
-							$('[data-task="'+options.id+'"]').last().find('time').timeago();
-							if(callback != undefined){ callback(options, $('[data-task="'+options.id+'"]').last(), $('[data-task="'+options.id+'"]').first()); }
-						}
-					}, 100);
-				},
-				update:function(id, value, options = null){
-					var task = API.GUI.Navbar.Task.element.list.find('[data-task="'+id+'"]').last();
-					var progress = task.find('.progress-bar');
-					var width = (value / progress.attr('aria-valuemax') * 100)
-					progress.attr('aria-valuenow', value);
-					progress.width(width+'%');
-					progress.html(Math.trunc(width)+'%');
-					progress.removeClass('bg-info');
-					progress.removeClass('bg-warning');
-					progress.removeClass('bg-primary');
-					progress.removeClass('bg-success');
-					if(0 <= width &&  width < 25){ var bg = 'warning'; }
-					else if (25 <= width &&  width < 50){ var bg = 'info'; }
-					else if (50 <= width &&  width < 75){ var bg = 'info'; }
-					else if (75 <= width &&  width < 100){ var bg = 'primary'; }
-					else if (100 == width){ var bg = 'success'; }
-					progress.addClass('bg-'+bg);
-					if(value == progress.attr('aria-valuemax')){
-						setTimeout(function() { API.GUI.Navbar.Task.remove(id); }, 5000);
-					}
-				},
-				remove:function(id){
-					--API.GUI.Navbar.Task.count;
-					API.GUI.Navbar.Task.element.list.find('[data-task="'+id+'"]').remove();
-					API.GUI.Navbar.Task.element.list.find('.dropdown-header').first().remove();
-					API.GUI.Navbar.Task.element.list.prepend('<span class="dropdown-item dropdown-header">'+API.GUI.Navbar.Task.count+' '+API.Contents.Language['Tasks']+'</span>');
-					API.GUI.Navbar.Task.element.badge.html(API.GUI.Navbar.Task.count);
-				},
-			},
 			Notification:{
 				count:0,
 				element:{
@@ -2195,15 +2089,6 @@ var API = {
 								if((API.Auth.validate('button', value.name, 1))&&(typeof value.menu !== 'undefined')&&(value.menu == 'file')){ buttons.push({ text: value.text, action: value.action, table:table }); }
 							}
 						}
-						if((API.Auth.validate('plugin', options.plugin, 3))&&(API.Auth.validate('button', 'import', 1))&&(!options.controls.disable.includes('import'))){
-							buttons.push({ text: '<i class="icon icon-import mr-1"></i>'+API.Contents.Language['Import'], action: function(){
-								if(API.Helper.isSet(options,['import','key'])){
-									API.CRUD.import.show(table, { keys:inputs, id:dtid, key:options.key, import:{ key:options.import.key }, });
-								} else {
-									API.CRUD.import.show(table, { keys:inputs, id:dtid, key:options.key });
-								}
-							} });
-						}
 						dt.button().add(0,{
 							extend: 'collection',
 							text: API.Contents.Language['File'],
@@ -2240,12 +2125,6 @@ var API = {
 								ctrlTxt = '<i class="icon icon-all mr-1"></i>'+API.Contents.Language['All'];
 							} else { ctrlTxt = '<i class="icon icon-all"></i>'; }
 							dt.button().add(0,{ text: ctrlTxt, extend: 'selectAll' });
-						}
-						if((API.Auth.validate('plugin', options.plugin, 3))&&(API.Auth.validate('button', 'import', 1))&&(!options.controls.disable.includes('import'))){
-							if((typeof options.controls.label !== 'undefined')&&(options.controls.label)){
-								ctrlTxt = '<i class="icon icon-import mr-1"></i>'+API.Contents.Language['Import'];
-							} else { ctrlTxt = '<i class="icon icon-import"></i>'; }
-							dt.button().add(0,{ text: ctrlTxt, action: function(){ API.CRUD.import.show(table, { keys:inputs, id:dtid, key:options.key }); } });
 						}
 						if((API.Auth.validate('button', 'filter', 1))&&(!options.controls.disable.includes('filter'))){
 							if((typeof options.controls.label !== 'undefined')&&(options.controls.label)){
@@ -3494,244 +3373,6 @@ var API = {
 				});
 			},
 		},
-		import:{
-			element:{
-				modal:{},
-				form:{},
-			},
-			show:function(element, options = null, callback = null){
-				var url = new URL(window.location.href);
-				if(typeof options.id !== 'undefined'){ var id = options.id; } else { var id = element.attr('id'); }
-				if(url.searchParams.get("p") != undefined){ var plugin = url.searchParams.get("p"); } else { var plugin = API.Contents.SettingsLandingPage; }
-				if(url.searchParams.get("v") != undefined){ var view = url.searchParams.get("v"); } else { var view = 'index'; }
-				if(options instanceof Function){ callback = options; options = {}; }
-				if(typeof options.keys === 'undefined'){ options.keys = {}; }
-				if(typeof options.plugin === 'undefined'){ options.plugin = plugin; }
-				if(typeof options.view === 'undefined'){ options.view = view; }
-				if(typeof options.css === 'undefined'){ options.css = {} }
-				if(typeof options.css.table === 'undefined'){ options.css.table = 'table-hover table-bordered'; }
-				if(typeof options.css.thead === 'undefined'){ options.css.thead = 'thead-dark'; }
-				API.Builder.modal($('body'), {
-					title:'Import',
-					icon:'import',
-					zindex:'top',
-					css:{ dialog: "modal-lg", header: "bg-primary"},
-				}, function(modal){
-					var html = '';
-					var header = modal.find('.modal-header');
-					var body = modal.find('.modal-body');
-					var footer = modal.find('.modal-footer');
-					header.find('button[data-control="hide"]').remove();
-					header.find('button[data-control="update"]').remove();
-					body.addClass('p-2');
-					html += '<divc class="col-12">';
-						html += '<div class="input-group">';
-							html += '<div class="input-group-prepend">';
-								html += '<span class="input-group-text">';
-									html += '<i class="fas fa-file-csv mr-2"></i>';
-									html += API.Contents.Language['CSV File'];
-								html += '</span>';
-							html += '</div>';
-							html += '<div class="custom-file">';
-								html += '<input type="file" class="custom-file-input" name="fileCSV" id="fileCSV">';
-								html += '<label class="custom-file-label" for="fileCSV">';
-									html += API.Contents.Language['Choose file'];
-								html += '</label>';
-							html += '</div>';
-						html += '</div>';
-					html += '</div>';
-					html += '<div id="ImportSettings"></div>';
-					body.html(html);
-					html = '';
-					footer.append('<button type="submit" class="btn btn-primary"><i class="icon icon-import mr-1"></i>'+API.Contents.Language['Import']+'</button>');
-					API.Builder.form(modal,{},function(form){
-						modal.on('hide.bs.modal',function(){ form.remove(); });
-						var settings = $('#ImportSettings'), file = $('#fileCSV');
-						var readFile = function(){
-							html = '<div id="ImportCustomize">';
-								html += '<div id="ImportAdvancedSettings" class="row mt-3 mx-2" style="display:none;"></div>';
-								html += '<button type="button" class="btn btn-primary btn-block mt-3">';
-									html += '<i class="fas fa-cogs mr-1"></i>';
-									html += API.Contents.Language['Advanced'];
-								html += '</button>';
-							html += '</div>';
-							settings.html(html);
-							var advanced = $('#ImportAdvancedSettings'), reader = new FileReader();
-							$('#ImportCustomize button').click(function(){ advanced.slideToggle(); });
-							reader.onload = function(){
-								frow = reader.result.split(/\n/)[0].split(/,/);
-								srow = reader.result.split(/\n/)[1].split(/,/);
-								html = '<div class="col-12"><h4>';
-									html += API.Contents.Language['Advanced settings'];
-								html += '</h4></div>';
-								html += '<div class="col-12">';
-									html += '<div class="row border-bottom border-dark mb-1">';
-										html += '<div class="col-4"><strong>'+API.Contents.Language['Column']+'</strong></div>';
-										html += '<div class="col-4"><strong>'+API.Contents.Language['Associate to']+'</strong></div>';
-										html += '<div class="col-4"><strong>'+API.Contents.Language['Options']+'</strong></div>';
-									html += '</div>';
-								html += '</div>';
-								$.each(frow, function(index, value){
-									html += '<div class="form-group col-12 my-1">';
-										html += '<div class="input-group">';
-											html += '<div class="input-group-prepend col-4 p-0">';
-												html += '<span class="input-group-text w-100">';
-													html += '<i class="fas fa-i-cursor mr-2"></i>';
-													html += value+' : '+srow[index];
-												html += '</span>';
-											html += '</div>';
-											html += '<select data-key="'+index+'" data-type="header" class="col-4">';
-												$.each(API.Contents.Settings.Structure[options.plugin], function(column, object){
-													if(typeof API.Contents.Language[column] === "undefined"){ console.log(column); }
-													if(object.order == index+1){
-														html += '<option value="'+column+'" selected="selected">'+API.Contents.Language[column]+'</option>';
-													} else {
-														html += '<option value="'+column+'">'+API.Contents.Language[column]+'</option>';
-													}
-												});
-											html += '</select>';
-											html += '<select data-key="'+index+'" data-type="options" class="col-4">';
-												html += '<option value="None">None</option>';
-												html += '<option value="Skip">Skip</option>';
-												html += '<option value="Exist">Must not exist</option>';
-												html += '<option value="Update">Update if exist</option>';
-											html += '</select>';
-										html += '</div>';
-									html += '</div>';
-								});
-								advanced.html(html);
-							};
-							reader.readAsBinaryString(file[0].files[0]);
-						};
-						file.change(readFile);
-						form.off();
-						form.submit(function(action){
-							action.preventDefault();
-							var records = [];
-							var reader = new FileReader(), rows = null, opts = [], headers = [], data = {}, stat = true, ct = 0, readystate = false, executed = 0;
-							reader.onload = function (){
-								rows = reader.result.split(/\n/);
-								$('#ImportAdvancedSettings [data-type="header"]').each(function(){
-									headers.push($(this).val());
-								});
-								$('#ImportAdvancedSettings [data-type="options"]').each(function(){
-									opts.push($(this).val());
-								});
-								modal.modal('hide');
-								API.GUI.Navbar.Task.add({
-										title:API.Contents.Language['Importing']+' '+API.Helper.ucfirst(options.plugin),
-										value:0,
-										max:(rows.length -2),
-										plugin:options.plugin,
-										extra:''
-								},function(opt,task,divider){
-									var count = (rows.length -2);
-									var id = task.attr('data-task');
-									var message = '<p style="font-size: 18px; color: #2d2d2d line-height: 1.2; word-break: break-word; text-align: center; mso-line-height-alt: 22px; margin: 0;">'+API.Contents.Auth.User.username+API.Contents.Language[' is reporting']+'</p>';
-									$.each(rows, function(key, value){
-										if((value.split(/,/).length == headers.length)&&(key != 0)){
-											data = { values: value.split(/,/), headers: headers, options: opts }
-											API.request(options.plugin,'import', {
-												data:data,
-												toast:false,
-												report:true,
-											},function(result){
-												if(result.charAt(0) == '{'){
-													var dataset = JSON.parse(result);
-													if(typeof dataset.error !== 'undefined'){ stat = false; } else {
-														if(API.Helper.isSet(options,['import','key'])){ var reckey = options.import.key; } else { var reckey = 'id'; }
-														API.Helper.set(API.Contents,['data','dom',options.plugin,dataset.output.record[reckey]],dataset.output.record);
-														API.Helper.set(API.Contents,['data','raw',options.plugin,dataset.output.record[reckey]],dataset.output.raw);
-														if(element.DataTable().row('#'+dataset.output.record.id).data() == undefined){
-															element.DataTable().row.add(dataset.output.record).node().id = dataset.output.record.id;
-														} else {
-															element.DataTable().row('#'+dataset.output.record.id).data(dataset.output.record);
-														}
-														element.DataTable().draw(false);
-													}
-													++ct;
-													API.GUI.Navbar.Task.update(id, ct);
-												} else {
-													message += '<p style="font-size: 12px; color: #6c6c6c line-height: 1.5; word-break: break-word; text-align: justify; mso-line-height-alt: 18px; margin: 0;">'+result.replace(/\n/g, "<br />")+'</p>'
-													var report = task.find('div.row').last().find('span.float-left');
-													if(!task.hasClass('bg-light-danger')){ task.addClass('bg-light-danger'); }
-													report.html('<a class="badge bg-danger px-2"><i class="icon icon-report mr-1"></i>'+API.Contents.Language['Report']+'</a>');
-													report.find('a').off();
-													report.find('a').click(function(){
-														API.request('smtp','send',{
-															data:{
-																email:API.Contents.Settings.Contacts.reporting,
-																message:message,
-															}
-														});
-													});
-												}
-												if(ct == (rows.length -2)){ readystate = true; }
-												++executed;
-											});
-										}
-									});
-									var checkExist = setInterval(function() {
-										if(executed == count){
-											clearInterval(checkExist);
-											if(readystate){
-												if(stat){
-													API.Toast.show.fire({ type: 'success', text: API.Contents.Language['Records successfully imported'] });
-												} else {
-													API.Toast.show.fire({ type: 'error', text: API.Contents.Language['Unable to complete the request'] });
-												}
-												element.find('button').each(function(){
-													var control = $(this).attr('data-control');
-													var rowdata = element.DataTable().row($(this).parents('tr')).data();
-													$(this).off();
-													$(this).click(function(){
-														var lcontrol = control.toLowerCase();
-														href = '?p='+options.plugin;
-														href += '&v='+lcontrol;
-														if(typeof options.key !== 'undefined'){
-															href += '&id='+rowdata[options.key];
-															thref = rowdata[options.key];
-														} else {
-															href += '&id='+rowdata.id;
-															thref = rowdata.id;
-														}
-														switch(control){
-															case"Details":
-																API.GUI.Breadcrumbs.add(thref, href, { key:options.key, keys:rowdata });
-																if((typeof options.modal !== 'undefined')&&(options.modal)){
-																	API.CRUD.read.show({ table:element, keys:rowdata, key:options.key, href:href });
-																} else {
-																	API.GUI.load($('#ContentFrame'),href, { keys:rowdata });
-																}
-																break;
-															case"Edit":
-																API.CRUD.update.show({ table:element, row:$(this).parents('tr'), keys:rowdata, key:options.key });
-																break;
-															default:
-																if((typeof API.CRUD[lcontrol] !== 'undefined')&&(typeof API.CRUD[lcontrol].show !== 'undefined')){
-																	API.CRUD[lcontrol].show({ table:element, row:$(this).parents('tr'), keys:rowdata, key:options.key });
-																} else {
-																	API.GUI.Breadcrumbs.add(thref, href, { key:options.key, keys:rowdata });
-																	API.GUI.load($('#ContentFrame'),href, { keys:rowdata });
-																}
-																break;
-														}
-													});
-												});
-											}
-											if(callback != undefined){ callback(element); }
-										}
-									}, 100);
-								});
-								$('#ImportAdvancedSettings').html(html);
-					    };
-							reader.readAsBinaryString(file[0].files[0]);
-						});
-						modal.modal('show');
-					});
-				});
-			},
-		},
 		create:{
 			element:{
 				modal:{},
@@ -3922,12 +3563,13 @@ var API = {
 								}
 							}
 							if(required){
-								API.GUI.Navbar.Task.add({
-									title:API.Contents.Language['Creating']+' '+API.Helper.ucfirst(options.plugin),
-									value:0,
-									max:1,
-									plugin:options.plugin,
-									extra:''
+								if(API.Helper.isSet(API.Plugins,['tasks']) && API.Auth.validate('plugin', 'tasks', 1)){
+									API.Plugins.tasks.GUI.add({
+										title:API.Contents.Language['Creating']+' '+API.Helper.ucfirst(options.plugin),
+										value:0,
+										max:1,
+										plugin:options.plugin,
+										extra:''
 									},function(opt,task,divider){
 										modal.modal('hide');
 										form.trigger("reset");
@@ -3940,7 +3582,7 @@ var API = {
 													}
 													if(API.Helper.isSet(record,['tags'])){
 														var tagID = 0;
-														for(var [tag, details] of Object.entries(API.Contents.data.dom.tags)){ tagID = details.id; }
+														for(var [ztag, zdetails] of Object.entries(API.Contents.data.dom.tags)){ tagID = zdetails.id; }
 														for(var [tag, details] of Object.entries(record.tags)){
 															if(!API.Helper.isSet(API.Contents.data.dom.tags,[details.name])){
 																++tagID;
@@ -3995,7 +3637,7 @@ var API = {
 															});
 														});
 													}
-													API.GUI.Navbar.Task.update(task.attr('data-task'), 1);
+													API.Plugins.tasks.GUI.update(task.attr('data-task'), 1);
 													if((callback != undefined)&&(callback != null)){ callback(true, {dom:dataset.output.dom,raw:dataset.output.raw}); }
 												} else {
 													if((callback != undefined)&&(callback != null)){ callback(false, {}); }
@@ -4016,8 +3658,82 @@ var API = {
 												});
 												if((callback != undefined)&&(callback != null)){ callback(false, {}); }
 											}
+										});
 									});
-								});
+								} else {
+									modal.modal('hide');
+									form.trigger("reset");
+									API.request(options.plugin,'create',{data:record,report:true},function(result){
+										if(result.charAt(0) == '{'){
+											var dataset = JSON.parse(result);
+											if(typeof dataset.success !== 'undefined'){
+												if((API.Helper.isSet(record,['job_title']))&&(!API.Contents.Jobs.includes(record.job_title))){
+													API.Contents.Jobs.push(record.job_title);
+												}
+												if(API.Helper.isSet(record,['tags'])){
+													var tagID = 0;
+													for(var [ztag, zdetails] of Object.entries(API.Contents.data.dom.tags)){ tagID = zdetails.id; }
+													for(var [tag, details] of Object.entries(record.tags)){
+														if(!API.Helper.isSet(API.Contents.data.dom.tags,[details.name])){
+															++tagID;
+															API.Helper.set(API.Contents.data.dom.tags,[details.name],{
+																id:tagID,
+																created:dataset.output.dom.created,
+																modified:dataset.output.dom.modified,
+																owner:dataset.output.dom.owner,
+																updated_by:dataset.output.dom.updated_by,
+																name:details.name
+															});
+														}
+													}
+												}
+												if(typeof options.table !== 'undefined'){
+													var row = options.table.DataTable().row.add(dataset.output.dom).draw(false);
+													options.table.find('button').each(function(){
+														var control = $(this).attr('data-control');
+														var rowdata = options.table.DataTable().row($(this).parents('tr')).data();
+														$(this).off().click(function(){
+															var lcontrol = control.toLowerCase();
+															href = '?p='+options.plugin;
+															href += '&v='+lcontrol;
+															if(typeof options.key !== 'undefined'){
+																href += '&id='+rowdata[options.key];
+																thref = rowdata[options.key];
+															} else {
+																href += '&id='+rowdata.id;
+																thref = rowdata.id;
+															}
+															switch(control){
+																case"Details":
+																	API.GUI.Breadcrumbs.add(thref, href, { key:options.key, keys:rowdata });
+																	if((typeof options.modal !== 'undefined')&&(options.modal)){
+																		API.CRUD.read.show({ table:element, keys:rowdata, key:options.key, href:href });
+																	} else {
+																		API.GUI.load($('#ContentFrame'),href, { keys:rowdata });
+																	}
+																	break;
+																case"Edit":
+																	API.CRUD.update.show({ table:options.table, row:$(this).parents('tr'), keys:rowdata, key:options.key });
+																	break;
+																default:
+																	if((typeof API.CRUD[lcontrol] !== 'undefined')&&(typeof API.CRUD[lcontrol].show !== 'undefined')){
+																		API.CRUD[lcontrol].show({ table:options.table, row:$(this).parents('tr'), keys:rowdata, key:options.key });
+																	} else {
+																		API.GUI.Breadcrumbs.add(thref, href, { key:options.key, keys:rowdata });
+																		API.GUI.load($('#ContentFrame'),href, { keys:rowdata });
+																	}
+																	break;
+															}
+														});
+													});
+												}
+												if((callback != undefined)&&(callback != null)){ callback(true, {dom:dataset.output.dom,raw:dataset.output.raw}); }
+											} else {
+												if((callback != undefined)&&(callback != null)){ callback(false, {}); }
+											}
+										}
+									});
+								}
 							} else {
 								alert("You are missing data.")
 							}
@@ -4285,13 +4001,113 @@ var API = {
 										record[dataKey] = $(this).val();
 								}
 							});
-							API.GUI.Navbar.Task.add({
-								title:API.Contents.Language['Updating']+' '+API.Helper.ucfirst(options.plugin),
-								value:0,
-								max:1,
-								plugin:options.plugin,
-								extra:''
-							},function(opt,task,divider){
+							if(API.Helper.isSet(API.Plugins,['tasks']) && API.Auth.validate('plugin', 'tasks', 1)){
+								API.Plugins.tasks.GUI.add({
+									title:API.Contents.Language['Updating']+' '+API.Helper.ucfirst(options.plugin),
+									value:0,
+									max:1,
+									plugin:options.plugin,
+									extra:''
+								},function(opt,task,divider){
+									modal.modal('hide');
+									API.request(options.plugin,'update',{
+										data:record,
+										report:true,
+									},function(result){
+										if(result.charAt(0) == '{'){
+											var dataset = JSON.parse(result);
+											if(typeof dataset.success !== 'undefined'){
+												if((API.Helper.isSet(record,['job_title']))&&(!API.Contents.Jobs.includes(record.job_title))){
+													API.Contents.Jobs.push(record.job_title);
+												}
+												if(API.Helper.isSet(record,['tags'])){
+													var tagID = 0;
+													for(var [tag, details] of Object.entries(record.tags)){
+														if(API.Helper.isSet(API.Contents.data.dom,["tags",tag])){
+															for(var [ztag, zdetails] of Object.entries(API.Contents.data.dom.tags)){ tagID = zdetails.id; }
+														}
+														++tagID;
+														API.Helper.set(API.Contents.data.dom,["tags",tag],{
+															id:tagID,
+															created:dataset.output.dom.modified,
+															modified:dataset.output.dom.modified,
+															owner:dataset.output.dom.owner,
+															updated_by:dataset.output.dom.updated_by,
+															name:tag
+														});
+														API.Helper.set(API.Contents.data.raw,["tags",tag],{
+															id:tagID,
+															created:dataset.output.dom.modified,
+															modified:dataset.output.dom.modified,
+															owner:dataset.output.dom.owner,
+															updated_by:dataset.output.dom.updated_by,
+															name:tag
+														});
+													}
+												}
+												if((typeof options.table !== 'undefined')&&(typeof options.row !== 'undefined')){
+													var row = options.table.DataTable().row(options.row).data(dataset.output.dom).draw(false);
+													options.table.find('button').each(function(){
+														var control = $(this).attr('data-control');
+														var rowdata = options.table.DataTable().row($(this).parents('tr')).data();
+														$(this).off();
+														$(this).click(function(){
+															var lcontrol = control.toLowerCase();
+															href = '?p='+options.plugin;
+															href += '&v='+lcontrol;
+															if(typeof options.key !== 'undefined'){
+																href += '&id='+rowdata[options.key];
+																thref = rowdata[options.key];
+															} else {
+																href += '&id='+rowdata.id;
+																thref = rowdata.id;
+															}
+															switch(control){
+																case"Details":
+																	API.GUI.Breadcrumbs.add(thref, href, { key:options.key, keys:rowdata });
+																	if((typeof options.modal !== 'undefined')&&(options.modal)){
+																		API.CRUD.read.show({ table:element, keys:rowdata, key:options.key, href:href });
+																	} else {
+																		API.GUI.load($('#ContentFrame'),href, { keys:rowdata });
+																	}
+																	break;
+																case"Edit":
+																	API.CRUD.update.show({ table:options.table, row:$(this).parents('tr'), keys:rowdata, key:options.key });
+																	break;
+																default:
+																	if((typeof API.CRUD[lcontrol] !== 'undefined')&&(typeof API.CRUD[lcontrol].show !== 'undefined')){
+																		API.CRUD[lcontrol].show({ table:options.table, row:$(this).parents('tr'), keys:rowdata, key:options.key });
+																	} else {
+																		API.GUI.Breadcrumbs.add(thref, href, { key:options.key, keys:rowdata });
+																		API.GUI.load($('#ContentFrame'),href, { keys:rowdata });
+																	}
+																	break;
+															}
+														});
+													});
+												}
+												if(typeof options.container !== 'undefined'){ API.GUI.insert(dataset.output.dom); }
+												API.Plugins.tasks.GUI.update(task.attr('data-task'), 1);
+												if(callback != undefined){ callback({dom:dataset.output.dom,raw:dataset.output.raw}); }
+											}
+										} else {
+											var report = task.find('div.row').last().find('span.float-left');
+											task.addClass('bg-light-danger');
+											report.html('<a class="badge bg-danger px-2"><i class="icon icon-report mr-1"></i>'+API.Contents.Language['Report']+'</a>');
+											report.find('a').click(function(){
+												var message = '<p style="font-size: 18px; color: #2d2d2d line-height: 1.2; word-break: break-word; text-align: center; mso-line-height-alt: 22px; margin: 0;">'+API.Contents.Auth.User.username+API.Contents.Language[' is reporting']+'</p>';
+												message += '<p style="font-size: 12px; color: #6c6c6c line-height: 1.5; word-break: break-word; text-align: justify; mso-line-height-alt: 18px; margin: 0;">'+result.replace(/\n/g, "<br />")+'</p>'
+												API.request('smtp','send',{
+													data:{
+														email:API.Contents.Settings.Contacts.reporting,
+														message:message,
+													}
+												});
+											});
+										}
+									});
+								});
+							} else {
 								modal.modal('hide');
 								API.request(options.plugin,'update',{
 									data:record,
@@ -4307,7 +4123,7 @@ var API = {
 												var tagID = 0;
 												for(var [tag, details] of Object.entries(record.tags)){
 													if(API.Helper.isSet(API.Contents.data.dom,["tags",tag])){
-														for(var [tag, details] of Object.entries(API.Contents.data.dom.tags)){ tagID = details.id; }
+														for(var [ztag, zdetails] of Object.entries(API.Contents.data.dom.tags)){ tagID = zdetails.id; }
 													}
 													++tagID;
 													API.Helper.set(API.Contents.data.dom,["tags",tag],{
@@ -4370,26 +4186,11 @@ var API = {
 												});
 											}
 											if(typeof options.container !== 'undefined'){ API.GUI.insert(dataset.output.dom); }
-											API.GUI.Navbar.Task.update(task.attr('data-task'), 1);
 											if(callback != undefined){ callback({dom:dataset.output.dom,raw:dataset.output.raw}); }
 										}
-									} else {
-										var report = task.find('div.row').last().find('span.float-left');
-										task.addClass('bg-light-danger');
-										report.html('<a class="badge bg-danger px-2"><i class="icon icon-report mr-1"></i>'+API.Contents.Language['Report']+'</a>');
-										report.find('a').click(function(){
-											var message = '<p style="font-size: 18px; color: #2d2d2d line-height: 1.2; word-break: break-word; text-align: center; mso-line-height-alt: 22px; margin: 0;">'+API.Contents.Auth.User.username+API.Contents.Language[' is reporting']+'</p>';
-											message += '<p style="font-size: 12px; color: #6c6c6c line-height: 1.5; word-break: break-word; text-align: justify; mso-line-height-alt: 18px; margin: 0;">'+result.replace(/\n/g, "<br />")+'</p>'
-											API.request('smtp','send',{
-												data:{
-													email:API.Contents.Settings.Contacts.reporting,
-													message:message,
-												}
-											});
-										});
 									}
 								});
-							});
+							}
 						});
 						modal.modal('show');
 					});
@@ -4436,13 +4237,43 @@ var API = {
 						form.off();
 						form.submit(function(action){
 							action.preventDefault();
-							API.GUI.Navbar.Task.add({
-								title:API.Contents.Language['Deleting']+' '+API.Helper.ucfirst(options.plugin),
-								value:0,
-								max:1,
-								plugin:options.plugin,
-								extra:''
-							},function(opt,task,divider){
+							if(API.Helper.isSet(API.Plugins,['tasks']) && API.Auth.validate('plugin', 'tasks', 1)){
+								API.Plugins.tasks.GUI.add({
+									title:API.Contents.Language['Deleting']+' '+API.Helper.ucfirst(options.plugin),
+									value:0,
+									max:1,
+									plugin:options.plugin,
+									extra:''
+								},function(opt,task,divider){
+									modal.modal('hide');
+									API.request(options.plugin,'delete',{data:options.keys,report:true},function(result){
+										if(result.charAt(0) == '{'){
+											var dataset = JSON.parse(result);
+											if(typeof dataset.success !== 'undefined'){
+												if((typeof options.table !== 'undefined')&&(typeof options.row !== 'undefined')){
+													var row = options.table.DataTable().row(options.row).remove().draw(false);
+												}
+												API.Plugins.tasks.GUI.update(task.attr('data-task'), 1);
+												if(callback != undefined){ callback(dataset.output.raw); }
+											}
+										} else {
+											var report = task.find('div.row').last().find('span.float-left');
+											task.addClass('bg-light-danger');
+											report.html('<a class="badge bg-danger px-2"><i class="icon icon-report mr-1"></i>'+API.Contents.Language['Report']+'</a>');
+											report.find('a').click(function(){
+												var message = '<p style="font-size: 18px; color: #2d2d2d line-height: 1.2; word-break: break-word; text-align: center; mso-line-height-alt: 22px; margin: 0;">'+API.Contents.Auth.User.username+API.Contents.Language[' is reporting']+'</p>';
+												message += '<p style="font-size: 12px; color: #6c6c6c line-height: 1.5; word-break: break-word; text-align: justify; mso-line-height-alt: 18px; margin: 0;">'+result.replace(/\n/g, "<br />")+'</p>'
+												API.request('smtp','send',{
+													data:{
+														email:API.Contents.Settings.Contacts.reporting,
+														message:message,
+													}
+												});
+											});
+										}
+									});
+								});
+							} else {
 								modal.modal('hide');
 								API.request(options.plugin,'delete',{data:options.keys,report:true},function(result){
 									if(result.charAt(0) == '{'){
@@ -4451,26 +4282,11 @@ var API = {
 											if((typeof options.table !== 'undefined')&&(typeof options.row !== 'undefined')){
 												var row = options.table.DataTable().row(options.row).remove().draw(false);
 											}
-											API.GUI.Navbar.Task.update(task.attr('data-task'), 1);
 											if(callback != undefined){ callback(dataset.output.raw); }
 										}
-									} else {
-										var report = task.find('div.row').last().find('span.float-left');
-										task.addClass('bg-light-danger');
-										report.html('<a class="badge bg-danger px-2"><i class="icon icon-report mr-1"></i>'+API.Contents.Language['Report']+'</a>');
-										report.find('a').click(function(){
-											var message = '<p style="font-size: 18px; color: #2d2d2d line-height: 1.2; word-break: break-word; text-align: center; mso-line-height-alt: 22px; margin: 0;">'+API.Contents.Auth.User.username+API.Contents.Language[' is reporting']+'</p>';
-											message += '<p style="font-size: 12px; color: #6c6c6c line-height: 1.5; word-break: break-word; text-align: justify; mso-line-height-alt: 18px; margin: 0;">'+result.replace(/\n/g, "<br />")+'</p>'
-											API.request('smtp','send',{
-												data:{
-													email:API.Contents.Settings.Contacts.reporting,
-													message:message,
-												}
-											});
-										});
 									}
 								});
-							});
+							}
 						});
 						modal.modal('show');
 					});
@@ -4518,14 +4334,65 @@ var API = {
 							action.preventDefault();
 							var count = element.DataTable().rows( { selected: true } ).count(), ct = 0, executed = 0, readystate = false, stat = true;
 							modal.modal('hide');
-							API.GUI.Navbar.Task.add({
-								title:API.Contents.Language['Deleting']+' '+API.Helper.ucfirst(options.plugin),
-								value:0,
-								max:count,
-								plugin:plugin,
-								extra:''
-							},function(opt,task,divider){
-								var id = task.attr('data-task');
+							if(API.Helper.isSet(API.Plugins,['tasks']) && API.Auth.validate('plugin', 'tasks', 1)){
+								API.Plugins.tasks.GUI.add({
+									title:API.Contents.Language['Deleting']+' '+API.Helper.ucfirst(options.plugin),
+									value:0,
+									max:count,
+									plugin:plugin,
+									extra:''
+								},function(opt,task,divider){
+									var id = task.attr('data-task');
+									var message = '<p style="font-size: 18px; color: #2d2d2d line-height: 1.2; word-break: break-word; text-align: center; mso-line-height-alt: 22px; margin: 0;">'+API.Contents.Auth.User.username+API.Contents.Language[' is reporting']+'</p>';
+									element.DataTable().rows( { selected: true } ).every(function(){
+										var row = this, rowData = this.data();
+										API.request(options.plugin,'delete',{
+											data:rowData,
+											pace:false,
+											toast:false,
+											report:true,
+										},function(result){
+											if(result.charAt(0) == '{'){
+												var dataset = JSON.parse(result);
+												if(typeof dataset.success !== 'undefined'){
+													element.DataTable().row('#'+dataset.output.record.id).remove().draw(false);
+												} else { stat = false; }
+												++ct;
+												API.Plugins.tasks.GUI.update(id,ct);
+											} else {
+												message += '<p style="font-size: 12px; color: #6c6c6c line-height: 1.5; word-break: break-word; text-align: justify; mso-line-height-alt: 18px; margin: 0;">'+result.replace(/\n/g, "<br />")+'</p>'
+												var report = task.find('div.row').last().find('span.float-left');
+												if(!task.hasClass('bg-light-danger')){ task.addClass('bg-light-danger'); }
+												report.html('<a class="badge bg-danger px-2"><i class="icon icon-report mr-1"></i>'+API.Contents.Language['Report']+'</a>');
+												report.find('a').off();
+												report.find('a').click(function(){
+													API.request('smtp','send',{
+														data:{
+															email:API.Contents.Settings.Contacts.reporting,
+															message:message,
+														}
+													});
+												});
+											}
+											if(ct == count){ readystate = true; }
+											++executed;
+										});
+									});
+									var checkExist = setInterval(function(){
+										if(executed == count){
+											clearInterval(checkExist);
+											if(readystate){
+												if(stat){
+													API.Toast.show.fire({ type: 'success', text: API.Contents.Language['Records successfully deleted'] });
+												} else {
+													API.Toast.show.fire({ type: 'error', text: API.Contents.Language['Unable to complete the request'] });
+												}
+											}
+											if(callback != undefined){ callback(element); }
+										}
+									}, 100);
+								});
+							} else {
 								var message = '<p style="font-size: 18px; color: #2d2d2d line-height: 1.2; word-break: break-word; text-align: center; mso-line-height-alt: 22px; margin: 0;">'+API.Contents.Auth.User.username+API.Contents.Language[' is reporting']+'</p>';
 								element.DataTable().rows( { selected: true } ).every(function(){
 									var row = this, rowData = this.data();
@@ -4541,21 +4408,6 @@ var API = {
 												element.DataTable().row('#'+dataset.output.record.id).remove().draw(false);
 											} else { stat = false; }
 											++ct;
-											API.GUI.Navbar.Task.update(id,ct);
-										} else {
-											message += '<p style="font-size: 12px; color: #6c6c6c line-height: 1.5; word-break: break-word; text-align: justify; mso-line-height-alt: 18px; margin: 0;">'+result.replace(/\n/g, "<br />")+'</p>'
-											var report = task.find('div.row').last().find('span.float-left');
-											if(!task.hasClass('bg-light-danger')){ task.addClass('bg-light-danger'); }
-											report.html('<a class="badge bg-danger px-2"><i class="icon icon-report mr-1"></i>'+API.Contents.Language['Report']+'</a>');
-											report.find('a').off();
-											report.find('a').click(function(){
-												API.request('smtp','send',{
-													data:{
-														email:API.Contents.Settings.Contacts.reporting,
-														message:message,
-													}
-												});
-											});
 										}
 										if(ct == count){ readystate = true; }
 										++executed;
@@ -4574,7 +4426,7 @@ var API = {
 										if(callback != undefined){ callback(element); }
 									}
 								}, 100);
-							});
+							}
 						});
 						modal.modal('show');
 					});
@@ -4607,14 +4459,69 @@ var API = {
 					footer.append('<a class="btn btn-info text-light"><i class="icon icon-assign mr-1"></i>'+API.Contents.Language['Assign']+'</a>');
 					API.Builder.input(body, 'user', API.Contents.Auth.User.id,{plugin:options.plugin},function(input){});
 					footer.find('a').click(function(){
-						API.GUI.Navbar.Task.add({
-							title:API.Contents.Language['Assigning']+' '+API.Helper.ucfirst(options.plugin),
-							value:0,
-							max:count,
-							plugin:options.plugin,
-							extra:'',
-						},function(opt,task,divider){
-							var id = task.attr('data-task');
+						if(API.Helper.isSet(API.Plugins,['tasks']) && API.Auth.validate('plugin', 'tasks', 1)){
+							API.Plugins.tasks.GUI.add({
+								title:API.Contents.Language['Assigning']+' '+API.Helper.ucfirst(options.plugin),
+								value:0,
+								max:count,
+								plugin:options.plugin,
+								extra:'',
+							},function(opt,task,divider){
+								var id = task.attr('data-task');
+								var message = '<p style="font-size: 18px; color: #2d2d2d line-height: 1.2; word-break: break-word; text-align: center; mso-line-height-alt: 22px; margin: 0;">'+API.Contents.Auth.User.username+API.Contents.Language[' is reporting']+'</p>';
+								table.DataTable().rows( { selected: true } ).every(function(){
+									var row = this, rowData = this.data();
+									var user = body.find("select").select2("data")[0].text;
+									var users = '';
+									for(var [key, value] of Object.entries(rowData.assigned_to.split(';'))){ if(value != user){ users += ';'+value; } }
+									users += ';'+user;
+									rowData.assigned_to = users.replace(/^;|;$/g,'');
+									API.request(options.plugin,'update',{
+										data:rowData,
+										toast:false,
+										report:true,
+									},function(result){
+										if(result.charAt(0) == '{'){
+											var dataset = JSON.parse(result);
+											if(typeof dataset.success !== 'undefined'){
+												table.DataTable().row('#'+dataset.output.dom.id).data(dataset.output.dom).draw(false);
+											} else { completed = false; }
+											++started;
+											API.Plugins.tasks.GUI.update(id,started);
+										} else {
+											message += '<p style="font-size: 12px; color: #6c6c6c line-height: 1.5; word-break: break-word; text-align: justify; mso-line-height-alt: 18px; margin: 0;">'+result.replace(/\n/g, "<br />")+'</p>'
+											var report = task.find('div.row').last().find('span.float-left');
+											if(!task.hasClass('bg-light-danger')){ task.addClass('bg-light-danger'); }
+											report.html('<a class="badge bg-danger px-2"><i class="icon icon-report mr-1"></i>'+API.Contents.Language['Report']+'</a>');
+											report.find('a').off();
+											report.find('a').click(function(){
+												API.request('smtp','send',{
+													data:{
+														email:API.Contents.Settings.Contacts.reporting,
+														message:message,
+													}
+												});
+											});
+										}
+										if(started == count){ ready = true; }
+										++executed;
+									});
+								});
+								var isDone = setInterval(function(){
+									if(executed == count){
+										clearInterval(isDone);
+										if(ready){
+											if(completed){
+												API.Toast.show.fire({ type: 'success', text: API.Contents.Language['User successfully assigned'] });
+											} else {
+												API.Toast.show.fire({ type: 'error', text: API.Contents.Language['Unable to complete the request'] });
+											}
+										}
+										if((callback != undefined)&&(callback != null)){ callback(element); }
+									}
+								}, 100);
+							});
+						} else {
 							var message = '<p style="font-size: 18px; color: #2d2d2d line-height: 1.2; word-break: break-word; text-align: center; mso-line-height-alt: 22px; margin: 0;">'+API.Contents.Auth.User.username+API.Contents.Language[' is reporting']+'</p>';
 							table.DataTable().rows( { selected: true } ).every(function(){
 								var row = this, rowData = this.data();
@@ -4634,21 +4541,6 @@ var API = {
 											table.DataTable().row('#'+dataset.output.dom.id).data(dataset.output.dom).draw(false);
 										} else { completed = false; }
 										++started;
-										API.GUI.Navbar.Task.update(id,started);
-									} else {
-										message += '<p style="font-size: 12px; color: #6c6c6c line-height: 1.5; word-break: break-word; text-align: justify; mso-line-height-alt: 18px; margin: 0;">'+result.replace(/\n/g, "<br />")+'</p>'
-										var report = task.find('div.row').last().find('span.float-left');
-										if(!task.hasClass('bg-light-danger')){ task.addClass('bg-light-danger'); }
-										report.html('<a class="badge bg-danger px-2"><i class="icon icon-report mr-1"></i>'+API.Contents.Language['Report']+'</a>');
-										report.find('a').off();
-										report.find('a').click(function(){
-											API.request('smtp','send',{
-												data:{
-													email:API.Contents.Settings.Contacts.reporting,
-													message:message,
-												}
-											});
-										});
 									}
 									if(started == count){ ready = true; }
 									++executed;
@@ -4667,7 +4559,7 @@ var API = {
 									if((callback != undefined)&&(callback != null)){ callback(element); }
 								}
 							}, 100);
-						});
+						}
 						modal.modal('hide');
 					});
 					modal.modal('show');
@@ -4700,14 +4592,70 @@ var API = {
 					footer.append('<a class="btn btn-info text-light"><i class="icon icon-unassign mr-1"></i>'+API.Contents.Language['Unassign']+'</a>');
 					API.Builder.input(body, 'user', API.Contents.Auth.User.id,{plugin:options.plugin},function(input){});
 					footer.find('a').click(function(){
-						API.GUI.Navbar.Task.add({
-							title:API.Contents.Language['Unassigning']+' '+API.Helper.ucfirst(options.plugin),
-							value:0,
-							max:count,
-							plugin:options.plugin,
-							extra:'',
-						},function(opt,task,divider){
-							var id = task.attr('data-task');
+						if(API.Helper.isSet(API.Plugins,['tasks']) && API.Auth.validate('plugin', 'tasks', 1)){
+							API.Plugins.tasks.GUI.add({
+								title:API.Contents.Language['Unassigning']+' '+API.Helper.ucfirst(options.plugin),
+								value:0,
+								max:count,
+								plugin:options.plugin,
+								extra:'',
+							},function(opt,task,divider){
+								var id = task.attr('data-task');
+								var message = '<p style="font-size: 18px; color: #2d2d2d line-height: 1.2; word-break: break-word; text-align: center; mso-line-height-alt: 22px; margin: 0;">'+API.Contents.Auth.User.username+API.Contents.Language[' is reporting']+'</p>';
+								table.DataTable().rows( { selected: true } ).every(function(){
+									var row = this, rowData = this.data();
+									var user = body.find("select").select2("data")[0].text;
+									var users = '';
+									if(rowData.assigned_to != user){
+										for(var [key, value] of Object.entries(rowData.assigned_to.split(';'))){ if(value != user){ users += ';'+value; } }
+									}
+									rowData.assigned_to = users.replace(/^;|;$/g,'')
+									API.request(options.plugin,'update',{
+										data:rowData,
+										toast:false,
+										report:true,
+									},function(result){
+										if(result.charAt(0) == '{'){
+											var dataset = JSON.parse(result);
+											if(typeof dataset.success !== 'undefined'){
+												table.DataTable().row('#'+dataset.output.dom.id).data(dataset.output.dom).draw(false);
+											} else { completed = false; }
+											++started;
+											API.Plugins.tasks.GUI.update(id,started);
+										} else {
+											message += '<p style="font-size: 12px; color: #6c6c6c line-height: 1.5; word-break: break-word; text-align: justify; mso-line-height-alt: 18px; margin: 0;">'+result.replace(/\n/g, "<br />")+'</p>'
+											var report = task.find('div.row').last().find('span.float-left');
+											if(!task.hasClass('bg-light-danger')){ task.addClass('bg-light-danger'); }
+											report.html('<a class="badge bg-danger px-2"><i class="icon icon-report mr-1"></i>'+API.Contents.Language['Report']+'</a>');
+											report.find('a').off();
+											report.find('a').click(function(){
+												API.request('smtp','send',{
+													data:{
+														email:API.Contents.Settings.Contacts.reporting,
+														message:message,
+													}
+												});
+											});
+										}
+										if(started == count){ ready = true; }
+										++executed;
+									});
+								});
+								var isDone = setInterval(function(){
+									if(executed == count){
+										clearInterval(isDone);
+										if(ready){
+											if(completed){
+												API.Toast.show.fire({ type: 'success', text: API.Contents.Language['User successfully unassigned'] });
+											} else {
+												API.Toast.show.fire({ type: 'error', text: API.Contents.Language['Unable to complete the request'] });
+											}
+										}
+										if((callback != undefined)&&(callback != null)){ callback(element); }
+									}
+								}, 100);
+							});
+						} else {
 							var message = '<p style="font-size: 18px; color: #2d2d2d line-height: 1.2; word-break: break-word; text-align: center; mso-line-height-alt: 22px; margin: 0;">'+API.Contents.Auth.User.username+API.Contents.Language[' is reporting']+'</p>';
 							table.DataTable().rows( { selected: true } ).every(function(){
 								var row = this, rowData = this.data();
@@ -4728,21 +4676,6 @@ var API = {
 											table.DataTable().row('#'+dataset.output.dom.id).data(dataset.output.dom).draw(false);
 										} else { completed = false; }
 										++started;
-										API.GUI.Navbar.Task.update(id,started);
-									} else {
-										message += '<p style="font-size: 12px; color: #6c6c6c line-height: 1.5; word-break: break-word; text-align: justify; mso-line-height-alt: 18px; margin: 0;">'+result.replace(/\n/g, "<br />")+'</p>'
-										var report = task.find('div.row').last().find('span.float-left');
-										if(!task.hasClass('bg-light-danger')){ task.addClass('bg-light-danger'); }
-										report.html('<a class="badge bg-danger px-2"><i class="icon icon-report mr-1"></i>'+API.Contents.Language['Report']+'</a>');
-										report.find('a').off();
-										report.find('a').click(function(){
-											API.request('smtp','send',{
-												data:{
-													email:API.Contents.Settings.Contacts.reporting,
-													message:message,
-												}
-											});
-										});
 									}
 									if(started == count){ ready = true; }
 									++executed;
@@ -4761,7 +4694,7 @@ var API = {
 									if((callback != undefined)&&(callback != null)){ callback(element); }
 								}
 							}, 100);
-						});
+						}
 						modal.modal('hide');
 					});
 					modal.modal('show');
@@ -4794,14 +4727,65 @@ var API = {
 					body.html(API.Contents.Language['Are you sure you want to lock these records?']);
 					footer.append('<a class="btn btn-info text-light"><i class="icon icon-lock mr-1"></i>'+API.Contents.Language['Lock']+'</a>');
 					footer.find('a').click(function(){
-						API.GUI.Navbar.Task.add({
-							title:API.Contents.Language['Locking']+' '+API.Helper.ucfirst(options.plugin),
-							value:0,
-							max:count,
-							plugin:options.plugin,
-							extra:'',
-						},function(opt,task,divider){
-							var id = task.attr('data-task');
+						if(API.Helper.isSet(API.Plugins,['tasks']) && API.Auth.validate('plugin', 'tasks', 1)){
+							API.Plugins.tasks.GUI.add({
+								title:API.Contents.Language['Locking']+' '+API.Helper.ucfirst(options.plugin),
+								value:0,
+								max:count,
+								plugin:options.plugin,
+								extra:'',
+							},function(opt,task,divider){
+								var id = task.attr('data-task');
+								var message = '<p style="font-size: 18px; color: #2d2d2d line-height: 1.2; word-break: break-word; text-align: center; mso-line-height-alt: 22px; margin: 0;">'+API.Contents.Auth.User.username+API.Contents.Language[' is reporting']+'</p>';
+								table.DataTable().rows( { selected: true } ).every(function(){
+									var row = this, rowData = this.data();
+									rowData.isLocked = true;
+									API.request(options.plugin,'update',{
+										data:rowData,
+										toast:false,
+										report:true,
+									},function(result){
+										if(result.charAt(0) == '{'){
+											var dataset = JSON.parse(result);
+											if(typeof dataset.success !== 'undefined'){
+												table.DataTable().row('#'+dataset.output.dom.id).data(dataset.output.dom).draw(false);
+											} else { completed = false; }
+											++started;
+											API.Plugins.tasks.GUI.update(id,started);
+										} else {
+											message += '<p style="font-size: 12px; color: #6c6c6c line-height: 1.5; word-break: break-word; text-align: justify; mso-line-height-alt: 18px; margin: 0;">'+result.replace(/\n/g, "<br />")+'</p>'
+											var report = task.find('div.row').last().find('span.float-left');
+											if(!task.hasClass('bg-light-danger')){ task.addClass('bg-light-danger'); }
+											report.html('<a class="badge bg-danger px-2"><i class="icon icon-report mr-1"></i>'+API.Contents.Language['Report']+'</a>');
+											report.find('a').off();
+											report.find('a').click(function(){
+												API.request('smtp','send',{
+													data:{
+														email:API.Contents.Settings.Contacts.reporting,
+														message:message,
+													}
+												});
+											});
+										}
+										if(started == count){ ready = true; }
+										++executed;
+									});
+								});
+								var isDone = setInterval(function(){
+									if(executed == count){
+										clearInterval(isDone);
+										if(ready){
+											if(completed){
+												API.Toast.show.fire({ type: 'success', text: API.Contents.Language['Record successfully locked'] });
+											} else {
+												API.Toast.show.fire({ type: 'error', text: API.Contents.Language['Unable to complete the request'] });
+											}
+										}
+										if((callback != undefined)&&(callback != null)){ callback(element); }
+									}
+								}, 100);
+							});
+						} else {
 							var message = '<p style="font-size: 18px; color: #2d2d2d line-height: 1.2; word-break: break-word; text-align: center; mso-line-height-alt: 22px; margin: 0;">'+API.Contents.Auth.User.username+API.Contents.Language[' is reporting']+'</p>';
 							table.DataTable().rows( { selected: true } ).every(function(){
 								var row = this, rowData = this.data();
@@ -4817,21 +4801,6 @@ var API = {
 											table.DataTable().row('#'+dataset.output.dom.id).data(dataset.output.dom).draw(false);
 										} else { completed = false; }
 										++started;
-										API.GUI.Navbar.Task.update(id,started);
-									} else {
-										message += '<p style="font-size: 12px; color: #6c6c6c line-height: 1.5; word-break: break-word; text-align: justify; mso-line-height-alt: 18px; margin: 0;">'+result.replace(/\n/g, "<br />")+'</p>'
-										var report = task.find('div.row').last().find('span.float-left');
-										if(!task.hasClass('bg-light-danger')){ task.addClass('bg-light-danger'); }
-										report.html('<a class="badge bg-danger px-2"><i class="icon icon-report mr-1"></i>'+API.Contents.Language['Report']+'</a>');
-										report.find('a').off();
-										report.find('a').click(function(){
-											API.request('smtp','send',{
-												data:{
-													email:API.Contents.Settings.Contacts.reporting,
-													message:message,
-												}
-											});
-										});
 									}
 									if(started == count){ ready = true; }
 									++executed;
@@ -4850,7 +4819,7 @@ var API = {
 									if((callback != undefined)&&(callback != null)){ callback(element); }
 								}
 							}, 100);
-						});
+						}
 						modal.modal('hide');
 					});
 					modal.modal('show');
@@ -4883,14 +4852,65 @@ var API = {
 					body.html(API.Contents.Language['Are you sure you want to unlock these records?']);
 					footer.append('<a class="btn btn-info text-light"><i class="icon icon-unlock mr-1"></i>'+API.Contents.Language['Unlock']+'</a>');
 					footer.find('a').click(function(){
-						API.GUI.Navbar.Task.add({
-							title:API.Contents.Language['Unlocking']+' '+API.Helper.ucfirst(options.plugin),
-							value:0,
-							max:count,
-							plugin:options.plugin,
-							extra:'',
-						},function(opt,task,divider){
-							var id = task.attr('data-task');
+						if(API.Helper.isSet(API.Plugins,['tasks']) && API.Auth.validate('plugin', 'tasks', 1)){
+							API.Plugins.tasks.GUI.add({
+								title:API.Contents.Language['Unlocking']+' '+API.Helper.ucfirst(options.plugin),
+								value:0,
+								max:count,
+								plugin:options.plugin,
+								extra:'',
+							},function(opt,task,divider){
+								var id = task.attr('data-task');
+								var message = '<p style="font-size: 18px; color: #2d2d2d line-height: 1.2; word-break: break-word; text-align: center; mso-line-height-alt: 22px; margin: 0;">'+API.Contents.Auth.User.username+API.Contents.Language[' is reporting']+'</p>';
+								table.DataTable().rows( { selected: true } ).every(function(){
+									var row = this, rowData = this.data();
+									rowData.isLocked = false
+									API.request(options.plugin,'update',{
+										data:rowData,
+										toast:false,
+										report:true,
+									},function(result){
+										if(result.charAt(0) == '{'){
+											var dataset = JSON.parse(result);
+											if(typeof dataset.success !== 'undefined'){
+												table.DataTable().row('#'+dataset.output.dom.id).data(dataset.output.dom).draw(false);
+											} else { completed = false; }
+											++started;
+											API.Plugins.tasks.GUI.update(id,started);
+										} else {
+											message += '<p style="font-size: 12px; color: #6c6c6c line-height: 1.5; word-break: break-word; text-align: justify; mso-line-height-alt: 18px; margin: 0;">'+result.replace(/\n/g, "<br />")+'</p>'
+											var report = task.find('div.row').last().find('span.float-left');
+											if(!task.hasClass('bg-light-danger')){ task.addClass('bg-light-danger'); }
+											report.html('<a class="badge bg-danger px-2"><i class="icon icon-report mr-1"></i>'+API.Contents.Language['Report']+'</a>');
+											report.find('a').off();
+											report.find('a').click(function(){
+												API.request('smtp','send',{
+													data:{
+														email:API.Contents.Settings.Contacts.reporting,
+														message:message,
+													}
+												});
+											});
+										}
+										if(started == count){ ready = true; }
+										++executed;
+									});
+								});
+								var isDone = setInterval(function(){
+									if(executed == count){
+										clearInterval(isDone);
+										if(ready){
+											if(completed){
+												API.Toast.show.fire({ type: 'success', text: API.Contents.Language['Record successfully unlocked'] });
+											} else {
+												API.Toast.show.fire({ type: 'error', text: API.Contents.Language['Unable to complete the request'] });
+											}
+										}
+										if((callback != undefined)&&(callback != null)){ callback(element); }
+									}
+								}, 100);
+							});
+						} else {
 							var message = '<p style="font-size: 18px; color: #2d2d2d line-height: 1.2; word-break: break-word; text-align: center; mso-line-height-alt: 22px; margin: 0;">'+API.Contents.Auth.User.username+API.Contents.Language[' is reporting']+'</p>';
 							table.DataTable().rows( { selected: true } ).every(function(){
 								var row = this, rowData = this.data();
@@ -4906,21 +4926,6 @@ var API = {
 											table.DataTable().row('#'+dataset.output.dom.id).data(dataset.output.dom).draw(false);
 										} else { completed = false; }
 										++started;
-										API.GUI.Navbar.Task.update(id,started);
-									} else {
-										message += '<p style="font-size: 12px; color: #6c6c6c line-height: 1.5; word-break: break-word; text-align: justify; mso-line-height-alt: 18px; margin: 0;">'+result.replace(/\n/g, "<br />")+'</p>'
-										var report = task.find('div.row').last().find('span.float-left');
-										if(!task.hasClass('bg-light-danger')){ task.addClass('bg-light-danger'); }
-										report.html('<a class="badge bg-danger px-2"><i class="icon icon-report mr-1"></i>'+API.Contents.Language['Report']+'</a>');
-										report.find('a').off();
-										report.find('a').click(function(){
-											API.request('smtp','send',{
-												data:{
-													email:API.Contents.Settings.Contacts.reporting,
-													message:message,
-												}
-											});
-										});
 									}
 									if(started == count){ ready = true; }
 									++executed;
@@ -4939,7 +4944,7 @@ var API = {
 									if((callback != undefined)&&(callback != null)){ callback(element); }
 								}
 							}, 100);
-						});
+						}
 						modal.modal('hide');
 					});
 					modal.modal('show');
