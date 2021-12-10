@@ -2,6 +2,8 @@
 var enforceModalFocusFn = $.fn.modal.Constructor.prototype._enforceFocus;
 $.fn.modal.Constructor.prototype._enforceFocus = function() {};
 
+Dropzone.autoDiscover = false;
+
 var API = {
 	initiated:false,
 	loggedin:false,
@@ -2196,6 +2198,128 @@ var API = {
 					if(callback != null){ callback({ table: table, datatable: dt }); }
 				}
 			}, 100);
+		},
+		dropzone: function(element,options = {},callback = null){
+			if(options instanceof Function){ callback = options; options = {}; }
+			var previewTemplate = '';
+      previewTemplate += '<div class="row mt-2">';
+        previewTemplate += '<div class="col-auto">';
+            previewTemplate += '<span class="preview"><img src="data:," alt="" data-dz-thumbnail /></span>';
+        previewTemplate += '</div>';
+				previewTemplate += '<div class="col">';
+					previewTemplate += '<div class="row">';
+		        previewTemplate += '<div class="col-12">';
+		            previewTemplate += '<p class="mb-0">';
+		              previewTemplate += '<span class="lead mr-2" data-dz-name></span>(<span data-dz-size></span>)';
+		            previewTemplate += '</p>';
+		            previewTemplate += '<strong class="error text-danger" data-dz-errormessage></strong>';
+		        previewTemplate += '</div>';
+		        previewTemplate += '<div class="col-12">';
+		            previewTemplate += '<div class="progress progress-striped active w-100" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">';
+		              previewTemplate += '<div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>';
+		            previewTemplate += '</div>';
+		        previewTemplate += '</div>';
+		        previewTemplate += '<div class="col-12 d-flex align-items-right">';
+		          previewTemplate += '<div class="btn-group ml-auto mt-1">';
+		            previewTemplate += '<button class="btn btn-sm btn-primary start">';
+		              previewTemplate += '<i class="fas fa-upload mr-1"></i>'+API.Contents.Language['Upload'];
+		            previewTemplate += '</button>';
+		            previewTemplate += '<button data-dz-remove class="btn btn-sm btn-warning cancel">';
+		              previewTemplate += '<i class="fas fa-times-circle mr-1"></i>'+API.Contents.Language['Cancel'];
+		            previewTemplate += '</button>';
+		            previewTemplate += '<button data-dz-remove class="btn btn-sm btn-danger delete">';
+									previewTemplate += '<i class="fas fa-trash mr-1"></i>'+API.Contents.Language['Delete'];
+		            previewTemplate += '</button>';
+		          previewTemplate += '</div>';
+		        previewTemplate += '</div>';
+					previewTemplate += '</div>';
+				previewTemplate += '</div>';
+      previewTemplate += '</div>';
+			var defaults = {
+				url: "api.php",
+		    thumbnailWidth: 80,
+		    thumbnailHeight: 80,
+		    parallelUploads: 20,
+				maxFilesize: 0,
+		    previewTemplate: previewTemplate,
+				acceptedFiles: null,
+		    autoQueue: false,
+		    previewsContainer: ".dropzone-previews",
+		    clickable: ".fileinput-button"
+			};
+			for(var [key, value] of Object.entries(options)){ if(API.Helper.isSet(defaults,[key])){ defaults[key] = value; } }
+			var html = '';
+			html += '<div class="aDropZone">';
+				html += '<div class="row">';
+	        html += '<div class="col-lg-6">';
+	          html += '<div class="btn-group w-100">';
+							html += '<button class="btn btn-app btn-success col fileinput-button"><i class="fas fa-plus mr-1"></i>'+API.Contents.Language['Add']+'</button>';
+	            html += '<button type="submit" class="btn btn-app btn-primary col start"><i class="fas fa-upload mr-1"></i>'+API.Contents.Language['Upload']+'</button>';
+	            html += '<button type="reset" class="btn btn-app btn-warning col cancel"><i class="fas fa-times-circle mr-1"></i>'+API.Contents.Language['Cancel']+'</button>';
+	          html += '</div>';
+	        html += '</div>';
+	        html += '<div class="col-lg-6 d-flex align-items-center">';
+	          html += '<div class="fileupload-process w-100">';
+	            html += '<div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">';
+	              html += '<div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>';
+	            html += '</div>';
+	          html += '</div>';
+	        html += '</div>';
+	      html += '</div>';
+	      html += '<div class="table table-striped files dropzone-previews"></div>';
+			html += '</div>';
+			element.append(html);
+			var zone = element.find('div.aDropZone').first();
+			var actions = element.find('div.row').first();
+			var fileinput = actions.find('span.fileinput-button').first();
+			var previews = element.find('div.table.files.dropzone-previews').first();
+			var progressTotal = actions.find('div.progress.progress-striped').first();
+			var progressTotalBar = progressTotal.find('div.progress-bar').first();
+
+			// Create Dropzone
+			zone.dropzone(defaults);
+
+		  zone[0].dropzone.on("addedfile", function(file) {
+		    // Hookup the start button
+		    file.previewElement.querySelector(".start").onclick = function() { zone[0].dropzone.enqueueFile(file) }
+				// Callback
+				if(callback != null){ callback('addedfile',zone,file); }
+		  })
+
+		  // Update the total progress bar
+		  zone[0].dropzone.on("totaluploadprogress", function(progress) {
+		    progressTotalBar.css('width',progress + "%")
+				// Callback
+				if(callback != null){ callback('totaluploadprogress',zone,progress); }
+		  })
+
+		  zone[0].dropzone.on("sending", function(file) {
+		    // Reset the total progress bar when upload starts
+				progressTotalBar.css('width',0 + "%")
+		    // And disable the start button
+		    file.previewElement.querySelector(".start").setAttribute("disabled", "disabled");
+				// Callback
+				if(callback != null){ callback('sending',zone,file); }
+		  })
+
+		  // Hide the total progress bar when nothing's uploading anymore
+		  zone[0].dropzone.on("queuecomplete", function(progress) {
+				// Callback
+				if(callback != null){ callback('queuecomplete',zone,progress); }
+		  })
+
+		  // Setup the buttons for all transfers
+			actions.find('.start').off().click(function(){
+				zone[0].dropzone.enqueueFiles(zone[0].dropzone.getFilesWithStatus(Dropzone.ADDED));
+				// Callback
+				if(callback != null){ callback('start',zone,null); }
+			});
+			actions.find('.cancel').off().click(function(){
+				// Remove Files
+				zone[0].dropzone.removeAllFiles(true);
+				// Callback
+				if(callback != null){ callback('cancel',zone,null); }
+			});
 		},
 		modal: function(element, options = null, callback = null){
 			if(options != null){

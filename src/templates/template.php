@@ -56,8 +56,6 @@
   <link href="./vendor/datatables-buttons/buttons.dataTables.min.css" rel="stylesheet">
   <link href="./vendor/datatables-select/select.dataTables.min.css" rel="stylesheet">
   <link href="./vendor/datatables-responsive/responsive.bootstrap4.min.css" rel="stylesheet">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="/dist/css/adminlte.min.css">
   <!-- summernote -->
   <link rel="stylesheet" href="./vendor/summernote/summernote-bs4.min.css">
   <!-- CodeMirror -->
@@ -71,10 +69,14 @@
   <link rel="stylesheet" href="./vendor/google-fonts/SourceSansPro.css">
   <!-- pace-progress -->
   <link rel="stylesheet" href="./vendor/pace-progress/themes/black/pace-theme-flat-top.css">
-  <!-- extended CSS -->
-  <link rel="stylesheet" title="default" href="/dist/css/default.css">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="./vendor/overlayScrollbars/css/OverlayScrollbars.min.css">
+  <!-- dropzonejs -->
+  <link rel="stylesheet" href="./vendor/dropzone/min/dropzone.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+  <!-- extended CSS -->
+  <link rel="stylesheet" title="default" href="/dist/css/default.css">
 	<!-- plugins CSS -->
 	<?php $plugins = preg_grep('/^([^.])/', scandir(dirname(__FILE__,3).'/plugins/'));
 	foreach($plugins as $plugin){
@@ -170,6 +172,8 @@
 	<script src="./vendor/pace-progress/pace.min.js"></script>
   <!-- overlayScrollbars -->
   <script src="./vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+  <!-- dropzonejs -->
+  <script src="./vendor/dropzone/min/dropzone.min.js"></script>
   <!-- AdminLTE App -->
   <script src="./dist/js/adminlte.min.js"></script>
   <!-- extended CSS -->
