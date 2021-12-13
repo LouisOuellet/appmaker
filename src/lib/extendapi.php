@@ -475,11 +475,10 @@ class APIextend extends API{
 					if($relation['relationship'] == 'galleries'){
 						$pictures = $this->Auth->query('SELECT * FROM `pictures` WHERE `dirname` = ?',$get['output']['details'][$relation['relationship']]['dom'][$relation['link_to']]['dirname']);
 						if($pictures->numRows() > 0){
-							$get['output']['relations'][$relation['relationship']][$relation['link_to']]['pictures'] = $pictures->fetchAll()->All();
+							foreach($pictures->fetchAll()->All() as $picture){
+								$get['output']['relations'][$relation['relationship']][$relation['link_to']]['pictures'][$picture['id']] = $picture;
+							}
 						} else { $get['output']['relations'][$relation['relationship']][$relation['link_to']]['pictures'] = []; }
-						foreach($get['output']['relations'][$relation['relationship']][$relation['link_to']]['pictures'] as $key => $picture){
-							$get['output']['relations'][$relation['relationship']][$relation['link_to']]['pictures'][$key]['dirname'] = str_replace(dirname(__FILE__,3),'',$get['output']['relations'][$relation['relationship']][$relation['link_to']]['pictures'][$key]['dirname']);
-						}
 					}
 					if(isset($relation['statuses'])){
 						$get['output']['relations'][$relation['relationship']][$relation['link_to']]['status'] = $get['output']['details']['statuses']['dom'][$relation['statuses']]['order'];
