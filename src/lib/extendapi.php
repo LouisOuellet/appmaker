@@ -480,6 +480,20 @@ class APIextend extends API{
 							}
 						} else { $get['output']['relations'][$relation['relationship']][$relation['link_to']]['pictures'] = []; }
 					}
+					if($relation['relationship'] == 'contacts'){
+						$relationships = $this->getRelationships('contacts',$relation['link_to']);
+						foreach($relationships as $id => $links){
+							foreach($links as $details){
+								if($details['relationship'] == 'users'){
+									$user = $this->Auth->query('SELECT * FROM `users` WHERE `id` = ?',$details['link_to']);
+									if($user->numRows() > 0){
+										$user = $user->fetchAll()->All()[0];
+										$get['output']['relations'][$relation['relationship']][$relation['link_to']]['users'][$user['id']] = $user;
+									}
+								}
+							}
+						}
+					}
 					if(isset($relation['statuses'])){
 						$get['output']['relations'][$relation['relationship']][$relation['link_to']]['status'] = $get['output']['details']['statuses']['dom'][$relation['statuses']]['order'];
 					}
