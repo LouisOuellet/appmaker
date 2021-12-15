@@ -2488,6 +2488,19 @@ var API = {
 							inputReady = true;
 						} else { cancelReady = false;inputReady = true; }
 						break;
+					case "select-multiple":
+						if(API.Helper.isSet(options,['list',index])){
+							inputForm += '<div class="input-group" data-key="'+index+'">';
+								inputForm += '<div class="input-group-prepend"><span class="input-group-text"><i class="'+icon+' mr-1"></i>'+title+'</span></div>';
+								inputForm += '<select data-key="'+index+'" multiple="" title="'+title+'" class="form-control select2bs4 select2-hidden-accessible" name="'+index+'">';
+								for(var [key, val] of Object.entries(options.list[index])){
+									if(val == value){ inputForm += '<option value="'+val+'" selected="selected">'+API.Helper.ucfirst(API.Helper.clean(val))+'</option>'; } else { inputForm += '<option value="'+val+'">'+API.Helper.ucfirst(API.Helper.clean(val))+'</option>'; }
+								};
+								inputForm += '</select>';
+							inputForm += '</div>';
+							inputReady = true;
+						} else { cancelReady = false;inputReady = true; }
+						break;
 					case "number":
 						inputForm += '<div class="input-group" data-key="'+index+'">';
 							inputForm += '<div class="input-group-prepend"><span class="input-group-text"><i class="'+icon+' mr-1"></i>'+title+'</span></div>';

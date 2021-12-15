@@ -473,10 +473,10 @@ class APIextend extends API{
 					$get['output']['relations'][$relation['relationship']][$relation['link_to']]['owner'] = $relation['owner'];
 					$get['output']['relations'][$relation['relationship']][$relation['link_to']]['created'] = $relation['created'];
 					if($relation['relationship'] == 'galleries'){
-						$pictures = $this->Auth->query('SELECT * FROM `pictures` WHERE `dirname` = ?',$get['output']['details'][$relation['relationship']]['dom'][$relation['link_to']]['dirname']);
-						if($pictures->numRows() > 0){
-							foreach($pictures->fetchAll()->All() as $picture){
-								$get['output']['relations'][$relation['relationship']][$relation['link_to']]['pictures'][$picture['id']] = $picture;
+						$recordDetails = $this->Auth->query('SELECT * FROM `pictures` WHERE `dirname` = ?',$get['output']['details'][$relation['relationship']]['dom'][$relation['link_to']]['dirname']);
+						if($recordDetails->numRows() > 0){
+							foreach($recordDetails->fetchAll()->All() as $recordDetail){
+								$get['output']['relations'][$relation['relationship']][$relation['link_to']]['pictures'][$recordDetail['id']] = $recordDetail;
 							}
 						} else { $get['output']['relations'][$relation['relationship']][$relation['link_to']]['pictures'] = []; }
 					}
@@ -485,10 +485,17 @@ class APIextend extends API{
 						foreach($relationships as $id => $links){
 							foreach($links as $details){
 								if($details['relationship'] == 'users'){
-									$user = $this->Auth->query('SELECT * FROM `users` WHERE `id` = ?',$details['link_to']);
-									if($user->numRows() > 0){
-										$user = $user->fetchAll()->All()[0];
-										$get['output']['relations'][$relation['relationship']][$relation['link_to']]['users'][$user['id']] = $user;
+									$recordDetail = $this->Auth->query('SELECT * FROM `users` WHERE `id` = ?',$details['link_to']);
+									if($recordDetail->numRows() > 0){
+										$recordDetail = $recordDetail->fetchAll()->All()[0];
+										$get['output']['relations'][$relation['relationship']][$relation['link_to']][$details['relationship']][$recordDetail['id']] = $recordDetail;
+									}
+								}
+								if($details['relationship'] == 'event_attendances'){
+									$recordDetail = $this->Auth->query('SELECT * FROM `event_attendances` WHERE `id` = ?',$details['link_to']);
+									if($recordDetail->numRows() > 0){
+										$recordDetail = $recordDetail->fetchAll()->All()[0];
+										$get['output']['relations'][$relation['relationship']][$relation['link_to']][$details['relationship']][$recordDetail['id']] = $recordDetail;
 									}
 								}
 							}
