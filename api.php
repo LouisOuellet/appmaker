@@ -47,14 +47,13 @@ if(!empty($_POST)){
 			"error" => $API->Language->Field["unknown authentication method"],
 			"request" => $_POST,
 		];
-		echo json_encode($return, JSON_PRETTY_PRINT);
 	}
 	if($API->Auth->isLogin()){
 		if((!isset($API->Settings['maintenance']))||(!$API->Settings['maintenance'])){
 			if((isset($_POST['request'],$_POST['type']))&&($_POST['request'] == 'api')&&($_POST['type'] == 'initialize')){
-				echo json_encode($API->initApp(), JSON_PRETTY_PRINT);
+				$return = $API->initApp();
 			} elseif((isset($_POST['request'],$_POST['type']))&&($_POST['request'] == 'api')&&($_POST['type'] == 'getLanguage')){
-				echo json_encode($API->getLanguage(), JSON_PRETTY_PRINT);
+				$return = $API->getLanguage();
 			} elseif((isset($_POST['request'],$_POST['type']))&&($_POST['request'] == 'smtp')&&($_POST['type'] == 'send')){
 				if(isset($decodedJSON['extra'])){$API->Auth->Mail->send($decodedJSON['email'],$decodedJSON['message'],$decodedJSON['extra']);}
 				else{$API->Auth->Mail->send($decodedJSON['email'],$decodedJSON['message']);}
@@ -62,7 +61,6 @@ if(!empty($_POST)){
 					"success" => $API->Language->Field["Message sent"],
 					"request" => $_POST,
 				];
-				echo json_encode($return, JSON_PRETTY_PRINT);
 			} else {
 				if((isset($_POST['request']))&&(class_exists($_POST['request'].'API'))){
 					$request = $_POST['request'].'API';
@@ -71,20 +69,11 @@ if(!empty($_POST)){
 						$return = $_POST['type'];
 						if(isset($decodedJSON)){ $return = $request->$return($_POST['request'], $decodedJSON); }
 						else { $return = $request->$return($_POST['request'], null); }
-						if(!is_bool($return)){ $return = json_encode($return, JSON_PRETTY_PRINT); }
-						if($return != "null"){ echo $return; } else {
-							$return = [
-								"error" => $API->Language->Field["nothing returned"],
-								"request" => $_POST,
-							];
-							echo json_encode($return, JSON_PRETTY_PRINT);
-						}
 					} else {
 						$return = [
 							"error" => $API->Language->Field["unknown request type"],
 							"request" => $_POST,
 						];
-						echo json_encode($return, JSON_PRETTY_PRINT);
 					}
 				} else {
 					if((isset($_POST['request']))&&(!$API->Auth->valid('api',$_POST['request'],1))){
@@ -92,13 +81,11 @@ if(!empty($_POST)){
 							"error" => $API->Language->Field["Insuffisant priviledges"],
 							"request" => $_POST,
 						];
-						echo json_encode($return, JSON_PRETTY_PRINT);
 					} else {
 						$return = [
 							"error" => $API->Language->Field["unknown request"],
 							"request" => $_POST,
 						];
-						echo json_encode($return, JSON_PRETTY_PRINT);
 					}
 				}
 			}
@@ -108,7 +95,6 @@ if(!empty($_POST)){
 				"request" => $_POST,
 				"code" => 500,
 			];
-			echo json_encode($return, JSON_PRETTY_PRINT);
 		}
 	} else {
 		$return = [
@@ -116,7 +102,6 @@ if(!empty($_POST)){
 			"request" => $_POST,
 			"code" => 403,
 		];
-		echo json_encode($return, JSON_PRETTY_PRINT);
 	}
 } else {
 	$return = [
@@ -124,6 +109,12 @@ if(!empty($_POST)){
 		"request" => $_POST,
 		"code" => 404,
 	];
-	echo json_encode($return, JSON_PRETTY_PRINT);
 }
+if(!isset($return) || $return == "null" || $return == null || $return == ""){
+	$return = [
+		"error" => $API->Language->Field["nothing returned"],
+		"request" => $_POST,
+	];
+}
+echo base64_encode(urlencode(json_encode($return, JSON_PRETTY_PRINT)));
 ?>

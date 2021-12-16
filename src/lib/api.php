@@ -78,6 +78,7 @@ class API{
 		else { $this->Language = new Language($this->Settings["language"]); }
 
 		// Verify Plugins
+    ksort($this->Plugins);
 		foreach($this->Plugins as $plugin => $conf){
 			// Extend Language
 			if(isset($_COOKIE['language'])){
@@ -342,8 +343,8 @@ class API{
 		    $plugins = preg_grep('/^([^.])/', scandir(dirname(__FILE__,3).'/plugins/'));
 		    foreach($plugins as $plugin) {
           $file = dirname(__FILE__,3) . '/plugins/'.$plugin."/cron.php";
-          if(is_file($file)){
-            if(isset($API->Settings['debug']) && $API->Settings['debug']){ echo "Executing ".$plugin." CRON\n"; }
+          if(is_file($file) && isset($this->Settings['plugins'][$plugin]['status']) && $this->Settings['plugins'][$plugin]['status']){
+            if(isset($this->Settings['debug']) && $this->Settings['debug']){ echo "Executing ".$plugin." CRON\n"; }
             include_once($file);
           }
 		    }

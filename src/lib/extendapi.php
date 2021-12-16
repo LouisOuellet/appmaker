@@ -469,9 +469,15 @@ class APIextend extends API{
 		foreach($get['output']['relationships'] as $rid => $relations){
 			foreach($relations as $uid => $relation){
 				if(isset($get['output']['details'][$relation['relationship']]['dom'][$relation['link_to']])){
+					// Files
+					if($relation['relationship'] == 'files'){
+						unset($get['output']['details'][$relation['relationship']]['dom'][$relation['link_to']]['file']);
+						unset($get['output']['details'][$relation['relationship']]['raw'][$relation['link_to']]['file']);
+					}
 					$get['output']['relations'][$relation['relationship']][$relation['link_to']] = $get['output']['details'][$relation['relationship']]['dom'][$relation['link_to']];
 					$get['output']['relations'][$relation['relationship']][$relation['link_to']]['owner'] = $relation['owner'];
 					$get['output']['relations'][$relation['relationship']][$relation['link_to']]['created'] = $relation['created'];
+					// Galleries
 					if($relation['relationship'] == 'galleries'){
 						$recordDetails = $this->Auth->query('SELECT * FROM `pictures` WHERE `dirname` = ?',$get['output']['details'][$relation['relationship']]['dom'][$relation['link_to']]['dirname']);
 						if($recordDetails->numRows() > 0){
@@ -480,6 +486,7 @@ class APIextend extends API{
 							}
 						} else { $get['output']['relations'][$relation['relationship']][$relation['link_to']]['pictures'] = []; }
 					}
+					// Contacts
 					if($relation['relationship'] == 'contacts'){
 						$relationships = $this->getRelationships('contacts',$relation['link_to']);
 						foreach($relationships as $id => $links){
@@ -501,9 +508,11 @@ class APIextend extends API{
 							}
 						}
 					}
+					// Status
 					if(isset($relation['statuses'])){
 						$get['output']['relations'][$relation['relationship']][$relation['link_to']]['status'] = $get['output']['details']['statuses']['dom'][$relation['statuses']]['order'];
 					}
+					// Generate Name
 					if(!isset($get['output']['relations'][$relation['relationship']][$relation['link_to']]['name']) && isset($get['output']['relations'][$relation['relationship']][$relation['link_to']]['first_name'])){
 						$get['output']['relations'][$relation['relationship']][$relation['link_to']]['name'] = '';
 						if($get['output']['relations'][$relation['relationship']][$relation['link_to']]['first_name'] != ''){

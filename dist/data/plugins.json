@@ -458,5 +458,25 @@
             },
             "manifest": "\/dist\/data\/manifest.json"
         }
+    },
+    "b3": {
+        "repository": {
+            "name": "appmaker-b3",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "my_b3": {
+        "repository": {
+            "name": "appmaker-my_b3",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
     }
 }

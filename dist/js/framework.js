@@ -45,6 +45,7 @@ var API = {
 		if(typeof options.report === 'undefined'){ options.report = false; }
 		if(typeof options.required === 'undefined'){ options.required = false; }
 		if(API.debug){ options.toast = true;options.report = true; }
+		if(API.debug){ console.log(request,type,options.required,options.data); }
 		if(!options.required){
 			var checkAPI = setInterval(function() {
 				if(API.initiated){
@@ -61,10 +62,11 @@ var API = {
 					xhr.onload = function(){
 						if(this.status == 200 && this.responseText !== ''){
 							try {
-								var decodedResult = this.responseText;
+								var decodedResult = decodeURIComponent(atob(this.responseText).replace(/\+/g, ' '));
 								if(decodedResult.charAt(0) == '{'){
 									try {
 										var response = JSON.parse(decodedResult);
+										if(API.debug){ console.log(response); }
 										if((typeof response.error !== 'undefined')&&(options.toast)){
 											API.Toast.show.fire({
 												type: 'error',
@@ -193,10 +195,11 @@ var API = {
 				xhr.onload = function(){
 					if(this.status == 200 && this.responseText !== ''){
 						try {
-							var decodedResult = this.responseText;
+							var decodedResult = decodeURIComponent(atob(this.responseText).replace(/\+/g, ' '));
 							if(decodedResult.charAt(0) == '{'){
 								try {
 									var response = JSON.parse(decodedResult);
+									if(API.debug){ console.log(response); }
 									if((typeof response.error !== 'undefined')&&(options.toast)){
 										API.Toast.show.fire({
 											type: 'error',
