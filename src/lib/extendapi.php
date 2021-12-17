@@ -634,6 +634,33 @@ class APIextend extends API{
 		}
 	}
 
+	protected function copyRelationships($tbl1,$id1,$tbl2,$id2){
+		$relations = $this->getRelationships($tbl1,$id1);
+		foreach($relations as $relationship){
+			foreach($relationship as $relation){
+				if($relation['relationship'] != $tbl2 && $relation['link_to'] != '' && $relation['link_to'] != null){
+					if(isset($relation['status'])){
+						$this->createRelationship([
+							'relationship_1' => $tbl2,
+							'link_to_1' => $id2,
+							'relationship_2' => $relation['relationship'],
+							'link_to_2' => $relation['link_to'],
+							'relationship_3' => 'statuses',
+							'link_to_3' => $relation['status'],
+						]);
+					} else {
+						$this->createRelationship([
+							'relationship_1' => $tbl2,
+							'link_to_1' => $id2,
+							'relationship_2' => $relation['relationship'],
+							'link_to_2' => $relation['link_to'],
+						]);
+					}
+				}
+			}
+		}
+	}
+
 	protected function getRelationships($table,$id){
 		// Init Relationships
 		$relationships = [];
