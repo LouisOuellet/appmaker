@@ -212,10 +212,9 @@
 		if((isset($this->Settings['license']))&&((isset($this->LSP->Status))&&($this->LSP->Status))){
 			if(!$this->Auth->isBlacklisted($this->Auth->getClientIP())){
 				if((!isset($this->Settings['maintenance']))||(!$this->Settings['maintenance'])){
+          // Compile Auth Errors
+          $this->Error = array_merge($this->Error,$this->Auth->Error);
 					if($this->Auth->isLogin()){
-						// Compile Auth Errors
-						$this->Error = array_merge($this->Error,$this->Auth->Error);
-						//json_encode($this->Error, JSON_PRETTY_PRINT);
 						require_once dirname(__FILE__,2) . '/templates/layout/default.php';
             foreach($this->Settings['plugins'] as $plugin => $conf){
           		if(file_exists(dirname(__FILE__,3).'/plugins/'.$plugin.'/dist/js/script.js')){
