@@ -1581,37 +1581,37 @@ var API = {
 						}
 					}, 100);
 				},
-				contact:function(timeline, item, icon = 'address-card', color = 'secondary', callback = null){
-					var url = new URL(window.location.href);
-					var id = url.searchParams.get("id"), html = '';
-					var dateItem = new Date(item.created);
-					var dateUS = dateItem.toLocaleDateString('en-US', {day: 'numeric', month: 'short', year: 'numeric'}).replace(/ /g, '-').replace(/,/g, '');
-					API.Builder.Timeline.add.date(timeline,item.created);
-					var checkExist = setInterval(function() {
-						if(timeline.find('div.time-label[data-dateus="'+dateUS+'"]').length > 0){
-							clearInterval(checkExist);
-							if(typeof item.id !== 'undefined'){
-								var html = '';
-								html += '<div data-type="'+icon+'" data-id="'+item.id+'" data-organization="'+item.organization+'" data-isEmployee="'+item.isEmployee+'" data-isContact="'+item.isContact+'" data-name="'+item.name+'" data-date="'+dateItem.getTime()+'">';
-									html += '<i class="fas fa-'+icon+' bg-'+color+'"></i>';
-									html += '<div class="timeline-item">';
-										html += '<span class="time"><i class="fas fa-clock mr-2"></i><time class="timeago" datetime="'+item.created.replace(/ /g, "T")+'">'+item.created+'</time></span>';
-										html += '<h3 class="timeline-header">'+item.name+' was created</h3>';
-									html += '</div>';
-								html += '</div>';
-								timeline.find('div.time-label[data-dateus="'+dateUS+'"]').after(html);
-								var element = timeline.find('[data-type="'+icon+'"][data-id="'+item.id+'"]');
-								element.find('time').timeago();
-								var items = timeline.children('div').detach().get();
-								items.sort(function(a, b){
-							    return new Date($(b).data("date")) - new Date($(a).data("date"));
-							  });
-								timeline.append(items);
-								if(callback != null){ callback(element); }
-							}
-						}
-					}, 100);
-				},
+				// contact:function(timeline, item, icon = 'address-card', color = 'secondary', callback = null){
+				// 	var url = new URL(window.location.href);
+				// 	var id = url.searchParams.get("id"), html = '';
+				// 	var dateItem = new Date(item.created);
+				// 	var dateUS = dateItem.toLocaleDateString('en-US', {day: 'numeric', month: 'short', year: 'numeric'}).replace(/ /g, '-').replace(/,/g, '');
+				// 	API.Builder.Timeline.add.date(timeline,item.created);
+				// 	var checkExist = setInterval(function() {
+				// 		if(timeline.find('div.time-label[data-dateus="'+dateUS+'"]').length > 0){
+				// 			clearInterval(checkExist);
+				// 			if(typeof item.id !== 'undefined'){
+				// 				var html = '';
+				// 				html += '<div data-type="'+icon+'" data-id="'+item.id+'" data-organization="'+item.organization+'" data-isEmployee="'+item.isEmployee+'" data-isContact="'+item.isContact+'" data-name="'+item.name+'" data-date="'+dateItem.getTime()+'">';
+				// 					html += '<i class="fas fa-'+icon+' bg-'+color+'"></i>';
+				// 					html += '<div class="timeline-item">';
+				// 						html += '<span class="time"><i class="fas fa-clock mr-2"></i><time class="timeago" datetime="'+item.created.replace(/ /g, "T")+'">'+item.created+'</time></span>';
+				// 						html += '<h3 class="timeline-header">'+item.name+' was created</h3>';
+				// 					html += '</div>';
+				// 				html += '</div>';
+				// 				timeline.find('div.time-label[data-dateus="'+dateUS+'"]').after(html);
+				// 				var element = timeline.find('[data-type="'+icon+'"][data-id="'+item.id+'"]');
+				// 				element.find('time').timeago();
+				// 				var items = timeline.children('div').detach().get();
+				// 				items.sort(function(a, b){
+				// 			    return new Date($(b).data("date")) - new Date($(a).data("date"));
+				// 			  });
+				// 				timeline.append(items);
+				// 				if(callback != null){ callback(element); }
+				// 			}
+				// 		}
+				// 	}, 100);
+				// },
 				user:function(timeline, item, icon = 'user', color = 'lightblue', callback = null){
 					var url = new URL(window.location.href);
 					var id = url.searchParams.get("id"), html = '';

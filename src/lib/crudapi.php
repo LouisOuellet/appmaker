@@ -678,8 +678,8 @@ class CRUDAPI extends APIextend{
 				$status = null;
 				if(((array_key_exists("status",$data))&&(array_key_exists("status",$organization)))&&($organization['status'] != $data['status'])){
 					$organization['status'] = $data['status'];
-					$this->Auth->update('organizations',$organization,$organization['id']);
-					$organization = $this->Auth->read('organizations',$organization['id'])->all()[0];
+					$this->Auth->update($request,$organization,$organization['id']);
+					$organization = $this->Auth->read($request,$organization['id'])->all()[0];
 					// Create Relationship
 					foreach($this->Auth->read('statuses',$organization['status'],'order')->all() as $statuses){
 						if($statuses['relationship'] == "organizations"){ $status = $statuses; }
