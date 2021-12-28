@@ -1215,18 +1215,25 @@ var API = {
 								}
 							}
 						}
+					}
+				}
+			},
+			add:{
+				filter:function(layout,trigger,text){
+					if(API.Helper.isSet(layout,['timeline']) && layout.timeline.find('.time-label').first().find('div.btn-group').find('button[data-trigger="'+trigger+'"]').length <= 0){
+						layout.timeline.find('.time-label').first().find('div.btn-group').append('<button class="btn btn-secondary" data-trigger="'+trigger+'">'+API.Contents.Language[text]+'</button>');
 						layout.timeline.find('.time-label').first().find('div.btn-group button').off().click(function(){
 							var filters = layout.timeline.find('.time-label').first().find('div.btn-group');
 							var all = filters.find('button').first();
 							var filter = $(this);
-							var trigger = filter.attr('data-trigger');
-							if(trigger != 'all'){
+							console.log({filters:filters,all:all,filter:filter});
+							if(filter.attr('data-trigger') != 'all'){
 								if(all.hasClass("btn-primary")){ all.removeClass('btn-primary').addClass('btn-secondary'); }
 								if(filter.hasClass("btn-secondary")){ filter.removeClass('btn-secondary').addClass('btn-primary'); }
 								else { filter.removeClass('btn-primary').addClass('btn-secondary'); }
 								layout.timeline.find('[data-plugin]').hide();
 								layout.timeline.find('.time-label').first().find('div.btn-group button.btn-primary').each(function(){
-									layout.timeline.find('[data-plugin="'+trigger+'"]').show();
+									layout.timeline.find('[data-plugin="'+filter.attr('data-trigger')+'"]').show();
 								});
 							} else {
 								filters.find('button').removeClass('btn-primary').addClass('btn-secondary');
@@ -1235,9 +1242,7 @@ var API = {
 							}
 						});
 					}
-				}
-			},
-			add:{
+				},
 				date:function(timeline, date, color = 'primary'){
 					var url = new URL(window.location.href);
 					var id = url.searchParams.get("id"), html = '';
