@@ -1181,7 +1181,12 @@ var API = {
 			render:function(dataset,layout,options = {},callback = null){
 				if(options instanceof Function){ callback = options; options = {}; }
 				var defaults = {prefix:"_"};
+				console.log(dataset);
+				console.log(layout);
+				console.log(defaults);
 				for(var [key, option] of Object.entries(options)){ if(API.Helper.isSet(defaults,[key])){ defaults[key] = option; } }
+				console.log(options);
+				console.log(defaults);
 				for(var [rid, relations] of Object.entries(dataset.relationships)){
 					for(var [uid, relation] of Object.entries(relations)){
 						if(API.Helper.isSet(API.Plugins,[relation.relationship]) && (API.Auth.validate('custom', defaults.prefix+relation.relationship, 1) || relation.owner == API.Contents.Auth.User.username) && API.Helper.isSet(dataset,['relations',relation.relationship,relation.link_to])){
