@@ -1184,8 +1184,8 @@ var API = {
 				console.log(dataset);
 				console.log(layout);
 				console.log(defaults);
-				for(var [key, option] of Object.entries(options)){ if(API.Helper.isSet(defaults,[key])){ defaults[key] = option; } }
 				console.log(options);
+				for(var [key, option] of Object.entries(options)){ if(API.Helper.isSet(defaults,[key])){ defaults[key] = option; } }
 				console.log(defaults);
 				for(var [rid, relations] of Object.entries(dataset.relationships)){
 					for(var [uid, relation] of Object.entries(relations)){
