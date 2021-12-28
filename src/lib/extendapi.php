@@ -478,31 +478,58 @@ class APIextend extends API{
 					$get['output']['relations'][$relation['relationship']][$relation['link_to']]['owner'] = $relation['owner'];
 					$get['output']['relations'][$relation['relationship']][$relation['link_to']]['created'] = $relation['created'];
 					// Galleries
-					if($relation['relationship'] == 'galleries'){
-						$recordDetails = $this->Auth->query('SELECT * FROM `pictures` WHERE `dirname` = ?',$get['output']['details'][$relation['relationship']]['dom'][$relation['link_to']]['dirname']);
-						if($recordDetails->numRows() > 0){
-							foreach($recordDetails->fetchAll()->All() as $recordDetail){
-								$get['output']['relations'][$relation['relationship']][$relation['link_to']]['pictures'][$recordDetail['id']] = $recordDetail;
-							}
-						} else { $get['output']['relations'][$relation['relationship']][$relation['link_to']]['pictures'] = []; }
+					if(isset($this->Settings['plugins']['galleries']['status']) && $this->Settings['plugins']['galleries']['status']){
+						if($relation['relationship'] == 'galleries'){
+							$recordDetails = $this->Auth->query('SELECT * FROM `pictures` WHERE `dirname` = ?',$get['output']['details'][$relation['relationship']]['dom'][$relation['link_to']]['dirname']);
+							if($recordDetails->numRows() > 0){
+								foreach($recordDetails->fetchAll()->All() as $recordDetail){
+									$get['output']['relations'][$relation['relationship']][$relation['link_to']]['pictures'][$recordDetail['id']] = $recordDetail;
+								}
+							} else { $get['output']['relations'][$relation['relationship']][$relation['link_to']]['pictures'] = []; }
+						}
 					}
-					// Contacts
-					if($relation['relationship'] == 'contacts'){
-						$relationships = $this->getRelationships('contacts',$relation['link_to']);
-						foreach($relationships as $id => $links){
-							foreach($links as $details){
-								if($details['relationship'] == 'users'){
-									$recordDetail = $this->Auth->query('SELECT * FROM `users` WHERE `id` = ?',$details['link_to']);
-									if($recordDetail->numRows() > 0){
-										$recordDetail = $recordDetail->fetchAll()->All()[0];
-										$get['output']['relations'][$relation['relationship']][$relation['link_to']][$details['relationship']][$recordDetail['id']] = $recordDetail;
+					// Messages
+					if(isset($this->Settings['plugins']['messages']['status']) && $this->Settings['plugins']['messages']['status']){
+						if($relation['relationship'] == 'messages'){
+							$relationships = $this->getRelationships($relation['relationship'],$relation['link_to']);
+							foreach($relationships as $id => $links){
+								foreach($links as $details){
+									if(isset($this->Settings['plugins']['contacts']['status']) && $this->Settings['plugins']['contacts']['status']){
+										if($details['relationship'] == 'contacts'){
+											$recordDetail = $this->Auth->query('SELECT * FROM `contacts` WHERE `id` = ?',$details['link_to']);
+											if($recordDetail->numRows() > 0){
+												$recordDetail = $recordDetail->fetchAll()->All()[0];
+												$get['output']['relations'][$relation['relationship']][$relation['link_to']][$details['relationship']][$recordDetail['id']] = $recordDetail;
+											}
+										}
 									}
 								}
-								if($details['relationship'] == 'event_attendances'){
-									$recordDetail = $this->Auth->query('SELECT * FROM `event_attendances` WHERE `id` = ?',$details['link_to']);
-									if($recordDetail->numRows() > 0){
-										$recordDetail = $recordDetail->fetchAll()->All()[0];
-										$get['output']['relations'][$relation['relationship']][$relation['link_to']][$details['relationship']][$recordDetail['id']] = $recordDetail;
+							}
+						}
+					}
+					// Contacts
+					if(isset($this->Settings['plugins']['contacts']['status']) && $this->Settings['plugins']['contacts']['status']){
+						if($relation['relationship'] == 'contacts'){
+							$relationships = $this->getRelationships($relation['relationship'],$relation['link_to']);
+							foreach($relationships as $id => $links){
+								foreach($links as $details){
+									if(isset($this->Settings['plugins']['users']['status']) && $this->Settings['plugins']['users']['status']){
+										if($details['relationship'] == 'users'){
+											$recordDetail = $this->Auth->query('SELECT * FROM `users` WHERE `id` = ?',$details['link_to']);
+											if($recordDetail->numRows() > 0){
+												$recordDetail = $recordDetail->fetchAll()->All()[0];
+												$get['output']['relations'][$relation['relationship']][$relation['link_to']][$details['relationship']][$recordDetail['id']] = $recordDetail;
+											}
+										}
+									}
+									if(isset($this->Settings['plugins']['events']['status']) && $this->Settings['plugins']['events']['status']){
+										if($details['relationship'] == 'event_attendances'){
+											$recordDetail = $this->Auth->query('SELECT * FROM `event_attendances` WHERE `id` = ?',$details['link_to']);
+											if($recordDetail->numRows() > 0){
+												$recordDetail = $recordDetail->fetchAll()->All()[0];
+												$get['output']['relations'][$relation['relationship']][$relation['link_to']][$details['relationship']][$recordDetail['id']] = $recordDetail;
+											}
+										}
 									}
 								}
 							}
