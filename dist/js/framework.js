@@ -1178,6 +1178,60 @@ var API = {
 			}, 100);
 		},
 		Timeline:{
+			render:function(dataset,layout,options = {},callback = null){
+				if(options instanceof Function){ callback = options; options = {}; }
+				var defaults = {};
+				for(var [key, option] of Object.entries(options)){ if(API.Helper.isSet(defaults,[key])){ defaults[key] = option; } }
+				for(var [rid, relations] of Object.entries(dataset.relationships)){
+					for(var [uid, relation] of Object.entries(relations)){
+						if(API.Helper.isSet(API.Plugins,[relation.relationship]) && (API.Auth.validate('custom', 'conversations_'+relation.relationship, 1) || relation.owner == API.Contents.Auth.User.username) && API.Helper.isSet(data,['relations',relation.relationship,relation.link_to])){
+							var details = {};
+							for(var [key, value] of Object.entries(dataset.relations[relation.relationship][relation.link_to])){ details[key] = value; }
+							if(typeof relation.statuses !== 'undefined'){ details.status = dataset.details.statuses.dom[relation.statuses].order; }
+							details.created = relation.created;
+							details.owner = relation.owner;
+							if(!API.Helper.isSet(details,['isActive'])||(API.Helper.isSet(details,['isActive']) && details.isActive)||(API.Helper.isSet(details,['isActive']) && !details.isActive && (API.Auth.validate('custom', 'conversations_'+relation.relationship+'_isActive', 1)||API.Auth.validate('custom', relation.relationship+'_isActive', 1)))){
+								switch(relation.relationship){
+									case"users":
+										API.Builder.Timeline.add.subscription(layout.timeline,details,'bell','lightblue',function(item){
+											if((API.Auth.validate('plugin','users',1))&&(API.Auth.validate('view','details',1,'users'))){
+												item.find('i').first().addClass('pointer');
+												item.find('i').first().off().click(function(){
+													API.CRUD.read.show({ key:'username',keys:dataset.details.users.dom[item.attr('data-id')], href:"?p=users&v=details&id="+dataset.details.users.dom[item.attr('data-id')].username, modal:true });
+												});
+											}
+										});
+										break;
+									default:
+										if(API.Helper.isSet(API,['Plugins',relation.relationship,'Timeline','object'])){
+											API.Plugins[relation.relationship].Timeline.object(details,layout);
+										}
+										break;
+								}
+							}
+						}
+						layout.timeline.find('.time-label').first().find('div.btn-group button').off().click(function(){
+							var filters = layout.timeline.find('.time-label').first().find('div.btn-group');
+							var all = filters.find('button').first();
+							var filter = $(this);
+							var trigger = filter.attr('data-trigger');
+							if(trigger != 'all'){
+								if(all.hasClass("btn-primary")){ all.removeClass('btn-primary').addClass('btn-secondary'); }
+								if(filter.hasClass("btn-secondary")){ filter.removeClass('btn-secondary').addClass('btn-primary'); }
+								else { filter.removeClass('btn-primary').addClass('btn-secondary'); }
+								layout.timeline.find('[data-plugin]').hide();
+								layout.timeline.find('.time-label').first().find('div.btn-group button.btn-primary').each(function(){
+									layout.timeline.find('[data-plugin="'+trigger+'"]').show();
+								});
+							} else {
+								filters.find('button').removeClass('btn-primary').addClass('btn-secondary');
+								all.removeClass('btn-secondary').addClass('btn-primary');
+								layout.timeline.find('[data-plugin]').show();
+							}
+						});
+					}
+				}
+			},
 			add:{
 				date:function(timeline, date, color = 'primary'){
 					var url = new URL(window.location.href);
