@@ -503,6 +503,16 @@ class APIextend extends API{
 											}
 										}
 									}
+									// if(isset($this->Settings['plugins']['contacts']['status']) && $this->Settings['plugins']['contacts']['status']){
+										if($details['relationship'] == 'files'){
+											$recordDetail = $this->Auth->query('SELECT * FROM `files` WHERE `id` = ?',$details['link_to']);
+											if($recordDetail->numRows() > 0){
+												$recordDetail = $recordDetail->fetchAll()->All()[0];
+												unset($recordDetail['file']);
+												$get['output']['relations'][$relation['relationship']][$relation['link_to']][$details['relationship']][$recordDetail['id']] = $recordDetail;
+											}
+										}
+									// }
 								}
 							}
 						}
