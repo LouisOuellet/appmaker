@@ -1180,11 +1180,11 @@ var API = {
 		Timeline:{
 			render:function(dataset,layout,options = {},callback = null){
 				if(options instanceof Function){ callback = options; options = {}; }
-				var defaults = {};
+				var defaults = {prefix:"_"};
 				for(var [key, option] of Object.entries(options)){ if(API.Helper.isSet(defaults,[key])){ defaults[key] = option; } }
 				for(var [rid, relations] of Object.entries(dataset.relationships)){
 					for(var [uid, relation] of Object.entries(relations)){
-						if(API.Helper.isSet(API.Plugins,[relation.relationship]) && (API.Auth.validate('custom', 'conversations_'+relation.relationship, 1) || relation.owner == API.Contents.Auth.User.username) && API.Helper.isSet(data,['relations',relation.relationship,relation.link_to])){
+						if(API.Helper.isSet(API.Plugins,[relation.relationship]) && (API.Auth.validate('custom', defaults.prefix+relation.relationship, 1) || relation.owner == API.Contents.Auth.User.username) && API.Helper.isSet(dataset,['relations',relation.relationship,relation.link_to])){
 							var details = {};
 							for(var [key, value] of Object.entries(dataset.relations[relation.relationship][relation.link_to])){ details[key] = value; }
 							if(typeof relation.statuses !== 'undefined'){ details.status = dataset.details.statuses.dom[relation.statuses].order; }
