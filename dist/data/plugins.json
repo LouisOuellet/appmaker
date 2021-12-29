@@ -59,6 +59,16 @@
             "manifest": "\/dist\/data\/manifest.json"
         }
     },
+    "files": {
+        "repository": {
+            "name": "appmaker-files",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
     "comments": {
         "repository": {
             "name": "appmaker-comments",

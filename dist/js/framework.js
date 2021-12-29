@@ -935,11 +935,12 @@ var API = {
 					}); }
 				},
 				data:function(dataset,layout,options = {},callback = null){
+					var url = new URL(window.location.href);
 					if(options instanceof Function){ callback = options; options = {}; }
 					var html = '';
 					var defaults = {
 						field: "name",
-						plugin: "",
+						plugin: url.searchParams.get("p"),
 						td: "",
 					};
 					if(API.Helper.isSet(options,['field'])){ defaults.field = options.field; }

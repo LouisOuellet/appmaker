@@ -675,7 +675,7 @@ class APIextend extends API{
 		$relations = $this->getRelationships($tbl1,$id1);
 		foreach($relations as $relationship){
 			foreach($relationship as $relation){
-				if($relation['relationship'] != $tbl2 && $relation['link_to'] != '' && $relation['link_to'] != null){
+				if($relation['relationship'] != $tbl2 && $relation['relationship'] != 'statuses' && $relation['link_to'] != '' && $relation['link_to'] != null){
 					if(isset($relation['status'])){
 						$this->createRelationship([
 							'relationship_1' => $tbl2,
