@@ -1012,6 +1012,22 @@ var API = {
 		},
 	},
 	Helper:{
+		toCSV:function(array,options = {}){
+			var url = new URL(window.location.href);
+			var defaults = {plugin:url.searchParams.get("p")};
+			for(var [key, option] of Object.entries(options)){ if(API.Helper.isSet(defaults,[key])){ defaults[key] = option; } }
+			var csv = '';
+			for(var [key, value] of Object.entries(array)){
+				if(value == null){ value = '';};
+				if(key == 'status'){ value = API.Contents.Statuses[defaults.plugin][value].name; }
+				value = String(value).toLowerCase();
+				if(value != ''){
+					if(csv != ''){ csv += ','; }
+					csv += value;
+				}
+			}
+			return csv;
+		},
 		toString:function(date){
 			var day = String(date.getDate()).padStart(2, '0');
 			var month = String(date.getMonth() + 1).padStart(2, '0');
