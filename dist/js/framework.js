@@ -2323,7 +2323,7 @@ var API = {
 				acceptedFiles: null,
 		    autoQueue: false,
 		    previewsContainer: ".dropzone-previews",
-		    clickable: ".fileinput-button"
+		    clickable: ".fileinput-button",
 			};
 			for(var [key, value] of Object.entries(options)){ if(API.Helper.isSet(defaults,[key])){ defaults[key] = value; } }
 			var html = '';
@@ -2361,14 +2361,14 @@ var API = {
 		    // Hookup the start button
 		    file.previewElement.querySelector(".start").onclick = function() { zone[0].dropzone.enqueueFile(file) }
 				// Callback
-				if(callback != null){ callback('addedfile',zone,file); }
+				if(callback != null){ callback('addedfile',zone[0].dropzone,file); }
 		  })
 
 		  // Update the total progress bar
 		  zone[0].dropzone.on("totaluploadprogress", function(progress) {
 		    progressTotalBar.css('width',progress + "%")
 				// Callback
-				if(callback != null){ callback('totaluploadprogress',zone,progress); }
+				if(callback != null){ callback('totaluploadprogress',zone[0].dropzone,progress); }
 		  })
 
 		  zone[0].dropzone.on("sending", function(file) {
@@ -2377,26 +2377,26 @@ var API = {
 		    // And disable the start button
 		    file.previewElement.querySelector(".start").setAttribute("disabled", "disabled");
 				// Callback
-				if(callback != null){ callback('sending',zone,file); }
+				if(callback != null){ callback('sending',zone[0].dropzone,file); }
 		  })
 
 		  // Hide the total progress bar when nothing's uploading anymore
 		  zone[0].dropzone.on("queuecomplete", function(progress) {
 				// Callback
-				if(callback != null){ callback('queuecomplete',zone,progress); }
+				if(callback != null){ callback('queuecomplete',zone[0].dropzone,progress); }
 		  })
 
 		  // Setup the buttons for all transfers
 			actions.find('.start').off().click(function(){
 				zone[0].dropzone.enqueueFiles(zone[0].dropzone.getFilesWithStatus(Dropzone.ADDED));
 				// Callback
-				if(callback != null){ callback('start',zone,null); }
+				if(callback != null){ callback('start',zone[0].dropzone,null); }
 			});
 			actions.find('.cancel').off().click(function(){
 				// Remove Files
 				zone[0].dropzone.removeAllFiles(true);
 				// Callback
-				if(callback != null){ callback('cancel',zone,null); }
+				if(callback != null){ callback('cancel',zone[0].dropzone,null); }
 			});
 		},
 		modal: function(element, options = null, callback = null){
