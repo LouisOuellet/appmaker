@@ -468,6 +468,10 @@ class APIextend extends API{
 	protected function buildRelations($get){
 		foreach($get['output']['relationships'] as $rid => $relations){
 			foreach($relations as $uid => $relation){
+				// MetaData
+				if($relation['meta'] != '' && $relation['meta'] != null && !is_array($relation['meta'])){
+					$relation['meta'] = json_decode($relation['meta'], true);
+				}
 				if(isset($get['output']['details'][$relation['relationship']]['dom'][$relation['link_to']])){
 					// Files
 					if($relation['relationship'] == 'files'){
@@ -577,7 +581,7 @@ class APIextend extends API{
 		return $get;
 	}
 
-	protected function createRelationship($relationship = []){
+	protected function createRelationship($relationship = [],$force = false){
 		if(!empty($relationship)){
 			// Initialize
 			$create = false;
@@ -645,7 +649,7 @@ class APIextend extends API{
 					}
 				}
 			}
-			if($create){
+			if($create||$force){
 				$new['created'] = date("Y-m-d H:i:s");
 				$new['modified'] = date("Y-m-d H:i:s");
 				$new['owner'] = $this->Auth->User['id'];
@@ -676,23 +680,18 @@ class APIextend extends API{
 		foreach($relations as $relationship){
 			foreach($relationship as $relation){
 				if($relation['relationship'] != $tbl2 && $relation['relationship'] != 'statuses' && $relation['link_to'] != '' && $relation['link_to'] != null){
+					$new = [
+						'relationship_1' => $tbl2,
+						'link_to_1' => $id2,
+						'relationship_2' => $relation['relationship'],
+						'link_to_2' => $relation['link_to'],
+					];
 					if(isset($relation['status'])){
-						$this->createRelationship([
-							'relationship_1' => $tbl2,
-							'link_to_1' => $id2,
-							'relationship_2' => $relation['relationship'],
-							'link_to_2' => $relation['link_to'],
-							'relationship_3' => 'statuses',
-							'link_to_3' => $relation['status'],
-						]);
-					} else {
-						$this->createRelationship([
-							'relationship_1' => $tbl2,
-							'link_to_1' => $id2,
-							'relationship_2' => $relation['relationship'],
-							'link_to_2' => $relation['link_to'],
-						]);
+						$new['relationship_3'] = 'statuses';
+						$new['link_to_3'] = $relation['status'];
 					}
+					if(isset($relation['meta'])){ $new['meta'] = $relation['meta']; }
+					$this->createRelationship($new);
 				}
 			}
 		}
@@ -722,9 +721,14 @@ class APIextend extends API{
 						'link_to' => $relation['link_to_1'],
 						'created' => $relation['created'],
 						'owner' => $dom['owner'],
+						'meta' => $relation['meta'],
 					];
 					if(($relation['relationship_3'] != '')||($relation['relationship_3'] != null)){
 						$new[$relation['relationship_3']] = $relation['link_to_3'];
+					}
+					// MetaData
+					if($new['meta'] != '' && $new['meta'] != null && !is_array($new['meta'])){
+						$new['meta'] = json_decode($new['meta'], true);
 					}
 					array_push($relationships[$relation['id']],$new);
 				}
@@ -734,9 +738,14 @@ class APIextend extends API{
 						'link_to' => $relation['link_to_2'],
 						'created' => $relation['created'],
 						'owner' => $dom['owner'],
+						'meta' => $relation['meta'],
 					];
 					if(($relation['relationship_3'] != '')||($relation['relationship_3'] != null)){
 						$new[$relation['relationship_3']] = $relation['link_to_3'];
+					}
+					// MetaData
+					if($new['meta'] != '' && $new['meta'] != null && !is_array($new['meta'])){
+						$new['meta'] = json_decode($new['meta'], true);
 					}
 					array_push($relationships[$relation['id']],$new);
 				}
