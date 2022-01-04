@@ -481,6 +481,10 @@ class CRUDAPI extends APIextend{
 							$fetch = $this->Auth->read($relation['relationship'],$relation['link_to']);
 							if($fetch != null){
 								$details[$relation['relationship']]['raw'][$relation['link_to']] = $fetch->all()[0];
+								// Files
+								if($relation['relationship'] == 'files'){
+									unset($details[$relation['relationship']]['raw'][$relation['link_to']]['file']);
+								}
 								foreach($details[$relation['relationship']]['raw'][$relation['link_to']] as $key => $value){
 									if(!$this->Auth->valid('field',$key,1,$relation['relationship'])){
 										$details[$relation['relationship']]['raw'][$relation['link_to']][$key] = null;

@@ -466,125 +466,66 @@ class APIextend extends API{
 	}
 
 	protected function buildRelations($get){
-		foreach($get['output']['relationships'] as $rid => $relations){
+		if(isset($get['output']['relationships'])){ $getRelations['relationships'] = $get['output']['relationships']; }
+		else { $getRelations['relationships'] = $get; }
+		foreach($getRelations['relationships'] as $rid => $relations){
 			foreach($relations as $uid => $relation){
-				// MetaData
-				if($relation['meta'] != '' && $relation['meta'] != null && !is_array($relation['meta'])){
-					$relation['meta'] = json_decode($relation['meta'], true);
+				if(isset($getRelations['details'][$relation['relationship']]['dom'][$relation['link_to']])){
+					$getRelations['relations'][$relation['relationship']][$relation['link_to']] = $getRelations['details'][$relation['relationship']]['dom'][$relation['link_to']];
+					$getRelations['relations'][$relation['relationship']][$relation['link_to']]['owner'] = $relation['owner'];
+					$getRelations['relations'][$relation['relationship']][$relation['link_to']]['created'] = $relation['created'];
+				} else {
+					$getRelations['relations'][$relation['relationship']][$relation['link_to']] = $this->convertToDOM($this->Auth->query('SELECT * FROM `'.$relation['relationship'].'` WHERE `id` = ?',$relation['link_to'])->fetchAll()->All()[0]);
+					$getRelations['relations'][$relation['relationship']][$relation['link_to']]['owner'] = $relation['owner'];
+					$getRelations['relations'][$relation['relationship']][$relation['link_to']]['created'] = $relation['created'];
 				}
-				if(isset($get['output']['details'][$relation['relationship']]['dom'][$relation['link_to']])){
-					// Files
-					if($relation['relationship'] == 'files'){
-						unset($get['output']['details'][$relation['relationship']]['dom'][$relation['link_to']]['file']);
-						unset($get['output']['details'][$relation['relationship']]['raw'][$relation['link_to']]['file']);
+				// Generate Name
+				if(!isset($getRelations['relations'][$relation['relationship']][$relation['link_to']]['name']) && isset($getRelations['relations'][$relation['relationship']][$relation['link_to']]['first_name'])){
+					$getRelations['relations'][$relation['relationship']][$relation['link_to']]['name'] = '';
+					if($getRelations['relations'][$relation['relationship']][$relation['link_to']]['first_name'] != ''){
+						if($getRelations['relations'][$relation['relationship']][$relation['link_to']]['name'] != ''){
+							$getRelations['relations'][$relation['relationship']][$relation['link_to']]['name'] .= ' ';
+						}
+						$getRelations['relations'][$relation['relationship']][$relation['link_to']]['name'] .= $getRelations['relations'][$relation['relationship']][$relation['link_to']]['first_name'];
 					}
-					$get['output']['relations'][$relation['relationship']][$relation['link_to']] = $get['output']['details'][$relation['relationship']]['dom'][$relation['link_to']];
-					$get['output']['relations'][$relation['relationship']][$relation['link_to']]['owner'] = $relation['owner'];
-					$get['output']['relations'][$relation['relationship']][$relation['link_to']]['created'] = $relation['created'];
-					// Galleries
-					if(isset($this->Settings['plugins']['galleries']['status']) && $this->Settings['plugins']['galleries']['status']){
-						if($relation['relationship'] == 'galleries'){
-							$recordDetails = $this->Auth->query('SELECT * FROM `pictures` WHERE `dirname` = ?',$get['output']['details'][$relation['relationship']]['dom'][$relation['link_to']]['dirname']);
-							if($recordDetails->numRows() > 0){
-								foreach($recordDetails->fetchAll()->All() as $recordDetail){
-									$get['output']['relations'][$relation['relationship']][$relation['link_to']]['pictures'][$recordDetail['id']] = $recordDetail;
-								}
-							} else { $get['output']['relations'][$relation['relationship']][$relation['link_to']]['pictures'] = []; }
+					if($getRelations['relations'][$relation['relationship']][$relation['link_to']]['middle_name'] != ''){
+						if($getRelations['relations'][$relation['relationship']][$relation['link_to']]['name'] != ''){
+							$getRelations['relations'][$relation['relationship']][$relation['link_to']]['name'] .= ' ';
 						}
+						$getRelations['relations'][$relation['relationship']][$relation['link_to']]['name'] .= $getRelations['relations'][$relation['relationship']][$relation['link_to']]['middle_name'];
 					}
-					// Messages
-					if(isset($this->Settings['plugins']['messages']['status']) && $this->Settings['plugins']['messages']['status']){
-						if($relation['relationship'] == 'messages'){
-							$relationships = $this->getRelationships($relation['relationship'],$relation['link_to']);
-							foreach($relationships as $id => $links){
-								foreach($links as $details){
-									if(isset($this->Settings['plugins']['contacts']['status']) && $this->Settings['plugins']['contacts']['status']){
-										if($details['relationship'] == 'contacts'){
-											$recordDetail = $this->Auth->query('SELECT * FROM `contacts` WHERE `id` = ?',$details['link_to']);
-											if($recordDetail->numRows() > 0){
-												$recordDetail = $recordDetail->fetchAll()->All()[0];
-												$get['output']['relations'][$relation['relationship']][$relation['link_to']][$details['relationship']][$recordDetail['id']] = $recordDetail;
-											}
-										}
-									}
-									// if(isset($this->Settings['plugins']['contacts']['status']) && $this->Settings['plugins']['contacts']['status']){
-										if($details['relationship'] == 'files'){
-											$recordDetail = $this->Auth->query('SELECT * FROM `files` WHERE `id` = ?',$details['link_to']);
-											if($recordDetail->numRows() > 0){
-												$recordDetail = $recordDetail->fetchAll()->All()[0];
-												unset($recordDetail['file']);
-												$get['output']['relations'][$relation['relationship']][$relation['link_to']][$details['relationship']][$recordDetail['id']] = $recordDetail;
-											}
-										}
-									// }
-								}
-							}
+					if($getRelations['relations'][$relation['relationship']][$relation['link_to']]['last_name'] != ''){
+						if($getRelations['relations'][$relation['relationship']][$relation['link_to']]['name'] != ''){
+							$getRelations['relations'][$relation['relationship']][$relation['link_to']]['name'] .= ' ';
 						}
+						$getRelations['relations'][$relation['relationship']][$relation['link_to']]['name'] .= $getRelations['relations'][$relation['relationship']][$relation['link_to']]['last_name'];
 					}
-					// Contacts
-					if(isset($this->Settings['plugins']['contacts']['status']) && $this->Settings['plugins']['contacts']['status']){
-						if($relation['relationship'] == 'contacts'){
-							$relationships = $this->getRelationships($relation['relationship'],$relation['link_to']);
-							foreach($relationships as $id => $links){
-								foreach($links as $details){
-									if(isset($this->Settings['plugins']['users']['status']) && $this->Settings['plugins']['users']['status']){
-										if($details['relationship'] == 'users'){
-											$recordDetail = $this->Auth->query('SELECT * FROM `users` WHERE `id` = ?',$details['link_to']);
-											if($recordDetail->numRows() > 0){
-												$recordDetail = $recordDetail->fetchAll()->All()[0];
-												$get['output']['relations'][$relation['relationship']][$relation['link_to']][$details['relationship']][$recordDetail['id']] = $recordDetail;
-											}
-										}
-									}
-									if(isset($this->Settings['plugins']['events']['status']) && $this->Settings['plugins']['events']['status']){
-										if($details['relationship'] == 'event_attendances'){
-											$recordDetail = $this->Auth->query('SELECT * FROM `event_attendances` WHERE `id` = ?',$details['link_to']);
-											if($recordDetail->numRows() > 0){
-												$recordDetail = $recordDetail->fetchAll()->All()[0];
-												$get['output']['relations'][$relation['relationship']][$relation['link_to']][$details['relationship']][$recordDetail['id']] = $recordDetail;
-											}
-										}
-									}
-								}
-							}
-						}
+				}
+				// MetaData
+				if(isset($getRelations['relations'][$relation['relationship']][$relation['link_to']]['meta']) && !is_array($getRelations['relations'][$relation['relationship']][$relation['link_to']]['meta'])){
+					if($getRelations['relations'][$relation['relationship']][$relation['link_to']]['meta'] != '' && $getRelations['relations'][$relation['relationship']][$relation['link_to']]['meta'] != null){
+						$getRelations['relations'][$relation['relationship']][$relation['link_to']]['meta'] = json_decode($getRelations['relations'][$relation['relationship']][$relation['link_to']]['meta'], true);
+					} else {
+						$getRelations['relations'][$relation['relationship']][$relation['link_to']]['meta'] = [];
 					}
-					// Status
-					if(isset($relation['statuses'])){
-						$get['output']['relations'][$relation['relationship']][$relation['link_to']]['status'] = $get['output']['details']['statuses']['dom'][$relation['statuses']]['order'];
-					}
-					// Generate Name
-					if(!isset($get['output']['relations'][$relation['relationship']][$relation['link_to']]['name']) && isset($get['output']['relations'][$relation['relationship']][$relation['link_to']]['first_name'])){
-						$get['output']['relations'][$relation['relationship']][$relation['link_to']]['name'] = '';
-						if($get['output']['relations'][$relation['relationship']][$relation['link_to']]['first_name'] != ''){
-							if($get['output']['relations'][$relation['relationship']][$relation['link_to']]['name'] != ''){
-								$get['output']['relations'][$relation['relationship']][$relation['link_to']]['name'] .= ' ';
-							}
-							$get['output']['relations'][$relation['relationship']][$relation['link_to']]['name'] .= $get['output']['relations'][$relation['relationship']][$relation['link_to']]['first_name'];
-						}
-						if($get['output']['relations'][$relation['relationship']][$relation['link_to']]['middle_name'] != ''){
-							if($get['output']['relations'][$relation['relationship']][$relation['link_to']]['name'] != ''){
-								$get['output']['relations'][$relation['relationship']][$relation['link_to']]['name'] .= ' ';
-							}
-							$get['output']['relations'][$relation['relationship']][$relation['link_to']]['name'] .= $get['output']['relations'][$relation['relationship']][$relation['link_to']]['middle_name'];
-						}
-						if($get['output']['relations'][$relation['relationship']][$relation['link_to']]['last_name'] != ''){
-							if($get['output']['relations'][$relation['relationship']][$relation['link_to']]['name'] != ''){
-								$get['output']['relations'][$relation['relationship']][$relation['link_to']]['name'] .= ' ';
-							}
-							$get['output']['relations'][$relation['relationship']][$relation['link_to']]['name'] .= $get['output']['relations'][$relation['relationship']][$relation['link_to']]['last_name'];
-						}
+				}
+				// Extend
+				$Builder = $relation['relationship'];
+				if(property_exists($this->Helper,$relation['relationship'])){
+					if(method_exists($this->Helper->$Builder,'buildRelation')){
+						$getRelations['relations'] = $this->Helper->$Builder->buildRelation($getRelations['relations'],$relation);
 					}
 				}
 			}
 		}
-		return $get;
+		if(isset($get['output']['relationships'])){ $get['output']['relations'] = $getRelations['relations']; return $get; }
+		else { return $getRelations['relations']; }
 	}
 
 	protected function createRelationship($relationship = [],$force = false){
 		if(!empty($relationship)){
 			// Initialize
-			$create = false;
+			$create = true;
 			// Sanitization
 			if(isset($relationship['relationship_1'],$relationship['link_to_1'])){
 				if($this->Auth->query('SELECT * FROM `'.$relationship['relationship_1'].'` WHERE `id` = ?',$relationship['link_to_1'])->numRows() > 0){
@@ -605,47 +546,12 @@ class APIextend extends API{
 				}
 			}
 			if(isset($new['relationship_1'],$new['relationship_2'])){
-				if(isset($new['relationship_3'])){
-					if($new['relationship_3'] == 'statuses'){
-						$relations = $this->Auth->query('SELECT * FROM `relationships` WHERE `relationship_1` = ? AND `link_to_1` = ? AND `relationship_2` = ? AND `link_to_2` = ? AND `relationship_3` = ?',[
-							$new['relationship_1'],
-							$new['link_to_1'],
-							$new['relationship_2'],
-							$new['link_to_2'],
-							$new['relationship_3']
-						]);
-						if($relations->numRows() > 0){
-							$relations = $relations->fetchAll()->all();
-							$last = end($relations);
-							if($last['link_to_3'] != $new['link_to_3']){ $create = true; }
-						} else {
-							$relations = $relations->fetchAll()->all();
-							$create = true;
+				if(!$force){
+					$relationships = $this->getRelationships($new['relationship_1'],$new['link_to_1']);
+					foreach($relationships as $id => $relations){
+						foreach($relations as $relation){
+							if($relation['relationship'] == $new['relationship_2'] && $relation['link_to'] == $new['link_to_2']){ $create = false;$new['id'] = $id; }
 						}
-					} else {
-						$relations = $this->Auth->query('SELECT * FROM `relationships` WHERE `relationship_1` = ? AND `link_to_1` = ? AND `relationship_2` = ? AND `link_to_2` = ? AND `relationship_3` = ? AND `link_to_3` = ?',[
-							$new['relationship_1'],
-							$new['link_to_1'],
-							$new['relationship_2'],
-							$new['link_to_2'],
-							$new['relationship_3'],
-							$new['link_to_3'],
-						]);
-						if($relations->numRows() <= 0){
-							$relations = $relations->fetchAll()->all();
-							$create = true;
-						}
-					}
-				} else {
-					$relations = $this->Auth->query('SELECT * FROM `relationships` WHERE `relationship_1` = ? AND `link_to_1` = ? AND `relationship_2` = ? AND `link_to_2` = ?',[
-						$new['relationship_1'],
-						$new['link_to_1'],
-						$new['relationship_2'],
-						$new['link_to_2'],
-					]);
-					if($relations->numRows() <= 0){
-						$relations = $relations->fetchAll()->all();
-						$create = true;
 					}
 				}
 			}
@@ -670,7 +576,7 @@ class APIextend extends API{
 				}
 				if($new['id'] != NULL){ return $new; }
 			} else {
-				if(isset($relations)){ return $relations; }
+				if($new['id'] != NULL){ return $new; }
 			}
 		}
 	}
@@ -713,41 +619,33 @@ class APIextend extends API{
 		// Creating Relationships Array
 		if(!empty($relations)){
 			foreach($relations as $relation){
-				$dom = $this->convertToDOM($relation);
 				$relationships[$relation['id']] = [];
 				if(($relation['relationship_1'] != '')&&($relation['relationship_1'] != null)&&(($relation['relationship_1'] != $table)||(($relation['relationship_1'] == $table)&&($relation['link_to_1'] != $id)))){
 					$new = [
 						'relationship' => $relation['relationship_1'],
 						'link_to' => $relation['link_to_1'],
-						'created' => $relation['created'],
-						'owner' => $dom['owner'],
-						'meta' => $relation['meta'],
 					];
-					if(($relation['relationship_3'] != '')||($relation['relationship_3'] != null)){
-						$new[$relation['relationship_3']] = $relation['link_to_3'];
-					}
-					// MetaData
-					if($new['meta'] != '' && $new['meta'] != null && !is_array($new['meta'])){
-						$new['meta'] = json_decode($new['meta'], true);
-					}
 					array_push($relationships[$relation['id']],$new);
 				}
 				if(($relation['relationship_2'] != '')&&($relation['relationship_2'] != null)&&(($relation['relationship_2'] != $table)||(($relation['relationship_2'] == $table)&&($relation['link_to_2'] != $id)))){
 					$new = [
 						'relationship' => $relation['relationship_2'],
 						'link_to' => $relation['link_to_2'],
-						'created' => $relation['created'],
-						'owner' => $dom['owner'],
-						'meta' => $relation['meta'],
 					];
+					array_push($relationships[$relation['id']],$new);
+				}
+				foreach($relationships[$relation['id']] as $key => $value){
+					$relationships[$relation['id']][$key]['created'] = $relation['created'];
+					$relationships[$relation['id']][$key]['owner'] = $relation['owner'];
+					$relationships[$relation['id']][$key]['meta'] = $relation['meta'];
+					// 3rd Relation
 					if(($relation['relationship_3'] != '')||($relation['relationship_3'] != null)){
-						$new[$relation['relationship_3']] = $relation['link_to_3'];
+						$relationships[$relation['id']][$key][$relation['relationship_3']] = $relation['link_to_3'];
 					}
 					// MetaData
-					if($new['meta'] != '' && $new['meta'] != null && !is_array($new['meta'])){
-						$new['meta'] = json_decode($new['meta'], true);
-					}
-					array_push($relationships[$relation['id']],$new);
+					if($relationships[$relation['id']][$key]['meta'] != '' && $relationships[$relation['id']][$key]['meta'] != null && !is_array($relationships[$relation['id']][$key]['meta'])){
+						$relationships[$relation['id']][$key]['meta'] = json_decode($relationships[$relation['id']][$key]['meta'], true);
+					} else { $relationships[$relation['id']][$key]['meta'] = []; }
 				}
 			}
 		}

@@ -12,6 +12,7 @@ require_once dirname(__FILE__,3) . '/src/lib/exchange.php';
 require_once dirname(__FILE__,3) . '/src/lib/smtp.php';
 require_once dirname(__FILE__,3) . '/src/lib/extendapi.php';
 require_once dirname(__FILE__,3) . '/src/lib/crudapi.php';
+require_once dirname(__FILE__,3) . '/src/lib/helper.php';
 require_once dirname(__FILE__,3) . '/src/lib/validator.php';
 
 class API{
@@ -20,17 +21,18 @@ class API{
   protected $Countries; // Stores available countries
   protected $States; // Stores available states
   protected $Plugins; // Stores available states
-	public $Structure = []; // Stores the database structure
-	public $Tables = []; // Stores the database structure
-	public $Samples = []; // Stores the database structure
-	public $Skeletons = []; // Stores the database structure
+  protected $Helper; // Stores available states
+	protected $Structure = []; // Stores the database structure
+	protected $Tables = []; // Stores the database structure
+	protected $Samples = []; // Stores the database structure
+	protected $Skeletons = []; // Stores the database structure
   protected $Validator;
-	public $Settings; // Stores settings loaded from manifest.json and conf.json
+	protected $Settings; // Stores settings loaded from manifest.json and conf.json
   public $Auth; // This contains the Auth class & the Database class for MySQL queries
 	protected $LSP; // This contains the LSP class
   protected $CSV; // This contains the CSV class
   protected $PDF; // This contains the PDF class
-  public $Exchange; // This contains the EXCHANGE class
+  protected $Exchange; // This contains the EXCHANGE class
 	public $Language; // This contains the Language class
 	protected $PHPVersion; // The server php version
   public $Domain; // The domain extracted from $_SERVER['HTTP_HOST']
@@ -141,6 +143,9 @@ class API{
 		// Load APIs
 		$this->loadFiles('api.php', 'api');
 
+		// Load Helpers
+    $this->loadHelpers();
+
 		// Initialise CSV
 		$this->CSV = new CSV();
 
@@ -152,6 +157,22 @@ class API{
 
 		// Initialise EXCHANGE
 		// $this->Exchange = new EXCHANGE();
+  }
+
+  protected function loadHelpers(){
+    $this->Helper = new stdClass();
+    $root = dirname(__FILE__,3);
+    $directories = array_slice(scandir($root . '/plugins/'), 2);
+    foreach($directories as $directory) {
+			$file = $root . "/plugins/".$directory."/helper.php";
+			if($directory != ".DS_Store" && $directory != "empty" && is_file($file)){
+        if(isset($this->Settings['plugins'][$directory]['status']) && $this->Settings['plugins'][$directory]['status']){
+          $helper = $directory.'Helper';
+          require_once($file);
+          $this->Helper->{$directory} = new $helper($this->Auth);
+        }
+			}
+    }
   }
 
   public function getLanguage(){
@@ -228,7 +249,7 @@ class API{
     $directories = array_slice(scandir($root . '/plugins/'), 2);
     foreach($directories as $directory) {
 			$file = $root . "/plugins/".$directory."/".$lookup;
-			if($directory != "empty" && is_file($file)){
+			if($directory != ".DS_Store" && $directory != "empty" && is_file($file)){
 				if($this->Auth->valid($type,$directory,1)){
 					if((isset($this->Settings['plugins'][$directory]['status']))&&$this->Settings['plugins'][$directory]['status']){ require_once($file); }
 				}

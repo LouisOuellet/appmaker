@@ -15,7 +15,7 @@ class Auth extends History{
   public $Roles; // Stores Roles Data
   public $Permissions; // Stores Permissions Data
   public $Options; // Stores Options Data
-	protected $Settings; // Stores Settings Data
+	public $Settings; // Stores Settings Data
   protected $Language; // Contains the Language Class
 	protected $PAM; // Contains the PAM Class
 	protected $Validator; // Contains the Validator Class

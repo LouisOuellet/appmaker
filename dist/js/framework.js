@@ -957,6 +957,7 @@ var API = {
 					html +='</tr>';
 					layout.details.find('tbody').append(html);
 					var tr = layout.details.find('tbody tr').last();
+					layout.details[defaults.field] = tr;
 					if(callback != null){ callback(dataset,layout,tr); }
 				},
 				control:function(dataset,layout,options = {},callback = null){
