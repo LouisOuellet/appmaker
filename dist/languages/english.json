@@ -1,4 +1,13 @@
 {
+    "Server Under Maintenance": "Server Under Maintenance",
+    "Unknown Authentication Method": "Unknown Authentication Method",
+    "Unable to Login User": "Unable to Login User",
+    "Insuffisant Priviledges": "Insuffisant Priviledges",
+    "Message Sent": "Message Sent",
+    "No Login Data Received": "No Login Data Received",
+    "No Token Received": "No Token Received",
+    "Unknown API": "Unknown API",
+    "Unknown Request": "Unknown Request",
     "Clear": "Clear",
     "History": "History",
     "clear": "clear",
