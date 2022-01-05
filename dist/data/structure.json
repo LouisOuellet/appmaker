@@ -284,32 +284,7 @@
             "order": 57,
             "type": "varchar(255)"
         },
-        "57": "bill_to",
-        "isReleased": {
-            "order": 58,
-            "type": "varchar(255)"
-        },
-        "58": "isReleased",
-        "isPaid": {
-            "order": 59,
-            "type": "varchar(255)"
-        },
-        "59": "isPaid",
-        "isBilled": {
-            "order": 60,
-            "type": "varchar(255)"
-        },
-        "60": "isBilled",
-        "isComplete": {
-            "order": 61,
-            "type": "varchar(255)"
-        },
-        "61": "isComplete",
-        "isReject": {
-            "order": 62,
-            "type": "varchar(255)"
-        },
-        "62": "isReject"
+        "57": "bill_to"
     },
     "blacklist": {
         "id": {
@@ -755,6 +730,83 @@
         },
         "10": "right"
     },
+    "event_attendances": {
+        "id": {
+            "order": 1,
+            "type": "int(11)"
+        },
+        "1": "id",
+        "created": {
+            "order": 2,
+            "type": "datetime"
+        },
+        "2": "created",
+        "modified": {
+            "order": 3,
+            "type": "datetime"
+        },
+        "3": "modified",
+        "owner": {
+            "order": 4,
+            "type": "varchar(255)"
+        },
+        "4": "owner",
+        "updated_by": {
+            "order": 5,
+            "type": "varchar(255)"
+        },
+        "5": "updated_by",
+        "names": {
+            "order": 6,
+            "type": "text"
+        },
+        "6": "names",
+        "menu": {
+            "order": 7,
+            "type": "text"
+        },
+        "7": "menu",
+        "unit_price": {
+            "order": 8,
+            "type": "varchar(255)"
+        },
+        "8": "unit_price",
+        "quantity": {
+            "order": 9,
+            "type": "varchar(255)"
+        },
+        "9": "quantity",
+        "credit": {
+            "order": 10,
+            "type": "varchar(255)"
+        },
+        "10": "credit",
+        "total": {
+            "order": 11,
+            "type": "varchar(255)"
+        },
+        "11": "total",
+        "setEvent": {
+            "order": 12,
+            "type": "varchar(255)"
+        },
+        "12": "setEvent",
+        "setContact": {
+            "order": 13,
+            "type": "varchar(255)"
+        },
+        "13": "setContact",
+        "setMaxQty": {
+            "order": 14,
+            "type": "varchar(255)"
+        },
+        "14": "setMaxQty",
+        "setConfirmed": {
+            "order": 15,
+            "type": "varchar(255)"
+        },
+        "15": "setConfirmed"
+    },
     "event_items": {
         "id": {
             "order": 1,
@@ -952,7 +1004,17 @@
             "order": 27,
             "type": "varchar(255)"
         },
-        "27": "setToken"
+        "27": "setToken",
+        "hasSeatingPlan": {
+            "order": 28,
+            "type": "varchar(255)"
+        },
+        "28": "hasSeatingPlan",
+        "setUnitPrice": {
+            "order": 29,
+            "type": "varchar(255)"
+        },
+        "29": "setUnitPrice"
     },
     "files": {
         "id": {
@@ -990,36 +1052,46 @@
             "type": "varchar(255)"
         },
         "7": "filename",
-        "file": {
+        "dirname": {
             "order": 8,
+            "type": "varchar(255)"
+        },
+        "8": "dirname",
+        "checksum": {
+            "order": 9,
+            "type": "text"
+        },
+        "9": "checksum",
+        "file": {
+            "order": 10,
             "type": "longblob"
         },
-        "8": "file",
+        "10": "file",
         "type": {
-            "order": 9,
-            "type": "varchar(255)"
-        },
-        "9": "type",
-        "size": {
-            "order": 10,
-            "type": "varchar(255)"
-        },
-        "10": "size",
-        "encoding": {
             "order": 11,
             "type": "varchar(255)"
         },
-        "11": "encoding",
-        "meta": {
+        "11": "type",
+        "size": {
             "order": 12,
-            "type": "text"
+            "type": "varchar(255)"
         },
-        "12": "meta",
-        "isAttachment": {
+        "12": "size",
+        "encoding": {
             "order": 13,
             "type": "varchar(255)"
         },
-        "13": "isAttachment"
+        "13": "encoding",
+        "meta": {
+            "order": 14,
+            "type": "text"
+        },
+        "14": "meta",
+        "isAttachment": {
+            "order": 15,
+            "type": "varchar(255)"
+        },
+        "15": "isAttachment"
     },
     "galleries": {
         "id": {
@@ -1683,36 +1755,36 @@
             "type": "varchar(255)"
         },
         "39": "setCodeHVS",
-        "setCurrency": {
+        "setCodeLVS": {
             "order": 40,
             "type": "varchar(255)"
         },
-        "40": "setCurrency",
-        "setDomain": {
+        "40": "setCodeLVS",
+        "setCurrency": {
             "order": 41,
             "type": "varchar(255)"
         },
-        "41": "setDomain",
-        "setSMTPhost": {
+        "41": "setCurrency",
+        "setDomain": {
             "order": 42,
             "type": "varchar(255)"
         },
-        "42": "setSMTPhost",
-        "setSMTPport": {
+        "42": "setDomain",
+        "setSMTPhost": {
             "order": 43,
             "type": "varchar(255)"
         },
-        "43": "setSMTPport",
-        "setSMTPencryption": {
+        "43": "setSMTPhost",
+        "setSMTPport": {
             "order": 44,
             "type": "varchar(255)"
         },
-        "44": "setSMTPencryption",
-        "setCodeLVS": {
+        "44": "setSMTPport",
+        "setSMTPencryption": {
             "order": 45,
             "type": "varchar(255)"
         },
-        "45": "setCodeLVS"
+        "45": "setSMTPencryption"
     },
     "permissions": {
         "id": {
@@ -1935,7 +2007,12 @@
             "order": 11,
             "type": "varchar(255)"
         },
-        "11": "link_to_3"
+        "11": "link_to_3",
+        "meta": {
+            "order": 12,
+            "type": "text"
+        },
+        "12": "meta"
     },
     "roles": {
         "id": {
