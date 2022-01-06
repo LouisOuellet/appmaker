@@ -1013,6 +1013,18 @@ var API = {
 		},
 	},
 	Helper:{
+		copyToClipboard:function(text){
+		  var aux = document.createElement("input");
+		  aux.setAttribute("value", text);
+		  document.body.appendChild(aux);
+		  aux.select();
+		  document.execCommand("copy");
+		  document.body.removeChild(aux);
+			API.Toast.show.fire({
+				type: 'success',
+				text: API.Contents.Language['Copied to clipboard!']
+			});
+		},
 		toCSV:function(array,options = {}){
 			var url = new URL(window.location.href);
 			var defaults = {plugin:url.searchParams.get("p")};
@@ -1222,7 +1234,9 @@ var API = {
 										break;
 									default:
 										if(API.Helper.isSet(API,['Plugins',relation.relationship,'Timeline','object'])){
-											API.Plugins[relation.relationship].Timeline.object(details,layout);
+											if(relation.relationship == 'statuses' || layout.timeline.find('div[data-plugin="'+relation.relationship+'"][data-id="'+details.id+'"]').length <= 0){
+												API.Plugins[relation.relationship].Timeline.object(details,layout);
+											}
 										}
 										break;
 								}
