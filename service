@@ -26,7 +26,11 @@ else
 fi
 
 while(true);do
-  sudo -u ${sourceUser} php ${sourceCLI} --cron
+  if [ "$1" == "--log" ]; then
+    sudo -u ${sourceUser} php ${sourceCLI} --cron | tee -a "${sourceDir}/tmp/service.log"
+  else
+    sudo -u ${sourceUser} php ${sourceCLI} --cron
+  fi
 done
 
 exit 0
