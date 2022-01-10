@@ -97,7 +97,7 @@ class PHPIMAP{
 						$msg->Subject->PLAIN = trim(preg_replace("/Re\:|re\:|RE\:|Fwd\:|fwd\:|FWD\:/i", '', $sub),' ');
 						$msg->Subject->Meta = [];
 						$meta = $msg->Subject->PLAIN;
-						$replace = ['---','--','CID:','CNTR-','PARS-','UTF-8','CCN:','CCN#','CN:','CN#','OTHER:','PO:','PO#','MWB:','MWB#','STATUS#','REF:','NBR:','INV:','INV#','OTHER:','(',')','<','>','{','}','[',']',';','"',"'",'#','_','=','+','.',',','!','?','@','$','%','^','&','*','\\','/','|'];
+						$replace = ['---','--','CID:','UTF-8','(',')','<','>','{','}','[',']',';','"',"'",'_','=','+','!','?','@','$','%','^','&','*','\\','/','|'];
 				    foreach($replace as $str1){ $meta = str_replace($str1,' ',strtoupper($meta)); }
 						foreach(explode(' ',$meta) as $string){
             	if(mb_strlen($string)>=3 && preg_match('~[0-9]+~', $string) && substr($string, 0, 1) !== '=' && substr($string, 0, 1) !== '?'){ array_push($msg->Subject->Meta,$string);}
