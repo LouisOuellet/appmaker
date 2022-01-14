@@ -449,6 +449,86 @@
             "manifest": "\/dist\/data\/manifest.json"
         }
     },
+    "nmap": {
+        "repository": {
+            "name": "appmaker-nmap",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "nics": {
+        "repository": {
+            "name": "appmaker-nics",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "devices": {
+        "repository": {
+            "name": "appmaker-devices",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "inventory": {
+        "repository": {
+            "name": "appmaker-inventory",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "network-monitoring": {
+        "repository": {
+            "name": "appmaker-network-monitoring",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "ssh": {
+        "repository": {
+            "name": "appmaker-ssh",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "knowledge-base": {
+        "repository": {
+            "name": "appmaker-knowledge-base",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
+    "articles": {
+        "repository": {
+            "name": "appmaker-articles",
+            "host": {
+                "git": "https:\/\/github.com\/LouisOuellet\/",
+                "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
+            },
+            "manifest": "\/dist\/data\/manifest.json"
+        }
+    },
     "users": {
         "repository": {
             "name": "appmaker-users",
