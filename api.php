@@ -1,10 +1,19 @@
 <?php
 session_start();
 
-// Import API
+// Import Librairies
 require_once dirname(__FILE__).'/src/lib/api.php';
+require_once dirname(__FILE__).'/src/lib/url.php';
+
+$URL = new URLparser();
 
 if(!empty($_POST)){
+	// Decoding
+	// var_dump($_POST);
+	foreach($_POST as $key => $value){ $_POST[$key] = $URL->decode($value); }
+	// var_dump($_POST);
+	// Parse
+	foreach($_POST as $key => $value){ $_POST[$key] = $URL->parse($value); }
 	if(isset($_POST['request'])){
 		$trigger = $_POST['request'];
 		// Import API
@@ -17,7 +26,6 @@ if(!empty($_POST)){
 		else {
 			$return = [
 				"error" => $API->Language->Field["Unknown API"],
-				"request" => $_POST,
 				"api" => [
 					"name" => $trigger,
 					"class" => $request,
@@ -39,7 +47,6 @@ if(!empty($_POST)){
 							else {
 								$return = [
 									"error" => $API->Language->Field["No Token Received"],
-									"request" => $_POST,
 									"api" => [
 										"name" => $trigger,
 										"class" => $request,
@@ -54,7 +61,6 @@ if(!empty($_POST)){
 							else {
 								$return = [
 									"error" => $API->Language->Field["No Login Data Received"],
-									"request" => $_POST,
 									"api" => [
 										"name" => $trigger,
 										"class" => $request,
@@ -73,10 +79,7 @@ if(!empty($_POST)){
 						if($API->Auth->isLogin()){
 
 							// Initialize Data
-							if(isset($_POST['data'])){
-								if($API->isJson($_POST['data'])){ $data = json_decode($decodedURI, true); }
-								else { $data = json_decode(urldecode(base64_decode($_POST['data'])), true); }
-							} else { $data = []; }
+							if(isset($_POST['data'])){ $data = $_POST['data']; } else { $data = []; }
 
 							// Handling API Request
 							if(isset($_POST['type'])){
@@ -87,7 +90,6 @@ if(!empty($_POST)){
 										else {
 											$return = [
 												"error" => $API->Language->Field["Unknown Request"],
-												"request" => $_POST,
 												"api" => [
 													"name" => $trigger,
 													"class" => $request,
@@ -102,7 +104,6 @@ if(!empty($_POST)){
 										else {
 											$return = [
 												"error" => $API->Language->Field["Unknown Request"],
-												"request" => $_POST,
 												"api" => [
 													"name" => $trigger,
 													"class" => $request,
@@ -121,7 +122,6 @@ if(!empty($_POST)){
 										else {
 											$return = [
 												"error" => $API->Language->Field["Unknown Request"],
-												"request" => $_POST,
 												"api" => [
 													"name" => $trigger,
 													"class" => $request,
@@ -138,7 +138,6 @@ if(!empty($_POST)){
 											} else {
 												$return = [
 													"error" => $API->Language->Field["Insuffisant Priviledges"],
-													"request" => $_POST,
 													"api" => [
 														"name" => $trigger,
 														"class" => $request,
@@ -151,7 +150,6 @@ if(!empty($_POST)){
 										else {
 											$return = [
 												"error" => $API->Language->Field["Unknown Request"],
-												"request" => $_POST,
 												"api" => [
 													"name" => $trigger,
 													"class" => $request,
@@ -165,7 +163,6 @@ if(!empty($_POST)){
 							} else {
 								$return = [
 									"error" => $API->Language->Field["Unknown Request"],
-									"request" => $_POST,
 									"api" => [
 										"name" => $trigger,
 										"class" => $request,
@@ -177,7 +174,6 @@ if(!empty($_POST)){
 						} else {
 							$return = [
 								"error" => $API->Language->Field["Unable to Login User"],
-								"request" => $_POST,
 								"api" => [
 									"name" => $trigger,
 									"class" => $request,
@@ -190,7 +186,6 @@ if(!empty($_POST)){
 				} else {
 					$return = [
 						"error" => $API->Language->Field["Unknown Authentication Method"],
-						"request" => $_POST,
 						"api" => [
 							"name" => $trigger,
 							"class" => $request,
@@ -202,7 +197,6 @@ if(!empty($_POST)){
 			} else {
 				$return = [
 					"error" => $API->Language->Field["Server Under Maintenance"],
-					"request" => $_POST,
 					"api" => [
 						"name" => $trigger,
 						"class" => $request,
@@ -212,7 +206,8 @@ if(!empty($_POST)){
 				];
 			}
 		}
-		// Encoded JSON Response
-		echo base64_encode(urlencode(json_encode($return, JSON_PRETTY_PRINT)));
+		// Encode and Respond
+		$return['request'] = $_POST;
+		echo $URL->encode($return);
 	}
 }

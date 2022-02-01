@@ -117,8 +117,8 @@
     "log_level": 3,
     "credit": "ALB Compagnie International",
     "credit_url": "https:\/\/albcie.com\/",
-    "version": "22.01-dev",
-    "build": 483,
+    "version": "22.02-dev",
+    "build": 484,
     "repository": {
         "name": "appmaker",
         "branch": "dev",

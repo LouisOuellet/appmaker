@@ -7,7 +7,9 @@ Dropzone.autoDiscover = false;
 var API = {
 	initiated:false,
 	loggedin:false,
-	debug:false,
+	debug:true,
+	database:sessionStorage,
+	cache:localStorage,
 	init:function(){
 		API.request('api','initialize',{
 			toast: false,
@@ -37,6 +39,68 @@ var API = {
 			}
 		});
 	},
+	NEWrequest:function(api, method, options = {},callback = null){
+		if(options instanceof Function){ callback = options; options = {}; }
+		var defaults = {
+			toast: true,
+			pace: true,
+			report: false,
+			data: null,
+		};
+		for(var [key, option] of Object.entries(options)){ if(API.Helper.isSet(defaults,[key])){ defaults[key] = option; } }
+		if(API.debug){ defaults.toast = true;defaults.pace = true;defaults.report = true; }
+		return new Promise(function(resolve, reject) {
+			var xhr = new XMLHttpRequest();
+			var params = {
+				method:'session',
+				request:api,
+				type:method,
+			};
+			if(defaults.data != null){ params.data = defaults.data; }
+			params = API.Helper.formatURL(params);
+			if(API.debug){ console.log(api,method,params,defaults); }
+			xhr.open('POST', 'api.php', true);
+			xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+			xhr.onerror = reject;
+			xhr.onload = function(){
+				if(API.debug){ console.log(this.status+' : '); }
+				if(this.status == 200){
+					if(this.responseText !== ''){
+						var decoded = API.Helper.decode(this.responseText);
+						if(decoded){
+							if(decoded.charAt(0) == '{'){
+								var parsed = API.Helper.parse(decoded);
+								if(parsed){
+									if(defaults.toast){
+										API.Toast.error(parsed);
+										API.Toast.warning(parsed);
+										API.Toast.success(parsed);
+									}
+									if(API.Helper.isSet(parsed,['output'])){ resolve(parsed.output); }
+									if(callback != null){
+										delete parsed.output;
+										callback(parsed);
+									}
+								} else {
+									if(defaults.report && defaults.toast){ API.Toast.report(decoded); }
+								}
+							} else {
+								if(defaults.report && defaults.toast){ API.Toast.report(decoded); }
+							}
+						} else {
+							if(defaults.report && defaults.toast){ API.Toast.report(this.responseText); }
+						}
+					} else {
+						if(defaults.report && defaults.toast){ API.Toast.report(this.responseText); }
+					}
+				} else {
+					if(defaults.report && defaults.toast){ API.Toast.report(this.responseText); }
+				}
+			}
+			if(defaults.pace){ Pace.restart(); }
+			xhr.send(params);
+		});
+	},
 	request:function(request, type, options = {},callback = null){
 		if(options instanceof Function){ callback = options; options = {}; }
 		if(typeof options.data === 'undefined'){ options.data = null; }
@@ -55,8 +119,9 @@ var API = {
 						method:'session',
 						request:request,
 						type:type,
-						data:btoa(encodeURIComponent(JSON.stringify(options.data))),
+						data:options.data,
 					});
+					console.log(params);
 					xhr.open('POST', 'api.php', true);
 					xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 					xhr.onload = function(){
@@ -187,8 +252,9 @@ var API = {
 					method:'session',
 					request:request,
 					type:type,
-					data:encodeURIComponent(btoa(JSON.stringify(options.data))),
+					data:options.data,
 				});
+				console.log(params);
 				xhr.open('POST', 'api.php', true);
 				xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 				xhr.onerror = reject;
@@ -234,76 +300,25 @@ var API = {
 								} catch (error3) {
 									if(error3){
 										if(options.report){
-											if(options.toast){
-												var text = 'An error occured in the execution of this API request. See the console(F12) for more details.';
-												if(typeof API.Contents.Language !== 'undefined' && typeof API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'] !== 'undefined'){
-													text = API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'];
-												} else { text = 'An error occured in the execution of this API request. See the console(F12) for more details.'; }
-												API.Toast.show.fire({
-													type: 'error',
-													text: text,
-													showConfirmButton: true,
-													timer: 0
-												});
-											}
-											console.log(error3);
-											console.log(this.status+' : '+decodedResult);
+											if(options.toast){ console.log(this.status+' : ');API.Toast.report(decodedResult); }
 										}
 									}
 								}
 							} else {
 								if(options.report){
-									if(options.toast){
-										var text = 'An error occured in the execution of this API request. See the console(F12) for more details.';
-										if(typeof API.Contents.Language !== 'undefined' && typeof API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'] !== 'undefined'){
-											text = API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'];
-										} else { text = 'An error occured in the execution of this API request. See the console(F12) for more details.'; }
-										API.Toast.show.fire({
-											type: 'error',
-											text: text,
-											showConfirmButton: true,
-											timer: 0
-										});
-									}
-									console.log(" Uncaught SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data");
-									console.log(this.status+' : '+decodedResult);
+									if(options.toast){ console.log(this.status+' : ');API.Toast.report(decodedResult); }
 								}
 							}
 						} catch (error4) {
 							if(error4){
 								if(options.report){
-									if(options.toast){
-										var text = 'An error occured in the execution of this API request. See the console(F12) for more details.';
-										if(typeof API.Contents.Language !== 'undefined' && typeof API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'] !== 'undefined'){
-											text = API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'];
-										} else { text = 'An error occured in the execution of this API request. See the console(F12) for more details.'; }
-										API.Toast.show.fire({
-											type: 'error',
-											text: text,
-											showConfirmButton: true,
-											timer: 0
-										});
-									}
-									console.log(error4);
-									console.log(this.status+' : '+this.responseText);
+									if(options.toast){ console.log(this.status+' : ');API.Toast.report(this.responseText); }
 								}
 							}
 						}
 					} else {
 						if(this.status != 200 && options.report){
-							if(options.toast){
-								var text = 'An error occured in the execution of this API request. See the console(F12) for more details.';
-								if(typeof API.Contents.Language !== 'undefined' && typeof API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'] !== 'undefined'){
-									text = API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'];
-								} else { text = 'An error occured in the execution of this API request. See the console(F12) for more details.'; }
-								API.Toast.show.fire({
-									type: 'error',
-									text: text,
-									showConfirmButton: true,
-									timer: 0
-								});
-							}
-							console.log(this.status+' : '+this.responseText);
+							if(options.toast){ console.log(this.status+' : ');API.Toast.report(this.responseText); }
 						}
 					}
 				}
@@ -325,6 +340,48 @@ var API = {
 			showConfirmButton: false,
 			timer: 2000,
 		}),
+		success:function(dataset){
+			if(API.Helper.isSet(dataset,['success'])){
+				API.Toast.show.fire({
+					type: 'success',
+					text: dataset.success
+				});
+				if(API.debug){ console.log(dataset); }
+			}
+		},
+		warning:function(dataset){
+			if(API.Helper.isSet(dataset,['warning'])){
+				API.Toast.show.fire({
+					type: 'warning',
+					text: dataset.warning
+				});
+				if(API.debug){ console.log(dataset); }
+			}
+		},
+		error:function(dataset){
+			if(API.Helper.isSet(dataset,['error'])){
+				API.Toast.show.fire({
+					type: 'error',
+					text: dataset.error
+				});
+				if(API.debug){ console.log(dataset); }
+			}
+		},
+		report:function(dataset){
+			if(API.debug){
+				var text = 'An error occured in the execution of this API request. See the console(F12) for more details.';
+				if(typeof API.Contents.Language !== 'undefined' && typeof API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'] !== 'undefined'){
+					text = API.Contents.Language['An error occured in the execution of this API request. See the console(F12) for more details.'];
+				} else { text = 'An error occured in the execution of this API request. See the console(F12) for more details.'; }
+				API.Toast.show.fire({
+					type: 'error',
+					text: text,
+					showConfirmButton: true,
+					timer: 0
+				});
+				console.log(dataset);
+			}
+		},
 	},
 	Contents:{},
 	Auth:{
@@ -1013,6 +1070,18 @@ var API = {
 		},
 	},
 	Helper:{
+		parse:function(json){
+			try { return JSON.parse(json); } catch (error) { console.log(error);return false; }
+		},
+		encode:function(decoded){
+			try { return encodeURIComponent(btoa(JSON.stringify(decoded))); } catch (error) { console.log(error);return false; }
+		},
+		decode:function(encoded){
+			try { return decodeURIComponent(atob(encoded).replace(/\+/g, ' ')); } catch (error) { console.log(error);return false; }
+		},
+		formatURL:function(params){
+			return Object.keys(params).map(function(key){ return key+"="+API.Helper.encode(params[key]) }).join("&");
+		},
 		copyToClipboard:function(text){
 		  var aux = document.createElement("input");
 		  aux.setAttribute("value", text);
@@ -1062,9 +1131,6 @@ var API = {
 			return obj;
 		},
 		ucfirst:function(s){ if (typeof s !== 'string') return s; return s.charAt(0).toUpperCase() + s.slice(1); },
-		formatURL:function(params){
-			return Object.keys(params).map(function(key){ return key+"="+encodeURIComponent(params[key]) }).join("&");
-		},
 		clean:function(s){ if (typeof s !== 'string') return s; return s.replace(/_/g, " ").replace(/\./g, " "); },
 		isOdd:function(num) { return num % 2;},
 		trim:function(string,character){
@@ -1079,9 +1145,11 @@ var API = {
 		isInt:function(num){
 			if((num+"").match(/^\d+$/)){ return true; } else { return false; }
 		},
-		pad:function(str, max){
-		  str = str.toString();
-		  return str.length < max ? pad("0" + str, max) : str;
+		padNumber:function(num, targetLength){
+		  return num.toString().length < targetLength ? num.toString().padStart(targetLength, 0) : num;
+		},
+		padString:function(string, targetLength, character){
+		  return string.toString().length < targetLength ? string.toString().padStart(targetLength, character) : string;
 		},
 		set:function(obj, keyPath, value) {
 			lastKeyIndex = keyPath.length-1;
@@ -1106,7 +1174,7 @@ var API = {
 		  if (i < 10) { i = "0" + i; }
 		  return i;
 		},
-		now:function(type = 'text'){
+		now:function(type = 'UTF8'){
 			var currentDate = new Date();
 			switch(type){
 				case'ISO_8601':
@@ -1152,18 +1220,19 @@ var API = {
 			var currentDate = new Date();
 			if(futureDate > currentDate){ return true; } else { return false; }
 		},
-		download:function(url, name){
+		download:function(url, filename = null){
+			if(API.debug){ console.log('Downloading '+url); }
 		  fetch(url).then(resp => resp.blob()).then(blob => {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.style.display = 'none';
         a.href = url;
-        // the filename you want
-        a.download = name;
+				if(filename != null){ a.download = filename; }
+				else { a.download = url.substring(url.lastIndexOf('/')+1); }
         document.body.appendChild(a);
         a.click();
         window.URL.revokeObjectURL(url);
-	    }).catch(() => alert('An error sorry'));
+	    }).catch(() => API.Toast.report('Unable to download the file at '+url));
 		},
 	},
 	Builder:{

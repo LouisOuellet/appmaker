@@ -1,7 +1,5 @@
 <?php
 
-// Import Librairies
-
 class Validator{
 
 	public function email($email){
