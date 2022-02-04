@@ -323,6 +323,8 @@ class APIextend extends API{
 						break;
 				}
 			}
+			// Extend
+			$result = $this->extend('convertToDOM',$result);
 		}
 		return $result;
 	}
@@ -509,15 +511,10 @@ class APIextend extends API{
 						$getRelations['relations'][$relation['relationship']][$relation['link_to']]['meta'] = [];
 					}
 				}
-				// Extend
-				$Builder = $relation['relationship'];
-				if(property_exists($this->Helper,$relation['relationship'])){
-					if(method_exists($this->Helper->$Builder,'buildRelation')){
-						$getRelations['relations'] = $this->Helper->$Builder->buildRelation($getRelations['relations'],$relation);
-					}
-				}
 			}
 		}
+		// Extend
+		$getRelations['relations'] = $this->extend('buildRelations',$getRelations['relations']);
 		if(isset($get['output']['relationships'])){ $get['output']['relations'] = $getRelations['relations']; return $get; }
 		else { return $getRelations['relations']; }
 	}

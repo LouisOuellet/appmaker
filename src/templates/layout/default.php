@@ -93,5 +93,5 @@
   </footer>
 </div>
 <script>
-	$(function(){ API.Plugins.init(); });
+	$(function(){ Engine.Plugins.init(); });
 </script>

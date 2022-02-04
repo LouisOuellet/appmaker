@@ -14,6 +14,7 @@ require_once dirname(__FILE__,3) . '/src/lib/extendapi.php';
 require_once dirname(__FILE__,3) . '/src/lib/crudapi.php';
 require_once dirname(__FILE__,3) . '/src/lib/helper.php';
 require_once dirname(__FILE__,3) . '/src/lib/validator.php';
+require_once dirname(__FILE__,3) . '/src/lib/url.php';
 
 class API{
 
@@ -32,12 +33,14 @@ class API{
 	protected $LSP; // This contains the LSP class
   protected $CSV; // This contains the CSV class
   protected $PDF; // This contains the PDF class
+  protected $URL; // This contains the URL class
   protected $Exchange; // This contains the EXCHANGE class
 	public $Language; // This contains the Language class
 	protected $PHPVersion; // The server php version
   public $Domain; // The domain extracted from $_SERVER['HTTP_HOST']
   public $Protocol; // The protocol extracted from $_SERVER['HTTPS']
 	protected $Error = []; // Contains a list of errors and parameters for toast alerts
+  protected $Debug = true;
 
   public function __construct(){
 
@@ -45,6 +48,10 @@ class API{
     ini_set('memory_limit', '2G');
     ini_set('post_max_size', '16G');
     ini_set('upload_max_filesize', '16G');
+    ini_set('max_execution_time','2400');
+
+    // Init tmp directory
+    if(!is_dir(dirname(__FILE__,3) . '/tmp')){ mkdir(dirname(__FILE__,3) . '/tmp'); }
 
 		// Gathering Server Information
 		$this->PHPVersion=substr(phpversion(),0,3);
@@ -52,6 +59,9 @@ class API{
 			$this->Protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http")."://";
 			$this->Domain = $_SERVER['HTTP_HOST'];
 		}
+
+    // Setup URL
+		$this->URL = new URLparser();
 
     // Import Configurations
 		if(is_file(dirname(__FILE__,3) . "/config/config.json")){
@@ -62,7 +72,11 @@ class API{
       $this->Settings=json_decode(file_get_contents(dirname(__FILE__,3) . '/dist/data/manifest.json'),true);
     }
 
-    // Setup URL
+		// Setup Debug
+		if((isset($this->Settings['debug']))&&($this->Settings['debug'])){ $this->Debug = true; }
+    if($this->Debug){ error_reporting(-1); } else { error_reporting(0); }
+
+    // Saving URL
 		if(isset($_SERVER['HTTP_HOST']) && !isset($this->Settings['url'])){
 			$this->Settings['url'] = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http")."://";
 			$this->Settings['url'] .= $_SERVER['HTTP_HOST'].'/';
@@ -159,8 +173,18 @@ class API{
 		// $this->Exchange = new EXCHANGE();
   }
 
+  protected function extend($method, $data){
+    foreach($this->Helper->Available as $helper){
+      if(method_exists($this->Helper->$helper, $method)){
+        $data = $this->Helper->$helper->$method($data);
+      }
+    }
+    return $data;
+  }
+
   protected function loadHelpers(){
     $this->Helper = new stdClass();
+    $this->Helper->Available = [];
     $root = dirname(__FILE__,3);
     $directories = array_slice(scandir($root . '/plugins/'), 2);
     foreach($directories as $directory) {
@@ -170,6 +194,7 @@ class API{
           $helper = $directory.'Helper';
           require_once($file);
           $this->Helper->{$directory} = new $helper($this->Auth);
+          array_push($this->Helper->Available,$directory);
         }
 			}
     }
@@ -180,68 +205,87 @@ class API{
   }
 
 	public function initApp(){
-		$Settings['LandingPage'] = $this->Settings['page'];
-		$Settings['customization'] = $this->Settings['customization'];
-		$Settings['Structure'] = $this->Structure;
-    if(isset($this->Settings['debug'])){ $Settings['Debug'] = $this->Settings['debug']; }
-		else { $Settings['Debug'] = false; }
-    $Settings['plugins'] = $this->Settings['plugins'];
-    $Settings['repository'] = $this->Settings['repository'];
-		$request['Settings'] = $Settings;
-		$Lists['Countries'] = $this->Countries;
-		$Lists['States'] = $this->States;
-    $Lists['Plugins'] = $this->Plugins;
-		$Lists['Tables'] = [];
-		foreach($Settings['Structure'] as $table => $cols){ array_push($Lists['Tables'],$table); }
-		$Lists['Timezones'] = $this->Timezones;
-		$Lists['Language'] = $this->Language->Field;
-		$Lists['Jobs'] = [];
-		$jobs = $this->Auth->read('job_titles');
-		if($jobs != NULL){
-			foreach($jobs->all() as $job){
-				array_push($Lists['Jobs'],$job['name']);
-			}
-		}
-		$Lists['Tags'] = [];
+    $return = [
+      "success" => $this->Language->Field['Initialized'],
+      "output" => [],
+    ];
+    // Language
+    $return['output']['language']['current'] = $this->Language->Current;
+    $return['output']['language']['list'] = $this->Language->List;
+    $return['output']['language']['fields'] = $this->Language->Field;
+    // Plugins
+    $return['output']['plugins'] = $this->Plugins;
+    // Countries
+    $return['output']['countries'] = $this->Countries;
+    // States
+    $return['output']['states'] = $this->States;
+    // Timezones
+    $return['output']['timezones'] = $this->Timezones;
+    // Settings
+    $return['output']['settings'] = $this->Settings;
+    if(isset($return['output']['settings']['sql'])){ unset($return['output']['settings']['sql']); }
+    if(isset($return['output']['settings']['smtp'])){ unset($return['output']['settings']['smtp']); }
+    if(isset($return['output']['settings']['ldap'])){ unset($return['output']['settings']['ldap']); }
+    if(isset($return['output']['settings']['lsp'])){ unset($return['output']['settings']['lsp']); }
+    if(isset($return['output']['settings']['id'])){ unset($return['output']['settings']['id']); }
+    if(isset($return['output']['settings']['serverid'])){ unset($return['output']['settings']['serverid']); }
+    if(isset($return['output']['settings']['plugins'])){
+      foreach($return['output']['settings']['plugins'] as $plugin => $settings){
+        if(isset($settings['settings'])){ unset($return['output']['settings']['plugins'][$plugin]['settings']); }
+      }
+    }
+    // Auth
+    $return['output']['auth']['user'] = $this->Auth->User;
+    $return['output']['auth']['groups'] = $this->Auth->Groups;
+    $return['output']['auth']['roles'] = $this->Auth->Roles;
+    $return['output']['auth']['permissions'] = $this->Auth->Permissions;
+    $return['output']['auth']['options'] = $this->Auth->Options;
+    // Database Structure
+    $return['output']['structure'] = $this->Structure;
+    // Debug
+    $return['output']['debug'] = $this->Debug;
+    // Tags
+    $return['output']['tags'] = [];
 		$tags = $this->Auth->read('tags');
 		if($tags != NULL){
 			foreach($tags->all() as $tag){
-				array_push($Lists['Tags'],$tag['name']);
+				array_push($return['output']['tags'],$tag['name']);
 			}
 		}
+    // Jobs
+    $return['output']['jobs'] = [];
+		$jobs = $this->Auth->read('job_titles');
+		if($jobs != NULL){
+			foreach($jobs->all() as $job){
+				array_push($return['output']['jobs'],$job['name']);
+			}
+		}
+    // Statuses
+    $return['output']['statuses'] = [];
 		$statuses = $this->Auth->read('statuses');
 		if($statuses != NULL){
 			foreach($statuses->all() as $status){
-				$Lists['Statuses'][$status['relationship']][$status['order']] = [
+				$return['output']['statuses'][$status['relationship']][$status['order']] = [
 					'name' => $status['name'],
 					'icon' => $status['icon'],
 					'color' => $status['color'],
 				];
 			}
 		}
-		$priorities = $this->Auth->read('priorities');
+    // Priorities
+    $return['output']['priorities'] = [];
+    $priorities = $this->Auth->read('priorities');
 		if($priorities != NULL){
 			foreach($priorities->all() as $priority){
-				$Lists['Priorities'][$priority['relationship']][$priority['order']] = [
+				$return['output']['priorities'][$priority['relationship']][$priority['order']] = [
 					'name' => $priority['name'],
 					'icon' => $priority['icon'],
 					'color' => $priority['color'],
 				];
 			}
 		}
-		$request['Lists'] = $Lists;
-		$Auth['User']=$this->Auth->User;
-		$Auth['Groups']=$this->Auth->Groups;
-		$Auth['Roles']=$this->Auth->Roles;
-		$Auth['Permissions']=$this->Auth->Permissions;
-		$Auth['Options']=$this->Auth->Options;
-		$Auth['dom']['User']=$this->Auth->User;
-    $raw = $this->Auth->read('users',$this->Auth->User['id']);
-    if($raw != null && !is_bool($raw)){
-      $Auth['raw']['User'] = $raw->all()[0];
-    } else { $Auth['raw']['User']=$this->Auth->User; }
-		$request['Auth'] = $Auth;
-		return $request;
+    // Return
+    return $return;
 	}
 
   public function loadFiles($lookup, $type = 'plugin', $dept = 3){

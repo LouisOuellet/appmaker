@@ -14,8 +14,8 @@ class URLparser{
 
 	public function decode($string){
 		$string = trim($string);
-		if($this->is_base64_encoded($string)){ $string = base64_decode($string); }
 		if($this->is_url_encoded($string)){ $string = urldecode($string); }
+		if($this->is_base64_encoded($string)){ $string = base64_decode($string); }
 		return $string;
 	}
 
@@ -32,6 +32,6 @@ class URLparser{
 	}
 
 	public function encode($array){
-		return base64_encode(urlencode(json_encode($array, JSON_PRETTY_PRINT)));
+		return urlencode(base64_encode(json_encode($array, JSON_PRETTY_PRINT)));
 	}
 }

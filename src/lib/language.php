@@ -1,6 +1,7 @@
 <?php
 class Language{
   public $Field;
+  public $Current;
 	public $List = [];
 	protected $Directory;
 
@@ -8,6 +9,7 @@ class Language{
 		if($directory != NULL){ $this->Directory = $directory; } else { $this->Directory = dirname(__FILE__,3).'/dist/languages/'; }
 		$this->list();
 		$this->Field = $this->read($language);
+    $this->Current = $language;
   }
 
 	protected function list(){

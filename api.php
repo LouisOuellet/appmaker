@@ -206,8 +206,30 @@ if(!empty($_POST)){
 				];
 			}
 		}
-		// Encode and Respond
+		// Encode and Print
 		$return['request'] = $_POST;
-		echo $URL->encode($return);
+		$encoding = $URL->encode($return);
+		// echo "\n[Return]\n";
+		// var_dump($return);
+		// echo "\n[Encoding]\n";
+		// var_dump($encoding);
+		// echo "\n[Decoding]\n";
+		// var_dump($URL->decode($encoding));
+		// echo "\n[Decoding Extended]\n";
+		// $string = $encoding;
+		// echo "\n[Trim]\n";
+		// $string = trim($string);
+		// var_dump($string);
+		// echo "\n[url if]\n";
+		// var_dump(($URL->is_url_encoded($string)));
+		// echo "\n[url decode]\n";
+		// $string = urldecode($string);
+		// var_dump($string);
+		// echo "\n[base64 if]\n";
+		// var_dump(($URL->is_base64_encoded($string)));
+		// echo "\n[base64 decode]\n";
+		// $string = base64_decode($string);
+		// var_dump($string);
+		echo $encoding;
 	}
 }

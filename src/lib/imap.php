@@ -16,9 +16,6 @@ class PHPIMAP{
 
 	public function __construct($Host,$Port,$Encryption,$Username,$Password,$isSelfSigned = true){
 
-    // Increase PHP memory limit
-    ini_set('memory_limit', '1024M');
-
 		// Save Configuration
 		$this->Host = $Host;
 		$this->Port = $Port;
@@ -73,7 +70,7 @@ class PHPIMAP{
 						$msg = imap_headerinfo($IMAP,$id);
 						$msg->ID = $id;
 						$msg->UID = imap_uid($IMAP,$id);
-						$msg->Header = imap_header($IMAP,$id);
+						$msg->Header = imap_headerinfo($IMAP,$id);
 						$msg->From = $msg->Header->from[0]->mailbox . "@" . $msg->Header->from[0]->host;
 						$msg->Sender = $msg->Header->sender[0]->mailbox . "@" . $msg->Header->sender[0]->host;
 						$msg->To = [];
@@ -93,11 +90,11 @@ class PHPIMAP{
 						if(isset($msg->Subject)){$sub = $msg->Subject;}
 						$sub = imap_utf8($sub);
 						$msg->Subject = new stdClass();
-						$msg->Subject->Full = $sub;
-						$msg->Subject->PLAIN = trim(preg_replace("/Re\:|re\:|RE\:|Fwd\:|fwd\:|FWD\:/i", '', $sub),' ');
+						$msg->Subject->Full = str_replace('~','-',$sub);
+						$msg->Subject->PLAIN = trim(preg_replace("/Re\:|re\:|RE\:|Fwd\:|fwd\:|FWD\:/i", '', $msg->Subject->Full),' ');
 						$msg->Subject->Meta = [];
 						$meta = $msg->Subject->PLAIN;
-						$replace = ['---','--','CID:','UTF-8','(',')','<','>','{','}','[',']',';','"',"'",'_','=','+','!','?','@','$','%','^','&','*','\\','/','|'];
+						$replace = ['---','--','CID:','UTF-8','(',')','<','>','{','}','[',']',';','"',"'",'_','=','~','+','!','?','@','$','%','^','&','*','\\','/','|'];
 				    foreach($replace as $str1){ $meta = str_replace($str1,' ',strtoupper($meta)); }
 						foreach(explode(' ',$meta) as $string){
             	if(mb_strlen($string)>=3 && (preg_match('~[0-9]+~', $string) || strpos($string, '-') !== false) && substr($string, 0, 1) !== '=' && substr($string, 0, 1) !== '?'){ array_push($msg->Subject->Meta,$string);}
@@ -122,7 +119,6 @@ class PHPIMAP{
 							} else {
 								$msg->Body->Content = $html->saveHtml($html);
 							}
-							$msg->Body->Content = preg_replace("/<\\/?body(.|\\s)*?>/",'',$msg->Body->Content);
 							$html = new DOMDocument();
 							libxml_use_internal_errors(true);
 							$html->loadHTML($htmlBody);
@@ -138,9 +134,11 @@ class PHPIMAP{
 							} else {
 								$msg->Body->Unquoted = $html->saveHtml($html);
 							}
-							$msg->Body->Unquoted = preg_replace("/<\\/?body(.|\\s)*?>/",'',$msg->Body->Unquoted);
 							if(strpos($msg->Body->Unquoted, 'From:') !== false){
 								$msg->Body->Unquoted = explode('From:',$msg->Body->Unquoted)[0];
+							}
+							if(strpos($msg->Body->Unquoted, 'Wrote:') !== false){
+								$msg->Body->Unquoted = explode('Wrote:',$msg->Body->Unquoted)[0];
 							}
 						} else {
 							$msg->Body->Unquoted = "";
@@ -151,6 +149,8 @@ class PHPIMAP{
 						}
 						$trims = ["\n","<br>"];
 						foreach($trims as $trim){ $msg->Body->Unquoted = trim($msg->Body->Unquoted,$trim);$msg->Body->Content = trim($msg->Body->Content,$trim); }
+						$msg->Body->Content = preg_replace("/\n\s+/", "\n", rtrim(html_entity_decode(strip_tags($msg->Body->Content))));
+						$msg->Body->Unquoted = preg_replace("/\n\s+/", "\n", rtrim(html_entity_decode(strip_tags($msg->Body->Unquoted))));
 						// Handling Attachments
 						$msg->Attachments = new stdClass();
 						$msg->Attachments->Files = [];

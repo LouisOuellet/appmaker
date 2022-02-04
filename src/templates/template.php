@@ -176,8 +176,9 @@
   <script src="./vendor/dropzone/min/dropzone.min.js"></script>
   <!-- AdminLTE App -->
   <script src="./dist/js/adminlte.min.js"></script>
-  <!-- extended CSS -->
-  <script src="./dist/js/framework.js"></script>
+  <!-- JavaScript Engine -->
+  <script src="./dist/js/engine.js"></script>
+  <!-- <script src="./dist/js/framework.js"></script> -->
 	<script>window.fetch = undefined;</script>
   <script src="./vendor/whatwg-fetch/fetch.umd.js"></script>
 </head>

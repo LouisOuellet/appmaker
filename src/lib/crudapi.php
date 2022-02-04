@@ -20,7 +20,7 @@ class CRUDAPI extends APIextend{
 								$this->Auth->delete('relationships',['id'=>$relationshipID]);
 								break;
 							default:
-								CRUDAPI::delete($relationship['relationship'],['id'=>$relationship['link_to']]);
+								$this->delete($relationship['relationship'],['id'=>$relationship['link_to']]);
 								break;
 						}
 					}
