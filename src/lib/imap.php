@@ -114,43 +114,40 @@ class PHPIMAP{
 							$this->removeElementsByTagName('head', $html);
 							$body = $html->getElementsByTagName('body');
 							if( $body && 0<$body->length ){
-							    $body = $body->item(0);
-							    $msg->Body->Content = $html->saveHtml($body);
+						    $msg->Body->Content = $html->saveHtml($body->item(0));
 							} else {
 								$msg->Body->Content = $html->saveHtml($html);
 							}
-							$html = new DOMDocument();
-							libxml_use_internal_errors(true);
-							$html->loadHTML($htmlBody);
-							libxml_use_internal_errors(false);
-							$this->removeElementsByTagName('script', $html);
-							$this->removeElementsByTagName('style', $html);
-							$this->removeElementsByTagName('head', $html);
-							$this->removeElementsByTagName('blockquote', $html);
-							$body = $html->getElementsByTagName('body');
-							if( $body && 0<$body->length ){
-							    $body = $body->item(0);
-							    $msg->Body->Unquoted = $html->saveHtml($body);
-							} else {
-								$msg->Body->Unquoted = $html->saveHtml($html);
-							}
+							$msg->Body->Unquoted = $this->convertHTMLSymbols($msg->Body->Content);
 							if(strpos($msg->Body->Unquoted, 'From:') !== false){
 								$msg->Body->Unquoted = explode('From:',$msg->Body->Unquoted)[0];
+								$msg->Body->Unquoted = str_replace("From:","",$msg->Body->Unquoted);
 							}
 							if(strpos($msg->Body->Unquoted, 'Wrote:') !== false){
 								$msg->Body->Unquoted = explode('Wrote:',$msg->Body->Unquoted)[0];
+								$msg->Body->Unquoted = str_replace("Wrote:","",$msg->Body->Unquoted);
+							}
+							if(strpos($msg->Body->Unquoted, '------ Forwarded Message ------') !== false){
+								$msg->Body->Unquoted = explode('------ Forwarded Message ------',$msg->Body->Unquoted)[0];
+								$msg->Body->Unquoted = str_replace("------ Forwarded Message ------","",$msg->Body->Unquoted);
+							}
+							$html = new DOMDocument();
+							libxml_use_internal_errors(true);
+							$html->loadHTML($msg->Body->Unquoted);
+							libxml_use_internal_errors(false);
+							$this->removeElementsByTagName('blockquote', $html);
+							$body = $html->getElementsByTagName('body');
+							if( $body && 0<$body->length ){
+								$msg->Body->Unquoted = $html->saveHtml($body->item(0));
+							} else {
+								$msg->Body->Unquoted = $html->saveHtml($html);
 							}
 						} else {
 							$msg->Body->Unquoted = "";
 							foreach(explode("\n",$msg->Body->Content) as $line){
-								if(substr($line, 0, 1) != '>'){ $msg->Body->Unquoted .= $line."<br>"; }
+								if(substr($line, 0, 1) != '>'){ $msg->Body->Unquoted .= $line."\n"; }
 							}
-							$msg->Body->Content = str_replace("\n","<br>",$msg->Body->Content);
 						}
-						$trims = ["\n","<br>"];
-						foreach($trims as $trim){ $msg->Body->Unquoted = trim($msg->Body->Unquoted,$trim);$msg->Body->Content = trim($msg->Body->Content,$trim); }
-						$msg->Body->Content = preg_replace("/\n\s+/", "\n", rtrim(html_entity_decode(strip_tags($msg->Body->Content))));
-						$msg->Body->Unquoted = preg_replace("/\n\s+/", "\n", rtrim(html_entity_decode(strip_tags($msg->Body->Unquoted))));
 						// Handling Attachments
 						$msg->Attachments = new stdClass();
 						$msg->Attachments->Files = [];
@@ -240,6 +237,15 @@ class PHPIMAP{
 			fclose($save);
 			return rtrim($destination,"/") . "/" . $filename;
 		} else { return false; }
+	}
+
+	protected function innerHTML(DOMNode $element){
+    $innerHTML = "";
+    $children  = $element->childNodes;
+    foreach($children as $child){
+    	$innerHTML .= $element->ownerDocument->saveHTML($child);
+    }
+    return $innerHTML;
 	}
 
 	protected function convertHTMLSymbols($str_in){

@@ -580,6 +580,18 @@ class API{
     }
   }
 
+  public function __clear($arg = []){
+		if($this->LSP->Status){
+      if((is_array($arg))&&(isset($arg['silent']) && $arg['silent'])){ $args = $arg; }
+      elseif((is_array($arg))&&(isset($arg[0]))){ $args=json_decode($arg[0],true); }
+      else { $args=[]; }
+      foreach($this->Structure as $table => $structure){
+        $this->Auth->query('DELETE FROM `'.$table.'` WHERE `id` > 99999');
+        $this->Auth->query('ALTER TABLE `'.$table.'` AUTO_INCREMENT = 100000');
+      }
+    }
+  }
+
   public function __update($arg = []){
 		if($this->LSP->Status){
       if((is_array($arg))&&(isset($arg['silent']) && $arg['silent'])){ $args = $arg; }
