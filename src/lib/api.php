@@ -40,6 +40,7 @@ class API{
   public $Domain; // The domain extracted from $_SERVER['HTTP_HOST']
   public $Protocol; // The protocol extracted from $_SERVER['HTTPS']
 	protected $Error = []; // Contains a list of errors and parameters for toast alerts
+  protected $Maintenance = false;
   protected $Debug = true;
 
   public function __construct(){
@@ -75,6 +76,9 @@ class API{
 		// Setup Debug
 		if((isset($this->Settings['debug']))&&($this->Settings['debug'])){ $this->Debug = true; }
     if($this->Debug){ error_reporting(-1); } else { error_reporting(0); }
+
+		// Setup Maintenance
+		if((isset($this->Settings['maintenance']))&&($this->Settings['maintenance'])){ $this->Maintenance = true; }
 
     // Saving URL
 		if(isset($_SERVER['HTTP_HOST']) && !isset($this->Settings['url'])){
@@ -114,9 +118,9 @@ class API{
 		date_default_timezone_set($this->Settings['timezone']);
 
 		// Initialise LSP
-		if((isset($_POST['key']))&&(!isset($this->Settings['license']))){
-			$this->SaveCfg(['license' => $_POST['key']],$this->Settings);
-		}
+		// if((isset($_POST['key']))&&(!isset($this->Settings['license']))){
+		// 	$this->SaveCfg(['license' => $_POST['key']],$this->Settings);
+		// }
 		if((isset($this->Settings['lsp']['required']))&&($this->Settings['lsp']['required'])){
 			if(isset($this->Settings['license'])){
 				$this->LSP = new LSP($this->Settings['lsp']['host'],$this->Settings['repository']['name'],$this->Settings['license'],$this->Settings['lsp']['token']);
@@ -369,13 +373,20 @@ class API{
     if($this->LSP->Status){
       if((is_array($arg))&&(isset($arg[0]))){ $args=json_decode($arg[0],true); } else { $args=[]; }
 	    if(isset($args['maintenance'])){
-        $this->SaveCfg(['maintenance' => $args['maintenance']]);
+        $this->Maintenance = $args['maintenance'];
 	    } elseif(isset($this->Settings['maintenance'])){
-        if($this->Settings['maintenance']){ $this->SaveCfg(['maintenance' => false]); echo "Maintenance mode deactivated\n"; }
-        else{ $this->SaveCfg(['maintenance' => true]); echo "Maintenance mode activated\n"; }
+        if($this->Settings['maintenance']){
+          $this->Maintenance = false;
+          echo "Maintenance mode deactivated\n";
+        } else {
+          $this->Maintenance = true;
+          echo "Maintenance mode activated\n";
+        }
       } else {
 	      $this->SaveCfg(['maintenance' => true]);
 	    }
+      $this->Settings['maintenance'] = $this->Maintenance;
+      $this->SaveCfg($this->Settings);
 		} else {
 			echo "Application not activated\n";
 		}
@@ -398,24 +409,26 @@ class API{
   }
 
 	public function __cron(){
-		//We Login as System
-		$this->Auth->login('System',$this->Settings["id"]);
-		//We Confirm Login was Successfull
-		if($this->Auth->islogin()){
-			//We execute the cron
-			if ($this->Settings['background_jobs'] == "cron"){
-		    //Loading Cron Scripts from Plugins
-		    $plugins = preg_grep('/^([^.])/', scandir(dirname(__FILE__,3).'/plugins/'));
-		    foreach($plugins as $plugin) {
-          $file = dirname(__FILE__,3) . '/plugins/'.$plugin."/cron.php";
-          if(is_file($file) && isset($this->Settings['plugins'][$plugin]['status']) && $this->Settings['plugins'][$plugin]['status']){
-            if(isset($this->Settings['debug']) && $this->Settings['debug']){ echo "Executing ".$plugin." CRON\n"; }
-            include_once($file);
-          }
-		    }
-			}
-			$this->lastRUN(date("Y-m-d H:i:s"));
-		}
+    if(!$this->Maintenance){
+      //We Login as System
+  		$this->Auth->login('System',$this->Settings["id"]);
+  		//We Confirm Login was Successfull
+  		if($this->Auth->islogin()){
+  			//We execute the cron
+  			if ($this->Settings['background_jobs'] == "cron"){
+  		    //Loading Cron Scripts from Plugins
+  		    $plugins = preg_grep('/^([^.])/', scandir(dirname(__FILE__,3).'/plugins/'));
+  		    foreach($plugins as $plugin) {
+            $file = dirname(__FILE__,3) . '/plugins/'.$plugin."/cron.php";
+            if(is_file($file) && isset($this->Settings['plugins'][$plugin]['status']) && $this->Settings['plugins'][$plugin]['status']){
+              if($this->Debug){ echo "Executing ".$plugin." CRON\n"; }
+              include_once($file);
+            }
+  		    }
+  			}
+  			// $this->lastRUN(date("Y-m-d H:i:s"));
+  		}
+    } else { if($this->Debug){ echo "Maintenance Enabled\n"; } }
 	}
 
 	public function __importCSV($arg){

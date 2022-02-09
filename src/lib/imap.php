@@ -127,6 +127,10 @@ class PHPIMAP{
 								$msg->Body->Unquoted = explode('Wrote:',$msg->Body->Unquoted)[0];
 								$msg->Body->Unquoted = str_replace("Wrote:","",$msg->Body->Unquoted);
 							}
+							if(strpos($msg->Body->Unquoted, '------ Original Message ------') !== false){
+								$msg->Body->Unquoted = explode('------ Original Message ------',$msg->Body->Unquoted)[0];
+								$msg->Body->Unquoted = str_replace("------ Original Message ------","",$msg->Body->Unquoted);
+							}
 							if(strpos($msg->Body->Unquoted, '------ Forwarded Message ------') !== false){
 								$msg->Body->Unquoted = explode('------ Forwarded Message ------',$msg->Body->Unquoted)[0];
 								$msg->Body->Unquoted = str_replace("------ Forwarded Message ------","",$msg->Body->Unquoted);

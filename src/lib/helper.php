@@ -14,4 +14,14 @@ class Helper{
     $this->Settings = $this->Auth->Settings;
     $this->URL = new URLparser();
   }
+
+  public function mkdir($directory){
+    $make = dirname(__FILE__,3);
+    $directories = explode('/',$directory);
+    foreach($directories as $subdirectory){
+      $make .= '/'.$subdirectory;
+      if(!is_file($make)&&!is_dir($make)){ mkdir($make); }
+    }
+    return $make;
+  }
 }
