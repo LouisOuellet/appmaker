@@ -117,11 +117,11 @@
     "log_level": 3,
     "credit": "ALB Compagnie International",
     "credit_url": "https:\/\/albcie.com\/",
-    "version": "22.05-dev",
-    "build": 488,
+    "version": "22.05-pre-release",
+    "build": 489,
     "repository": {
         "name": "appmaker",
-        "branch": "dev",
+        "branch": "pre-release",
         "host": {
             "git": "https:\/\/github.com\/LouisOuellet\/",
             "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
